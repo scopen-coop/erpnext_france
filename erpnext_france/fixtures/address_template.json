@@ -4,7 +4,7 @@
   "docstatus": 0,
   "doctype": "Address Template",
   "is_default": 0,
-  "modified": "2022-11-07 14:59:01.825168",
+  "modified": "2022-11-07 15:30:38.616143",
   "name": "Allemagne",
   "template": "{% if address_line1 %}{{ address_line1 }}{% endif -%}\n{% if address_line2 %}<br>{{ address_line2 }}{% endif -%}\n{% if pincode %}<br>{{ pincode }}{% endif -%}\n{% if pincode %} {{ city }}{% endif -%}\n{% if state %}<br>{{ state }}{% endif -%}\n{% if country %}<br>{{ country }}{% endif -%}"
  },
@@ -13,7 +13,7 @@
   "docstatus": 0,
   "doctype": "Address Template",
   "is_default": 1,
-  "modified": "2022-11-07 10:33:37.158465",
+  "modified": "2022-11-07 11:12:57.122763",
   "name": "France",
   "template": "{% if address_line1 %}{{ address_line1 }}{% endif -%}\n{% if address_line2 %}<br>{{ address_line2 }}{% endif -%}\n{% if pincode %}<br>{{ pincode }}{% endif -%}\n{% if pincode %} {{ city }}{% endif -%}\n{% if state %}<br>{{ state }}{% endif -%}\n{% if country %}<br>{{ country }}{% endif -%}"
  },
@@ -22,7 +22,7 @@
   "docstatus": 0,
   "doctype": "Address Template",
   "is_default": 0,
-  "modified": "2022-11-07 10:33:37.150819",
+  "modified": "2022-11-07 11:04:45.767314",
   "name": "Taiwan",
   "template": "{{ country }}<br>{% if pincode %}{{ pincode }}<br>{% endif -%}{{ county }}{{ city }}{{ address_line1 }}{% if address_line2 %}{{ address_line2 }}{% endif -%}\n{% if phone %}<br>Phone: {{ phone }}{% endif -%}\n{% if fax %}<br>Fax: {{ fax }}{% endif -%}\n{% if email_id %}<br>Email: {{ email_id }}{% endif -%}\n"
  },
@@ -31,7 +31,7 @@
   "docstatus": 0,
   "doctype": "Address Template",
   "is_default": 0,
-  "modified": "2022-11-07 10:33:37.153619",
+  "modified": "2022-11-07 11:04:45.770864",
   "name": "United States",
   "template": "{{ address_line1 }}<br>\n{% if address_line2 %}{{ address_line2 }}<br>{% endif -%}\n{{ city }}, {% if state %}{{ state }}{% endif -%}{% if pincode %} {{ pincode }}<br>{% endif -%}\n{% if country != \"United States\" %}{{ country }}{% endif -%}\n"
  },
@@ -40,7 +40,7 @@
   "docstatus": 0,
   "doctype": "Address Template",
   "is_default": 0,
-  "modified": "2022-11-07 10:33:37.156017",
+  "modified": "2022-11-07 11:04:45.779173",
   "name": "Germany",
   "template": "{{ address_line1 }}<br>\n{% if address_line2 %}{{ address_line2 }}<br>{% endif -%}\n{% if country in [\"Germany\", \"Deutschland\"] %}\n    {{ pincode }} {{ city }}\n{% else %}\n    {{ pincode }} {{ city | upper }}<br>\n    {{ country | upper }}\n{% endif %}\n"
  },
@@ -58,7 +58,7 @@
   "docstatus": 0,
   "doctype": "Address Template",
   "is_default": 0,
-  "modified": "2022-11-07 10:33:37.161314",
+  "modified": "2022-11-07 11:04:45.786575",
   "name": "Luxembourg",
   "template": "{% if address_line1 %}{{ address_line1 }}<br>{% endif -%}\n{% if address_line2 %}{{ address_line2 }}<br>{% endif -%}\n{% if pincode %}L-{{ pincode }}{% endif -%}{% if city %} {{ city }}{% endif %}<br>\n{% if country %}{{ country | upper }}{% endif %}\n"
  }
