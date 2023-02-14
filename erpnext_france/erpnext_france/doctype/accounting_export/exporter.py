@@ -75,7 +75,7 @@ class DataExporter:
     def add_data(self):
 
         def _set_export_date(doc_type=None, voucher_no=None, export_date=None):
-            if export_date is not None and export_date != 'undefined' and doc_type is not None and voucher_no is not None:
+            if export_date is not None and export_date != '' and export_date != 'undefined' and doc_type is not None and voucher_no is not None:
                 invoice = frappe.get_doc(doc_type, voucher_no)
                 if invoice is not None:
                     # Use db_set for performance issue
@@ -202,7 +202,7 @@ class DataExporter:
         elif doc.get("party_type") == "Customer":
             compte_num = '{}{:<8s}'.format("411", doc.get("cust_subl_acc") or '')
         else:
-            compte_num = '{:<11s}'.format(doc.get("account_number"))
+            compte_num = '{:<11s}'.format(doc.get("account_number") or '')
 
         libelle = '{}{:<17s}'.format("FACTURE ", doc.get("voucher_no")[:17])
         montant = '{:>13.2f}'.format(doc.get("debit")) if doc.get("debit") != 0 \
@@ -212,9 +212,9 @@ class DataExporter:
         code_analytic = '{:<6s}'.format("")
 
         if doc.get("party_type") in ("Supplier", "Customer"):
-            libelle_compte = '{:<34s}'.format(doc.get("party"))[:34]
+            libelle_compte = '{:<34s}'.format(doc.get("party") or '')[:34]
         else:
-            libelle_compte = '{:<34s}'.format(doc.get("account_name"))[:34]
+            libelle_compte = '{:<34s}'.format(doc.get("account_name") or '')[:34]
 
         euro = "O"
 
