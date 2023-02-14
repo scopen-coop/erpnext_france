@@ -37,3 +37,4 @@ Row {0}: Invalid Item Tax Template for item {1},Ligne {0}: Taxes et Frais de Ven
 Export Sales Invoice and Purchase Invoice,Export des facture vents et achats
 Deposit Invoice,Facture d'Acompte
 Select Payment Term,Sélectionnez un terme de paiement à facturer.
+You should configure Journal Code in your Company first,Vous devez d'abord configurer vos codes journaux dans la Société

@@ -43,6 +43,13 @@ class DataExporter:
             self.queue = StringIO()
             self.writer = csv.writer(self.queue, delimiter=';')
 
+        self.get_jounal_code()
+        if self.journal_code == "" or self.journal_code is None:
+            frappe.respond_as_web_page(_("You should configure Journal Code in your Company first"),
+                                       _("You should configure Journal Code in your Company first"),
+                                       indicator_color='orange')
+            return
+
         self.add_data()
         if not self.data or len(self.data) == 0:
             frappe.respond_as_web_page(_('No Data'), _('There is no data to be exported'), indicator_color='orange')
@@ -59,6 +66,12 @@ class DataExporter:
             frappe.response['filecontent'] = self.queue.getvalue()
             frappe.response['type'] = 'binary'
 
+    def get_jounal_code(self):
+        if self.accounting_document == "Purchase Invoice":
+            self.journal_code = frappe.db.get_value("Company", self.company, "buying_journal_code")
+        elif self.accounting_document == "Sales Invoice":
+            self.journal_code = frappe.db.get_value("Company", self.company, "selling_journal_code")
+
     def add_data(self):
 
         def _set_export_date(doc_type=None, voucher_no=None, export_date=None):
@@ -73,19 +86,15 @@ class DataExporter:
 
         # get journal code and export date
         if self.accounting_document == "Purchase Invoice":
-            self.journal_code = frappe.db.get_value("Company", self.company, "buying_journal_code")
             fields_inv = ", pinv.due_date as due_date, pinv.bill_no as orign_no "
             join_table = " inner join `tabPurchase Invoice` pinv on gl.voucher_no = pinv.name "
             if self.included_already_exported_document == '0':
                 sql_already_exported = " and pinv.accounting_export_date IS NULL "
         elif self.accounting_document == "Sales Invoice":
-            self.journal_code = frappe.db.get_value("Company", self.company, "selling_journal_code")
             fields_inv = ",sinv.due_date as due_date, sinv.po_no as orign_no"
             join_table = " inner join `tabSales Invoice` sinv on gl.voucher_no = sinv.name "
             if self.included_already_exported_document == '0':
                 sql_already_exported = " and sinv.accounting_export_date IS NULL"
-        else:
-            self.journal_code = ""
 
         # get permitted data only
         self.data = frappe.db.sql("""
