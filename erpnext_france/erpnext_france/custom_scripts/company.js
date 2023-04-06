@@ -3,7 +3,6 @@
 
 frappe.ui.form.on("Company", {
         setup: function (frm) {
-            console.log('toto');
             frm.set_query('discount_supplier_account', function () {
                 return {
                     filters: {

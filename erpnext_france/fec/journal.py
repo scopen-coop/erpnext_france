@@ -9,6 +9,6 @@ import frappe
 def get_journal_code(mode_of_payment, company):
 	"""Get naming_series (=journal code) from mode of payment"""
 
-	journal_code = frappe.db.get_value("Mode of Payment Account", {"parent": mode_of_payment, "company": company}, "journal_code")
+	journal_code = frappe.db.get_value("Mode of Payment Account", {"parent": mode_of_payment, "company": company}, "journal_label")
 
 	return journal_code
