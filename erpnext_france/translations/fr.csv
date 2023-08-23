@@ -38,3 +38,19 @@ Export Sales Invoice and Purchase Invoice,Export des facture vents et achats
 Deposit Invoice,Facture d'Acompte
 Select Payment Term,Sélectionnez un terme de paiement à facturer.
 You should configure Journal Code in your Company first,Vous devez d'abord configurer vos codes journaux dans la Société
+Edit Full Form,Ouvrir le form. complet
+Add to Details,Ajouter aux détails,
+Added to details,Ajouté aux détails,
+Have Default Naming Series for Batch ID?,Masque de numérotation par défaut pour les Lots ou Séries,
+choose the 'Naming Series' option.,choisissez l'option 'Masque de numérotation'.,
+Use Naming Series,Utiliser le masque de numérotation,
+Naming Series Prefix,Préfix du masque de numérotation,
+"Example: ABCD.#####. If series is set and Batch No is not mentioned in transactions, then automatic batch number will be created based on this series. If you always want to explicitly mention Batch No for this item, leave this blank. Note: this setting will take priority over the Naming Series Prefix in Stock Settings.","Exemple: ABCD. #####. Si le masque est définie et que le numéro de lot n'est pas mentionné dans les transactions, un numéro de lot sera automatiquement créé en avec ce masque. Si vous préferez mentionner explicitement et systématiquement le numéro de lot pour cet article, laissez ce champ vide. Remarque: ce paramètre aura la priorité sur le préfixe du masque dans les paramètres de stock.",
+Asset Naming Series,Masque de numérotation de l'actif,
+Default Invoice Naming Series,Masque de numérotation par défaut pour les factures,
+Naming Series (for Student Applicant),Masque de numérotation (pour un candidat étudiant),
+Invalid naming series (. missing) for {0},Masque de numérotation non valide (. Manquante) pour {0},
+Row {}: Asset Naming Series is mandatory for the auto creation for item {},Ligne {}: Le masque de numérotation d'éléments est obligatoire pour la création automatique de l'élément {},
+Please set Naming Series for {0} via Setup > Settings > Naming Series,Veuillez définir le masque de numérotation pour {0} via Configuration&gt; Paramètres&gt; Série de noms,
+Naming Series,Masque de numérotation,
+"Special Characters except '-', '#', '.', '/', '{{' and '}}' not allowed in naming series {0}","Caractères spéciaux sauf &quot;-&quot;, &quot;#&quot;, &quot;.&quot;, &quot;/&quot;, &quot;{{&quot; Et &quot;}}&quot; non autorisés dans les masques de numérotation {0}",
