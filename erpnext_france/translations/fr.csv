@@ -54,3 +54,13 @@ Row {}: Asset Naming Series is mandatory for the auto creation for item {},Ligne
 Please set Naming Series for {0} via Setup > Settings > Naming Series,Veuillez définir le masque de numérotation pour {0} via Configuration&gt; Paramètres&gt; Série de noms,
 Naming Series,Masque de numérotation,
 "Special Characters except '-', '#', '.', '/', '{{' and '}}' not allowed in naming series {0}","Caractères spéciaux sauf &quot;-&quot;, &quot;#&quot;, &quot;.&quot;, &quot;/&quot;, &quot;{{&quot; Et &quot;}}&quot; non autorisés dans les masques de numérotation {0}",
+Internal Customer,Client interne
+Internal Supplier,Fournisseur interne
+Contact & Address,Contact et Adresse
+Primary Address and Contact,Adresse et contact principal
+Supplier Primary Contact,Contact fournisseur principal
+Supplier Primary Address,Adresse fournisseur principal
+From Opportunity,Depuis l'opportunité
+Default Receivable Accounts,Compte de débit par défaut
+Receivable Accounts,Compte de débit
+Mention if a non-standard receivable account,Veuillez mentionner s'il s'agit d'un compte débiteur non standard
