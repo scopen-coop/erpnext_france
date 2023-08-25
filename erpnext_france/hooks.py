@@ -77,13 +77,13 @@ fixtures = [
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 doctype_js = {
-    "Fiscal Year": ["erpnext_france/custom_scripts/fiscal_year.js"],
-    "Payment Entry": ["erpnext_france/custom_scripts/payment_entry.js"],
+    "Fiscal Year": ["public/js/fiscal_year.js"],
+    "Payment Entry": ["public/js/payment_entry.js"],
    # "Journal Entry": ["erpnext_france/custom_scripts/journal_entry.js"],
-    "Customer": ["erpnext_france/custom_scripts/customer.js","erpnext_france/custom_scripts/party_check_vat.js"],
-    "Supplier": ["erpnext_france/custom_scripts/supplier.js","erpnext_france/custom_scripts/party_check_vat.js"],
-    "Sales Order": ["erpnext_france/custom_scripts/sales_order.js"],
-    "Company": ["erpnext_france/custom_scripts/company.js"]
+    "Customer": ["public/js/customer.js", "public/js/party_check_vat.js"],
+    "Supplier": ["public/js/supplier.js", "public/js/party_check_vat.js"],
+    "Sales Order": ["public/js/sales_order.js"],
+    "Company": ["public/js/company.js"]
 }
 
 # Home Pages
