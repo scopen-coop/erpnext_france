@@ -12,5 +12,4 @@ frappe.ui.form.on("Customer", "subledger_account", function(frm,cdt,cdn) {
             });
         });
     }
-
 });
