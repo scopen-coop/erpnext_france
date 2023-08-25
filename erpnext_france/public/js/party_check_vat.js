@@ -9,7 +9,7 @@ frappe.ui.form.on("Customer", {
                 frappe.msgprint({
                     title: __('VAT Check OK'),
                     indicator: 'green',
-                    message: __('Name: {0}, Adress:{1}',[r.message.name,r.message.address])
+                    message: __('Name: {0} <br> Adress: {1}',[r.message.name,r.message.address])
                 });
             } else {
                 frappe.msgprint({
@@ -35,7 +35,7 @@ frappe.ui.form.on("Supplier", {
                 frappe.msgprint({
                     title: __('VAT Check OK'),
                     indicator: 'green',
-                    message: __('Name: {0}, Adress:{1}',[r.message.name,r.message.address])
+                    message: __('Name: {0} <br> Adress: {1}',[r.message.name,r.message.address])
                 });
             } else {
                 frappe.msgprint({
