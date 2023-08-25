@@ -147,7 +147,7 @@ doc_events = {
         "autoname": "erpnext_france.fec.period_closing_voucher.autoname"
     },
     "Purchase Invoice": {
-        "on_submit": "erpnext_france.erpnext_france.custom_scripts_py.purchase_invoice.correct_gl_entry_supplier_discount"
+        "on_submit": "erpnext_france.erpnext_france.purchase_invoice.purchase_invoice.correct_gl_entry_supplier_discount"
     },
 }
 
