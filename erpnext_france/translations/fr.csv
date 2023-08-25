@@ -66,3 +66,9 @@ Receivable Accounts,Compte de débit
 Mention if a non-standard receivable account,Veuillez mentionner s'il s'agit d'un compte débiteur non standard
 Allow Purchase,Autoriser à l'achat
 Inventory Settings,Paramétrage de l'inventaire
+EU Country Only=Pays Zone EU uniquement
+Check VAT=Vérification code TVA
+Invalid VAT number=Numéro de TVA invalide
+Invalid country code=Code pays non valide
+VAT Check OK=Numéro de TVA valide
+Name: {0}, Adress:{1}=Nom:{0}, Adresse:{1}

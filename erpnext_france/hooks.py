@@ -14,12 +14,15 @@ app_license = "GNU General Public License"
 fixtures = [
     {
         "dt": ("Custom Field"),
-        "filters": [["name", "in", ("Supplier-subledger_account",
+        "filters": [["name", "in", (
+                                    "Supplier-subledger_account",
+                                    "Supplier-custom_check_vat_id",
                                     "Customer-subledger_account",
                                     "Customer-siret",
                                     "Customer-siren",
                                     "Customer-naf",
                                     "Customer-incoterm",
+                                    "Customer-custom_check_vat_id",
                                     "Sales Invoice-accounting_export_date",
                                     "Purchase Invoice-accounting_export_date",
                                     "Company-accounting_export",
@@ -77,8 +80,8 @@ doctype_js = {
     "Fiscal Year": ["erpnext_france/custom_scripts/fiscal_year.js"],
     "Payment Entry": ["erpnext_france/custom_scripts/payment_entry.js"],
    # "Journal Entry": ["erpnext_france/custom_scripts/journal_entry.js"],
-    "Customer": ["erpnext_france/custom_scripts/customer.js"],
-    "Supplier": ["erpnext_france/custom_scripts/supplier.js"],
+    "Customer": ["erpnext_france/custom_scripts/customer.js","erpnext_france/custom_scripts/party_check_vat.js"],
+    "Supplier": ["erpnext_france/custom_scripts/supplier.js","erpnext_france/custom_scripts/party_check_vat.js"],
     "Sales Order": ["erpnext_france/custom_scripts/sales_order.js"],
     "Company": ["erpnext_france/custom_scripts/company.js"]
 }
