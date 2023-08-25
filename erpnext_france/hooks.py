@@ -3,11 +3,11 @@ from __future__ import unicode_literals
 
 app_name = "erpnext_france"
 app_title = "ERPNext France"
-app_publisher = "Britlog"
+app_publisher = "Scopen"
 app_description = "App for french localization"
 app_icon = "octicon octicon-home"
 app_color = "#318CE7"
-app_email = "info@britlog.com"
+app_email = "contact@scopen.fr"
 app_license = "GNU General Public License"
 
 # fixtures = ["Custom Field"]
