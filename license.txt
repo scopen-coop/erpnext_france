@@ -1,1 +1,7 @@
-License: GNU General Public License version 3
+
+Copyright and license
+----------------------
+
+The ERPNEXT France App as a whole is distributed under the GNU General Public License as published by the Free Software Foundation;
+either version 3 of the License, or (at your option) any later version (GPL-3+). More information: https://www.gnu.org/licenses/gpl-3.0.txt.
+A copy of this license is available in the COPYING file.

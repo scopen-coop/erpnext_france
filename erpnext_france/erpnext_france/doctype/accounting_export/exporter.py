@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2021, Frappe Technologies Pvt. Ltd. and Contributors
-# MIT License. See license.txt
+# Copyright (c) 2021, Britlog and Contributors
+# Copyright (c) 20212023, Scopen and Contributors
+# For license information, please see license.txt
 
 from __future__ import unicode_literals
 

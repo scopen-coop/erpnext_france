@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 # Copyright (c) 2021, Britlog and Contributors
-# License: GNU General Public License v3. See license.txt
+# Copyright (c) 2023 SCOPEN
+# For license information, please see license.txt
 
 from __future__ import unicode_literals
 import frappe

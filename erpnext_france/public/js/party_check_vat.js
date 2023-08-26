@@ -1,25 +1,31 @@
+// Copyright (c) 2021, scopen.fr and contributors
+// For license information, please see license.txt
+
 frappe.ui.form.on("Customer", {
   custom_check_vat_id(frm) {
     frappe.call({
-        method: "erpnext_france.check_vat.eu_vat.check_vat",
-        args: {vat_id: frm.doc.tax_id},
-        callback: function (r) {
-          if (r.message)
-            if (r.message.valid) {
-                frappe.msgprint({
-                    title: __('VAT Check OK'),
-                    indicator: 'green',
-                    message: __('Name: {0} <br> Adress: {1}',[r.message.name,r.message.address])
-                });
-            } else {
-                frappe.msgprint({
-                    title: __('Invalid VAT number'),
-                    indicator: 'red',
-                    message: __('Invalid VAT number')
-                });
-            }
-        }
-      })
+      method: "erpnext_france.utils.eu_vat.check_vat",
+      args: {vat_id: frm.doc.tax_id},
+      callback: function (r) {
+        if (r.message)
+          if (r.message.valid) {
+            console.log(r.message)
+            frappe.msgprint({
+              title: __('VAT Check OK'),
+              indicator: 'green',
+              as_list: true,
+              message: [__('Name: {0}', [r.message.name]), __('Adress: {0}', [r.message.address]), __('Source: https://ec.europa.eu/taxation_customs/vies/#/vat-validation')]
+            });
+          } else {
+            frappe.msgprint({
+              title: __('Invalid VAT number'),
+              indicator: 'red',
+              as_list: true,
+              message: [__('Invalid VAT number'), __('Source: https://ec.europa.eu/taxation_customs/vies/#/vat-validation')]
+            });
+          }
+      }
+    })
   },
 });
 
@@ -27,24 +33,28 @@ frappe.ui.form.on("Customer", {
 frappe.ui.form.on("Supplier", {
   custom_check_vat_id(frm) {
     frappe.call({
-        method: "erpnext_france.check_vat.eu_vat.check_vat",
-        args: {vat_id: frm.doc.tax_id},
-        callback: function (r) {
-          if (r.message)
-            if (r.message.valid) {
-                frappe.msgprint({
-                    title: __('VAT Check OK'),
-                    indicator: 'green',
-                    message: __('Name: {0} <br> Adress: {1}',[r.message.name,r.message.address])
-                });
-            } else {
-                frappe.msgprint({
-                    title: __('Invalid VAT number'),
-                    indicator: 'red',
-                    message: __('Invalid VAT number')
-                });
-            }
-        }
-      })
+      method: "erpnext_france.utils.eu_vat.check_vat",
+      args: {vat_id: frm.doc.tax_id},
+      callback: function (r) {
+        if (r.message)
+          if (r.message.valid) {
+            frappe.msgprint({
+              title: __('VAT Check OK'),
+              indicator: 'green',
+              as_list: true,
+              message: [__('Name: {0}', [r.message.name]),
+                __('Adress: {0}', [r.message.address]),
+                __('Source:https://ec.europa.eu/taxation_customs/vies/#/vat-validation')]
+            });
+          } else {
+            frappe.msgprint({
+              title: __('Invalid VAT number'),
+              indicator: 'red',
+              as_list: true,
+              message: [__('Invalid VAT number'), __('Source:https://ec.europa.eu/taxation_customs/vies/#/vat-validation')]
+            });
+          }
+      }
+    })
   },
 });

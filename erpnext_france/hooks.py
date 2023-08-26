@@ -40,8 +40,12 @@ fixtures = [
         "dt": ("Property Setter"),
         "filters": [
             ["name", "in",
-             ('Fiscal Year Company-read_only_onload',
-              'Mode of Payment Account-read_only_onload')]
+             (
+                 'Fiscal Year Company-read_only_onload',
+                'Mode of Payment Account-read_only_onload',
+                 'Period Closing Voucher-main-autoname',
+                 'Period Closing Voucher-main-naming_rule'
+             )]
         ]
     },
     {
@@ -77,9 +81,6 @@ fixtures = [
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 doctype_js = {
-    "Fiscal Year": ["public/js/fiscal_year.js"],
-    "Payment Entry": ["public/js/payment_entry.js"],
-   # "Journal Entry": ["erpnext_france/custom_scripts/journal_entry.js"],
     "Customer": ["public/js/customer.js", "public/js/party_check_vat.js"],
     "Supplier": ["public/js/supplier.js", "public/js/party_check_vat.js"],
     "Sales Order": ["public/js/sales_order.js"],
@@ -111,6 +112,7 @@ doctype_js = {
 
 # before_install = "erpnext_france.install.before_install"
 # after_install = "erpnext_france.install.after_install"
+after_install = "erpnext_france.install.after_install"
 
 # Desk Notifications
 # ------------------
@@ -143,12 +145,17 @@ doctype_js = {
 # }
 
 doc_events = {
-    "Period Closing Voucher": {
-        "autoname": "erpnext_france.fec.period_closing_voucher.autoname"
-    },
     "Purchase Invoice": {
         "on_submit": "erpnext_france.erpnext_france.purchase_invoice.purchase_invoice.correct_gl_entry_supplier_discount"
     },
+    "Sales Invoice": {
+		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
+		"on_submit": "erpnext_france.utils.transaction_log.create_transaction_log"
+	},
+	"Payment Entry": {
+		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
+		"on_submit": "erpnext_france.utils.transaction_log.create_transaction_log"
+	},
 }
 
 # Scheduled Tasks
