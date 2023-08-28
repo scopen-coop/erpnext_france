@@ -47,6 +47,6 @@ This app is originally a fork from https://github.com/britlog/erpnext_france.
 
 And Scopen put some salt in it.
 
-And Scopen manually merge feature from https://github.com/frappe/erpnext_france the is actually (version-4) still in the core but may be remove on day
+And Scopen manually merge feature from https://github.com/frappe/erpnext_france the is actually (version-14) still in the core but may be remove on day
 
 The feature for VAT check is highly inspirated from erpnext_germany https://github.com/alyf-de/erpnext_germany
