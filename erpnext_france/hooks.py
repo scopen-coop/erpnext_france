@@ -57,7 +57,10 @@ fixtures = [
         ]
     },
     {
-        "dt": ("Address Template")
+        "dt": ("Address Template"),
+        "filters": [
+            ["country", "in", ('France')]
+        ]
     }
 ]
 
