@@ -60,3 +60,9 @@ Stage,Etape
 Probability,Probabilité
 Closing,Clôture
 Allow Sales,Autoriser à la vente
+Subcontracting Order,Ordre de fab. sous traité
+Subcontracting Receipt,Reception d'ordre de fab. sous traité
+Subcontracting Purchase Order,Commande d'achat de sous traitance
+Service Items,Prestations de sous traitance acheter
+Available Qty For Consumption,Quantité dispo. pour consommation
+% Returned,% retourné
