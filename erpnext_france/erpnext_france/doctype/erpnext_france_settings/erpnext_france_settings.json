@@ -4,7 +4,10 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "deposit_print_heading"
+  "deposit_print_heading",
+  "api_url",
+  "api_token",
+  "api_timeout"
  ],
  "fields": [
   {
@@ -12,6 +15,22 @@
    "fieldtype": "Link",
    "label": "Deposit Print Heading",
    "options": "Print Heading"
+  },
+  {
+   "fieldname": "api_url",
+   "fieldtype": "Data",
+   "label": "API Url"
+  },
+  {
+   "fieldname": "api_token",
+   "fieldtype": "Data",
+   "label": "API Token"
+  },
+  {
+   "fieldname": "api_timeout",
+   "fieldtype": "Int",
+   "label": "API Timeout",
+   "default": 2
   }
  ],
  "issingle": 1,
