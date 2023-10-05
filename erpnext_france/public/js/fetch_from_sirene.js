@@ -91,49 +91,58 @@ function import_thirdparty_from_sirene() {
 function selectEntity(etablissements) {
     let options = [];
     let entities = [];
+    let i = 0;
     for (let entity of etablissements) {
-        entityInfo = findInfoEntity(entity)
+        entityInfo = findInfoEntity(entity, i)
         options.push(entityInfo.title);
         entities.push(entityInfo);
+        i++;
     }
+
+    var route_attributes = frappe.get_route();
+    doctype = route_attributes[1];
 
     let dialog2 = new frappe.ui.Dialog({
         title: __('Select Entity'),
         fields: [
             {
-                label: 'Entity',
-                fieldname: 'entity',
-                fieldtype: 'Select',
-                options: options,
+              fieldtype: "HTML",
+              fieldname: "table_area",
             },
         ],
         size: 'extra-large', // small, large, extra-large
         primary_action_label: 'Submit',
-        primary_action(selected) {
-            let entity_chosen;
-            for (let entity of entities) {
-                if (entity.title === selected.entity) {
-                    entity_chosen = entity;
-                    break;
+        primary_action() {
+            selected = $(this.$wrapper[0]).find('input[name="entity-select"]:checked');
+            if (selected.length > 0) {
+                let entity_chosen;
+                for (let entity of entities) {
+                    if (entity.id === parseInt(selected.val())) {
+                        entity_chosen = entity;
+                        break;
+                    }
                 }
+
+                new_doc = createNewDocWithSireneInfo(doctype, entity_chosen)
+                frappe.ui.form.make_quick_entry(doctype, null, null, new_doc);
+                dialog2.hide();
             }
-
-            var route_attributes = frappe.get_route();
-            doctype = route_attributes[1];
-
-            new_doc = createNewDocWithSireneInfo(doctype, entity_chosen)
-
-            frappe.ui.form.make_quick_entry(doctype, null, null, new_doc);
-            dialog2.hide();
         }
     });
+
+    let $wrapper = dialog2.fields_dict.table_area.$wrapper
+			.append(`<div class="results my-3"
+			style="border: 1px solid #d1d8dd; border-radius: 3px; height: 300px; overflow: auto;"></div>`);
+
+		let $results = $wrapper.find(".results");
+		$results.append(make_table(entities, doctype));
     dialog2.show();
 }
 
 /**
  * Look into Sirene API object returned and get needed entity info
  */
-function findInfoEntity(entity) {
+function findInfoEntity(entity, i) {
     let stringToShow = '';
     let company_name_alias = '';
     let company_name_all = '';
@@ -206,7 +215,7 @@ function findInfoEntity(entity) {
             }
         }
 
-        company_name_all = firstname + ' ' + company_name;
+        company_name_all = firstname + ' ' + (company_name ? company_name : '');
     }
 
     if (company_name_alias) {
@@ -274,7 +283,7 @@ function findInfoEntity(entity) {
       siren: siren,
       siret: siret,
       code_naf: code_naf,
-      title: title
+      id: i
     }
 
     return entityInfo;
@@ -303,4 +312,74 @@ function createNewDocWithSireneInfo(doctype, entity_chosen) {
     new_doc.naf = entity_chosen.code_naf;
 
     return new_doc
+}
+
+function make_table(entities, doctype) {
+		let contents = ``;
+		columns = ['radio', 'company_name', 'address1', 'creation_date', 'code_naf', 'siren', 'siret']
+
+    table =
+        '<div class="form-grid-container">'
+        +'    <div class="form-grid">'
+        +'        <div class="grid-heading-row">'
+        +'            <div class="grid-row">'
+        +'               <div class="data-row row">'
+        +'                   <div class="col grid-static-col col-xs-3 ">'
+        +'                       <span class="static-area ellipsis bold">' + __('Company Name') + '</span>'
+        +'                   </div>'
+        +'                   <div class="col grid-static-col col-xs-3">'
+        +'                       <span class="static-area ellipsis bold">' + __('Address') + '</span>'
+        +'                   </div>'
+        +'                   <div class="col grid-static-col col-xs-2">'
+        +'                       <span class="static-area ellipsis bold">' + __('Creation Date') + '</span>'
+        +'                   </div>'
+        +'                   <div class="col grid-static-col col-xs-1">'
+        +'                       <span class="static-area ellipsis bold">' + __('NAF') + '</span>'
+        +'                   </div>'
+        +'                   <div class="col grid-static-col col-xs-1">'
+        +'                       <span class="static-area ellipsis bold">' + __('SIREN') + '</span>'
+        +'                   </div>'
+        +'                   <div class="col grid-static-col col-xs-1">'
+        +'                       <span class="static-area ellipsis bold">' + __('SIRET') + '</span>'
+        +'                   </div>'
+        +'               </div>'
+        +'            </div>'
+        +'        </div>';
+        +'        <div class="grid-body">'
+        +'            <div class="rows">'
+    for (entity of entities) {
+        table +=
+            '            <div class="grid-row">'
+            +'               <div class="data-row row">'
+            +'                   <div class="col grid-static-col col-xs-3 bold">'
+            +'                       <input name="entity-select" class="grid-row-check" type="radio" value="' + entity.id + '">'
+            +'                       <span class="static-area ellipsis">' + entity.company_name + '</span>'
+            +'                   </div>'
+            +'                   <div class="col grid-static-col col-xs-3">'
+            +'                       <span class="static-area ellipsis">' + entity.address_1 + '</span>'
+            +'                   </div>'
+            +'                   <div class="col grid-static-col col-xs-2">'
+            +'                       <span class="static-area ellipsis">' + entity.date_creation + '</span>'
+            +'                   </div>'
+            +'                   <div class="col grid-static-col col-xs-1">'
+            +'                       <span class="col grid-static-col col-xs-2">' + entity.code_naf + '</span>'
+            +'                   </div>'
+            +'                   <div class="col grid-static-col col-xs-1">'
+            +'                       <span class="static-area ellipsis">' + entity.siren + '</span>'
+            +'                   </div>'
+            +'                   <div class="col grid-static-col col-xs-1">'
+            +'                       <span class="static-area ellipsis">' + entity.siret + '</span>'
+            +'                   </div>'
+            +'               </div>'
+            +'           </div>';
+
+    }
+
+    table +=
+        '           </div>'
+        + '     </div>';
+        + ' </div>';
+
+
+    return table;
 }
