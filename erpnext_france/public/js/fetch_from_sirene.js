@@ -206,9 +206,9 @@ function selectEntity(etablissements) {
             + ' ' + zipcode
             + ' ' + country
             + ' ' + date_creation
-            + ' Siren:' + siren
-            + ' Siret:' + siret
-            + ' Code Naf:' + code_naf;
+            + ' Siren: ' + siren
+            + ' Siret: ' + siret
+            + ' Code Naf: ' + code_naf;
 
         options.push(title);
 
@@ -254,25 +254,18 @@ function selectEntity(etablissements) {
             if (doctype == 'Customer') {
                 new_doc.customer_name = entity_chosen.company_name;
                 new_doc.customer_type = entity_chosen.entity_type;
-                new_doc.siret = entity_chosen.siret;
-                new_doc.siren = entity_chosen.siren;
-                new_doc.naf = entity_chosen.code_naf;
-                new_doc.address_line1 = entity_chosen.address_1;
-                new_doc.city = entity_chosen.town;
-                new_doc.pincode = entity_chosen.zipcode;
-                new_doc.country = entity_chosen.country;                new_doc.customer_name = entity_chosen.company_name;
             } else {
                 new_doc.supplier_name = entity_chosen.company_name;
                 new_doc.supplier_type = entity_chosen.entity_type;
-                new_doc.address_line1 = entity_chosen.address_1;
-                new_doc.city = entity_chosen.town;
-                new_doc.pincode = entity_chosen.zipcode;
-                new_doc.country = entity_chosen.country;
-//                new_doc.siret = entity_chosen.siret;
-//                new_doc.siren = entity_chosen.siren;
-//                new_doc.naf = entity_chosen.code_naf;
-
             }
+
+            new_doc.address_line1 = entity_chosen.address_1;
+            new_doc.city = entity_chosen.town;
+            new_doc.pincode = entity_chosen.zipcode;
+            new_doc.country = entity_chosen.country;
+            new_doc.siret = entity_chosen.siret;
+            new_doc.siren = entity_chosen.siren;
+            new_doc.naf = entity_chosen.code_naf;
 
             frappe.ui.form.make_quick_entry(doctype, null, null, new_doc);
             dialog2.hide();
