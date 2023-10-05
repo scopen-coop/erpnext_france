@@ -107,7 +107,7 @@ function selectEntity(etablissements) {
                 options: options,
             },
         ],
-        size: 'large', // small, large, extra-large
+        size: 'extra-large', // small, large, extra-large
         primary_action_label: 'Submit',
         primary_action(selected) {
             let entity_chosen;
