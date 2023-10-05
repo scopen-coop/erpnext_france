@@ -91,7 +91,10 @@ Zipcode, Code Postal
 Nb of displayed results, Nombre de résultats affichés
 You have to specify an url for SIRENE API, Vous devez spécifier une url vers l'API Sirene
 You have to specify a token for SIRENE API, Vous devez spécifier un token pour l'API Sirene
-Error during companies data recuperation:{0}, Une erreur est survenue durant la récupération des données: {0}
 You have to specify at least a filter for searching, Vous devez spécifier au moins une valeur de filtre
 No Entity Found With Those Info, Aucune entité n'a été trouvée avec ces informations
 Select Entity, Séléctionez l'entité que vous recherchez
+Error during companies data recuperation:{0}, Une erreur est survenue durant la récupération des données: {0}
+SIRENE Error - Not Found, Erreur Sirene - Élément non trouvé,
+SIRENE Error - Unauthorized, Erreur Sirene - Non autorisé,
+SIRENE Error - Access Denied, Erreur Sirene - Accès refusé,
