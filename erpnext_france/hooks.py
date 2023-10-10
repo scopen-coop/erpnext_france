@@ -31,7 +31,6 @@ fixtures = [
                                     "Company-selling_journal_code",
                                     "Company-siret",
                                     "Company-discount_supplier_account",
-                                    "Fiscal Year Company-export_fec",
                                     "Mode of Payment Account-journal_label",
                                     "Mode of Payment Account-discount_supplier_account")],
                     ]
@@ -57,7 +56,10 @@ fixtures = [
         ]
     },
     {
-        "dt": ("Address Template")
+        "dt": ("Address Template"),
+        "filters": [
+            ["country", "in", ('France')]
+        ]
     }
 ]
 

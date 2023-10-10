@@ -5,8 +5,7 @@ Accounting Export,Export Comptable
 Accounting Document,Pièce Comptable
 From Date,Date de Début
 To Date,Date de Fin
-Please select a company,Sélectionnez s'il vous plaît une société
-Please select an accounting document,Sélectionnez s'il vous plaît une pièce comptable
+Please select an accounting document,Sélectionnez une pièce comptable
 Please enter from date,Entrez s'il vous plaît une date de début
 Please enter to date,Entrez s'il vous plaît une date de fin
 Selling Journal Code,Code Journal de Vente
@@ -20,52 +19,19 @@ ERPNext France Settings,Paramètres de ERPNext France
 Default Payable Account,Compte fournisseur par défaut
 Informations sur la fête,Information sur la partie
 Salutation,Civilité
-Allow Sales Invoice Creation Without Delivery Note,Autoriser la création de facture sans bon de livraison
-Allow Sales Invoice Creation Without Sales Order,Autoriser la création de facture sans commandes
 Type de Référence,Type d’éléments
-DRAFT,BROUILLON
-Purchase Order,Commande d'Achat
 Terminé par,Date d'échéance
-Default Company Bank Account,Compte bancaire par défaut
 Purchase demande,Demande d'achat
 Set Export Date,Enregistrer la date d'export
 Included already exported document,Inclure dans l'export les enregistrements déja exporté dans l'export
 Accounting Export Date,Date d'export en comptabilité
 Set empty to not update "Exported Date" on document,Mettre à vide pour ne pas mettre de date d'export sur les documents
 Discount Supplier Account,Compte d'escompte et remise fournisseur
-Row {0}: Invalid Item Tax Template for item {1},Ligne {0}: Taxes et Frais de Vente ne sont pas cohérentes pour l'article {1}
 Export Sales Invoice and Purchase Invoice,Export des facture vents et achats
 Deposit Invoice,Facture d'Acompte
 Select Payment Term,Sélectionnez un terme de paiement à facturer.
 You should configure Journal Code in your Company first,Vous devez d'abord configurer vos codes journaux dans la Société
-Edit Full Form,Ouvrir le formulaire complet
-Add to Details,Ajouter aux détails,
-Added to details,Ajouté aux détails,
-Have Default Naming Series for Batch ID?,Masque de numérotation par défaut pour les Lots ou Séries,
-choose the 'Naming Series' option.,choisissez l'option 'Masque de numérotation'.,
-Use Naming Series,Utiliser le masque de numérotation,
-Naming Series Prefix,Préfix du masque de numérotation,
-"Example: ABCD.#####. If series is set and Batch No is not mentioned in transactions, then automatic batch number will be created based on this series. If you always want to explicitly mention Batch No for this item, leave this blank. Note: this setting will take priority over the Naming Series Prefix in Stock Settings.","Exemple: ABCD. #####. Si le masque est définie et que le numéro de lot n'est pas mentionné dans les transactions, un numéro de lot sera automatiquement créé en avec ce masque. Si vous préferez mentionner explicitement et systématiquement le numéro de lot pour cet article, laissez ce champ vide. Remarque: ce paramètre aura la priorité sur le préfixe du masque dans les paramètres de stock.",
-Asset Naming Series,Masque de numérotation de l'actif,
-Default Invoice Naming Series,Masque de numérotation par défaut pour les factures,
-Naming Series (for Student Applicant),Masque de numérotation (pour un candidat étudiant),
-Invalid naming series (. missing) for {0},Masque de numérotation non valide (. Manquante) pour {0},
-Row {}: Asset Naming Series is mandatory for the auto creation for item {},Ligne {}: Le masque de numérotation d'éléments est obligatoire pour la création automatique de l'élément {},
-Please set Naming Series for {0} via Setup > Settings > Naming Series,Veuillez définir le masque de numérotation pour {0} via Configuration&gt; Paramètres&gt; Série de noms,
-Naming Series,Masque de numérotation,
-"Special Characters except '-', '#', '.', '/', '{{' and '}}' not allowed in naming series {0}","Caractères spéciaux sauf &quot;-&quot;, &quot;#&quot;, &quot;.&quot;, &quot;/&quot;, &quot;{{&quot; Et &quot;}}&quot; non autorisés dans les masques de numérotation {0}",
-Internal Customer,Client interne
-Internal Supplier,Fournisseur interne
-Contact & Address,Contact et Adresse
-Primary Address and Contact,Adresse et contact principal
-Supplier Primary Contact,Contact fournisseur principal
-Supplier Primary Address,Adresse fournisseur principal
-From Opportunity,Depuis l'opportunité
-Default Receivable Accounts,Compte de débit par défaut
-Receivable Accounts,Compte de débit
-Mention if a non-standard receivable account,Veuillez mentionner s'il s'agit d'un compte débiteur non standard
-Allow Purchase,Autoriser à l'achat
-Inventory Settings,Paramétrage de l'inventaire
+choose the 'Naming Series' option.,choisissez l'option 'Masque de numérotation'.
 EU Country Only,Pays Zone EU uniquement
 Check VAT,Vérification code TVA
 Invalid VAT number,Numéro de TVA invalide
@@ -98,3 +64,28 @@ Error during companies data recuperation:{0}, Une erreur est survenue durant la 
 SIRENE Error - Not Found, Erreur Sirene - Élément non trouvé,
 SIRENE Error - Unauthorized, Erreur Sirene - Non autorisé,
 SIRENE Error - Access Denied, Erreur Sirene - Accès refusé,
+No of Employees,Nb de salarié(e)s
+No. of Employees,Nb de salarié(e)s
+Annual Revenue,CA annuel
+Qualified By,Qualifié par
+Qualified on,Qualifié le
+Open Tasks,Tâche à faire ouverte
+No open task,Pas de Tâche à faire ouverte
+Open Events,Evénements ouvert
+No open event,Pas Evénements ouvert
+New Task,Nv. Tâche à faire
+No Notes,Pas de note
+New Note,Nouvelle Note
+Prospect Owner,Resp. du Prospect
+Deal Owner,Resp. de l'opportunité
+Stage,Etape
+Probability,Probabilité
+Closing,Clôture
+Allow Sales,Autoriser à la vente
+Subcontracting Order,Ordre de fab. sous traité
+Subcontracting Receipt,Reception d'ordre de fab. sous traité
+Subcontracting Purchase Order,Commande d'achat de sous traitance
+Service Items,Prestations de sous traitance acheter
+Available Qty For Consumption,Quantité dispo. pour consommation
+% Returned,% retourné
+Discount (%) on Price List Rate with Margin,Remise sur prix de la liste de prix
