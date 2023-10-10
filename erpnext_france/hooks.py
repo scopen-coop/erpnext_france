@@ -89,6 +89,11 @@ doctype_js = {
     "Company": ["public/js/company.js"]
 }
 
+doctype_list_js = {
+    "Customer": ["public/js/fetch_from_sirene.js"],
+    "Supplier": ["public/js/fetch_from_sirene.js"],
+}
+
 # Home Pages
 # ----------
 
