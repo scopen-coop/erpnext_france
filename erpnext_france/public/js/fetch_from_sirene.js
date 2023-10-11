@@ -19,7 +19,7 @@ frappe.listview_settings["Supplier"] = {
  */
 function import_thirdparty_from_sirene() {
     let dialog1 = new frappe.ui.Dialog({
-        title: 'Enter entity details',
+        title: __('Enter entity details'),
         fields: [
             {
                 label: 'Company Name',
@@ -54,7 +54,7 @@ function import_thirdparty_from_sirene() {
             },
         ],
         size: 'large', // small, large, extra-large
-        primary_action_label: 'Submit',
+        primary_action_label: __('Search'),
         primary_action(data) {
             frappe.call({
                 method: "erpnext_france.controllers.fetch_company_from_sirene.fetch_company_from_sirene",
@@ -231,7 +231,7 @@ function findInfoEntity(entity, i) {
     }
 
     if (entity.adresseEtablissement.typeVoieEtablissement) {
-        address_1 = entity.adresseEtablissement.typeVoieEtablissement;
+        address_1 += ' ' + entity.adresseEtablissement.typeVoieEtablissement;
     }
 
     if (entity.adresseEtablissement.libelleVoieEtablissement) {
@@ -262,15 +262,12 @@ function findInfoEntity(entity, i) {
         code_naf = entity.uniteLegale.activitePrincipaleUniteLegale;
     }
 
-    title = company_name_all
-        + ':  ' + address_1
-        + ' ' + town
-        + ' ' + zipcode
-        + ' ' + country
-        + ' ' + date_creation
-        + ' Siren: ' + siren
-        + ' Siret: ' + siret
-        + ' Code Naf: ' + code_naf;
+
+    // intra-community vat number calculation
+    let coef = 97;
+    let vatintracalc = parseInt(siren) % coef
+    let vatintracalc2 = leftFillNum((12 + 3 * vatintracalc) % coef, 2);
+    let tva_intra = 'FR' + vatintracalc2 + siren
 
     entityInfo = {
       company_name: company_name_all,
@@ -283,6 +280,7 @@ function findInfoEntity(entity, i) {
       siren: siren,
       siret: siret,
       code_naf: code_naf,
+      tax_id: tva_intra,
       id: i
     }
 
@@ -310,6 +308,8 @@ function createNewDocWithSireneInfo(doctype, entity_chosen) {
     new_doc.siret = entity_chosen.siret;
     new_doc.siren = entity_chosen.siren;
     new_doc.naf = entity_chosen.code_naf;
+    new_doc.tax_id = entity_chosen.tax_id;
+
 
     return new_doc
 }
@@ -351,12 +351,12 @@ function make_table(entities, doctype) {
         table +=
             '            <div class="grid-row">'
             +'               <div class="data-row row">'
-            +'                   <div class="col grid-static-col col-xs-3 bold">'
+            +'                   <div class="col grid-static-col col-xs-3 bold" style="height: auto !important;">'
             +'                       <input name="entity-select" class="grid-row-check" type="radio" value="' + entity.id + '">'
-            +'                       <span class="static-area ellipsis">' + entity.company_name + '</span>'
+            +'                       <span class="static-area ellipsis" style="white-space: normal !important;">' + entity.company_name + '</span>'
             +'                   </div>'
-            +'                   <div class="col grid-static-col col-xs-3">'
-            +'                       <span class="static-area ellipsis">' + entity.address_1 + '</span>'
+            +'                   <div class="col grid-static-col col-xs-3" style="height: auto !important;">'
+            +'                       <span class="static-area ellipsis" style="white-space: normal !important;">' + entity.address_1 + '</span>'
             +'                   </div>'
             +'                   <div class="col grid-static-col col-xs-2">'
             +'                       <span class="static-area ellipsis">' + entity.date_creation + '</span>'
@@ -382,4 +382,8 @@ function make_table(entities, doctype) {
 
 
     return table;
+}
+
+function leftFillNum(num, targetLength) {
+  return num.toString().padStart(targetLength, "0");
 }
