@@ -4,7 +4,6 @@ import requests
 import json
 
 
-
 @frappe.whitelist()
 def fetch_company_from_sirene(data):
     search_values = json.loads(data)
@@ -31,7 +30,7 @@ def fetch_company_from_sirene(data):
 
         headers = {
             'Authorization': 'Bearer {}'.format(myToken),
-            'Accept' : 'application/json',
+            'Accept': 'application/json',
             'Content-Type': 'application/x-www-form-urlencoded'
         }
 
@@ -40,9 +39,8 @@ def fetch_company_from_sirene(data):
     except Exception as e:
         return {'error': _('Error during companies data recuperation:{0}').format(e)}
 
-
     return {
-        'message' : response
+        'message': response
     }
 
 
@@ -69,24 +67,23 @@ def http_post(url, headers=None, body=None, data=None):
     return response
 
 
-
-
 def get_filters(search_values):
-    filter = []
+    filters = []
     if 'company_name' in search_values and search_values['company_name'] != '':
-       filter.append('raisonSociale:"' + search_values['company_name'].replace('"', '\\"') + '"')
+        filters.append('raisonSociale:"' + search_values['company_name'].replace('"', '\\"') + '"')
 
     if 'siren' in search_values and search_values['siren'] != '':
-       filter.append('siren:' + search_values['siren'])
+        filters.append('siren:' + search_values['siren'])
 
     if 'siret' in search_values and search_values['siret'] != '':
-       filter.append('siret:' + search_values['siret'])
+        filters.append('siret:' + search_values['siret'])
 
     if 'naf' in search_values and search_values['naf'] != '':
-       filter.append('activitePrincipaleUniteLegale:' + search_values['naf'])
+        filters.append('activitePrincipaleUniteLegale:' + search_values['naf'])
 
     if 'zipcode' in search_values and search_values['zipcode'] != '':
-       filter.append('codePostalEtablissement:' + search_values['zipcode'])
+        filters.append('codePostalEtablissement:' + search_values['zipcode'])
 
+    filters.append('-periode(etatAdministratifEtablissement:F)');
 
-    return ' AND '.join(filter)
+    return ' AND '.join(filters)
