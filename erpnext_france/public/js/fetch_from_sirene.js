@@ -39,7 +39,7 @@ function import_thirdparty_from_sirene() {
             {
                 label: 'NAF',
                 fieldname: 'naf',
-                fieldtype: 'Data'
+                fieldtype: 'Data',
             },
             {
                 label: 'Zipcode',
@@ -112,7 +112,7 @@ function selectEntity(etablissements) {
         ],
         size: 'extra-large', // small, large, extra-large
         primary_action_label: 'Submit',
-        primary_action() {
+        async primary_action() {
             selected = $(this.$wrapper[0]).find('input[name="entity-select"]:checked');
             if (selected.length > 0) {
                 let entity_chosen;
@@ -123,7 +123,7 @@ function selectEntity(etablissements) {
                     }
                 }
 
-                new_doc = createNewDocWithSireneInfo(doctype, entity_chosen)
+                new_doc = await createNewDocWithSireneInfo(doctype, entity_chosen);
                 frappe.ui.form.make_quick_entry(doctype, null, null, new_doc);
                 dialog2.hide();
             }
@@ -143,7 +143,6 @@ function selectEntity(etablissements) {
  * Look into Sirene API object returned and get needed entity info
  */
 function findInfoEntity(entity, i) {
-    let stringToShow = '';
     let company_name_alias = '';
     let company_name_all = '';
     let date_creation = '';
@@ -155,6 +154,7 @@ function findInfoEntity(entity, i) {
     let siret = '';
     let naf = '';
     let entity_type = '';
+    let legal_form = '';
 
     if (entity.uniteLegale.denominationUniteLegale && !entity.uniteLegale.nomUsageUniteLegale) {
         let company_name = '';
@@ -238,8 +238,14 @@ function findInfoEntity(entity, i) {
         address_1 += ' ' + entity.adresseEtablissement.libelleVoieEtablissement;
     }
 
+    if (entity.adresseEtablissement.complementAdresseEtablissement) {
+        address_1 += ' ' + entity.adresseEtablissement.complementAdresseEtablissement;
+    }
+
     if (entity.adresseEtablissement.libelleCommuneEtablissement) {
         town = entity.adresseEtablissement.libelleCommuneEtablissement;
+    } else if (entity.adresseEtablissement.libelleCommuneEtrangerEtablissement) {
+        town = entity.adresseEtablissement.libelleCommuneEtrangerEtablissement;
     }
 
     if (entity.adresseEtablissement.codePostalEtablissement) {
@@ -260,8 +266,13 @@ function findInfoEntity(entity, i) {
 
     if (entity.uniteLegale.activitePrincipaleUniteLegale) {
         code_naf = entity.uniteLegale.activitePrincipaleUniteLegale;
+        code_naf = code_naf.replace('.', '');
     }
 
+    if (entity.uniteLegale.categorieJuridiqueUniteLegale) {
+        legal_form = entity.uniteLegale.categorieJuridiqueUniteLegale;
+        legal_form = legal_form.substr(0,2);
+    }
 
     // intra-community vat number calculation
     let coef = 97;
@@ -280,6 +291,7 @@ function findInfoEntity(entity, i) {
       siren: siren,
       siret: siret,
       code_naf: code_naf,
+      legal_form: legal_form,
       tax_id: tva_intra,
       id: i
     }
@@ -290,7 +302,7 @@ function findInfoEntity(entity, i) {
 /**
  * Init Doctype with Sirene Info
  */
-function createNewDocWithSireneInfo(doctype, entity_chosen) {
+async function createNewDocWithSireneInfo(doctype, entity_chosen) {
     var new_doc = frappe.model.get_new_doc(doctype);
 
     if (doctype == 'Customer') {
@@ -307,7 +319,8 @@ function createNewDocWithSireneInfo(doctype, entity_chosen) {
     new_doc.country = entity_chosen.country;
     new_doc.siret = entity_chosen.siret;
     new_doc.siren = entity_chosen.siren;
-    new_doc.naf = entity_chosen.code_naf;
+    new_doc.code_naf = await getCodeNaf(entity_chosen.code_naf);
+    new_doc.legal_form = await getLegalForm(entity_chosen.legal_form);
     new_doc.tax_id = entity_chosen.tax_id;
 
 
@@ -356,7 +369,7 @@ function make_table(entities, doctype) {
             +'                       <span class="static-area ellipsis" style="white-space: normal !important;">' + entity.company_name + '</span>'
             +'                   </div>'
             +'                   <div class="col grid-static-col col-xs-3" style="height: auto !important;">'
-            +'                       <span class="static-area ellipsis" style="white-space: normal !important;">' + entity.address_1 + '</span>'
+            +'                       <span class="static-area ellipsis" style="white-space: normal !important;">' + entity.address_1 + ' ' + entity.town + '</span>'
             +'                   </div>'
             +'                   <div class="col grid-static-col col-xs-2">'
             +'                       <span class="static-area ellipsis">' + entity.date_creation + '</span>'
@@ -386,4 +399,14 @@ function make_table(entities, doctype) {
 
 function leftFillNum(num, targetLength) {
   return num.toString().padStart(targetLength, "0");
+}
+
+async function getCodeNaf(code_naf) {
+    let naf = await frappe.db.get_doc('Code Naf', null, {code: code_naf});
+    return naf.name
+}
+
+async function getLegalForm(legal_form) {
+    let form = await frappe.db.get_doc('Legal Form', null, {code: legal_form});
+    return form.name
 }

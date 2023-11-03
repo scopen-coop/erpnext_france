@@ -2,7 +2,7 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Customer", {
-  custom_check_vat_id(frm) {
+  check_vat_id(frm) {
     frappe.call({
       method: "erpnext_france.utils.eu_vat.check_vat",
       args: {vat_id: frm.doc.tax_id},
@@ -31,7 +31,7 @@ frappe.ui.form.on("Customer", {
 
 
 frappe.ui.form.on("Supplier", {
-  custom_check_vat_id(frm) {
+  check_vat_id(frm) {
     frappe.call({
       method: "erpnext_france.utils.eu_vat.check_vat",
       args: {vat_id: frm.doc.tax_id},

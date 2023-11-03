@@ -14,36 +14,45 @@ app_license = "GNU General Public License"
 fixtures = [
     {
         "dt": ("Custom Field"),
-        "filters": [["name", "in", (
-                                    "Supplier-subledger_account",
-                                    "Supplier-custom_check_vat_id",
-                                    "Customer-subledger_account",
-                                    "Customer-siret",
-                                    "Customer-siren",
-                                    "Customer-naf",
-                                    "Customer-incoterm",
-                                    "Customer-custom_check_vat_id",
-                                    "Sales Invoice-accounting_export_date",
-                                    "Purchase Invoice-accounting_export_date",
-                                    "Company-accounting_export",
-                                    "Company-export_file_format",
-                                    "Company-buying_journal_code",
-                                    "Company-selling_journal_code",
-                                    "Company-siret",
-                                    "Company-discount_supplier_account",
-                                    "Mode of Payment Account-journal_label",
-                                    "Mode of Payment Account-discount_supplier_account")],
-                    ]
+        "filters": [
+            ["name", "in", (
+                    "Supplier-subledger_account",
+                    "Supplier-siret",
+                    "Supplier-siren",
+                    "Supplier-code_naf",
+                    "Supplier-legal_form",
+                    "Supplier-check_vat_id",
+                    "Customer-subledger_account",
+                    "Customer-siret",
+                    "Customer-siren",
+                    "Customer-code_naf",
+                    "Customer-legal_form",
+                    "Customer-check_vat_id",
+                    "Customer-incoterm",
+                    "Sales Invoice-accounting_export_date",
+                    "Purchase Invoice-accounting_export_date",
+                    "Company-accounting_export",
+                    "Company-export_file_format",
+                    "Company-buying_journal_code",
+                    "Company-selling_journal_code",
+                    "Company-siret",
+                    "Company-discount_supplier_account",
+                    "Mode of Payment Account-journal_label",
+                    "Mode of Payment Account-discount_supplier_account"
+                )
+            ],
+        ]
     },
     {
         "dt": ("Property Setter"),
         "filters": [
             ["name", "in",
              (
-                 'Fiscal Year Company-read_only_onload',
+                'Fiscal Year Company-read_only_onload',
                 'Mode of Payment Account-read_only_onload',
-                 'Period Closing Voucher-main-autoname',
-                 'Period Closing Voucher-main-naming_rule'
+                'Period Closing Voucher-main-autoname',
+                'Period Closing Voucher-main-naming_rule',
+                "Customer-tax_id-allow_in_quick_entry"
              )]
         ]
     },
@@ -60,6 +69,12 @@ fixtures = [
         "filters": [
             ["country", "in", ('France')]
         ]
+    },
+    {
+        "dt": ("Legal Form"),
+    },
+    {
+        "dt": ("Code Naf"),
     }
 ]
 

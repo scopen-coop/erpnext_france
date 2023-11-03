@@ -84,6 +84,6 @@ def get_filters(search_values):
     if 'zipcode' in search_values and search_values['zipcode'] != '':
         filters.append('codePostalEtablissement:' + search_values['zipcode'])
 
-    filters.append('-periode(etatAdministratifEtablissement:F)');
+    filters.append('-periode(etatAdministratifEtablissement:F)')
 
     return ' AND '.join(filters)
