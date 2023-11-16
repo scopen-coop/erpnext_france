@@ -1,0 +1,114 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:category",
+ "creation": "2022-03-17 22:32:20.718618",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "category",
+  "lft",
+  "rgt",
+  "is_group",
+  "old_parent",
+  "parent_bank_transaction_category",
+  "column_break_7",
+  "cash_flow_category"
+ ],
+ "fields": [
+  {
+   "fieldname": "category",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Category",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "lft",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Left",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "rgt",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Right",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_group",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Is Group"
+  },
+  {
+   "fieldname": "old_parent",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Old Parent",
+   "options": "Bank Transaction Category"
+  },
+  {
+   "fieldname": "parent_bank_transaction_category",
+   "fieldtype": "Link",
+   "label": "Parent Bank Transaction Category",
+   "options": "Bank Transaction Category"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "cash_flow_category",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Cash Flow Category",
+   "options": "Outflow\nInflow"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_tree": 1,
+ "links": [
+  {
+   "group": "Bank Transactions",
+   "link_doctype": "Bank Transaction",
+   "link_fieldname": "category"
+  }
+ ],
+ "modified": "2023-07-22 16:41:05.941012",
+ "modified_by": "Administrator",
+ "module": "Erpnext France",
+ "name": "Bank Transaction Category",
+ "naming_rule": "By fieldname",
+ "nsm_parent_field": "parent_bank_transaction_category",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "select": 1,
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

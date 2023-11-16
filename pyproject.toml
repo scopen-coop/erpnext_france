@@ -12,6 +12,7 @@ dynamic = ["version"]
 dependencies = [
     # core dependencies
     "zeep~=4.2",
+    "sepaxml~=2.5.0",
 ]
 
 [build-system]

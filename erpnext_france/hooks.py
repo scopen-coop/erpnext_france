@@ -38,7 +38,8 @@ fixtures = [
                     "Company-siret",
                     "Company-discount_supplier_account",
                     "Mode of Payment Account-journal_label",
-                    "Mode of Payment Account-discount_supplier_account"
+                    "Mode of Payment Account-discount_supplier_account",
+                    "Bank Account-custom_swift_number"
                 )
             ],
         ]
@@ -101,12 +102,14 @@ doctype_js = {
     "Customer": ["public/js/customer.js", "public/js/party_check_vat.js"],
     "Supplier": ["public/js/supplier.js", "public/js/party_check_vat.js"],
     "Sales Order": ["public/js/sales_order.js"],
-    "Company": ["public/js/company.js"]
+    "Purchase Invoice": ["public/js/purchase_invoice.js"],
+    "Company": ["public/js/company.js"],
 }
 
 doctype_list_js = {
     "Customer": ["public/js/fetch_from_sirene.js"],
     "Supplier": ["public/js/fetch_from_sirene.js"],
+    "Payment Entry": ["public/js/payment_entry_list.js"],
 }
 
 # Home Pages
@@ -178,6 +181,15 @@ doc_events = {
 		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
 		"on_submit": "erpnext_france.utils.transaction_log.create_transaction_log"
 	},
+    "Supplier": {
+        "validate": "erpnext_france.regional.france.extensions.supplier.validate"
+    },
+	"Customer": {
+        "validate": "erpnext_france.regional.france.extensions.customer.validate"
+    },
+	"Global Defaults": {
+        "on_update": "erpnext_france.regional.france.pappers.api.setup_pappers"
+    },
 }
 
 # Scheduled Tasks
@@ -212,3 +224,14 @@ doc_events = {
 # override_whitelisted_methods = {
 # 	"frappe.desk.doctype.event.event.get_events": "erpnext_france.event.get_events"
 # }
+regional_overrides = {
+	"France": {
+#		"erpnext.accounts.report.balance_sheet.balance_sheet.execute": "erpnext_france.regional.france.report.balance_sheet.balance_sheet.execute",
+		"erpnext.controllers.taxes_and_totals.update_itemised_tax_data": "erpnext_france.regional.france.taxes.update_itemised_tax_data",
+#		"erpnext.controllers.taxes_and_totals.get_itemised_tax": "erpnext_france.regional.france.taxes.get_itemised_tax",
+#		"erpnext.assets.doctype.asset_depreciation_schedule.asset_depreciation_schedule.get_depreciation_amount": "erpnext_france.regional.france.assets.get_depreciation_amount",
+#		"erpnext.assets.doctype.asset_depreciation_schedule.asset_depreciation_schedule.get_total_days": "erpnext_france.regional.france.assets.get_total_days",
+#		"erpnext.assets.doctype.asset_depreciation_schedule.asset_depreciation_schedule.date_difference": "erpnext_france.regional.france.assets.date_difference",
+#		"erpnext.buying.doctype.supplier.supplier.company_query": "erpnext_france.regional.france.extensions.supplier.company_query",
+	},
+}

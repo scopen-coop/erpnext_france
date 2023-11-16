@@ -1,0 +1,107 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:title",
+ "creation": "2023-07-25 12:29:28.988605",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "billing_interval",
+  "periodicity",
+  "billing_interval_count",
+  "invoicing_tab",
+  "generate_invoice_at_period_start",
+  "generate_invoice_before_payment",
+  "section_break_fjuc",
+  "start_date"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "unique": 1
+  },
+  {
+   "default": "Month",
+   "fieldname": "billing_interval",
+   "fieldtype": "Link",
+   "label": "Billing Interval Unit of Measure",
+   "options": "UOM"
+  },
+  {
+   "default": "1",
+   "fieldname": "billing_interval_count",
+   "fieldtype": "Int",
+   "label": "Billing Interval Count"
+  },
+  {
+   "fieldname": "invoicing_tab",
+   "fieldtype": "Tab Break",
+   "label": "Invoicing"
+  },
+  {
+   "default": "1",
+   "description": "Otherwise it will be generated at the end of the period",
+   "fieldname": "generate_invoice_at_period_start",
+   "fieldtype": "Check",
+   "label": "Generate the invoice at beginning of period"
+  },
+  {
+   "fieldname": "section_break_fjuc",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "Delivery date",
+   "fieldname": "start_date",
+   "fieldtype": "Select",
+   "label": "Subscription Start date",
+   "options": "Delivery date\n1st day of the month\n15th day of the month\nLast day of the month"
+  },
+  {
+   "default": "0",
+   "description": "By default, the invoice will be automatically generated when the payment is registered",
+   "fieldname": "generate_invoice_before_payment",
+   "fieldtype": "Check",
+   "label": "Generate the invoice before receiving the payment"
+  },
+  {
+   "fieldname": "periodicity",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Periodicity",
+   "options": "Day\nWeek\nMonth\nYear",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-08-26 12:16:28.789790",
+ "modified_by": "Administrator",
+ "module": "ERPNext France",
+ "name": "Recurrence Period",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "select": 1,
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "title"
+}

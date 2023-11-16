@@ -1,0 +1,125 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:journal_code",
+ "creation": "2019-03-15 16:01:34.431959",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "journal_code",
+  "journal_name",
+  "company",
+  "column_break_3",
+  "type",
+  "account",
+  "disabled",
+  "conditions_section",
+  "conditions"
+ ],
+ "fields": [
+  {
+   "fieldname": "journal_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Journal Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "Sales\nPurchase\nCash\nBank\nMiscellaneous"
+  },
+  {
+   "fieldname": "conditions_section",
+   "fieldtype": "Section Break",
+   "label": "Conditions"
+  },
+  {
+   "fieldname": "conditions",
+   "fieldtype": "Table",
+   "label": "Conditions",
+   "options": "Accounting Journal Rule"
+  },
+  {
+   "fieldname": "journal_code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Journal Code",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
+  },
+  {
+   "depends_on": "eval:[\"Cash\", \"Bank\"].includes(doc.type)",
+   "fieldname": "account",
+   "fieldtype": "Link",
+   "label": "Account",
+   "mandatory_depends_on": "eval:[\"Cash\", \"Bank\"].includes(doc.type)",
+   "options": "Account"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-06-14 12:35:23.944466",
+ "modified_by": "Administrator",
+ "module": "ERPNext France",
+ "name": "Accounting Journal",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "select": 1,
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "select": 1,
+   "share": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Accounts User",
+   "select": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "journal_name",
+ "track_changes": 1
+}

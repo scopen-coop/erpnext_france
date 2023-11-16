@@ -1,0 +1,42 @@
+{
+  "actions": [],
+  "allow_rename": 1,
+  "creation": "2019-03-18 14:01:50.288955",
+  "doctype": "DocType",
+  "editable_grid": 1,
+  "engine": "InnoDB",
+  "field_order": [
+    "document_type",
+    "condition"
+  ],
+  "fields": [
+    {
+      "fieldname": "document_type",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "label": "Document",
+      "options": "DocType",
+      "reqd": 1
+    },
+    {
+      "fieldname": "condition",
+      "fieldtype": "Code",
+      "in_list_view": 1,
+      "label": "Condition",
+      "options": "PythonExpression"
+    }
+  ],
+  "istable": 1,
+  "links": [],
+  "modified": "2023-05-30 15:54:00.832314",
+  "modified_by": "Administrator",
+  "module": "ERPNext France",
+  "name": "Accounting Journal Rule",
+  "owner": "Administrator",
+  "permissions": [],
+  "quick_entry": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "states": [],
+  "track_changes": 1
+}
