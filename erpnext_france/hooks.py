@@ -39,7 +39,25 @@ fixtures = [
                     "Company-discount_supplier_account",
                     "Mode of Payment Account-journal_label",
                     "Mode of Payment Account-discount_supplier_account",
-                    "Bank Account-custom_swift_number"
+                    "Bank Account-custom_swift_number",
+                    "Subscription-customer",
+                    "Subscription-recurrence_period",
+                    "Subscription-total",
+                    "Bank Transaction-debit",
+                    "Bank Transaction-credit",
+                    "Bank Transaction-category",
+                    "Sales Invoice-subscription",
+                    "Sales Invoice-is_down_payment_invoice",
+                    "Sales Invoice-down_payment_section",
+                    "Sales Invoice-down_payment_against",
+                    "Payment Entry-down_payment",
+                    "Payment Entry-subscription",
+                    "Sales Invoice Advance-is_down_payment",
+                    "Sales Invoice Item-down_payment_rate",
+                    "Sales Invoice Item-is_down_payment_item",
+                    "Item-down_payment_percentage",
+                    "Item-is_down_payment_item",
+                    "Party Account-advance_account",
                 )
             ],
         ]
@@ -53,7 +71,15 @@ fixtures = [
                 'Mode of Payment Account-read_only_onload',
                 'Period Closing Voucher-main-autoname',
                 'Period Closing Voucher-main-naming_rule',
-                "Customer-tax_id-allow_in_quick_entry"
+                "Customer-tax_id-allow_in_quick_entry",
+                "Sales Invoice-is_return-depends_on",
+                "Sales Invoice Advance-allocated_amount-depends_on",
+                "Sales Invoice Item-sales_order-read_only_depends_on",
+                "Item-is_fixed_asset-depends_on",
+                "Item-standard_rate-depends_on",
+                "Item-include_item_in_manufacturing-depends_on",
+                "Item-is_stock_item-depends_on",
+                "Item-allow_alternative_item-depends_on",
              )]
         ]
     },
@@ -103,6 +129,7 @@ doctype_js = {
     "Supplier": ["public/js/supplier.js", "public/js/party_check_vat.js"],
     "Sales Order": ["public/js/sales_order.js"],
     "Purchase Invoice": ["public/js/purchase_invoice.js"],
+    "Sales Invoice": ["public/js/sales_invoice.js"],
     "Company": ["public/js/company.js"],
 }
 
@@ -175,17 +202,24 @@ doc_events = {
     },
     "Sales Invoice": {
 		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
-		"on_submit": "erpnext_france.utils.transaction_log.create_transaction_log"
+		"on_submit": "erpnext_france.utils.transaction_log.create_transaction_log",
+		"validate": "erpnext_france.controllers.sales_invoice_down_payment.validate"
 	},
 	"Payment Entry": {
 		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
 		"on_submit": "erpnext_france.utils.transaction_log.create_transaction_log"
 	},
     "Supplier": {
-        "validate": "erpnext_france.regional.france.extensions.supplier.validate"
+#        "validate": "erpnext_france.regional.france.extensions.supplier.validate"
     },
 	"Customer": {
-        "validate": "erpnext_france.regional.france.extensions.customer.validate"
+#        "validate": "erpnext_france.regional.france.extensions.customer.validate"
+    },
+	"Journal Entry": {
+        "validate": "erpnext_france.controllers.journal_entry_down_payment.validate"
+    },
+	"Payment Entry": {
+        "validate": "erpnext_france.controllers.payment_entry_down_payment.validate"
     },
 	"Global Defaults": {
         "on_update": "erpnext_france.regional.france.pappers.api.setup_pappers"
@@ -221,9 +255,12 @@ doc_events = {
 # Overriding Whitelisted Methods
 # ------------------------------
 #
-# override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "erpnext_france.event.get_events"
-# }
+override_whitelisted_methods = {
+    "erpnext.controllers.accounts_controller.set_advances": "erpnext_france.controllers.accounts_controller.set_advances",
+    "erpnext.stock.get_item_details.get_item_details": "erpnext_france.controllers.get_item_details_down_payment.get_item_details_down_payment"
+}
+
+# Regional Overrides
 regional_overrides = {
 	"France": {
 #		"erpnext.accounts.report.balance_sheet.balance_sheet.execute": "erpnext_france.regional.france.report.balance_sheet.balance_sheet.execute",
@@ -234,4 +271,14 @@ regional_overrides = {
 #		"erpnext.assets.doctype.asset_depreciation_schedule.asset_depreciation_schedule.date_difference": "erpnext_france.regional.france.assets.date_difference",
 #		"erpnext.buying.doctype.supplier.supplier.company_query": "erpnext_france.regional.france.extensions.supplier.company_query",
 	},
+}
+
+
+
+# DocType Class
+# ---------------
+# Override standard doctype classes
+
+override_doctype_class = {
+    "AccountsController": "erpnext_france.controllers.accounts_controller.AccountsControllerWithDownPayment"
 }
