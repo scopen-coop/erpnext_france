@@ -5,7 +5,7 @@ import arrow
 import frappe
 from frappe.utils import getdate
 
-from erpnext.accounts.page.bank_reconciliation.bank_reconciliation import BankReconciliation
+from erpnext_france.erpnext_france.page.bank_reconciliation.bank_reconciliation import BankReconciliation
 
 
 def reconcile_stripe_payouts(bank_transactions):

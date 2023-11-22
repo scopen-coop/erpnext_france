@@ -1,8 +1,7 @@
-import { createApp } from "vue";
-import BankReconciliation from './BankReconciliation.vue';
 frappe.provide("erpnext.bank_reconciliation")
 
-erpnext.accounts.bankReconciliationPage = class BankReconciliationPage {
+
+class BankReconciliationPage {
 	constructor(wrapper) {
 		this.page = frappe.ui.make_app_page({
 			parent: wrapper,

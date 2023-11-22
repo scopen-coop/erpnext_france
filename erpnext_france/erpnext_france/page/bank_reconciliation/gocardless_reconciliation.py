@@ -7,7 +7,7 @@ import re
 import frappe
 from payments.payment_gateways.doctype.gocardless_settings.api import GoCardlessPayouts
 
-from erpnext.accounts.page.bank_reconciliation.bank_reconciliation import BankReconciliation
+from erpnext_france.erpnext_france.page.bank_reconciliation.bank_reconciliation import BankReconciliation
 
 
 def reconcile_gocardless_payouts(bank_transactions):

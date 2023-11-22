@@ -5,84 +5,84 @@ from erpnext import get_company_currency
 from frappe.utils import  cint
 
 from erpnext.accounts.party import (get_party_gle_currency, get_party_gle_account, 
-    get_due_date, set_address_details, set_contact_details, set_other_values,
-    set_price_list, set_taxes, get_payment_terms_template)
+	get_due_date, set_address_details, set_contact_details, set_other_values,
+	set_price_list, set_taxes, get_payment_terms_template)
 
 @frappe.whitelist()
 def get_party_account(
 party_type, party=None, company=None, include_advance=False, down_payment=None
 ):
-    """Returns the account for the given `party`.
-    Will first search in party (Customer / Supplier) record, if not found,
-    will search in group (Customer Group / Supplier Group),
-    finally will return default."""
-    if not company:
-        frappe.throw(_("Please select a Company"))
+	"""Returns the account for the given `party`.
+	Will first search in party (Customer / Supplier) record, if not found,
+	will search in group (Customer Group / Supplier Group),
+	finally will return default."""
+	if not company:
+		frappe.throw(_("Please select a Company"))
 
-    if not party and party_type in ["Customer", "Supplier"]:
-        default_account_name = (
-        "default_receivable_account" if party_type == "Customer" else "default_payable_account"
-    )
-        return frappe.get_cached_value("Company", company, default_account_name)
+	if not party and party_type in ["Customer", "Supplier"]:
+		default_account_name = (
+		"default_receivable_account" if party_type == "Customer" else "default_payable_account"
+	)
+		return frappe.get_cached_value("Company", company, default_account_name)
 
-    account = frappe.db.get_value(
-    "Party Account", {"parenttype": party_type, "parent": party, "company": company}, "account"
-    )
+	account = frappe.db.get_value(
+	"Party Account", {"parenttype": party_type, "parent": party, "company": company}, "account"
+	)
 
-    if not account and party_type in ["Customer", "Supplier"]:
-        party_group_doctype = "Customer Group" if party_type == "Customer" else "Supplier Group"
-        group = frappe.get_cached_value(party_type, party, scrub(party_group_doctype))
-        account = frappe.db.get_value(
-            "Party Account",
-            {"parenttype": party_group_doctype, "parent": group, "company": company},
-            "account",
-        )
+	if not account and party_type in ["Customer", "Supplier"]:
+		party_group_doctype = "Customer Group" if party_type == "Customer" else "Supplier Group"
+		group = frappe.get_cached_value(party_type, party, scrub(party_group_doctype))
+		account = frappe.db.get_value(
+			"Party Account",
+			{"parenttype": party_group_doctype, "parent": group, "company": company},
+			"account",
+		)
 
-    if not account and party_type in ["Customer", "Supplier"]:
-        default_account_name = (
-        "default_receivable_account" if party_type == "Customer" else "default_payable_account"
-        )
-        account = frappe.get_cached_value("Company", company, default_account_name)
+	if not account and party_type in ["Customer", "Supplier"]:
+		default_account_name = (
+		"default_receivable_account" if party_type == "Customer" else "default_payable_account"
+		)
+		account = frappe.get_cached_value("Company", company, default_account_name)
 
-    existing_gle_currency = get_party_gle_currency(party_type, party, company)
-    if existing_gle_currency:
-        if account:
-            account_currency = frappe.get_cached_value("Account", account, "account_currency")
-        if (account and account_currency != existing_gle_currency) or not account:
-            account = get_party_gle_account(party_type, party, company)
+	existing_gle_currency = get_party_gle_currency(party_type, party, company)
+	if existing_gle_currency:
+		if account:
+			account_currency = frappe.get_cached_value("Account", account, "account_currency")
+		if (account and account_currency != existing_gle_currency) or not account:
+			account = get_party_gle_account(party_type, party, company)
 
-    if (include_advance or cint(down_payment)) and party_type in ["Customer", "Supplier", "Student"]:  # TODO: create a hook for this function
-        if advance_account := get_party_advance_account(party_type, party, company):
-            return [advance_account] if include_advance else advance_account
+	if (include_advance or cint(down_payment)) and party_type in ["Customer", "Supplier", "Student"]:  # TODO: create a hook for this function
+		if advance_account := get_party_advance_account(party_type, party, company):
+			return [advance_account] if include_advance else advance_account
 
-    return account
+	return account
 
 
 def get_party_advance_account(party_type, party, company):
-    account = frappe.db.get_value(
-        "Party Account",
-        {"parenttype": party_type, "parent": party, "company": company},
-        "advance_account",
-    )
+	account = frappe.db.get_value(
+		"Party Account",
+		{"parenttype": party_type, "parent": party, "company": company},
+		"advance_account",
+	)
 
-    if not account:
-        party_group_doctype = "Customer Group" if party_type == "Customer" else "Supplier Group"
-        group = frappe.get_cached_value(party_type, party, scrub(party_group_doctype))
-        account = frappe.db.get_value(
-            "Party Account",
-            {"parenttype": party_group_doctype, "parent": group, "company": company},
-            "advance_account",
-        )
+	if not account:
+		party_group_doctype = "Customer Group" if party_type == "Customer" else "Supplier Group"
+		group = frappe.get_cached_value(party_type, party, scrub(party_group_doctype))
+		account = frappe.db.get_value(
+			"Party Account",
+			{"parenttype": party_group_doctype, "parent": group, "company": company},
+			"advance_account",
+		)
 
-    if not account:
-        account_name = (
-            "default_advance_received_account"
-            if party_type == "Customer"
-            else "default_advance_paid_account"
-        )
-        account = frappe.get_cached_value("Company", company, account_name)
+	if not account:
+		account_name = (
+			"default_advance_received_account"
+			if party_type == "Customer"
+			else "default_advance_paid_account"
+		)
+		account = frappe.get_cached_value("Company", company, account_name)
 
-    return account
+	return account
 
 @frappe.whitelist()
 def get_party_details(

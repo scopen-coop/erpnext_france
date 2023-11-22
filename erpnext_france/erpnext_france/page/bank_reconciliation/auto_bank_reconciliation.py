@@ -8,11 +8,12 @@ import frappe
 from frappe import _
 
 import erpnext
-from erpnext.accounts.page.bank_reconciliation.bank_reconciliation import BankReconciliation
-from erpnext.accounts.page.bank_reconciliation.gocardless_reconciliation import (
+from erpnext_france.erpnext_france.page.bank_reconciliation.bank_reconciliation import BankReconciliation
+
+from erpnext_france.erpnext_france.page.bank_reconciliation.gocardless_reconciliation import (
 	reconcile_gocardless_payouts,
 )
-from erpnext.accounts.page.bank_reconciliation.stripe_reconciliation import (
+from erpnext_france.erpnext_france.page.bank_reconciliation.stripe_reconciliation import (
 	reconcile_stripe_payouts,
 )
 

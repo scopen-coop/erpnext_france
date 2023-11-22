@@ -12,97 +12,98 @@ app_license = "GNU General Public License"
 
 # fixtures = ["Custom Field"]
 fixtures = [
-    {
-        "dt": ("Custom Field"),
-        "filters": [
-            ["name", "in", (
-                    "Supplier-subledger_account",
-                    "Supplier-siret",
-                    "Supplier-siren",
-                    "Supplier-code_naf",
-                    "Supplier-legal_form",
-                    "Supplier-check_vat_id",
-                    "Customer-subledger_account",
-                    "Customer-siret",
-                    "Customer-siren",
-                    "Customer-code_naf",
-                    "Customer-legal_form",
-                    "Customer-check_vat_id",
-                    "Customer-incoterm",
-                    "Sales Invoice-accounting_export_date",
-                    "Purchase Invoice-accounting_export_date",
-                    "Company-accounting_export",
-                    "Company-export_file_format",
-                    "Company-buying_journal_code",
-                    "Company-selling_journal_code",
-                    "Company-siret",
-                    "Company-discount_supplier_account",
-                    "Mode of Payment Account-journal_label",
-                    "Mode of Payment Account-discount_supplier_account",
-                    "Bank Account-custom_swift_number",
-                    "Subscription-customer",
-                    "Subscription-recurrence_period",
-                    "Subscription-total",
-                    "Bank Transaction-debit",
-                    "Bank Transaction-credit",
-                    "Bank Transaction-category",
-                    "Sales Invoice-subscription",
-                    "Sales Invoice-is_down_payment_invoice",
-                    "Sales Invoice-down_payment_section",
-                    "Sales Invoice-down_payment_against",
-                    "Payment Entry-down_payment",
-                    "Payment Entry-subscription",
-                    "Sales Invoice Advance-is_down_payment",
-                    "Sales Invoice Item-down_payment_rate",
-                    "Sales Invoice Item-is_down_payment_item",
-                    "Item-down_payment_percentage",
-                    "Item-is_down_payment_item",
-                    "Party Account-advance_account",
-                )
-            ],
-        ]
-    },
-    {
-        "dt": ("Property Setter"),
-        "filters": [
-            ["name", "in",
-             (
-                'Fiscal Year Company-read_only_onload',
-                'Mode of Payment Account-read_only_onload',
-                'Period Closing Voucher-main-autoname',
-                'Period Closing Voucher-main-naming_rule',
-                "Customer-tax_id-allow_in_quick_entry",
-                "Sales Invoice-is_return-depends_on",
-                "Sales Invoice Advance-allocated_amount-depends_on",
-                "Sales Invoice Item-sales_order-read_only_depends_on",
-                "Item-is_fixed_asset-depends_on",
-                "Item-standard_rate-depends_on",
-                "Item-include_item_in_manufacturing-depends_on",
-                "Item-is_stock_item-depends_on",
-                "Item-allow_alternative_item-depends_on",
-             )]
-        ]
-    },
-    {
-        "dt": ("Workspace"),
-        "filters": [
-            ["name", "in",
-             ('ERPNext France Settings',
-              'ERPNext France Export')]
-        ]
-    },
-    {
-        "dt": ("Address Template"),
-        "filters": [
-            ["country", "in", ('France')]
-        ]
-    },
-    {
-        "dt": ("Legal Form"),
-    },
-    {
-        "dt": ("Code Naf"),
-    }
+	{
+		"dt": ("Custom Field"),
+		"filters": [
+			["name", "in", (
+					"Supplier-subledger_account",
+					"Supplier-siret",
+					"Supplier-siren",
+					"Supplier-code_naf",
+					"Supplier-legal_form",
+					"Supplier-check_vat_id",
+					"Customer-subledger_account",
+					"Customer-siret",
+					"Customer-siren",
+					"Customer-code_naf",
+					"Customer-legal_form",
+					"Customer-check_vat_id",
+					"Customer-incoterm",
+					"Sales Invoice-accounting_export_date",
+					"Purchase Invoice-accounting_export_date",
+					"Company-accounting_export",
+					"Company-export_file_format",
+					"Company-buying_journal_code",
+					"Company-selling_journal_code",
+					"Company-siret",
+					"Company-discount_supplier_account",
+					"Mode of Payment Account-journal_label",
+					"Mode of Payment Account-discount_supplier_account",
+					"Bank Account-custom_swift_number",
+					"Subscription-customer",
+					"Subscription-recurrence_period",
+					"Subscription-total",
+					"Bank Transaction-debit",
+					"Bank Transaction-credit",
+					"Bank Transaction-category",
+					"Sales Invoice-subscription",
+					"Sales Invoice-is_down_payment_invoice",
+					"Sales Invoice-down_payment_section",
+					"Sales Invoice-down_payment_against",
+					"Sales Invoice-get_down_payment",
+					"Payment Entry-down_payment",
+					"Payment Entry-subscription",
+					"Sales Invoice Advance-is_down_payment",
+					"Sales Invoice Item-down_payment_rate",
+					"Sales Invoice Item-is_down_payment_item",
+					"Item-down_payment_percentage",
+					"Item-is_down_payment_item",
+					"Party Account-advance_account",
+				)
+			],
+		]
+	},
+	{
+		"dt": ("Property Setter"),
+		"filters": [
+			["name", "in",
+			 (
+				'Fiscal Year Company-read_only_onload',
+				'Mode of Payment Account-read_only_onload',
+				'Period Closing Voucher-main-autoname',
+				'Period Closing Voucher-main-naming_rule',
+				"Customer-tax_id-allow_in_quick_entry",
+				"Sales Invoice-is_return-depends_on",
+				"Sales Invoice Advance-allocated_amount-depends_on",
+				"Sales Invoice Item-sales_order-read_only_depends_on",
+				"Item-is_fixed_asset-depends_on",
+				"Item-standard_rate-depends_on",
+				"Item-include_item_in_manufacturing-depends_on",
+				"Item-is_stock_item-depends_on",
+				"Item-allow_alternative_item-depends_on",
+			 )]
+		]
+	},
+	{
+		"dt": ("Workspace"),
+		"filters": [
+			["name", "in",
+			 ('ERPNext France Settings',
+			  'ERPNext France Export')]
+		]
+	},
+	{
+		"dt": ("Address Template"),
+		"filters": [
+			["country", "in", ('France')]
+		]
+	},
+	{
+		"dt": ("Legal Form"),
+	},
+	{
+		"dt": ("Code Naf"),
+	}
 ]
 
 # Includes in <head>
@@ -125,18 +126,18 @@ fixtures = [
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 doctype_js = {
-    "Customer": ["public/js/customer.js", "public/js/party_check_vat.js"],
-    "Supplier": ["public/js/supplier.js", "public/js/party_check_vat.js"],
-    "Sales Order": ["public/js/sales_order.js"],
-    "Purchase Invoice": ["public/js/purchase_invoice.js"],
-    "Sales Invoice": ["public/js/sales_invoice.js"],
-    "Company": ["public/js/company.js"],
+	"Customer": ["public/js/customer.js", "public/js/party_check_vat.js"],
+	"Supplier": ["public/js/supplier.js", "public/js/party_check_vat.js"],
+	"Sales Order": ["public/js/sales_order.js"],
+	"Purchase Invoice": ["public/js/purchase_invoice.js"],
+	"Sales Invoice": ["public/js/sales_invoice.js"],
+	"Company": ["public/js/company.js"],
 }
 
 doctype_list_js = {
-    "Customer": ["public/js/fetch_from_sirene.js"],
-    "Supplier": ["public/js/fetch_from_sirene.js"],
-    "Payment Entry": ["public/js/payment_entry_list.js"],
+	"Customer": ["public/js/fetch_from_sirene.js"],
+	"Supplier": ["public/js/fetch_from_sirene.js"],
+	"Payment Entry": ["public/js/payment_entry_list.js"],
 }
 
 # Home Pages
@@ -197,10 +198,10 @@ after_install = "erpnext_france.install.after_install"
 # }
 
 doc_events = {
-    "Purchase Invoice": {
-        "on_submit": "erpnext_france.erpnext_france.purchase_invoice.purchase_invoice.correct_gl_entry_supplier_discount"
-    },
-    "Sales Invoice": {
+	"Purchase Invoice": {
+		"on_submit": "erpnext_france.erpnext_france.purchase_invoice.purchase_invoice.correct_gl_entry_supplier_discount"
+	},
+	"Sales Invoice": {
 		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
 		"on_submit": "erpnext_france.utils.transaction_log.create_transaction_log",
 		"validate": "erpnext_france.controllers.sales_invoice_down_payment.validate"
@@ -209,21 +210,21 @@ doc_events = {
 		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
 		"on_submit": "erpnext_france.utils.transaction_log.create_transaction_log"
 	},
-    "Supplier": {
-#        "validate": "erpnext_france.regional.france.extensions.supplier.validate"
-    },
+	"Supplier": {
+#		"validate": "erpnext_france.regional.france.extensions.supplier.validate"
+	},
 	"Customer": {
-#        "validate": "erpnext_france.regional.france.extensions.customer.validate"
-    },
+#		"validate": "erpnext_france.regional.france.extensions.customer.validate"
+	},
 	"Journal Entry": {
-        "validate": "erpnext_france.controllers.journal_entry_down_payment.validate"
-    },
+		"validate": "erpnext_france.controllers.journal_entry_down_payment.validate"
+	},
 	"Payment Entry": {
-        "validate": "erpnext_france.controllers.payment_entry_down_payment.validate"
-    },
+		"validate": "erpnext_france.controllers.payment_entry_down_payment.validate"
+	},
 	"Global Defaults": {
-        "on_update": "erpnext_france.regional.france.pappers.api.setup_pappers"
-    },
+		"on_update": "erpnext_france.regional.france.pappers.api.setup_pappers"
+	},
 }
 
 # Scheduled Tasks
@@ -256,8 +257,7 @@ doc_events = {
 # ------------------------------
 #
 override_whitelisted_methods = {
-    "erpnext.controllers.accounts_controller.set_advances": "erpnext_france.controllers.accounts_controller.set_advances",
-    "erpnext.stock.get_item_details.get_item_details": "erpnext_france.controllers.get_item_details_down_payment.get_item_details_down_payment"
+	"erpnext.stock.get_item_details.get_item_details": "erpnext_france.controllers.get_item_details_down_payment.get_item_details_down_payment"
 }
 
 # Regional Overrides
@@ -280,5 +280,5 @@ regional_overrides = {
 # Override standard doctype classes
 
 override_doctype_class = {
-    "AccountsController": "erpnext_france.controllers.accounts_controller.AccountsControllerWithDownPayment"
+	"AccountsController": "erpnext_france.controllers.accounts_controller.AccountsControllerWithDownPayment"
 }
