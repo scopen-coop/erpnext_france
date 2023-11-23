@@ -11,12 +11,6 @@
  ],
  "fields": [
   {
-   "fieldname": "deposit_print_heading",
-   "fieldtype": "Link",
-   "label": "Deposit Print Heading",
-   "options": "Print Heading"
-  },
-  {
    "fieldname": "api_url",
    "fieldtype": "Data",
    "label": "API Url"

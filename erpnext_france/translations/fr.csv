@@ -12,9 +12,7 @@ Selling Journal Code,Code Journal de Vente
 Buying Journal Code,Code Journal d'Achat
 Export File Format,Format du Fichier d'Export
 Subledger Account,Compte Auxiliaire
-Deposit Invoice,Facture d'Acompte
 Select a payment term to invoice.,Sélectionnez un terme de paiement à facturer.
-Deposit Print Heading,Intitulé d'Impression Acompte
 ERPNext France Settings,Paramètres de ERPNext France
 Default Payable Account,Compte fournisseur par défaut
 Informations sur la fête,Information sur la partie
@@ -28,7 +26,6 @@ Accounting Export Date,Date d'export en comptabilité
 Set empty to not update "Exported Date" on document,Mettre à vide pour ne pas mettre de date d'export sur les documents
 Discount Supplier Account,Compte d'escompte et remise fournisseur
 Export Sales Invoice and Purchase Invoice,Export des facture vents et achats
-Deposit Invoice,Facture d'Acompte
 Select Payment Term,Sélectionnez un terme de paiement à facturer.
 You should configure Journal Code in your Company first,Vous devez d'abord configurer vos codes journaux dans la Société
 choose the 'Naming Series' option.,choisissez l'option 'Masque de numérotation'.
