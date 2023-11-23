@@ -51,6 +51,7 @@ fixtures = [
 					"Sales Invoice-down_payment_section",
 					"Sales Invoice-down_payment_against",
 					"Sales Invoice-get_down_payment",
+					"Sales Invoice-accounting_journal",
 					"Payment Entry-down_payment",
 					"Payment Entry-subscription",
 					"Sales Invoice Advance-is_down_payment",
@@ -203,12 +204,17 @@ doc_events = {
 	},
 	"Sales Invoice": {
 		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
-		"on_submit": "erpnext_france.utils.transaction_log.create_transaction_log",
-		"validate": "erpnext_france.controllers.sales_invoice_down_payment.validate"
+		"on_submit": [
+			"erpnext_france.utils.transaction_log.create_transaction_log",
+		],
+		"validate": "erpnext_france.controllers.sales_invoice_down_payment.validate",
 	},
 	"Payment Entry": {
 		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
 		"on_submit": "erpnext_france.utils.transaction_log.create_transaction_log"
+	},
+	"Payment Ledger Entry": {
+		"on_update": "erpnext_france.controllers.ple_down_payment.on_update"
 	},
 	"Supplier": {
 #		"validate": "erpnext_france.regional.france.extensions.supplier.validate"

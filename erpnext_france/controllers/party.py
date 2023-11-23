@@ -28,7 +28,6 @@ party_type, party=None, company=None, include_advance=False, down_payment=None
 	account = frappe.db.get_value(
 	"Party Account", {"parenttype": party_type, "parent": party, "company": company}, "account"
 	)
-
 	if not account and party_type in ["Customer", "Supplier"]:
 		party_group_doctype = "Customer Group" if party_type == "Customer" else "Supplier Group"
 		group = frappe.get_cached_value(party_type, party, scrub(party_group_doctype))

@@ -13,7 +13,6 @@ import erpnext
 from erpnext.accounts.doctype.accounting_dimension.accounting_dimension import (
 	get_accounting_dimensions,
 )
-from erpnext.accounts.doctype.accounting_period.accounting_period import ClosedAccountingPeriod
 from erpnext.accounts.doctype.budget.budget import validate_expense_against_budget
 from erpnext.accounts.utils import create_payment_ledger_entry
 
@@ -28,10 +27,10 @@ def make_gl_entries(
 ):
 	if gl_map:
 		if not cancel:
-			make_acc_dimensions_offsetting_entry(gl_map)
 			validate_accounting_period(gl_map)
 			validate_disabled_accounts(gl_map)
 			gl_map = process_gl_map(gl_map, merge_entries)
+			frappe.throw(gl_map)
 			if gl_map and len(gl_map) > 1:
 				create_payment_ledger_entry(
 					gl_map,
@@ -41,7 +40,7 @@ def make_gl_entries(
 					from_repost=from_repost,
 				)
 				save_entries(gl_map, adv_adj, update_outstanding, from_repost)
-			# Post GL Map process there may no be any GL Entries
+			# Post GL Map proccess there may no be any GL Entries
 			elif gl_map:
 				frappe.throw(
 					_(
@@ -50,6 +49,7 @@ def make_gl_entries(
 				)
 		else:
 			make_reverse_gl_entries(gl_map, adv_adj=adv_adj, update_outstanding=update_outstanding)
+
 
 def validate_disabled_accounts(gl_map):
 	accounts = [d.account for d in gl_map if d.account]
@@ -105,8 +105,7 @@ def process_gl_map(gl_map, merge_entries=True, precision=None):
 	if not gl_map:
 		return []
 
-	if gl_map[0].voucher_type != "Period Closing Voucher":
-		gl_map = distribute_gl_based_on_cost_center_allocation(gl_map, precision)
+	gl_map = distribute_gl_based_on_cost_center_allocation(gl_map, precision)
 
 	if merge_entries:
 		gl_map = merge_similar_entries(gl_map, precision)
@@ -225,7 +224,6 @@ def check_if_in_list(gle, gl_map, dimensions=None):
 		"party_type",
 		"project",
 		"finance_book",
-		"voucher_no",
 	]
 
 	if dimensions:
@@ -303,18 +301,13 @@ def save_entries(gl_map, adv_adj, update_outstanding, from_repost=False):
 
 	if gl_map:
 		check_freezing_date(gl_map[0]["posting_date"], adv_adj)
-		is_opening = any(d.get("is_opening") == "Yes" for d in gl_map)
-		if gl_map[0]["voucher_type"] != "Period Closing Voucher":
-			validate_against_pcv(is_opening, gl_map[0]["posting_date"], gl_map[0]["company"])
 
 	accounting_number = get_accounting_number(gl_map[0])
 	for entry in gl_map:
 		if not entry.get("accounting_journal"):
 			get_accounting_journal(entry)
 
-		if not entry.get("accounting_entry_number"):
-			entry["accounting_entry_number"] = accounting_number
-
+		entry["accounting_entry_number"] = accounting_number
 		make_entry(entry, adv_adj, update_outstanding, from_repost)
 
 
@@ -540,21 +533,15 @@ def update_accounting_dimensions(round_off_gle):
 			round_off_gle[dimension] = dimension_values.get(dimension)
 
 
-def get_round_off_account_and_cost_center(
-	company, voucher_type, voucher_no, use_company_default=False
-):
+def get_round_off_account_and_cost_center(company, voucher_type, voucher_no):
 	round_off_account, round_off_cost_center = frappe.get_cached_value(
 		"Company", company, ["round_off_account", "round_off_cost_center"]
 	) or [None, None]
 
-	# Use expense account as fallback
-	if not round_off_account:
-		round_off_account = frappe.get_cached_value("Company", company, "default_expense_account")
-
 	meta = frappe.get_meta(voucher_type)
 
 	# Give first preference to parent cost center for round off GLE
-	if not use_company_default and meta.has_field("cost_center"):
+	if meta.has_field("cost_center"):
 		parent_cost_center = frappe.db.get_value(voucher_type, voucher_no, "cost_center")
 		if parent_cost_center:
 			round_off_cost_center = parent_cost_center
@@ -595,16 +582,10 @@ def make_reverse_gl_entries(
 	if gl_entries:
 		if cancel_payment_ledger_entries:  # @dokos
 			create_payment_ledger_entry(
-				gl_entries,
-				cancel=1,
-				adv_adj=adv_adj,
-				update_outstanding=update_outstanding,
+				gl_entries, cancel=1, adv_adj=adv_adj, update_outstanding=update_outstanding
 			)
 		validate_accounting_period(gl_entries)
 		check_freezing_date(gl_entries[0]["posting_date"], adv_adj)
-
-		is_opening = any(d.get("is_opening") == "Yes" for d in gl_entries)
-		validate_against_pcv(is_opening, gl_entries[0]["posting_date"], gl_entries[0]["company"])
 		set_as_cancel(gl_entries[0]["voucher_type"], gl_entries[0]["voucher_no"])
 
 		accounting_number = get_accounting_number(gl_entries[0])
@@ -657,28 +638,6 @@ def check_freezing_date(posting_date, adv_adj=False):
 						formatdate(acc_frozen_upto)
 					)
 				)
-
-
-def validate_against_pcv(is_opening, posting_date, company):
-	if is_opening and frappe.db.exists(
-		"Period Closing Voucher", {"docstatus": 1, "company": company}
-	):
-		frappe.throw(
-			_("Opening Entry can not be created after Period Closing Voucher is created."),
-			title=_("Invalid Opening Entry"),
-		)
-
-	last_pcv_date = frappe.db.get_value(
-		"Period Closing Voucher", {"docstatus": 1, "company": company}, "max(posting_date)"
-	)
-
-	if last_pcv_date and getdate(posting_date) <= getdate(last_pcv_date):
-		message = _("Books have been closed till the period ending on {0}").format(
-			formatdate(last_pcv_date)
-		)
-		message += "</br >"
-		message += _("You cannot create/amend any accounting entries till this date.")
-		frappe.throw(message, title=_("Period Closed"))
 
 
 def set_as_cancel(voucher_type, voucher_no):
