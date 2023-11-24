@@ -1,4 +1,5 @@
 # Copyright (c) 2019, Dokos SAS and contributors
+# Copyright (c) 2023, Scopen and contributors
 # For license information, please see license.txt
 
 import frappe
@@ -6,7 +7,7 @@ from frappe import _
 from frappe.email.doctype.notification.notification import get_context
 from frappe.model.document import Document
 
-from erpnext_france.controllers.general_ledger import make_entry, make_reverse_gl_entries
+from erpnext_france.regional.france.general_ledger import make_entry, make_reverse_gl_entries
 
 
 class AccountingJournal(Document):

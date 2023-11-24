@@ -1,5 +1,5 @@
-# Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
-# License: GNU General Public License v3. See license.txt
+# Copyright (c) 2023, Scopen and contributors
+# For license information, please see license.txt
 
 import copy
 
@@ -30,7 +30,6 @@ def make_gl_entries(
 			validate_accounting_period(gl_map)
 			validate_disabled_accounts(gl_map)
 			gl_map = process_gl_map(gl_map, merge_entries)
-			frappe.throw(gl_map)
 			if gl_map and len(gl_map) > 1:
 				create_payment_ledger_entry(
 					gl_map,

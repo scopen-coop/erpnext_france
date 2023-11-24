@@ -1,5 +1,6 @@
 // Copyright (c) 2020, Dokos and Contributors
-// License: See license.txt
+// Copyright (c) 2023, Scopen and contributors
+// For license information, please see license.txt
 
 erpnext.journalAdjustment = class AccountingJournalAdjustment {
 	constructor(opts) {

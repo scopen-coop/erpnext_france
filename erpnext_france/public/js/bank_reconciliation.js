@@ -1,3 +1,6 @@
+// Copyright (c) 2023, Scopen and contributors
+// For license information, please see license.txt
+
 frappe.provide("erpnext.bank_reconciliation")
 
 

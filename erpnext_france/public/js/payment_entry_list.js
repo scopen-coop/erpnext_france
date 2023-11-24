@@ -1,5 +1,6 @@
 // Copyright (c) 2019, Dokos SAS and Contributors
-// License: See license.txt
+// Copyright (c) 2023, Scopen and contributors
+// For license information, please see license.txt
 
 frappe.listview_settings['Payment Entry'] = {
 	get_indicator: function(doc) {

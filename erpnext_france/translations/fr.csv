@@ -92,6 +92,7 @@ Opportunity Owner,Responsable de l'opportunité
 
 'Account' in the Accounting section of Customer {0},'Compte' dans la section comptabilité du client {0},
 Accounting Details,Détails comptables,
+Accounting Entry Number,Numéro d'écriture comptable,
 Accounting Journal Adjustment,Ajustement de journal comptable,
 Accounting Journal Rule,Règle de journal comptable,
 Accounting Journal adjustment in progress,Ajustement de journal comptable en cours,

@@ -1,4 +1,5 @@
 # Copyright (c) 2021, Dokos SAS and contributors
+# Copyright (c) 2023, Scopen and contributors
 # For license information, please see license.txt
 
 import datetime
@@ -9,7 +10,7 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.utils import add_days, date_diff, flt, format_date, getdate, month_diff, nowdate
 
-from erpnext_france.controllers.general_ledger import (
+from erpnext_france.regional.france.general_ledger import (
 	check_freezing_date,
 	get_accounting_journal,
 	make_entry,
@@ -81,7 +82,7 @@ class AdjustmentEntry(Document):
 					make_entry(entry, False, "False")
 
 	def _make_gl_entries(self):
-		from erpnext_france.controllers.general_ledger import make_gl_entries
+		from erpnext_france.regional.france.general_ledger import make_gl_entries
 
 		if self.total_posting_amount == 0:
 			return

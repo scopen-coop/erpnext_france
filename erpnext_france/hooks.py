@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+# Copyright (c) 2023, Scopen and contributors
+# For license information, please see license.txt
+
 from __future__ import unicode_literals
 
 app_name = "erpnext_france"
@@ -16,50 +19,53 @@ fixtures = [
 		"dt": ("Custom Field"),
 		"filters": [
 			["name", "in", (
-					"Supplier-subledger_account",
-					"Supplier-siret",
-					"Supplier-siren",
-					"Supplier-code_naf",
-					"Supplier-legal_form",
-					"Supplier-check_vat_id",
-					"Customer-subledger_account",
-					"Customer-siret",
-					"Customer-siren",
-					"Customer-code_naf",
-					"Customer-legal_form",
-					"Customer-check_vat_id",
-					"Customer-incoterm",
-					"Sales Invoice-accounting_export_date",
-					"Purchase Invoice-accounting_export_date",
+					"Accounts Settings-invoice_and_billing_tab",
+					"Bank Account-swift_number",
+					"Bank Transaction-category",
+					"Bank Transaction-credit",
+					"Bank Transaction-debit",
 					"Company-accounting_export",
-					"Company-export_file_format",
 					"Company-buying_journal_code",
+					"Company-export_file_format",
 					"Company-selling_journal_code",
 					"Company-siret",
 					"Company-discount_supplier_account",
-					"Mode of Payment Account-journal_label",
+					"Customer-check_vat_id",
+					"Customer-code_naf",
+					"Customer-incoterm",
+					"Customer-legal_form",
+					"Customer-subledger_account",
+					"Customer-siret",
+					"Customer-siren",
+					"GL Entry-accounting_entry_number",
+					"Item-down_payment_percentage",
+					"Item-is_down_payment_item",
 					"Mode of Payment Account-discount_supplier_account",
-					"Bank Account-custom_swift_number",
-					"Subscription-customer",
-					"Subscription-recurrence_period",
-					"Subscription-total",
-					"Bank Transaction-debit",
-					"Bank Transaction-credit",
-					"Bank Transaction-category",
-					"Sales Invoice-subscription",
-					"Sales Invoice-is_down_payment_invoice",
+					"Mode of Payment Account-journal_label",
+					"Party Account-advance_account",
+					"Payment Entry-down_payment",
+					"Payment Entry-accounting_journal",
+					"Payment Entry-subscription",
+					"Purchase Invoice-accounting_export_date",
+					"Sales Invoice-accounting_export_date",
+					"Sales Invoice-accounting_journal",
 					"Sales Invoice-down_payment_section",
 					"Sales Invoice-down_payment_against",
 					"Sales Invoice-get_down_payment",
-					"Sales Invoice-accounting_journal",
-					"Payment Entry-down_payment",
-					"Payment Entry-subscription",
+					"Sales Invoice-is_down_payment_invoice",
+					"Sales Invoice-subscription",
 					"Sales Invoice Advance-is_down_payment",
 					"Sales Invoice Item-down_payment_rate",
 					"Sales Invoice Item-is_down_payment_item",
-					"Item-down_payment_percentage",
-					"Item-is_down_payment_item",
-					"Party Account-advance_account",
+					"Subscription-customer",
+					"Subscription-total",
+					"Subscription-recurrence_period",
+					"Supplier-check_vat_id",
+					"Supplier-code_naf",
+					"Supplier-legal_form",
+					"Supplier-subledger_account",
+					"Supplier-siret",
+					"Supplier-siren",
 				)
 			],
 		]
@@ -207,7 +213,6 @@ doc_events = {
 		"on_submit": [
 			"erpnext_france.utils.transaction_log.create_transaction_log",
 		],
-		"validate": "erpnext_france.controllers.sales_invoice_down_payment.validate",
 	},
 	"Payment Entry": {
 		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
@@ -225,9 +230,7 @@ doc_events = {
 	"Journal Entry": {
 		"validate": "erpnext_france.controllers.journal_entry_down_payment.validate"
 	},
-	"Payment Entry": {
-		"validate": "erpnext_france.controllers.payment_entry_down_payment.validate"
-	},
+
 	"Global Defaults": {
 		"on_update": "erpnext_france.regional.france.pappers.api.setup_pappers"
 	},
@@ -269,8 +272,11 @@ override_whitelisted_methods = {
 # Regional Overrides
 regional_overrides = {
 	"France": {
-#		"erpnext.accounts.report.balance_sheet.balance_sheet.execute": "erpnext_france.regional.france.report.balance_sheet.balance_sheet.execute",
 		"erpnext.controllers.taxes_and_totals.update_itemised_tax_data": "erpnext_france.regional.france.taxes.update_itemised_tax_data",
+		"erpnext.accounts.general_ledger.make_gl_entries": "erpnext_france.regional.france.general_ledger.make_gl_entries",
+		"erpnext.accounts.general_ledger.make_reverse_gl_entries": "erpnext_france.regional.france.general_ledger.make_reverse_gl_entries",
+		"erpnext.accounts.controllers.accounts_controller.update_against_document_in_jv": "erpnext_france.controllers.accounts_controller.update_against_document_in_jv",
+#		"erpnext.accounts.report.balance_sheet.balance_sheet.execute": "erpnext_france.regional.france.report.balance_sheet.balance_sheet.execute",
 #		"erpnext.controllers.taxes_and_totals.get_itemised_tax": "erpnext_france.regional.france.taxes.get_itemised_tax",
 #		"erpnext.assets.doctype.asset_depreciation_schedule.asset_depreciation_schedule.get_depreciation_amount": "erpnext_france.regional.france.assets.get_depreciation_amount",
 #		"erpnext.assets.doctype.asset_depreciation_schedule.asset_depreciation_schedule.get_total_days": "erpnext_france.regional.france.assets.get_total_days",
@@ -286,5 +292,6 @@ regional_overrides = {
 # Override standard doctype classes
 
 override_doctype_class = {
-	"AccountsController": "erpnext_france.controllers.accounts_controller.AccountsControllerWithDownPayment"
+	"Payment Entry": "erpnext_france.erpnext_france.overrides.doctype.payment_entry_down_payment.PaymentEntryDownPayment",
+	"Sales Invoice": "erpnext_france.erpnext_france.overrides.doctype.sales_invoice_down_payment.SalesInvoiceDownPayment",
 }

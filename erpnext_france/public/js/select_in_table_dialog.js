@@ -1,3 +1,6 @@
+// Copyright (c) 2023, Scopen and contributors
+// For license information, please see license.txt
+
 class SelectInTableDialog {
 	constructor(opts) {
 		/* Options: doctype, target, setters, get_query, action, add_filters_group, data_fields, primary_action_label, columns */
