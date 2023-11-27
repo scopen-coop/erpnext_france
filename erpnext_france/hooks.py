@@ -110,6 +110,15 @@ fixtures = [
 	},
 	{
 		"dt": ("Code Naf"),
+	},
+	{
+		"dt": ("Report"),
+		"filters": [
+			["name", "in", (
+				'Fichier des Ecritures Comptables [FEC]',
+				'General Ledger',
+			)]
+		]
 	}
 ]
 
@@ -273,19 +282,12 @@ override_whitelisted_methods = {
 regional_overrides = {
 	"France": {
 		"erpnext.controllers.taxes_and_totals.update_itemised_tax_data": "erpnext_france.regional.france.taxes.update_itemised_tax_data",
+		"erpnext.regional.report.fichier_des_ecritures_comptables_[fec].fichier_des_ecritures_comptables_[fec]": "erpnext_france.erpnext_france.report.france.fichier_des_ecritures_comptables_[fec].fichier_des_ecritures_comptables_[fec]",
 		"erpnext.accounts.general_ledger.make_gl_entries": "erpnext_france.regional.france.general_ledger.make_gl_entries",
 		"erpnext.accounts.general_ledger.make_reverse_gl_entries": "erpnext_france.regional.france.general_ledger.make_reverse_gl_entries",
 		"erpnext.accounts.controllers.accounts_controller.update_against_document_in_jv": "erpnext_france.controllers.accounts_controller.update_against_document_in_jv",
-#		"erpnext.accounts.report.balance_sheet.balance_sheet.execute": "erpnext_france.regional.france.report.balance_sheet.balance_sheet.execute",
-#		"erpnext.controllers.taxes_and_totals.get_itemised_tax": "erpnext_france.regional.france.taxes.get_itemised_tax",
-#		"erpnext.assets.doctype.asset_depreciation_schedule.asset_depreciation_schedule.get_depreciation_amount": "erpnext_france.regional.france.assets.get_depreciation_amount",
-#		"erpnext.assets.doctype.asset_depreciation_schedule.asset_depreciation_schedule.get_total_days": "erpnext_france.regional.france.assets.get_total_days",
-#		"erpnext.assets.doctype.asset_depreciation_schedule.asset_depreciation_schedule.date_difference": "erpnext_france.regional.france.assets.date_difference",
-#		"erpnext.buying.doctype.supplier.supplier.company_query": "erpnext_france.regional.france.extensions.supplier.company_query",
 	},
 }
-
-
 
 # DocType Class
 # ---------------

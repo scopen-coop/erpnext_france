@@ -81,7 +81,6 @@ class SalesInvoiceDownPayment(SalesInvoice):
 			frappe.throw(_("Down payment invoices can only be made against a single sales order."))
 
 		self.validate_down_payment_advances()
-		self.set_income_account_for_down_payments()
 
 		for item in self.get("items"):
 			validate_account_head(
@@ -99,16 +98,6 @@ class SalesInvoiceDownPayment(SalesInvoice):
 			and cint(advance.is_down_payment)
 			):
 				advance.allocated_amount = advance.advance_amount
-
-
-	def set_income_account_for_down_payments(self):
-		if self.is_down_payment_invoice:
-			debit_to = get_party_account(
-				"Customer", self.customer, self.company, False, self.is_down_payment_invoice
-			)
-			for d in self.get("items"):
-				d.income_account = debit_to
-
 
 	def make_down_payment_final_invoice_entries(self, gl_entries):
 		# In the case of a down payment with multiple payments, associated entries of

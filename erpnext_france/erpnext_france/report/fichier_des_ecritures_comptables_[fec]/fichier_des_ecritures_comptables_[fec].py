@@ -181,6 +181,7 @@ def get_gl_entries(company, fiscal_year):
 			credit,
 			debit_currency,
 			credit_currency,
+			gle.accounting_entry_number,
 			gle.voucher_type,
 			gle.voucher_no,
 			gle.against_voucher_type,
@@ -189,6 +190,8 @@ def get_gl_entries(company, fiscal_year):
 			gle.against,
 			gle.party_type,
 			gle.party,
+			gle.accounting_journal,
+			gle.remarks,
 			sales_invoice.name.as_("InvName"),
 			sales_invoice.title.as_("InvTitle"),
 			sales_invoice.posting_date.as_("InvPostDate"),
@@ -209,8 +212,8 @@ def get_gl_entries(company, fiscal_year):
 			employee.name.as_("empName"),
 		)
 		.where((gle.company == company) & (gle.fiscal_year == fiscal_year))
-		.groupby(gle.voucher_type, gle.voucher_no, gle.account)
-		.orderby(gle.posting_date, gle.voucher_no)
+		.groupby(gle.voucher_type, gle.voucher_no, gle.account, gle.name, gle.accounting_entry_number)
+		.orderby(gle.posting_date, gle.voucher_no, gle.accounting_entry_number)
 	)
 
 	return query.run(as_dict=True)
@@ -223,26 +226,32 @@ def get_result(company, fiscal_year):
 
 	company_currency = frappe.get_cached_value("Company", company, "default_currency")
 	accounts = frappe.get_all(
-		"Account", filters={"Company": company}, fields=["name", "account_number"]
+		"Account",
+		filters={"Company": company},
+		fields=["name", "account_number", "account_name"],
 	)
+	journals = {
+		j.journal_code: j.journal_name
+		for j in frappe.get_all("Accounting Journal", fields=["journal_code", "journal_name"])
+	}
+
+	party_data = [x for x in data if x.get("against_voucher")]
+
 
 	for d in data:
-		JournalCode = re.split("-|/|[0-9]", d.get("voucher_no"))[0]
-
-		if d.get("voucher_no").startswith("{0}-".format(JournalCode)) or d.get("voucher_no").startswith(
-			"{0}/".format(JournalCode)
-		):
-			EcritureNum = re.split("-|/", d.get("voucher_no"))[1]
-		else:
-			EcritureNum = re.search(r"{0}(\d+)".format(JournalCode), d.get("voucher_no"), re.IGNORECASE)[1]
+		JournalCode = d.get("accounting_journal") or re.split("-|/|[0-9]", d.get("voucher_no"))[0]
+		EcritureNum = d.get("accounting_entry_number")
 
 		EcritureDate = format_datetime(d.get("GlPostDate"), "yyyyMMdd")
 
 		account_number = [
-			account.account_number for account in accounts if account.name == d.get("account")
+			{"account_number": account.account_number, "account_name": account.account_name}
+			for account in accounts
+			if account.name == d.get("account") and account.account_number
 		]
-		if account_number[0] is not None:
-			CompteNum = account_number[0]
+		if account_number:
+			CompteNum = account_number[0]["account_number"]
+			CompteLib = account_number[0]["account_name"]
 		else:
 			frappe.throw(
 				_(
@@ -277,11 +286,14 @@ def get_result(company, fiscal_year):
 		ValidDate = format_datetime(d.get("GlPostDate"), "yyyyMMdd")
 
 		PieceRef = d.get("voucher_no") or "Sans Reference"
+		PieceRefType = d.get("voucher_type") or "Sans Reference"
 
 		# EcritureLib is the reference title unless it is an opening entry
 		if d.get("is_opening") == "Yes":
 			EcritureLib = _("Opening Entry Journal")
-		if d.get("voucher_type") == "Sales Invoice":
+		if d.get("remarks") and d.get("remarks").lower() not in ("no remarks", _("no remarks")):
+			EcritureLib = d.get("remarks")
+		elif d.get("voucher_type") == "Sales Invoice":
 			EcritureLib = d.get("InvTitle")
 		elif d.get("voucher_type") == "Purchase Invoice":
 			EcritureLib = d.get("PurTitle")
@@ -292,14 +304,23 @@ def get_result(company, fiscal_year):
 		else:
 			EcritureLib = d.get("voucher_type")
 
+		EcritureLib = " ".join(EcritureLib.splitlines())
+
 		PieceDate = format_datetime(d.get("GlPostDate"), "yyyyMMdd")
 
 		debit = "{:.2f}".format(d.get("debit")).replace(".", ",")
 
 		credit = "{:.2f}".format(d.get("credit")).replace(".", ",")
 
+		if d.debit == d.credit == 0:
+			continue
+
 		Idevise = d.get("account_currency")
 
+		DateLet = get_date_let(d, party_data) if d.get("against_voucher") else None
+		EcritureLet = d.get("against_voucher", "") if DateLet else ""
+
+		Montantdevise = None
 		if Idevise != company_currency:
 			Montantdevise = (
 				"{:.2f}".format(d.get("debitCurr")).replace(".", ",")
@@ -315,7 +336,7 @@ def get_result(company, fiscal_year):
 
 		row = [
 			JournalCode,
-			d.get("voucher_type"),
+			journals.get(JournalCode),
 			EcritureNum,
 			EcritureDate,
 			CompteNum,
@@ -327,8 +348,8 @@ def get_result(company, fiscal_year):
 			EcritureLib,
 			debit,
 			credit,
-			"",
-			"",
+			EcritureLet,
+			DateLet or "",
 			ValidDate,
 			Montantdevise,
 			Idevise,
@@ -337,3 +358,30 @@ def get_result(company, fiscal_year):
 		result.append(row)
 
 	return result
+
+def get_date_let(d, data):
+	let_dates = [
+		x.get("GlPostDate")
+		for x in data
+		if (
+			x.get("against_voucher") == d.get("against_voucher")
+			and x.get("against_voucher_type") == d.get("against_voucher_type")
+			and x.get("party") == d.get("party")
+		)
+	]
+
+	if not let_dates or len(let_dates) == 1:
+		let_vouchers = frappe.get_all(
+			"GL Entry",
+			filters={
+				"against_voucher": d.get("against_voucher"),
+				"against_voucher_type": d.get("against_voucher_type"),
+				"party": d.get("party"),
+			},
+			fields=["posting_date"],
+		)
+
+		if len(let_vouchers) > 1:
+			return format_datetime(max([x.get("posting_date") for x in let_vouchers]), "yyyyMMdd")
+
+	return format_datetime(max(let_dates), "yyyyMMdd") if len(let_dates) > 1 else None
