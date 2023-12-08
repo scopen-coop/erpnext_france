@@ -50,8 +50,6 @@ class SalesInvoiceDownPayment(SalesInvoice):
 		self.update_billing_status_for_zero_amount_refdoc("Sales Order")
 		self.check_credit_limit()
 
-		self.update_serial_no()
-
 		if not cint(self.is_pos) == 1:
 			update_against_document_in_jv(self) # Erpnext France Modif
 

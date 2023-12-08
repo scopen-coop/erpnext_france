@@ -38,6 +38,7 @@ fixtures = [
 					"Customer-siret",
 					"Customer-siren",
 					"GL Entry-accounting_entry_number",
+					"GL Entry-accounting_journal",
 					"Item-down_payment_percentage",
 					"Item-is_down_payment_item",
 					"Mode of Payment Account-discount_supplier_account",

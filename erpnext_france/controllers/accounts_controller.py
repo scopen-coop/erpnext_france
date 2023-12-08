@@ -12,6 +12,9 @@ import json
 from erpnext.controllers.accounts_controller import (
 	get_advance_journal_entries
 )
+from erpnext.accounts.party import (
+	get_party_account
+)
 
 from erpnext.accounts.party import get_party_account
 from erpnext.accounts.utils import reconcile_against_document
@@ -52,12 +55,15 @@ def get_down_payment(doc):
 
 
 def get_advance_entries(doc, include_unallocated=True):
-	party_account = doc['debit_to']
 	party_type = "Customer"
 	party = doc['customer']
 	amount_field = "credit_in_account_currency"
 	order_field = "sales_order"
 	order_doctype = "Sales Order"
+
+	party_account = get_party_account(
+		party_type, party=party, company=doc['company'], include_advance=True
+	)
 
 	order_list = list(set(d.get(order_field) for d in doc["items"] if d.get(order_field)))
 
@@ -72,7 +78,7 @@ def get_advance_entries(doc, include_unallocated=True):
 	res = journal_entries + payment_entries
 
 	if doc['doctype'] == "Sales Invoice" and order_list:
-		party_account = get_party_account(party_type, party, doc['company'])
+		party_account = [get_party_account(party_type, party, doc['company'])]
 		order_doctype = "Sales Invoice"
 
 		invoice_list = list(
