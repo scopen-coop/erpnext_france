@@ -34,7 +34,7 @@ def update_itemised_tax_data(doc):
 			continue
 
 		tax_rate = 0.0
-		item_tax_rate = 0.0
+		item_tax_rate = {}
 		item_specific_rates = []
 
 		if row.item_tax_rate:
@@ -43,8 +43,8 @@ def update_itemised_tax_data(doc):
 		# First check if tax rate is present
 		# If not then look up in item_wise_tax_detail
 		if item_tax_rate:
-			for tax in item_tax_rate:
-				tax_rate += tax.get("rate")
+			for tax,tax_rate_detail in item_tax_rate.items():
+				tax_rate += tax_rate_detail
 
 		elif row.item_code and valid_itemised_tax.get(row.item_code):
 			item_specific_rates = [
