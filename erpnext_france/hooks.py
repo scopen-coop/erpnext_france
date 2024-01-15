@@ -283,7 +283,6 @@ override_whitelisted_methods = {
 regional_overrides = {
 	"France": {
 		"erpnext.controllers.taxes_and_totals.update_itemised_tax_data": "erpnext_france.regional.france.taxes.update_itemised_tax_data",
-		"erpnext.regional.report.fichier_des_ecritures_comptables_[fec].fichier_des_ecritures_comptables_[fec]": "erpnext_france.erpnext_france.report.france.fichier_des_ecritures_comptables_[fec].fichier_des_ecritures_comptables_[fec]",
 		"erpnext.accounts.general_ledger.make_gl_entries": "erpnext_france.regional.france.general_ledger.make_gl_entries",
 		"erpnext.accounts.general_ledger.make_reverse_gl_entries": "erpnext_france.regional.france.general_ledger.make_reverse_gl_entries",
 		"erpnext.accounts.controllers.accounts_controller.update_against_document_in_jv": "erpnext_france.controllers.accounts_controller.update_against_document_in_jv",

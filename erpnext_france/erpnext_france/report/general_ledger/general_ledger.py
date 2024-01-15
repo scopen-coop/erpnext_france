@@ -36,7 +36,6 @@ def execute(filters=None):
 
 def get_columns(filters):
 	columns = gl.get_columns(filters)
-	
 	acc_journal_columns = {
 		'label': _('Accounting Entry Number'),
 		'fieldname': 'accounting_entry_number',
@@ -67,6 +66,14 @@ def get_gl_entries(filters, accounting_dimensions):
 	select_fields = """, accounting_entry_number, debit, credit, debit_in_account_currency,
 		credit_in_account_currency """
 
+	if filters.get("show_remarks"):
+		if remarks_length := frappe.db.get_single_value(
+			"Accounts Settings", "general_ledger_remarks_length"
+		):
+			select_fields += f",substr(remarks, 1, {remarks_length}) as 'remarks'"
+		else:
+			select_fields += """,remarks"""
+
 	order_by_statement = "order by posting_date, account, creation"
 
 	if filters.get("include_dimensions"):
@@ -78,7 +85,7 @@ def get_gl_entries(filters, accounting_dimensions):
 		order_by_statement = "order by account, posting_date, creation"
 
 	if filters.get("include_default_book_entries"):
-		filters["company_fb"] = frappe.db.get_value(
+		filters["company_fb"] = frappe.get_cached_value(
 			"Company", filters.get("company"), "default_finance_book"
 		)
 
@@ -86,19 +93,26 @@ def get_gl_entries(filters, accounting_dimensions):
 	if accounting_dimensions:
 		dimension_fields = ", ".join(accounting_dimensions) + ","
 
+	transaction_currency_fields = ""
+	if filters.get("add_values_in_transaction_currency"):
+		transaction_currency_fields = (
+			"debit_in_transaction_currency, credit_in_transaction_currency, transaction_currency,"
+		)
+
 	gl_entries = frappe.db.sql(
 		"""
 		select
 			name as gl_entry, posting_date, account, party_type, party,
-			voucher_type, voucher_no, {dimension_fields}
-			cost_center, project,
+			voucher_type, voucher_subtype, voucher_no, {dimension_fields}
+			cost_center, project, {transaction_currency_fields}
 			against_voucher_type, against_voucher, account_currency,
-			remarks, against, is_opening, creation {select_fields}
+			against, is_opening, creation {select_fields}
 		from `tabGL Entry`
 		where company=%(company)s {conditions}
 		{order_by_statement}
 	""".format(
 			dimension_fields=dimension_fields,
+			transaction_currency_fields=transaction_currency_fields,
 			select_fields=select_fields,
 			conditions=gl.get_conditions(filters),
 			order_by_statement=order_by_statement,
@@ -106,7 +120,7 @@ def get_gl_entries(filters, accounting_dimensions):
 		filters,
 		as_dict=1,
 	)
-	
+
 	if filters.get("presentation_currency"):
 		return gl.convert_to_presentation_currency(gl_entries, currency_map)
 	else:
