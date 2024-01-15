@@ -99,6 +99,7 @@ class TaxSummary:
 				}
 
 				total_amount = 0
+				has_taxes = False
 				if itemised_tax:
 					for tax in itemised_tax.get(item.item_code):
 						if itemised_tax[item.item_code][tax].get("tax_account") not in self.tax_accounts:
@@ -115,9 +116,12 @@ class TaxSummary:
 							-1.0 if itemised_tax[item.item_code][tax].get("add_deduct_tax") == "Deduct" else 1.0
 						)
 						row.update({tax_rate: tax_amount})
+						if tax_amount > 0:
+							has_taxes = True
 						self.parents[self.transaction][item.parent][tax_rate] += tax_amount
 
-				self.data.append(row)
+				if has_taxes:
+					self.data.append(row)
 
 	def calculate_totals(self):
 		total_row = frappe._dict(
@@ -133,7 +137,7 @@ class TaxSummary:
 		for rate in self.tax_rates:
 			total_row.update({rate: 0.0})
 
-		for data in self.data:
+		for data in reversed(self.data):
 			if data.get("indent") == 0:
 				base_net_amount = flt(
 					self.parents.get(data.get("reference_doctype"), {})
@@ -147,8 +151,9 @@ class TaxSummary:
 
 				difference = flt(data.get("base_grand_total")) - flt(base_net_amount)
 
+				has_taxes = False
 				for tax in self.parents.get(data.get("reference_doctype"), {}).get(
-					data.get("reference_document"), {}
+						data.get("reference_document"), {}
 				):
 					if tax not in ("base_net_amount", "base_grand_amount"):
 						tax_amount = flt(
@@ -156,15 +161,20 @@ class TaxSummary:
 							.get(data.get("reference_document"), {})
 							.get(tax)
 						)
+						if tax_amount > 0:
+							has_taxes = True
 						data.update({tax: tax_amount})
 						total_row[tax] += tax_amount
 						difference -= tax_amount
+
+				if not has_taxes:
+					self.data.remove(data)
 
 				data.update({"difference": rounded(difference, precision=2)})
 				total_row["difference"] += difference
 
 		total_row["difference"] = rounded(total_row["difference"], precision=2)
-		self.data.extend([{}, total_row])
+		self.data.extend([total_row])
 
 	def get_columns(self):
 		self.columns = [

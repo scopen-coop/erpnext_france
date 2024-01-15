@@ -29,9 +29,6 @@ def get_down_payment(doc):
 	doc['advances'] = []
 	advance_allocated = 0
 	for d in res:
-#		if doc['party_account_currency'] == doc['company_currency']: # sales_invoice.company_currency does not exists
-#			amount = doc['base_rounded_total'] or doc['base_grand_total']
-#		else:
 		amount = doc['rounded_total'] or doc['grand_total']
 
 		allocated_amount = min(amount - advance_allocated, d.amount)

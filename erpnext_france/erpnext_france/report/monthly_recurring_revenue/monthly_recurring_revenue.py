@@ -107,7 +107,7 @@ def get_data(filters, period_list):
 		result.append(row)
 
 	result.sort(key=lambda x: x["total"], reverse=True)
-	result.append({})
+
 	result.append(total_row)
 	return result
 
@@ -155,6 +155,10 @@ def get_subscription_mrr(subscriptions, period):
 			["billing_interval", "billing_interval_count"],
 			as_dict=True,
 		)
+
+		if not recurrence_period:
+			continue
+
 		subscription_total = flt(subscription.total) / flt(recurrence_period.billing_interval_count)
 
 		if recurrence_period.billing_interval == "Month":

@@ -87,7 +87,6 @@ frappe.ui.form.on('Sales Invoice', {
                 },
                 callback:async function (r) {
                     if (r.message) {
-						console.log(r.message)
                         frm.set_value('advances', []);
                         
                         for (let row of r.message.advances) {
