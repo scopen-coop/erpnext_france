@@ -228,6 +228,9 @@ doc_events = {
 		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
 		"on_submit": "erpnext_france.utils.transaction_log.create_transaction_log"
 	},
+	"GL Entry": {
+		"on_submit": "erpnext_france.utils.accounting_entry_number.add_accounting_entry_number",
+	},
 	"Payment Ledger Entry": {
 		"on_update": "erpnext_france.controllers.ple_down_payment.on_update"
 	},
@@ -240,7 +243,6 @@ doc_events = {
 	"Journal Entry": {
 		"validate": "erpnext_france.controllers.journal_entry_down_payment.validate"
 	},
-
 	"Global Defaults": {
 		"on_update": "erpnext_france.regional.france.pappers.api.setup_pappers"
 	},
@@ -283,8 +285,6 @@ override_whitelisted_methods = {
 regional_overrides = {
 	"France": {
 		"erpnext.controllers.taxes_and_totals.update_itemised_tax_data": "erpnext_france.regional.france.taxes.update_itemised_tax_data",
-		"erpnext.accounts.general_ledger.make_gl_entries": "erpnext_france.regional.france.general_ledger.make_gl_entries",
-		"erpnext.accounts.general_ledger.make_reverse_gl_entries": "erpnext_france.regional.france.general_ledger.make_reverse_gl_entries",
 		"erpnext.accounts.controllers.accounts_controller.update_against_document_in_jv": "erpnext_france.controllers.accounts_controller.update_against_document_in_jv",
 	},
 }

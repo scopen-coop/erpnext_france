@@ -7,7 +7,7 @@ from frappe import _
 from erpnext_france.controllers.party import get_party_account
 from erpnext.accounts.doctype.sales_invoice.sales_invoice import SalesInvoice, update_linked_doc
 from frappe.utils import (cint, flt)
-from erpnext_france.regional.france.general_ledger import make_gl_entries, make_reverse_gl_entries
+from erpnext.accounts.general_ledger import make_gl_entries, make_reverse_gl_entries
 from erpnext.accounts.doctype.gl_entry.gl_entry import update_outstanding_amt
 from erpnext.controllers.accounts_controller import validate_account_head
 from erpnext_france.controllers.accounts_controller import update_against_document_in_jv, make_exchange_gain_loss_gl_entries

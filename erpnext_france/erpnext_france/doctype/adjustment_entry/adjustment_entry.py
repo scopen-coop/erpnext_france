@@ -82,7 +82,7 @@ class AdjustmentEntry(Document):
 					make_entry(entry, False, "False")
 
 	def _make_gl_entries(self):
-		from erpnext_france.regional.france.general_ledger import make_gl_entries
+		from erpnext.accounts.general_ledger import make_gl_entries
 
 		if self.total_posting_amount == 0:
 			return
@@ -94,8 +94,8 @@ class AdjustmentEntry(Document):
 					format_date(self.posting_date)
 				)
 			)
-		else:
-			fiscal_year = fiscal_years[0][0]
+
+		fiscal_year = fiscal_years[0][0]
 
 		gl_entries = []
 		for d in self.details:
