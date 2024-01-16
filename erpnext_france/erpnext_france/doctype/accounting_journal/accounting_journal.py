@@ -8,7 +8,7 @@ from frappe.email.doctype.notification.notification import get_context
 from frappe.model.document import Document
 import copy
 
-from erpnext_france.regional.france.general_ledger import get_accounting_number
+from erpnext_france.utils.accounting_entry_number import get_accounting_number
 from erpnext.accounts.general_ledger import (
 	make_entry,
 	check_freezing_date,

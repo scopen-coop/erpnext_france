@@ -234,12 +234,6 @@ doc_events = {
 	"Payment Ledger Entry": {
 		"on_update": "erpnext_france.controllers.ple_down_payment.on_update"
 	},
-	"Supplier": {
-#		"validate": "erpnext_france.regional.france.extensions.supplier.validate"
-	},
-	"Customer": {
-#		"validate": "erpnext_france.regional.france.extensions.customer.validate"
-	},
 	"Journal Entry": {
 		"validate": "erpnext_france.controllers.journal_entry_down_payment.validate"
 	},

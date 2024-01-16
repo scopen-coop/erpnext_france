@@ -10,7 +10,7 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.utils import add_days, date_diff, flt, format_date, getdate, month_diff, nowdate
 
-from erpnext_france.regional.france.general_ledger import (
+from erpnext.accounts.general_ledger import (
 	check_freezing_date,
 	get_accounting_journal,
 	make_entry,

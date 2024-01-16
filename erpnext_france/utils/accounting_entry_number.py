@@ -25,7 +25,7 @@ def add_accounting_entry_number(gl_entry, action):
 			accounting_entry_number = linked_gl_entry.accounting_entry_number
 
 	if not accounting_entry_number:
-		accounting_entry_number = make_autoname(_("AEN-.fiscal_year.-.#########"), "GL Entry", gl_entry)
+		accounting_entry_number = get_accounting_number(gl_entry)
 
 	gl_entry.accounting_entry_number = accounting_entry_number
 	gl_entry.accounting_journal = get_accounting_journal(gl_entry)
@@ -90,4 +90,7 @@ def get_accounting_journal(entry):
 		)
 
 	return accounting_journal
+
+def get_accounting_number(doc: dict) -> str:
+	return make_autoname(_("AEN-.fiscal_year.-.#########"), "GL Entry", doc)
 

@@ -7,7 +7,7 @@ import json
 @frappe.whitelist()
 def get_item_details_down_payment(args, doc=None, for_validate=False, overwrite_warehouse=True):
 	out = get_item_details(args, doc=None, for_validate=False, overwrite_warehouse=True)
-	if out == None:
+	if out is None:
 		return out
 	
 	item = frappe.get_doc('Item', out['item_code'])
