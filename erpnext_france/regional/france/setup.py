@@ -50,15 +50,6 @@ def make_custom_fields(update=True):
 	]
 
 	custom_fields = {
-		"Company": [
-			dict(
-				fieldname="siren_number",
-				label="SIREN Number",
-				fieldtype="Data",
-				insert_after="website",
-				translatable=0,
-			)
-		],
 		"Account": [
 			dict(
 				fieldname="negative_in_balance_sheet",

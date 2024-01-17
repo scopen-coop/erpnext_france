@@ -10,13 +10,6 @@ def after_install():
 	add_custom_roles_for_reports()
 
 def make_custom_fields():
-	custom_fields = {
-		'Company': [
-			dict(fieldname='siren_number', label='SIREN Number',
-			fieldtype='Data', insert_after='website')
-		]
-	}
-
 	create_custom_fields(custom_fields)
 
 def add_custom_roles_for_reports():

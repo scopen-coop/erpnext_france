@@ -112,6 +112,7 @@
   },
   {
    "fieldname": "get_documents",
+   "depends_on": "eval:doc.docstatus==0",
    "fieldtype": "Button",
    "label": "Get documents"
   },
@@ -122,8 +123,7 @@
   {
    "fieldname": "reversal_date",
    "fieldtype": "Date",
-   "label": "Reversal Date",
-   "reqd": 1
+   "label": "Reversal Date"
   },
   {
    "fieldname": "section_break_12",
@@ -167,8 +167,14 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "Draft\nSubmitted\nReversed\nCancelled",
+   "options": "Draft\nSubmitted\nReversed\nCancelled\nError",
    "read_only": 1
+  },
+  {
+   "fieldname": "error",
+   "fieldtype": "Small Text",
+   "hidden": 1,
+   "label": "Error"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -178,6 +184,7 @@
  "modified_by": "Administrator",
  "module": "Erpnext France",
  "name": "Adjustment Entry",
+ "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
   {
@@ -217,6 +224,7 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "title_field": "title",
  "track_changes": 1
 }

@@ -22,7 +22,7 @@ frappe.listview_settings['Payment Entry'] = {
 			};
 		}
 
-		frappe.require("assets/erpnext_france/js/accounting_journal_adjustment.js", () => {
+		frappe.require("erpnext_france/public/js/accounting_journal_adjustment.js", () => {
 			list_view.page.add_actions_menu_item(
 				__("Accounting Journal Adjustment"),
 				() => {

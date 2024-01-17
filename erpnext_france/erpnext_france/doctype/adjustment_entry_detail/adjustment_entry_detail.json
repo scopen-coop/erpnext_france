@@ -54,16 +54,6 @@
    "reqd": 1
   },
   {
-   "fieldname": "from_date",
-   "fieldtype": "Date",
-   "label": "From Date"
-  },
-  {
-   "fieldname": "to_date",
-   "fieldtype": "Date",
-   "label": "To Date"
-  },
-  {
    "fieldname": "debit",
    "fieldtype": "Currency",
    "in_list_view": 1,

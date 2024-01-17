@@ -16,10 +16,14 @@ frappe.ui.form.on('Adjustment Entry', {
 				frappe.set_route("query-report", "General Ledger");
 			}, "fas fa-table");
 		}
+
+		if (frm.doc.error) {
+			frm.dashboard.set_headline(frm.doc.error, "red")
+		}
 	},
 	get_documents(frm) {
 		frappe.call({
-			method: "erpnext.accounts.doctype.adjustment_entry.adjustment_entry.get_documents",
+			method: "erpnext_france.erpnext_france.doctype.adjustment_entry.adjustment_entry.get_documents",
 			args: {
 				entry_type: frm.doc.entry_type,
 				date: frm.doc.posting_date,

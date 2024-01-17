@@ -12,14 +12,14 @@ from frappe.utils import add_days, date_diff, flt, format_date, getdate, month_d
 
 from erpnext.accounts.general_ledger import (
 	check_freezing_date,
-	get_accounting_journal,
 	make_entry,
 	make_reverse_gl_entries,
 	validate_accounting_period,
 )
 
+from erpnext_france.utils.accounting_entry_number import get_accounting_number
 
-from erpnext.accounts.utils import get_fiscal_years
+from erpnext.accounts.utils import get_fiscal_year
 
 ENTRYTYPES = {"Deferred charges": "Purchase Invoice", "Deferred income": "Sales Invoice"}
 
@@ -27,6 +27,36 @@ ACCOUNTTYPE = {"Purchase Invoice": "expense_account", "Sales Invoice": "income_a
 
 
 class AdjustmentEntry(Document):
+	# begin: auto-generated types
+	# This code is auto-generated. Do not modify anything in this block.
+
+	from typing import TYPE_CHECKING
+
+	if TYPE_CHECKING:
+		from frappe.types import DF
+
+		from erpnext.accounts.doctype.adjustment_entry_detail.adjustment_entry_detail import (
+			AdjustmentEntryDetail,
+		)
+
+		accounting_journal: DF.Link | None
+		adjustment_account: DF.Link
+		amended_from: DF.Link | None
+		auto_repeat: DF.Link | None
+		company: DF.Link
+		details: DF.Table[AdjustmentEntryDetail]
+		entry_type: DF.Literal["Deferred charges", "Deferred income"]
+		error: DF.SmallText | None
+		naming_series: DF.Literal["ACC-ADJ-.YYYY.-"]
+		posting_date: DF.Date
+		reversal_date: DF.Date
+		status: DF.Literal["Draft", "Submitted", "Reversed", "Cancelled", "Error"]
+		title: DF.Data | None
+		total_credit: DF.Currency
+		total_debit: DF.Currency
+		total_posting_amount: DF.Currency
+	# end: auto-generated types
+
 	def on_submit(self):
 		self._make_gl_entries()
 		self.set_status()
@@ -57,6 +87,17 @@ class AdjustmentEntry(Document):
 		if gl_entries:
 			validate_accounting_period(gl_entries)
 			check_freezing_date(gl_entries[0]["posting_date"], False)
+			new_fiscal_year = get_fiscal_year(date, company=self.company)
+
+			if not new_fiscal_year:
+				self.db_set("status", "Error")
+				error_msg = _("No fiscal year could be found to reverse this entry")
+				self.db_set("error", error_msg)
+				frappe.throw(error_msg)
+
+			self.db_set("error", "")
+			fiscal_year = new_fiscal_year[0]
+			accounting_number = get_accounting_number(gl_entries[0])
 
 			for entry in gl_entries:
 				name = entry["name"]
@@ -74,6 +115,9 @@ class AdjustmentEntry(Document):
 				entry["debit_in_account_currency"] = credit_in_account_currency
 				entry["credit_in_account_currency"] = debit_in_account_currency
 				entry["against"] = name
+				entry["accounting_entry_number"] = accounting_number
+				entry["fiscal_year"] = fiscal_year
+
 
 				if not entry.get("accounting_journal"):
 					get_accounting_journal(entry)
@@ -151,7 +195,6 @@ class AdjustmentEntry(Document):
 				traceback = frappe.get_traceback()
 				frappe.throw(traceback)
 
-
 @frappe.whitelist()
 def get_documents(entry_type, date, company):
 	doctype = ENTRYTYPES.get(entry_type)
@@ -161,42 +204,42 @@ def get_documents(entry_type, date, company):
 
 	account_type = ACCOUNTTYPE.get(doctype)
 
-	documents = frappe.db.sql(
-		f"""
-		SELECT dt.name as document_name, dt.from_date, dt.to_date,
-		'{doctype}' as document_type,
-		it.{account_type} as account, it.cost_center
-		FROM `tab{doctype}` as dt
-		LEFT JOIN `tab{doctype} Item` as it
-		ON it.parent = dt.name
-		WHERE dt.company={frappe.db.escape(company)}
-		AND dt.from_date <= {frappe.db.escape(date)}
-		AND dt.to_date > {frappe.db.escape(date)}
-		AND dt.docstatus = 1
-	""",
-		as_dict=True,
+	dt = frappe.qb.DocType(doctype)
+	dti = frappe.qb.DocType(doctype + " Item")
+	documents = (
+		frappe.qb.from_(dt)
+		.left_join(dti)
+		.on(dti.parent == dt.name)
+		.select(dt.name, dti[account_type], dti.cost_center)
+		.where((dt.company == company) & (dt.docstatus == 1))
+		.run(as_dict=True)
 	)
 
 	if not documents:
 		return []
 
-	documents = [frappe._dict(line) for line in {tuple(document.items()) for document in documents}]
+	frappe.throw(str(frappe.qb.from_(dt)
+		.left_join(dti)
+		.on(dti.parent == dt.name)
+		.select(dt.name, dti[account_type], dti.cost_center)
+		.where((dt.company == company) & (dt.docstatus == 1))))
+	documents_list = list(set([x.name for x in documents]))
+	account_list = list(set([x[account_type] for x in documents]))
+	fiscal_year = get_fiscal_year(date=date, company=company)
 
-	documents_list = ", ".join([f"{frappe.db.escape(x.document_name)}" for x in documents])
-	account_list = ", ".join([f"{frappe.db.escape(x.account)}" for x in documents])
-
-	gl_entries = frappe.db.sql(
-		f"""
-		SELECT account, debit, credit, voucher_type, voucher_no
-		FROM `tabGL Entry`
-		WHERE voucher_type='{doctype}'
-		AND voucher_no in ({documents_list})
-		AND account in ({account_list})
-	""",
-		as_dict=True,
+	gle = frappe.qb.DocType('GL Entry')
+	gl_entries = (
+		frappe.qb.from_(gle)
+		.select(gle.account, gle.debit, gle.credit, gle.voucher_type, gle.voucher_no)
+		.where(gle.voucher_type == doctype)
+		.where(gle.voucher_no.isin(documents_list))
+		.where(gle.account.isin(account_list))
+		.where(gle.fiscal_year == fiscal_year[0])
+		.run(as_dict=True)
 	)
 
-	gl_by_document = {gl_entry.voucher_no: defaultdict(list) for gl_entry in gl_entries}
+	gl_by_document = {x:{y: [0,0] for y in account_list} for x in documents_list}
+
 	for gl_entry in gl_entries:
 		if gl_entry.account in gl_by_document[gl_entry.voucher_no]:
 			gl_by_document[gl_entry.voucher_no][gl_entry.account][0] += gl_entry.debit
@@ -207,21 +250,34 @@ def get_documents(entry_type, date, company):
 	total_credit = 0.0
 	total_debit = 0.0
 	total_posting_amount = 0.0
+
+	documents_array = []
 	for document in documents:
-		debit = gl_by_document.get(document.document_name, {}).get(document.account, [0.0, 0.0])[0]
+		debit = gl_by_document[document.name][document[account_type]][0]
 		total_debit += debit
 
-		credit = gl_by_document.get(document.document_name, {}).get(document.account, [0.0, 0.0])[1]
+		credit = gl_by_document[document.name][document[account_type]][1]
 		total_credit += credit
 
-		net_amount = abs(debit - credit)
-		posting_amount = get_posting_amount(document.to_date, date, net_amount)
+		if not debit and not credit:
+			documents.remove(document)
+			continue
+
+		posting_amount = abs(debit - credit)
 		total_posting_amount += posting_amount
 
-		document.update({"debit": debit, "credit": credit, "posting_amount": posting_amount})
+		documents_array.append({
+			"debit": debit,
+			"credit": credit,
+			"posting_amount": posting_amount,
+			"account": document[account_type],
+			"document_name": document.name,
+			"document_type": doctype,
+			"cost_center": document.cost_center
+		})
 
 	return {
-		"documents": documents,
+		"documents": documents_array,
 		"total_debit": total_debit,
 		"total_credit": total_credit,
 		"total_posting_amount": total_posting_amount,

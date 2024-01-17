@@ -13,7 +13,6 @@ app_color = "#318CE7"
 app_email = "contact@scopen.fr"
 app_license = "GNU General Public License"
 
-# fixtures = ["Custom Field"]
 fixtures = [
 	{
 		"dt": ("Custom Field"),
@@ -58,6 +57,9 @@ fixtures = [
 					"Sales Invoice Advance-is_down_payment",
 					"Sales Invoice Item-down_payment_rate",
 					"Sales Invoice Item-is_down_payment_item",
+					"Sales Invoice Item-tax_rate",
+					"Sales Invoice Item-tax_amount",
+					"Sales Invoice Item-total_amount",
 					"Subscription-customer",
 					"Subscription-total",
 					"Subscription-recurrence_period",
@@ -122,6 +124,7 @@ fixtures = [
 		]
 	}
 ]
+# fixtures = ["Custom Field"]
 
 # Includes in <head>
 # ------------------
@@ -237,9 +240,6 @@ doc_events = {
 	"Journal Entry": {
 		"validate": "erpnext_france.controllers.journal_entry_down_payment.validate"
 	},
-	"Global Defaults": {
-		"on_update": "erpnext_france.regional.france.pappers.api.setup_pappers"
-	},
 }
 
 # Scheduled Tasks
@@ -279,6 +279,8 @@ override_whitelisted_methods = {
 regional_overrides = {
 	"France": {
 		"erpnext.controllers.taxes_and_totals.update_itemised_tax_data": "erpnext_france.regional.france.taxes.update_itemised_tax_data",
+		"erpnext.controllers.taxes_and_totals.get_itemised_tax": "erpnext_france.regional.france.taxes.get_itemised_tax",
+		"erpnext.accounts.report.balance_sheet.balance_sheet.execute": "erpnext_france.regional.france.report.balance_sheet.balance_sheet.execute",
 		"erpnext.accounts.controllers.accounts_controller.update_against_document_in_jv": "erpnext_france.controllers.accounts_controller.update_against_document_in_jv",
 	},
 }
