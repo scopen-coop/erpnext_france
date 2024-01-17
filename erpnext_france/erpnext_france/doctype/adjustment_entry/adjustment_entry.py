@@ -218,11 +218,6 @@ def get_documents(entry_type, date, company):
 	if not documents:
 		return []
 
-	frappe.throw(str(frappe.qb.from_(dt)
-		.left_join(dti)
-		.on(dti.parent == dt.name)
-		.select(dt.name, dti[account_type], dti.cost_center)
-		.where((dt.company == company) & (dt.docstatus == 1))))
 	documents_list = list(set([x.name for x in documents]))
 	account_list = list(set([x[account_type] for x in documents]))
 	fiscal_year = get_fiscal_year(date=date, company=company)
