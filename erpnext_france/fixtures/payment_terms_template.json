@@ -1,0 +1,28 @@
+[
+ {
+  "allocate_payment_based_on_payment_terms": 0,
+  "docstatus": 0,
+  "doctype": "Payment Terms Template",
+  "modified": "2024-01-18 11:26:14.833413",
+  "name": "Règlement à 30 jours",
+  "template_name": "Règlement à 30 jours",
+  "terms": [
+   {
+    "credit_days": 30,
+    "credit_months": 0,
+    "description": "Règlement à 30 jours",
+    "discount": 0.0,
+    "discount_type": "Percentage",
+    "discount_validity": 0,
+    "discount_validity_based_on": "Day(s) after invoice date",
+    "due_date_based_on": "Day(s) after invoice date",
+    "invoice_portion": 100.0,
+    "mode_of_payment": null,
+    "parent": "Règlement à 30 jours",
+    "parentfield": "terms",
+    "parenttype": "Payment Terms Template",
+    "payment_term": "Règlement à 30 jours"
+   }
+  ]
+ }
+]

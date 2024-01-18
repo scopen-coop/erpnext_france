@@ -1,0 +1,19 @@
+[
+ {
+  "credit_days": 30,
+  "credit_months": 0,
+  "description": "Règlement à 30 jours",
+  "discount": 0.0,
+  "discount_type": "Percentage",
+  "discount_validity": 0,
+  "discount_validity_based_on": "Day(s) after invoice date",
+  "docstatus": 0,
+  "doctype": "Payment Term",
+  "due_date_based_on": "Day(s) after invoice date",
+  "invoice_portion": 100.0,
+  "mode_of_payment": null,
+  "modified": "2024-01-18 11:25:42.632616",
+  "name": "Règlement à 30 jours",
+  "payment_term_name": "Règlement à 30 jours"
+ }
+]

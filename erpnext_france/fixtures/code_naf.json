@@ -3,7 +3,7 @@
   "code": "0111Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Culture de c\u00e9r\u00e9ales (\u00e0 l'exception du riz), de l\u00e9gumineuses et de graines ol\u00e9agineuses",
+  "label": "Culture de céréales (à l'exception du riz), de légumineuses et de graines oléagineuses",
   "modified": "2023-11-03 11:35:06.452041",
   "name": "1"
  },
@@ -19,7 +19,7 @@
   "code": "0113Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Culture de l\u00e9gumes, de melons, de racines et de tubercules",
+  "label": "Culture de légumes, de melons, de racines et de tubercules",
   "modified": "2023-11-03 11:35:06.475161",
   "name": "3"
  },
@@ -27,7 +27,7 @@
   "code": "0114Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Culture de la canne \u00e0 sucre",
+  "label": "Culture de la canne à sucre",
   "modified": "2023-11-03 11:35:06.479788",
   "name": "4"
  },
@@ -43,7 +43,7 @@
   "code": "0116Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Culture de plantes \u00e0 fibres",
+  "label": "Culture de plantes à fibres",
   "modified": "2023-11-03 11:35:06.486382",
   "name": "6"
  },
@@ -83,7 +83,7 @@
   "code": "0124Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Culture de fruits \u00e0 p\u00e9pins et \u00e0 noyau",
+  "label": "Culture de fruits à pépins et à noyau",
   "modified": "2023-11-03 11:35:06.510500",
   "name": "11"
  },
@@ -91,7 +91,7 @@
   "code": "0125Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Culture d'autres fruits d'arbres ou d'arbustes et de fruits \u00e0 coque",
+  "label": "Culture d'autres fruits d'arbres ou d'arbustes et de fruits à coque",
   "modified": "2023-11-03 11:35:06.514264",
   "name": "12"
  },
@@ -99,7 +99,7 @@
   "code": "0126Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Culture de fruits ol\u00e9agineux",
+  "label": "Culture de fruits oléagineux",
   "modified": "2023-11-03 11:35:06.517879",
   "name": "13"
  },
@@ -107,7 +107,7 @@
   "code": "0127Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Culture de plantes \u00e0 boissons",
+  "label": "Culture de plantes à boissons",
   "modified": "2023-11-03 11:35:06.521400",
   "name": "14"
  },
@@ -115,7 +115,7 @@
   "code": "0128Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Culture de plantes \u00e0 \u00e9pices, aromatiques, m\u00e9dicinales et pharmaceutiques",
+  "label": "Culture de plantes à épices, aromatiques, médicinales et pharmaceutiques",
   "modified": "2023-11-03 11:35:06.525723",
   "name": "15"
  },
@@ -139,7 +139,7 @@
   "code": "0141Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9levage de vaches laiti\u00e8res",
+  "label": "Élevage de vaches laitières",
   "modified": "2023-11-03 11:35:06.535884",
   "name": "18"
  },
@@ -147,7 +147,7 @@
   "code": "0142Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9levage d'autres bovins et de buffles",
+  "label": "Élevage d'autres bovins et de buffles",
   "modified": "2023-11-03 11:35:06.539295",
   "name": "19"
  },
@@ -155,7 +155,7 @@
   "code": "0143Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9levage de chevaux et d'autres \u00e9quid\u00e9s",
+  "label": "Élevage de chevaux et d'autres équidés",
   "modified": "2023-11-03 11:35:06.543163",
   "name": "20"
  },
@@ -163,7 +163,7 @@
   "code": "0144Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9levage de chameaux et d'autres cam\u00e9lid\u00e9s",
+  "label": "Élevage de chameaux et d'autres camélidés",
   "modified": "2023-11-03 11:35:06.546698",
   "name": "21"
  },
@@ -171,7 +171,7 @@
   "code": "0145Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9levage d'ovins et de caprins",
+  "label": "Élevage d'ovins et de caprins",
   "modified": "2023-11-03 11:35:06.549955",
   "name": "22"
  },
@@ -179,7 +179,7 @@
   "code": "0146Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9levage de porcins",
+  "label": "Élevage de porcins",
   "modified": "2023-11-03 11:35:06.553210",
   "name": "23"
  },
@@ -187,7 +187,7 @@
   "code": "0147Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9levage de volailles",
+  "label": "Élevage de volailles",
   "modified": "2023-11-03 11:35:06.556898",
   "name": "24"
  },
@@ -195,7 +195,7 @@
   "code": "0149Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9levage d'autres animaux",
+  "label": "Élevage d'autres animaux",
   "modified": "2023-11-03 11:35:06.560662",
   "name": "25"
  },
@@ -203,7 +203,7 @@
   "code": "0150Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Culture et \u00e9levage associ\u00e9s",
+  "label": "Culture et élevage associés",
   "modified": "2023-11-03 11:35:06.563908",
   "name": "26"
  },
@@ -211,7 +211,7 @@
   "code": "0161Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s de soutien aux cultures",
+  "label": "Activités de soutien aux cultures",
   "modified": "2023-11-03 11:35:06.567099",
   "name": "27"
  },
@@ -219,7 +219,7 @@
   "code": "0162Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s de soutien \u00e0 la production animale",
+  "label": "Activités de soutien à la production animale",
   "modified": "2023-11-03 11:35:06.570219",
   "name": "28"
  },
@@ -227,7 +227,7 @@
   "code": "0163Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Traitement primaire des r\u00e9coltes",
+  "label": "Traitement primaire des récoltes",
   "modified": "2023-11-03 11:35:06.574037",
   "name": "29"
  },
@@ -243,7 +243,7 @@
   "code": "0170Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Chasse, pi\u00e9geage et services annexes",
+  "label": "Chasse, piégeage et services annexes",
   "modified": "2023-11-03 11:35:06.581241",
   "name": "31"
  },
@@ -251,7 +251,7 @@
   "code": "0210Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Sylviculture et autres activit\u00e9s foresti\u00e8res",
+  "label": "Sylviculture et autres activités forestières",
   "modified": "2023-11-03 11:35:06.584506",
   "name": "32"
  },
@@ -259,7 +259,7 @@
   "code": "0220Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Exploitation foresti\u00e8re",
+  "label": "Exploitation forestière",
   "modified": "2023-11-03 11:35:06.587862",
   "name": "33"
  },
@@ -267,7 +267,7 @@
   "code": "0230Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "R\u00e9colte de produits forestiers non ligneux poussant \u00e0 l'\u00e9tat sauvage",
+  "label": "Récolte de produits forestiers non ligneux poussant à l'état sauvage",
   "modified": "2023-11-03 11:35:06.591829",
   "name": "34"
  },
@@ -275,7 +275,7 @@
   "code": "0240Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Services de soutien \u00e0 l'exploitation foresti\u00e8re",
+  "label": "Services de soutien à l'exploitation forestière",
   "modified": "2023-11-03 11:35:06.595287",
   "name": "35"
  },
@@ -283,7 +283,7 @@
   "code": "0311Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "P\u00eache en mer",
+  "label": "Pêche en mer",
   "modified": "2023-11-03 11:35:06.598382",
   "name": "36"
  },
@@ -291,7 +291,7 @@
   "code": "0312Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "P\u00eache en eau douce",
+  "label": "Pêche en eau douce",
   "modified": "2023-11-03 11:35:06.601550",
   "name": "37"
  },
@@ -331,7 +331,7 @@
   "code": "0610Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Extraction de p\u00e9trole brut",
+  "label": "Extraction de pétrole brut",
   "modified": "2023-11-03 11:35:06.619475",
   "name": "42"
  },
@@ -363,7 +363,7 @@
   "code": "0729Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Extraction d'autres minerais de m\u00e9taux non ferreux",
+  "label": "Extraction d'autres minerais de métaux non ferreux",
   "modified": "2023-11-03 11:35:06.634730",
   "name": "46"
  },
@@ -379,7 +379,7 @@
   "code": "0812Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Exploitation de gravi\u00e8res et sabli\u00e8res, extraction d'argiles et de kaolin",
+  "label": "Exploitation de gravières et sablières, extraction d'argiles et de kaolin",
   "modified": "2023-11-03 11:35:06.643880",
   "name": "48"
  },
@@ -387,7 +387,7 @@
   "code": "0891Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Extraction des min\u00e9raux chimiques et d'engrais min\u00e9raux",
+  "label": "Extraction des minéraux chimiques et d'engrais minéraux",
   "modified": "2023-11-03 11:35:06.647615",
   "name": "49"
  },
@@ -411,7 +411,7 @@
   "code": "0899Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres activit\u00e9s extractives n.c.a.",
+  "label": "Autres activités extractives n.c.a.",
   "modified": "2023-11-03 11:35:06.659413",
   "name": "52"
  },
@@ -419,7 +419,7 @@
   "code": "0910Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s de soutien \u00e0 l'extraction d'hydrocarbures",
+  "label": "Activités de soutien à l'extraction d'hydrocarbures",
   "modified": "2023-11-03 11:35:06.662756",
   "name": "53"
  },
@@ -427,7 +427,7 @@
   "code": "0990Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s de soutien aux autres industries extractives",
+  "label": "Activités de soutien aux autres industries extractives",
   "modified": "2023-11-03 11:35:06.665958",
   "name": "54"
  },
@@ -451,7 +451,7 @@
   "code": "1013A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Pr\u00e9paration industrielle de produits \u00e0 base de viande",
+  "label": "Préparation industrielle de produits à base de viande",
   "modified": "2023-11-03 11:35:06.676919",
   "name": "57"
  },
@@ -467,7 +467,7 @@
   "code": "1020Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Transformation et conservation de poisson, de crustac\u00e9s et de mollusques",
+  "label": "Transformation et conservation de poisson, de crustacés et de mollusques",
   "modified": "2023-11-03 11:35:06.683864",
   "name": "59"
  },
@@ -483,7 +483,7 @@
   "code": "1032Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Pr\u00e9paration de jus de fruits et l\u00e9gumes",
+  "label": "Préparation de jus de fruits et légumes",
   "modified": "2023-11-03 11:35:06.691252",
   "name": "61"
  },
@@ -491,7 +491,7 @@
   "code": "1039A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autre transformation et conservation de l\u00e9gumes",
+  "label": "Autre transformation et conservation de légumes",
   "modified": "2023-11-03 11:35:06.695173",
   "name": "62"
  },
@@ -515,7 +515,7 @@
   "code": "1041B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'huiles et graisses raffin\u00e9es",
+  "label": "Fabrication d'huiles et graisses raffinées",
   "modified": "2023-11-03 11:35:06.706112",
   "name": "65"
  },
@@ -579,7 +579,7 @@
   "code": "1061B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres activit\u00e9s du travail des grains",
+  "label": "Autres activités du travail des grains",
   "modified": "2023-11-03 11:35:06.734262",
   "name": "73"
  },
@@ -587,7 +587,7 @@
   "code": "1062Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de produits amylac\u00e9s",
+  "label": "Fabrication de produits amylacés",
   "modified": "2023-11-03 11:35:06.737557",
   "name": "74"
  },
@@ -595,7 +595,7 @@
   "code": "1071A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication industrielle de pain et de p\u00e2tisserie fra\u00eeche",
+  "label": "Fabrication industrielle de pain et de pâtisserie fraîche",
   "modified": "2023-11-03 11:35:06.742028",
   "name": "75"
  },
@@ -611,7 +611,7 @@
   "code": "1071C",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Boulangerie et boulangerie-p\u00e2tisserie",
+  "label": "Boulangerie et boulangerie-pâtisserie",
   "modified": "2023-11-03 11:35:06.748598",
   "name": "77"
  },
@@ -619,7 +619,7 @@
   "code": "1071D",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "P\u00e2tisserie",
+  "label": "Pâtisserie",
   "modified": "2023-11-03 11:35:06.751830",
   "name": "78"
  },
@@ -627,7 +627,7 @@
   "code": "1072Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de biscuits, biscottes et p\u00e2tisseries de conservation",
+  "label": "Fabrication de biscuits, biscottes et pâtisseries de conservation",
   "modified": "2023-11-03 11:35:06.754914",
   "name": "79"
  },
@@ -635,7 +635,7 @@
   "code": "1073Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de p\u00e2tes alimentaires",
+  "label": "Fabrication de pâtes alimentaires",
   "modified": "2023-11-03 11:35:06.759437",
   "name": "80"
  },
@@ -659,7 +659,7 @@
   "code": "1083Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Transformation du th\u00e9 et du caf\u00e9",
+  "label": "Transformation du thé et du café",
   "modified": "2023-11-03 11:35:06.770029",
   "name": "83"
  },
@@ -675,7 +675,7 @@
   "code": "1085Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de plats pr\u00e9par\u00e9s",
+  "label": "Fabrication de plats préparés",
   "modified": "2023-11-03 11:35:06.778245",
   "name": "85"
  },
@@ -683,7 +683,7 @@
   "code": "1086Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'aliments homog\u00e9n\u00e9is\u00e9s et di\u00e9t\u00e9tiques",
+  "label": "Fabrication d'aliments homogénéisés et diététiques",
   "modified": "2023-11-03 11:35:06.781460",
   "name": "86"
  },
@@ -715,7 +715,7 @@
   "code": "1101Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Production de boissons alcooliques distill\u00e9es",
+  "label": "Production de boissons alcooliques distillées",
   "modified": "2023-11-03 11:35:06.796657",
   "name": "90"
  },
@@ -747,7 +747,7 @@
   "code": "1104Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Production d'autres boissons ferment\u00e9es non distill\u00e9es",
+  "label": "Production d'autres boissons fermentées non distillées",
   "modified": "2023-11-03 11:35:06.811882",
   "name": "94"
  },
@@ -755,7 +755,7 @@
   "code": "1105Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de bi\u00e8re",
+  "label": "Fabrication de bière",
   "modified": "2023-11-03 11:35:06.815240",
   "name": "95"
  },
@@ -779,7 +779,7 @@
   "code": "1107B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Production de boissons rafra\u00eechissantes",
+  "label": "Production de boissons rafraîchissantes",
   "modified": "2023-11-03 11:35:06.825845",
   "name": "98"
  },
@@ -787,7 +787,7 @@
   "code": "1200Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de produits \u00e0 base de tabac",
+  "label": "Fabrication de produits à base de tabac",
   "modified": "2023-11-03 11:35:06.829053",
   "name": "99"
  },
@@ -795,7 +795,7 @@
   "code": "1310Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Pr\u00e9paration de fibres textiles et filature",
+  "label": "Préparation de fibres textiles et filature",
   "modified": "2023-11-03 11:35:06.832034",
   "name": "100"
  },
@@ -819,7 +819,7 @@
   "code": "1391Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'\u00e9toffes \u00e0 mailles",
+  "label": "Fabrication d'étoffes à mailles",
   "modified": "2023-11-03 11:35:06.842412",
   "name": "103"
  },
@@ -851,7 +851,7 @@
   "code": "1395Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de non-tiss\u00e9s, sauf habillement",
+  "label": "Fabrication de non-tissés, sauf habillement",
   "modified": "2023-11-03 11:35:06.855210",
   "name": "107"
  },
@@ -875,7 +875,7 @@
   "code": "1411Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de v\u00eatements en cuir",
+  "label": "Fabrication de vêtements en cuir",
   "modified": "2023-11-03 11:35:06.865782",
   "name": "110"
  },
@@ -883,7 +883,7 @@
   "code": "1412Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de v\u00eatements de travail",
+  "label": "Fabrication de vêtements de travail",
   "modified": "2023-11-03 11:35:06.869007",
   "name": "111"
  },
@@ -891,7 +891,7 @@
   "code": "1413Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de v\u00eatements de dessus",
+  "label": "Fabrication de vêtements de dessus",
   "modified": "2023-11-03 11:35:06.872335",
   "name": "112"
  },
@@ -899,7 +899,7 @@
   "code": "1414Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de v\u00eatements de dessous",
+  "label": "Fabrication de vêtements de dessous",
   "modified": "2023-11-03 11:35:06.875997",
   "name": "113"
  },
@@ -907,7 +907,7 @@
   "code": "1419Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'autres v\u00eatements et accessoires",
+  "label": "Fabrication d'autres vêtements et accessoires",
   "modified": "2023-11-03 11:35:06.879068",
   "name": "114"
  },
@@ -923,7 +923,7 @@
   "code": "1431Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'articles chaussants \u00e0 mailles",
+  "label": "Fabrication d'articles chaussants à mailles",
   "modified": "2023-11-03 11:35:06.885530",
   "name": "116"
  },
@@ -931,7 +931,7 @@
   "code": "1439Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'autres articles \u00e0 mailles",
+  "label": "Fabrication d'autres articles à mailles",
   "modified": "2023-11-03 11:35:06.889386",
   "name": "117"
  },
@@ -939,7 +939,7 @@
   "code": "1511Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Appr\u00eat et tannage des cuirs ; pr\u00e9paration et teinture des fourrures",
+  "label": "Apprêt et tannage des cuirs ; préparation et teinture des fourrures",
   "modified": "2023-11-03 11:35:06.894088",
   "name": "118"
  },
@@ -963,7 +963,7 @@
   "code": "1610A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Sciage et rabotage du bois, hors impr\u00e9gnation",
+  "label": "Sciage et rabotage du bois, hors imprégnation",
   "modified": "2023-11-03 11:35:06.903913",
   "name": "121"
  },
@@ -971,7 +971,7 @@
   "code": "1610B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Impr\u00e9gnation du bois",
+  "label": "Imprégnation du bois",
   "modified": "2023-11-03 11:35:06.907934",
   "name": "122"
  },
@@ -987,7 +987,7 @@
   "code": "1622Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de parquets assembl\u00e9s",
+  "label": "Fabrication de parquets assemblés",
   "modified": "2023-11-03 11:35:06.915659",
   "name": "124"
  },
@@ -1011,7 +1011,7 @@
   "code": "1629Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'objets divers en bois ; fabrication d'objets en li\u00e8ge, vannerie et sparterie",
+  "label": "Fabrication d'objets divers en bois ; fabrication d'objets en liège, vannerie et sparterie",
   "modified": "2023-11-03 11:35:06.934607",
   "name": "127"
  },
@@ -1019,7 +1019,7 @@
   "code": "1711Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de p\u00e2te \u00e0 papier",
+  "label": "Fabrication de pâte à papier",
   "modified": "2023-11-03 11:35:06.938244",
   "name": "128"
  },
@@ -1035,7 +1035,7 @@
   "code": "1721A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de carton ondul\u00e9",
+  "label": "Fabrication de carton ondulé",
   "modified": "2023-11-03 11:35:06.945915",
   "name": "130"
  },
@@ -1059,7 +1059,7 @@
   "code": "1722Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'articles en papier \u00e0 usage sanitaire ou domestique",
+  "label": "Fabrication d'articles en papier à usage sanitaire ou domestique",
   "modified": "2023-11-03 11:35:06.956432",
   "name": "133"
  },
@@ -1107,7 +1107,7 @@
   "code": "1813Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s de pr\u00e9-presse",
+  "label": "Activités de pré-presse",
   "modified": "2023-11-03 11:35:06.978787",
   "name": "139"
  },
@@ -1115,7 +1115,7 @@
   "code": "1814Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Reliure et activit\u00e9s connexes",
+  "label": "Reliure et activités connexes",
   "modified": "2023-11-03 11:35:06.982206",
   "name": "140"
  },
@@ -1131,7 +1131,7 @@
   "code": "1910Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Cok\u00e9faction",
+  "label": "Cokéfaction",
   "modified": "2023-11-03 11:35:06.988557",
   "name": "142"
  },
@@ -1139,7 +1139,7 @@
   "code": "1920Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Raffinage du p\u00e9trole",
+  "label": "Raffinage du pétrole",
   "modified": "2023-11-03 11:35:06.992353",
   "name": "143"
  },
@@ -1163,7 +1163,7 @@
   "code": "2013A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Enrichissement et retraitement de mati\u00e8res nucl\u00e9aires",
+  "label": "Enrichissement et retraitement de matières nucléaires",
   "modified": "2023-11-03 11:35:07.002508",
   "name": "146"
  },
@@ -1187,7 +1187,7 @@
   "code": "2015Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de produits azot\u00e9s et d'engrais",
+  "label": "Fabrication de produits azotés et d'engrais",
   "modified": "2023-11-03 11:35:07.013060",
   "name": "149"
  },
@@ -1195,7 +1195,7 @@
   "code": "2016Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de mati\u00e8res plastiques de base",
+  "label": "Fabrication de matières plastiques de base",
   "modified": "2023-11-03 11:35:07.016229",
   "name": "150"
  },
@@ -1203,7 +1203,7 @@
   "code": "2017Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de caoutchouc synth\u00e9tique",
+  "label": "Fabrication de caoutchouc synthétique",
   "modified": "2023-11-03 11:35:07.019604",
   "name": "151"
  },
@@ -1227,7 +1227,7 @@
   "code": "2041Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de savons, d\u00e9tergents et produits d'entretien",
+  "label": "Fabrication de savons, détergents et produits d'entretien",
   "modified": "2023-11-03 11:35:07.030633",
   "name": "154"
  },
@@ -1275,7 +1275,7 @@
   "code": "2060Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de fibres artificielles ou synth\u00e9tiques",
+  "label": "Fabrication de fibres artificielles ou synthétiques",
   "modified": "2023-11-03 11:35:07.051730",
   "name": "160"
  },
@@ -1291,7 +1291,7 @@
   "code": "2120Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de pr\u00e9parations pharmaceutiques",
+  "label": "Fabrication de préparations pharmaceutiques",
   "modified": "2023-11-03 11:35:07.058875",
   "name": "162"
  },
@@ -1315,7 +1315,7 @@
   "code": "2221Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de plaques, feuilles, tubes et profil\u00e9s en mati\u00e8res plastiques",
+  "label": "Fabrication de plaques, feuilles, tubes et profilés en matières plastiques",
   "modified": "2023-11-03 11:35:07.069321",
   "name": "165"
  },
@@ -1323,7 +1323,7 @@
   "code": "2222Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'emballages en mati\u00e8res plastiques",
+  "label": "Fabrication d'emballages en matières plastiques",
   "modified": "2023-11-03 11:35:07.073161",
   "name": "166"
  },
@@ -1331,7 +1331,7 @@
   "code": "2223Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'\u00e9l\u00e9ments en mati\u00e8res plastiques pour la construction",
+  "label": "Fabrication d'éléments en matières plastiques pour la construction",
   "modified": "2023-11-03 11:35:07.077174",
   "name": "167"
  },
@@ -1339,7 +1339,7 @@
   "code": "2229A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de pi\u00e8ces techniques \u00e0 base de mati\u00e8res plastiques",
+  "label": "Fabrication de pièces techniques à base de matières plastiques",
   "modified": "2023-11-03 11:35:07.080699",
   "name": "168"
  },
@@ -1347,7 +1347,7 @@
   "code": "2229B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de produits de consommation courante en mati\u00e8res plastiques",
+  "label": "Fabrication de produits de consommation courante en matières plastiques",
   "modified": "2023-11-03 11:35:07.084184",
   "name": "169"
  },
@@ -1363,7 +1363,7 @@
   "code": "2312Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fa\u00e7onnage et transformation du verre plat",
+  "label": "Façonnage et transformation du verre plat",
   "modified": "2023-11-03 11:35:07.091387",
   "name": "171"
  },
@@ -1387,7 +1387,7 @@
   "code": "2319Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication et fa\u00e7onnage d'autres articles en verre, y compris verre technique",
+  "label": "Fabrication et façonnage d'autres articles en verre, y compris verre technique",
   "modified": "2023-11-03 11:35:07.101793",
   "name": "174"
  },
@@ -1395,7 +1395,7 @@
   "code": "2320Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de produits r\u00e9fractaires",
+  "label": "Fabrication de produits réfractaires",
   "modified": "2023-11-03 11:35:07.105176",
   "name": "175"
  },
@@ -1403,7 +1403,7 @@
   "code": "2331Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de carreaux en c\u00e9ramique",
+  "label": "Fabrication de carreaux en céramique",
   "modified": "2023-11-03 11:35:07.109506",
   "name": "176"
  },
@@ -1419,7 +1419,7 @@
   "code": "2341Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'articles c\u00e9ramiques \u00e0 usage domestique ou ornemental",
+  "label": "Fabrication d'articles céramiques à usage domestique ou ornemental",
   "modified": "2023-11-03 11:35:07.116893",
   "name": "178"
  },
@@ -1427,7 +1427,7 @@
   "code": "2342Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'appareils sanitaires en c\u00e9ramique",
+  "label": "Fabrication d'appareils sanitaires en céramique",
   "modified": "2023-11-03 11:35:07.120778",
   "name": "179"
  },
@@ -1435,7 +1435,7 @@
   "code": "2343Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'isolateurs et pi\u00e8ces isolantes en c\u00e9ramique",
+  "label": "Fabrication d'isolateurs et pièces isolantes en céramique",
   "modified": "2023-11-03 11:35:07.125222",
   "name": "180"
  },
@@ -1443,7 +1443,7 @@
   "code": "2344Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'autres produits c\u00e9ramiques \u00e0 usage technique",
+  "label": "Fabrication d'autres produits céramiques à usage technique",
   "modified": "2023-11-03 11:35:07.128748",
   "name": "181"
  },
@@ -1451,7 +1451,7 @@
   "code": "2349Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'autres produits c\u00e9ramiques",
+  "label": "Fabrication d'autres produits céramiques",
   "modified": "2023-11-03 11:35:07.131990",
   "name": "182"
  },
@@ -1467,7 +1467,7 @@
   "code": "2352Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de chaux et pl\u00e2tre",
+  "label": "Fabrication de chaux et plâtre",
   "modified": "2023-11-03 11:35:07.138673",
   "name": "184"
  },
@@ -1475,7 +1475,7 @@
   "code": "2361Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'\u00e9l\u00e9ments en b\u00e9ton pour la construction",
+  "label": "Fabrication d'éléments en béton pour la construction",
   "modified": "2023-11-03 11:35:07.143122",
   "name": "185"
  },
@@ -1483,7 +1483,7 @@
   "code": "2362Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'\u00e9l\u00e9ments en pl\u00e2tre pour la construction",
+  "label": "Fabrication d'éléments en plâtre pour la construction",
   "modified": "2023-11-03 11:35:07.146632",
   "name": "186"
  },
@@ -1491,7 +1491,7 @@
   "code": "2363Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de b\u00e9ton pr\u00eat \u00e0 l'emploi",
+  "label": "Fabrication de béton prêt à l'emploi",
   "modified": "2023-11-03 11:35:07.150036",
   "name": "187"
  },
@@ -1499,7 +1499,7 @@
   "code": "2364Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de mortiers et b\u00e9tons secs",
+  "label": "Fabrication de mortiers et bétons secs",
   "modified": "2023-11-03 11:35:07.155639",
   "name": "188"
  },
@@ -1515,7 +1515,7 @@
   "code": "2369Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'autres ouvrages en b\u00e9ton, en ciment ou en pl\u00e2tre",
+  "label": "Fabrication d'autres ouvrages en béton, en ciment ou en plâtre",
   "modified": "2023-11-03 11:35:07.164013",
   "name": "190"
  },
@@ -1523,7 +1523,7 @@
   "code": "2370Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Taille, fa\u00e7onnage et finissage de pierres",
+  "label": "Taille, façonnage et finissage de pierres",
   "modified": "2023-11-03 11:35:07.167357",
   "name": "191"
  },
@@ -1539,7 +1539,7 @@
   "code": "2399Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'autres produits min\u00e9raux non m\u00e9talliques n.c.a.",
+  "label": "Fabrication d'autres produits minéraux non métalliques n.c.a.",
   "modified": "2023-11-03 11:35:07.175519",
   "name": "193"
  },
@@ -1547,7 +1547,7 @@
   "code": "2410Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Sid\u00e9rurgie",
+  "label": "Sidérurgie",
   "modified": "2023-11-03 11:35:07.179041",
   "name": "194"
  },
@@ -1555,7 +1555,7 @@
   "code": "2420Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de tubes, tuyaux, profil\u00e9s creux et accessoires correspondants en acier",
+  "label": "Fabrication de tubes, tuyaux, profilés creux et accessoires correspondants en acier",
   "modified": "2023-11-03 11:35:07.182241",
   "name": "195"
  },
@@ -1563,7 +1563,7 @@
   "code": "2431Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9tirage \u00e0 froid de barres",
+  "label": "Étirage à froid de barres",
   "modified": "2023-11-03 11:35:07.185456",
   "name": "196"
  },
@@ -1571,7 +1571,7 @@
   "code": "2432Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Laminage \u00e0 froid de feuillards",
+  "label": "Laminage à froid de feuillards",
   "modified": "2023-11-03 11:35:07.188838",
   "name": "197"
  },
@@ -1579,7 +1579,7 @@
   "code": "2433Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Profilage \u00e0 froid par formage ou pliage",
+  "label": "Profilage à froid par formage ou pliage",
   "modified": "2023-11-03 11:35:07.193028",
   "name": "198"
  },
@@ -1587,7 +1587,7 @@
   "code": "2434Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Tr\u00e9filage \u00e0 froid",
+  "label": "Tréfilage à froid",
   "modified": "2023-11-03 11:35:07.196408",
   "name": "199"
  },
@@ -1595,7 +1595,7 @@
   "code": "2441Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Production de m\u00e9taux pr\u00e9cieux",
+  "label": "Production de métaux précieux",
   "modified": "2023-11-03 11:35:07.199695",
   "name": "200"
  },
@@ -1603,7 +1603,7 @@
   "code": "2442Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "M\u00e9tallurgie de l'aluminium",
+  "label": "Métallurgie de l'aluminium",
   "modified": "2023-11-03 11:35:07.202921",
   "name": "201"
  },
@@ -1611,7 +1611,7 @@
   "code": "2443Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "M\u00e9tallurgie du plomb, du zinc ou de l'\u00e9tain",
+  "label": "Métallurgie du plomb, du zinc ou de l'étain",
   "modified": "2023-11-03 11:35:07.206259",
   "name": "202"
  },
@@ -1619,7 +1619,7 @@
   "code": "2444Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "M\u00e9tallurgie du cuivre",
+  "label": "Métallurgie du cuivre",
   "modified": "2023-11-03 11:35:07.210168",
   "name": "203"
  },
@@ -1627,7 +1627,7 @@
   "code": "2445Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "M\u00e9tallurgie des autres m\u00e9taux non ferreux",
+  "label": "Métallurgie des autres métaux non ferreux",
   "modified": "2023-11-03 11:35:07.213406",
   "name": "204"
  },
@@ -1635,7 +1635,7 @@
   "code": "2446Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9laboration et transformation de mati\u00e8res nucl\u00e9aires",
+  "label": "Élaboration et transformation de matières nucléaires",
   "modified": "2023-11-03 11:35:07.216541",
   "name": "205"
  },
@@ -1659,7 +1659,7 @@
   "code": "2453Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fonderie de m\u00e9taux l\u00e9gers",
+  "label": "Fonderie de métaux légers",
   "modified": "2023-11-03 11:35:07.228681",
   "name": "208"
  },
@@ -1667,7 +1667,7 @@
   "code": "2454Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fonderie d'autres m\u00e9taux non ferreux",
+  "label": "Fonderie d'autres métaux non ferreux",
   "modified": "2023-11-03 11:35:07.232028",
   "name": "209"
  },
@@ -1675,7 +1675,7 @@
   "code": "2511Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de structures m\u00e9talliques et de parties de structures",
+  "label": "Fabrication de structures métalliques et de parties de structures",
   "modified": "2023-11-03 11:35:07.235247",
   "name": "210"
  },
@@ -1683,7 +1683,7 @@
   "code": "2512Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de portes et fen\u00eatres en m\u00e9tal",
+  "label": "Fabrication de portes et fenêtres en métal",
   "modified": "2023-11-03 11:35:07.238297",
   "name": "211"
  },
@@ -1691,7 +1691,7 @@
   "code": "2521Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de radiateurs et de chaudi\u00e8res pour le chauffage central",
+  "label": "Fabrication de radiateurs et de chaudières pour le chauffage central",
   "modified": "2023-11-03 11:35:07.242421",
   "name": "212"
  },
@@ -1699,7 +1699,7 @@
   "code": "2529Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'autres r\u00e9servoirs, citernes et conteneurs m\u00e9talliques",
+  "label": "Fabrication d'autres réservoirs, citernes et conteneurs métalliques",
   "modified": "2023-11-03 11:35:07.245885",
   "name": "213"
  },
@@ -1707,7 +1707,7 @@
   "code": "2530Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de g\u00e9n\u00e9rateurs de vapeur, \u00e0 l'exception des chaudi\u00e8res pour le chauffage central",
+  "label": "Fabrication de générateurs de vapeur, à l'exception des chaudières pour le chauffage central",
   "modified": "2023-11-03 11:35:07.249074",
   "name": "214"
  },
@@ -1723,7 +1723,7 @@
   "code": "2550A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Forge, estampage, matri\u00e7age ; m\u00e9tallurgie des poudres",
+  "label": "Forge, estampage, matriçage ; métallurgie des poudres",
   "modified": "2023-11-03 11:35:07.255393",
   "name": "216"
  },
@@ -1731,7 +1731,7 @@
   "code": "2550B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "D\u00e9coupage, emboutissage",
+  "label": "Découpage, emboutissage",
   "modified": "2023-11-03 11:35:07.259446",
   "name": "217"
  },
@@ -1739,7 +1739,7 @@
   "code": "2561Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Traitement et rev\u00eatement des m\u00e9taux",
+  "label": "Traitement et revêtement des métaux",
   "modified": "2023-11-03 11:35:07.263194",
   "name": "218"
  },
@@ -1747,7 +1747,7 @@
   "code": "2562A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "D\u00e9colletage",
+  "label": "Décolletage",
   "modified": "2023-11-03 11:35:07.266455",
   "name": "219"
  },
@@ -1755,7 +1755,7 @@
   "code": "2562B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "M\u00e9canique industrielle",
+  "label": "Mécanique industrielle",
   "modified": "2023-11-03 11:35:07.269986",
   "name": "220"
  },
@@ -1779,7 +1779,7 @@
   "code": "2573A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de moules et mod\u00e8les",
+  "label": "Fabrication de moules et modèles",
   "modified": "2023-11-03 11:35:07.281549",
   "name": "223"
  },
@@ -1795,7 +1795,7 @@
   "code": "2591Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de f\u00fbts et emballages m\u00e9talliques similaires",
+  "label": "Fabrication de fûts et emballages métalliques similaires",
   "modified": "2023-11-03 11:35:07.287823",
   "name": "225"
  },
@@ -1803,7 +1803,7 @@
   "code": "2592Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'emballages m\u00e9talliques l\u00e9gers",
+  "label": "Fabrication d'emballages métalliques légers",
   "modified": "2023-11-03 11:35:07.292428",
   "name": "226"
  },
@@ -1811,7 +1811,7 @@
   "code": "2593Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'articles en fils m\u00e9talliques, de cha\u00eenes et de ressorts",
+  "label": "Fabrication d'articles en fils métalliques, de chaînes et de ressorts",
   "modified": "2023-11-03 11:35:07.296409",
   "name": "227"
  },
@@ -1827,7 +1827,7 @@
   "code": "2599A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'articles m\u00e9talliques m\u00e9nagers",
+  "label": "Fabrication d'articles métalliques ménagers",
   "modified": "2023-11-03 11:35:07.302978",
   "name": "229"
  },
@@ -1835,7 +1835,7 @@
   "code": "2599B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'autres articles m\u00e9talliques",
+  "label": "Fabrication d'autres articles métalliques",
   "modified": "2023-11-03 11:35:07.306873",
   "name": "230"
  },
@@ -1843,7 +1843,7 @@
   "code": "2611Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de composants \u00e9lectroniques",
+  "label": "Fabrication de composants électroniques",
   "modified": "2023-11-03 11:35:07.311446",
   "name": "231"
  },
@@ -1851,7 +1851,7 @@
   "code": "2612Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de cartes \u00e9lectroniques assembl\u00e9es",
+  "label": "Fabrication de cartes électroniques assemblées",
   "modified": "2023-11-03 11:35:07.314751",
   "name": "232"
  },
@@ -1859,7 +1859,7 @@
   "code": "2620Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'ordinateurs et d'\u00e9quipements p\u00e9riph\u00e9riques",
+  "label": "Fabrication d'ordinateurs et d'équipements périphériques",
   "modified": "2023-11-03 11:35:07.318290",
   "name": "233"
  },
@@ -1867,7 +1867,7 @@
   "code": "2630Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'\u00e9quipements de communication",
+  "label": "Fabrication d'équipements de communication",
   "modified": "2023-11-03 11:35:07.321603",
   "name": "234"
  },
@@ -1875,7 +1875,7 @@
   "code": "2640Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de produits \u00e9lectroniques grand public",
+  "label": "Fabrication de produits électroniques grand public",
   "modified": "2023-11-03 11:35:07.325429",
   "name": "235"
  },
@@ -1883,7 +1883,7 @@
   "code": "2651A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'\u00e9quipements d'aide \u00e0 la navigation",
+  "label": "Fabrication d'équipements d'aide à la navigation",
   "modified": "2023-11-03 11:35:07.329054",
   "name": "236"
  },
@@ -1907,7 +1907,7 @@
   "code": "2660Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'\u00e9quipements d'irradiation m\u00e9dicale, d'\u00e9quipements \u00e9lectrom\u00e9dicaux et \u00e9lectroth\u00e9rapeutiques",
+  "label": "Fabrication d'équipements d'irradiation médicale, d'équipements électromédicaux et électrothérapeutiques",
   "modified": "2023-11-03 11:35:07.339730",
   "name": "239"
  },
@@ -1915,7 +1915,7 @@
   "code": "2670Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de mat\u00e9riels optique et photographique",
+  "label": "Fabrication de matériels optique et photographique",
   "modified": "2023-11-03 11:35:07.343675",
   "name": "240"
  },
@@ -1923,7 +1923,7 @@
   "code": "2680Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de supports magn\u00e9tiques et optiques",
+  "label": "Fabrication de supports magnétiques et optiques",
   "modified": "2023-11-03 11:35:07.347119",
   "name": "241"
  },
@@ -1931,7 +1931,7 @@
   "code": "2711Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de moteurs, g\u00e9n\u00e9ratrices et transformateurs \u00e9lectriques",
+  "label": "Fabrication de moteurs, génératrices et transformateurs électriques",
   "modified": "2023-11-03 11:35:07.350435",
   "name": "242"
  },
@@ -1939,7 +1939,7 @@
   "code": "2712Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de mat\u00e9riel de distribution et de commande \u00e9lectrique",
+  "label": "Fabrication de matériel de distribution et de commande électrique",
   "modified": "2023-11-03 11:35:07.353642",
   "name": "243"
  },
@@ -1947,7 +1947,7 @@
   "code": "2720Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de piles et d'accumulateurs \u00e9lectriques",
+  "label": "Fabrication de piles et d'accumulateurs électriques",
   "modified": "2023-11-03 11:35:07.357242",
   "name": "244"
  },
@@ -1955,7 +1955,7 @@
   "code": "2731Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de c\u00e2bles de fibres optiques",
+  "label": "Fabrication de câbles de fibres optiques",
   "modified": "2023-11-03 11:35:07.360650",
   "name": "245"
  },
@@ -1963,7 +1963,7 @@
   "code": "2732Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'autres fils et c\u00e2bles \u00e9lectroniques ou \u00e9lectriques",
+  "label": "Fabrication d'autres fils et câbles électroniques ou électriques",
   "modified": "2023-11-03 11:35:07.363697",
   "name": "246"
  },
@@ -1971,7 +1971,7 @@
   "code": "2733Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de mat\u00e9riel d'installation \u00e9lectrique",
+  "label": "Fabrication de matériel d'installation électrique",
   "modified": "2023-11-03 11:35:07.366686",
   "name": "247"
  },
@@ -1979,7 +1979,7 @@
   "code": "2740Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'appareils d'\u00e9clairage \u00e9lectrique",
+  "label": "Fabrication d'appareils d'éclairage électrique",
   "modified": "2023-11-03 11:35:07.369636",
   "name": "248"
  },
@@ -1987,7 +1987,7 @@
   "code": "2751Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'appareils \u00e9lectrom\u00e9nagers",
+  "label": "Fabrication d'appareils électroménagers",
   "modified": "2023-11-03 11:35:07.373438",
   "name": "249"
  },
@@ -1995,7 +1995,7 @@
   "code": "2752Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'appareils m\u00e9nagers non \u00e9lectriques",
+  "label": "Fabrication d'appareils ménagers non électriques",
   "modified": "2023-11-03 11:35:07.377216",
   "name": "250"
  },
@@ -2003,7 +2003,7 @@
   "code": "2790Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'autres mat\u00e9riels \u00e9lectriques",
+  "label": "Fabrication d'autres matériels électriques",
   "modified": "2023-11-03 11:35:07.380670",
   "name": "251"
  },
@@ -2011,7 +2011,7 @@
   "code": "2811Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de moteurs et turbines, \u00e0 l'exception des moteurs d'avions et de v\u00e9hicules",
+  "label": "Fabrication de moteurs et turbines, à l'exception des moteurs d'avions et de véhicules",
   "modified": "2023-11-03 11:35:07.383840",
   "name": "252"
  },
@@ -2019,7 +2019,7 @@
   "code": "2812Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'\u00e9quipements hydrauliques et pneumatiques",
+  "label": "Fabrication d'équipements hydrauliques et pneumatiques",
   "modified": "2023-11-03 11:35:07.387005",
   "name": "253"
  },
@@ -2043,7 +2043,7 @@
   "code": "2815Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'engrenages et d'organes m\u00e9caniques de transmission",
+  "label": "Fabrication d'engrenages et d'organes mécaniques de transmission",
   "modified": "2023-11-03 11:35:07.397070",
   "name": "256"
  },
@@ -2051,7 +2051,7 @@
   "code": "2821Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de fours et br\u00fbleurs",
+  "label": "Fabrication de fours et brûleurs",
   "modified": "2023-11-03 11:35:07.400029",
   "name": "257"
  },
@@ -2059,7 +2059,7 @@
   "code": "2822Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de mat\u00e9riel de levage et de manutention",
+  "label": "Fabrication de matériel de levage et de manutention",
   "modified": "2023-11-03 11:35:07.403022",
   "name": "258"
  },
@@ -2067,7 +2067,7 @@
   "code": "2823Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de machines et d'\u00e9quipements de bureau (\u00e0 l'exception des ordinateurs et \u00e9quipements p\u00e9riph\u00e9riques)",
+  "label": "Fabrication de machines et d'équipements de bureau (à l'exception des ordinateurs et équipements périphériques)",
   "modified": "2023-11-03 11:35:07.406447",
   "name": "259"
  },
@@ -2075,7 +2075,7 @@
   "code": "2824Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'outillage portatif \u00e0 moteur incorpor\u00e9",
+  "label": "Fabrication d'outillage portatif à moteur incorporé",
   "modified": "2023-11-03 11:35:07.411431",
   "name": "260"
  },
@@ -2083,7 +2083,7 @@
   "code": "2825Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'\u00e9quipements a\u00e9rauliques et frigorifiques industriels",
+  "label": "Fabrication d'équipements aérauliques et frigorifiques industriels",
   "modified": "2023-11-03 11:35:07.414969",
   "name": "261"
  },
@@ -2091,7 +2091,7 @@
   "code": "2829A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'\u00e9quipements d'emballage, de conditionnement et de pesage",
+  "label": "Fabrication d'équipements d'emballage, de conditionnement et de pesage",
   "modified": "2023-11-03 11:35:07.418640",
   "name": "262"
  },
@@ -2099,7 +2099,7 @@
   "code": "2829B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'autres machines d'usage g\u00e9n\u00e9ral",
+  "label": "Fabrication d'autres machines d'usage général",
   "modified": "2023-11-03 11:35:07.422925",
   "name": "263"
  },
@@ -2107,7 +2107,7 @@
   "code": "2830Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de machines agricoles et foresti\u00e8res",
+  "label": "Fabrication de machines agricoles et forestières",
   "modified": "2023-11-03 11:35:07.427404",
   "name": "264"
  },
@@ -2115,7 +2115,7 @@
   "code": "2841Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de machines-outils pour le travail des m\u00e9taux",
+  "label": "Fabrication de machines-outils pour le travail des métaux",
   "modified": "2023-11-03 11:35:07.430991",
   "name": "265"
  },
@@ -2131,7 +2131,7 @@
   "code": "2891Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de machines pour la m\u00e9tallurgie",
+  "label": "Fabrication de machines pour la métallurgie",
   "modified": "2023-11-03 11:35:07.437704",
   "name": "267"
  },
@@ -2187,7 +2187,7 @@
   "code": "2899B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'autres machines sp\u00e9cialis\u00e9es",
+  "label": "Fabrication d'autres machines spécialisées",
   "modified": "2023-11-03 11:35:07.464496",
   "name": "274"
  },
@@ -2195,7 +2195,7 @@
   "code": "2910Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Construction de v\u00e9hicules automobiles",
+  "label": "Construction de véhicules automobiles",
   "modified": "2023-11-03 11:35:07.468217",
   "name": "275"
  },
@@ -2211,7 +2211,7 @@
   "code": "2931Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'\u00e9quipements \u00e9lectriques et \u00e9lectroniques automobiles",
+  "label": "Fabrication d'équipements électriques et électroniques automobiles",
   "modified": "2023-11-03 11:35:07.476257",
   "name": "277"
  },
@@ -2219,7 +2219,7 @@
   "code": "2932Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'autres \u00e9quipements automobiles",
+  "label": "Fabrication d'autres équipements automobiles",
   "modified": "2023-11-03 11:35:07.479707",
   "name": "278"
  },
@@ -2243,7 +2243,7 @@
   "code": "3020Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Construction de locomotives et d'autre mat\u00e9riel ferroviaire roulant",
+  "label": "Construction de locomotives et d'autre matériel ferroviaire roulant",
   "modified": "2023-11-03 11:35:07.490377",
   "name": "281"
  },
@@ -2251,7 +2251,7 @@
   "code": "3030Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Construction a\u00e9ronautique et spatiale",
+  "label": "Construction aéronautique et spatiale",
   "modified": "2023-11-03 11:35:07.494394",
   "name": "282"
  },
@@ -2259,7 +2259,7 @@
   "code": "3040Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Construction de v\u00e9hicules militaires de combat",
+  "label": "Construction de véhicules militaires de combat",
   "modified": "2023-11-03 11:35:07.497691",
   "name": "283"
  },
@@ -2275,7 +2275,7 @@
   "code": "3092Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de bicyclettes et de v\u00e9hicules pour invalides",
+  "label": "Fabrication de bicyclettes et de véhicules pour invalides",
   "modified": "2023-11-03 11:35:07.504318",
   "name": "285"
  },
@@ -2283,7 +2283,7 @@
   "code": "3099Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication d'autres \u00e9quipements de transport n.c.a.",
+  "label": "Fabrication d'autres équipements de transport n.c.a.",
   "modified": "2023-11-03 11:35:07.508564",
   "name": "286"
  },
@@ -2315,7 +2315,7 @@
   "code": "3109A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de si\u00e8ges d'ameublement d'int\u00e9rieur",
+  "label": "Fabrication de sièges d'ameublement d'intérieur",
   "modified": "2023-11-03 11:35:07.523158",
   "name": "290"
  },
@@ -2379,7 +2379,7 @@
   "code": "3250A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fabrication de mat\u00e9riel m\u00e9dico-chirurgical et dentaire",
+  "label": "Fabrication de matériel médico-chirurgical et dentaire",
   "modified": "2023-11-03 11:35:07.552478",
   "name": "298"
  },
@@ -2403,7 +2403,7 @@
   "code": "3299Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres activit\u00e9s manufacturi\u00e8res n.c.a.",
+  "label": "Autres activités manufacturières n.c.a.",
   "modified": "2023-11-03 11:35:07.563413",
   "name": "301"
  },
@@ -2411,7 +2411,7 @@
   "code": "3311Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "R\u00e9paration d'ouvrages en m\u00e9taux",
+  "label": "Réparation d'ouvrages en métaux",
   "modified": "2023-11-03 11:35:07.566427",
   "name": "302"
  },
@@ -2419,7 +2419,7 @@
   "code": "3312Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "R\u00e9paration de machines et \u00e9quipements m\u00e9caniques",
+  "label": "Réparation de machines et équipements mécaniques",
   "modified": "2023-11-03 11:35:07.569476",
   "name": "303"
  },
@@ -2427,7 +2427,7 @@
   "code": "3313Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "R\u00e9paration de mat\u00e9riels \u00e9lectroniques et optiques",
+  "label": "Réparation de matériels électroniques et optiques",
   "modified": "2023-11-03 11:35:07.573544",
   "name": "304"
  },
@@ -2435,7 +2435,7 @@
   "code": "3314Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "R\u00e9paration d'\u00e9quipements \u00e9lectriques",
+  "label": "Réparation d'équipements électriques",
   "modified": "2023-11-03 11:35:07.577564",
   "name": "305"
  },
@@ -2443,7 +2443,7 @@
   "code": "3315Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "R\u00e9paration et maintenance navale",
+  "label": "Réparation et maintenance navale",
   "modified": "2023-11-03 11:35:07.581191",
   "name": "306"
  },
@@ -2451,7 +2451,7 @@
   "code": "3316Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "R\u00e9paration et maintenance d'a\u00e9ronefs et d'engins spatiaux",
+  "label": "Réparation et maintenance d'aéronefs et d'engins spatiaux",
   "modified": "2023-11-03 11:35:07.584558",
   "name": "307"
  },
@@ -2459,7 +2459,7 @@
   "code": "3317Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "R\u00e9paration et maintenance d'autres \u00e9quipements de transport",
+  "label": "Réparation et maintenance d'autres équipements de transport",
   "modified": "2023-11-03 11:35:07.588275",
   "name": "308"
  },
@@ -2467,7 +2467,7 @@
   "code": "3319Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "R\u00e9paration d'autres \u00e9quipements",
+  "label": "Réparation d'autres équipements",
   "modified": "2023-11-03 11:35:07.592493",
   "name": "309"
  },
@@ -2475,7 +2475,7 @@
   "code": "3320A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Installation de structures m\u00e9talliques, chaudronn\u00e9es et de tuyauterie",
+  "label": "Installation de structures métalliques, chaudronnées et de tuyauterie",
   "modified": "2023-11-03 11:35:07.596234",
   "name": "310"
  },
@@ -2483,7 +2483,7 @@
   "code": "3320B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Installation de machines et \u00e9quipements m\u00e9caniques",
+  "label": "Installation de machines et équipements mécaniques",
   "modified": "2023-11-03 11:35:07.599812",
   "name": "311"
  },
@@ -2491,7 +2491,7 @@
   "code": "3320C",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Conception d'ensemble et assemblage sur site industriel d'\u00e9quipements de contr\u00f4le des processus industriels",
+  "label": "Conception d'ensemble et assemblage sur site industriel d'équipements de contrôle des processus industriels",
   "modified": "2023-11-03 11:35:07.603174",
   "name": "312"
  },
@@ -2499,7 +2499,7 @@
   "code": "3320D",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Installation d'\u00e9quipements \u00e9lectriques, de mat\u00e9riels \u00e9lectroniques et optiques ou d'autres mat\u00e9riels",
+  "label": "Installation d'équipements électriques, de matériels électroniques et optiques ou d'autres matériels",
   "modified": "2023-11-03 11:35:07.607346",
   "name": "313"
  },
@@ -2507,7 +2507,7 @@
   "code": "3511Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Production d'\u00e9lectricit\u00e9",
+  "label": "Production d'électricité",
   "modified": "2023-11-03 11:35:07.611075",
   "name": "314"
  },
@@ -2515,7 +2515,7 @@
   "code": "3512Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Transport d'\u00e9lectricit\u00e9",
+  "label": "Transport d'électricité",
   "modified": "2023-11-03 11:35:07.614255",
   "name": "315"
  },
@@ -2523,7 +2523,7 @@
   "code": "3513Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Distribution d'\u00e9lectricit\u00e9",
+  "label": "Distribution d'électricité",
   "modified": "2023-11-03 11:35:07.617576",
   "name": "316"
  },
@@ -2531,7 +2531,7 @@
   "code": "3514Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce d'\u00e9lectricit\u00e9",
+  "label": "Commerce d'électricité",
   "modified": "2023-11-03 11:35:07.620978",
   "name": "317"
  },
@@ -2563,7 +2563,7 @@
   "code": "3530Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Production et distribution de vapeur et d'air conditionn\u00e9",
+  "label": "Production et distribution de vapeur et d'air conditionné",
   "modified": "2023-11-03 11:35:07.635868",
   "name": "321"
  },
@@ -2579,7 +2579,7 @@
   "code": "3700Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Collecte et traitement des eaux us\u00e9es",
+  "label": "Collecte et traitement des eaux usées",
   "modified": "2023-11-03 11:35:07.643967",
   "name": "323"
  },
@@ -2587,7 +2587,7 @@
   "code": "3811Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Collecte des d\u00e9chets non dangereux",
+  "label": "Collecte des déchets non dangereux",
   "modified": "2023-11-03 11:35:07.647472",
   "name": "324"
  },
@@ -2595,7 +2595,7 @@
   "code": "3812Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Collecte des d\u00e9chets dangereux",
+  "label": "Collecte des déchets dangereux",
   "modified": "2023-11-03 11:35:07.650889",
   "name": "325"
  },
@@ -2603,7 +2603,7 @@
   "code": "3821Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Traitement et \u00e9limination des d\u00e9chets non dangereux",
+  "label": "Traitement et élimination des déchets non dangereux",
   "modified": "2023-11-03 11:35:07.654384",
   "name": "326"
  },
@@ -2611,7 +2611,7 @@
   "code": "3822Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Traitement et \u00e9limination des d\u00e9chets dangereux",
+  "label": "Traitement et élimination des déchets dangereux",
   "modified": "2023-11-03 11:35:07.658935",
   "name": "327"
  },
@@ -2619,7 +2619,7 @@
   "code": "3831Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "D\u00e9mant\u00e8lement d'\u00e9paves",
+  "label": "Démantèlement d'épaves",
   "modified": "2023-11-03 11:35:07.662932",
   "name": "328"
  },
@@ -2627,7 +2627,7 @@
   "code": "3832Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "R\u00e9cup\u00e9ration de d\u00e9chets tri\u00e9s",
+  "label": "Récupération de déchets triés",
   "modified": "2023-11-03 11:35:07.666713",
   "name": "329"
  },
@@ -2635,7 +2635,7 @@
   "code": "3900Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "D\u00e9pollution et autres services de gestion des d\u00e9chets",
+  "label": "Dépollution et autres services de gestion des déchets",
   "modified": "2023-11-03 11:35:07.670192",
   "name": "330"
  },
@@ -2643,7 +2643,7 @@
   "code": "4110A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Promotion immobili\u00e8re de logements",
+  "label": "Promotion immobilière de logements",
   "modified": "2023-11-03 11:35:07.674416",
   "name": "331"
  },
@@ -2651,7 +2651,7 @@
   "code": "4110B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Promotion immobili\u00e8re de bureaux",
+  "label": "Promotion immobilière de bureaux",
   "modified": "2023-11-03 11:35:07.678360",
   "name": "332"
  },
@@ -2659,7 +2659,7 @@
   "code": "4110C",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Promotion immobili\u00e8re d'autres b\u00e2timents",
+  "label": "Promotion immobilière d'autres bâtiments",
   "modified": "2023-11-03 11:35:07.681902",
   "name": "333"
  },
@@ -2683,7 +2683,7 @@
   "code": "4120B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Construction d'autres b\u00e2timents",
+  "label": "Construction d'autres bâtiments",
   "modified": "2023-11-03 11:35:07.693675",
   "name": "336"
  },
@@ -2699,7 +2699,7 @@
   "code": "4212Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Construction de voies ferr\u00e9es de surface et souterraines",
+  "label": "Construction de voies ferrées de surface et souterraines",
   "modified": "2023-11-03 11:35:07.700238",
   "name": "338"
  },
@@ -2723,7 +2723,7 @@
   "code": "4221Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Construction de r\u00e9seaux pour fluides",
+  "label": "Construction de réseaux pour fluides",
   "modified": "2023-11-03 11:35:07.711317",
   "name": "341"
  },
@@ -2731,7 +2731,7 @@
   "code": "4222Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Construction de r\u00e9seaux \u00e9lectriques et de t\u00e9l\u00e9communications",
+  "label": "Construction de réseaux électriques et de télécommunications",
   "modified": "2023-11-03 11:35:07.714510",
   "name": "342"
  },
@@ -2747,7 +2747,7 @@
   "code": "4299Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Construction d'autres ouvrages de g\u00e9nie civil n.c.a.",
+  "label": "Construction d'autres ouvrages de génie civil n.c.a.",
   "modified": "2023-11-03 11:35:07.720906",
   "name": "344"
  },
@@ -2755,7 +2755,7 @@
   "code": "4311Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Travaux de d\u00e9molition",
+  "label": "Travaux de démolition",
   "modified": "2023-11-03 11:35:07.725086",
   "name": "345"
  },
@@ -2763,7 +2763,7 @@
   "code": "4312A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Travaux de terrassement courants et travaux pr\u00e9paratoires",
+  "label": "Travaux de terrassement courants et travaux préparatoires",
   "modified": "2023-11-03 11:35:07.728494",
   "name": "346"
  },
@@ -2771,7 +2771,7 @@
   "code": "4312B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Travaux de terrassement sp\u00e9cialis\u00e9s ou de grande masse",
+  "label": "Travaux de terrassement spécialisés ou de grande masse",
   "modified": "2023-11-03 11:35:07.731733",
   "name": "347"
  },
@@ -2787,7 +2787,7 @@
   "code": "4321A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Travaux d'installation \u00e9lectrique dans tous locaux",
+  "label": "Travaux d'installation électrique dans tous locaux",
   "modified": "2023-11-03 11:35:07.738683",
   "name": "349"
  },
@@ -2795,7 +2795,7 @@
   "code": "4321B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Travaux d'installation \u00e9lectrique sur la voie publique",
+  "label": "Travaux d'installation électrique sur la voie publique",
   "modified": "2023-11-03 11:35:07.743945",
   "name": "350"
  },
@@ -2811,7 +2811,7 @@
   "code": "4322B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Travaux d'installation d'\u00e9quipements thermiques et de climatisation",
+  "label": "Travaux d'installation d'équipements thermiques et de climatisation",
   "modified": "2023-11-03 11:35:07.751355",
   "name": "352"
  },
@@ -2835,7 +2835,7 @@
   "code": "4331Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Travaux de pl\u00e2trerie",
+  "label": "Travaux de plâtrerie",
   "modified": "2023-11-03 11:35:07.763673",
   "name": "355"
  },
@@ -2851,7 +2851,7 @@
   "code": "4332B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Travaux de menuiserie m\u00e9tallique et serrurerie",
+  "label": "Travaux de menuiserie métallique et serrurerie",
   "modified": "2023-11-03 11:35:07.770496",
   "name": "357"
  },
@@ -2867,7 +2867,7 @@
   "code": "4333Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Travaux de rev\u00eatement des sols et des murs",
+  "label": "Travaux de revêtement des sols et des murs",
   "modified": "2023-11-03 11:35:07.779323",
   "name": "359"
  },
@@ -2899,7 +2899,7 @@
   "code": "4391B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Travaux de couverture par \u00e9l\u00e9ments",
+  "label": "Travaux de couverture par éléments",
   "modified": "2023-11-03 11:35:07.795384",
   "name": "363"
  },
@@ -2907,7 +2907,7 @@
   "code": "4399A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Travaux d'\u00e9tanch\u00e9ification",
+  "label": "Travaux d'étanchéification",
   "modified": "2023-11-03 11:35:07.798706",
   "name": "364"
  },
@@ -2915,7 +2915,7 @@
   "code": "4399B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Travaux de montage de structures m\u00e9talliques",
+  "label": "Travaux de montage de structures métalliques",
   "modified": "2023-11-03 11:35:07.802075",
   "name": "365"
  },
@@ -2923,7 +2923,7 @@
   "code": "4399C",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Travaux de ma\u00e7onnerie g\u00e9n\u00e9rale et gros \u0153uvre de b\u00e2timent",
+  "label": "Travaux de maçonnerie générale et gros œuvre de bâtiment",
   "modified": "2023-11-03 11:35:07.805763",
   "name": "366"
  },
@@ -2931,7 +2931,7 @@
   "code": "4399D",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres travaux sp\u00e9cialis\u00e9s de construction",
+  "label": "Autres travaux spécialisés de construction",
   "modified": "2023-11-03 11:35:07.810434",
   "name": "367"
  },
@@ -2939,7 +2939,7 @@
   "code": "4399E",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Location avec op\u00e9rateur de mat\u00e9riel de construction",
+  "label": "Location avec opérateur de matériel de construction",
   "modified": "2023-11-03 11:35:07.813617",
   "name": "368"
  },
@@ -2947,7 +2947,7 @@
   "code": "4511Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de voitures et de v\u00e9hicules automobiles l\u00e9gers",
+  "label": "Commerce de voitures et de véhicules automobiles légers",
   "modified": "2023-11-03 11:35:07.816784",
   "name": "369"
  },
@@ -2955,7 +2955,7 @@
   "code": "4519Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce d'autres v\u00e9hicules automobiles",
+  "label": "Commerce d'autres véhicules automobiles",
   "modified": "2023-11-03 11:35:07.819980",
   "name": "370"
  },
@@ -2963,7 +2963,7 @@
   "code": "4520A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Entretien et r\u00e9paration de v\u00e9hicules automobiles l\u00e9gers",
+  "label": "Entretien et réparation de véhicules automobiles légers",
   "modified": "2023-11-03 11:35:07.825325",
   "name": "371"
  },
@@ -2971,7 +2971,7 @@
   "code": "4520B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Entretien et r\u00e9paration d'autres v\u00e9hicules automobiles",
+  "label": "Entretien et réparation d'autres véhicules automobiles",
   "modified": "2023-11-03 11:35:07.829274",
   "name": "372"
  },
@@ -2979,7 +2979,7 @@
   "code": "4531Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros d'\u00e9quipements automobiles",
+  "label": "Commerce de gros d'équipements automobiles",
   "modified": "2023-11-03 11:35:07.832842",
   "name": "373"
  },
@@ -2987,7 +2987,7 @@
   "code": "4532Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail d'\u00e9quipements automobiles",
+  "label": "Commerce de détail d'équipements automobiles",
   "modified": "2023-11-03 11:35:07.836222",
   "name": "374"
  },
@@ -2995,7 +2995,7 @@
   "code": "4540Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce et r\u00e9paration de motocycles",
+  "label": "Commerce et réparation de motocycles",
   "modified": "2023-11-03 11:35:07.840026",
   "name": "375"
  },
@@ -3003,7 +3003,7 @@
   "code": "4611Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Interm\u00e9diaires du commerce en mati\u00e8res premi\u00e8res agricoles, animaux vivants, mati\u00e8res premi\u00e8res textiles et produits semi-finis",
+  "label": "Intermédiaires du commerce en matières premières agricoles, animaux vivants, matières premières textiles et produits semi-finis",
   "modified": "2023-11-03 11:35:07.843722",
   "name": "376"
  },
@@ -3019,7 +3019,7 @@
   "code": "4612B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres interm\u00e9diaires du commerce en combustibles, m\u00e9taux, min\u00e9raux et produits chimiques",
+  "label": "Autres intermédiaires du commerce en combustibles, métaux, minéraux et produits chimiques",
   "modified": "2023-11-03 11:35:07.850162",
   "name": "378"
  },
@@ -3027,7 +3027,7 @@
   "code": "4613Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Interm\u00e9diaires du commerce en bois et mat\u00e9riaux de construction",
+  "label": "Intermédiaires du commerce en bois et matériaux de construction",
   "modified": "2023-11-03 11:35:07.853379",
   "name": "379"
  },
@@ -3035,7 +3035,7 @@
   "code": "4614Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Interm\u00e9diaires du commerce en machines, \u00e9quipements industriels, navires et avions",
+  "label": "Intermédiaires du commerce en machines, équipements industriels, navires et avions",
   "modified": "2023-11-03 11:35:07.857284",
   "name": "380"
  },
@@ -3043,7 +3043,7 @@
   "code": "4615Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Interm\u00e9diaires du commerce en meubles, articles de m\u00e9nage et quincaillerie",
+  "label": "Intermédiaires du commerce en meubles, articles de ménage et quincaillerie",
   "modified": "2023-11-03 11:35:07.860932",
   "name": "381"
  },
@@ -3051,7 +3051,7 @@
   "code": "4616Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Interm\u00e9diaires du commerce en textiles, habillement, fourrures, chaussures et articles en cuir",
+  "label": "Intermédiaires du commerce en textiles, habillement, fourrures, chaussures et articles en cuir",
   "modified": "2023-11-03 11:35:07.864363",
   "name": "382"
  },
@@ -3067,7 +3067,7 @@
   "code": "4617B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres interm\u00e9diaires du commerce en denr\u00e9es, boissons et tabac",
+  "label": "Autres intermédiaires du commerce en denrées, boissons et tabac",
   "modified": "2023-11-03 11:35:07.871272",
   "name": "384"
  },
@@ -3075,7 +3075,7 @@
   "code": "4618Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Interm\u00e9diaires sp\u00e9cialis\u00e9s dans le commerce d'autres produits sp\u00e9cifiques",
+  "label": "Intermédiaires spécialisés dans le commerce d'autres produits spécifiques",
   "modified": "2023-11-03 11:35:07.875122",
   "name": "385"
  },
@@ -3091,7 +3091,7 @@
   "code": "4619B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres interm\u00e9diaires du commerce en produits divers",
+  "label": "Autres intermédiaires du commerce en produits divers",
   "modified": "2023-11-03 11:35:07.881738",
   "name": "387"
  },
@@ -3099,7 +3099,7 @@
   "code": "4621Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) de c\u00e9r\u00e9ales, de tabac non manufactur\u00e9, de semences et d'aliments pour le b\u00e9tail",
+  "label": "Commerce de gros (commerce interentreprises) de céréales, de tabac non manufacturé, de semences et d'aliments pour le bétail",
   "modified": "2023-11-03 11:35:07.884999",
   "name": "388"
  },
@@ -3131,7 +3131,7 @@
   "code": "4631Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) de fruits et l\u00e9gumes",
+  "label": "Commerce de gros (commerce interentreprises) de fruits et légumes",
   "modified": "2023-11-03 11:35:07.898612",
   "name": "392"
  },
@@ -3147,7 +3147,7 @@
   "code": "4632B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) de produits \u00e0 base de viande",
+  "label": "Commerce de gros (commerce interentreprises) de produits à base de viande",
   "modified": "2023-11-03 11:35:07.905293",
   "name": "394"
  },
@@ -3163,7 +3163,7 @@
   "code": "4633Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) de produits laitiers, \u0153ufs, huiles et mati\u00e8res grasses comestibles",
+  "label": "Commerce de gros (commerce interentreprises) de produits laitiers, œufs, huiles et matières grasses comestibles",
   "modified": "2023-11-03 11:35:07.912991",
   "name": "396"
  },
@@ -3179,7 +3179,7 @@
   "code": "4635Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) de produits \u00e0 base de tabac",
+  "label": "Commerce de gros (commerce interentreprises) de produits à base de tabac",
   "modified": "2023-11-03 11:35:07.919897",
   "name": "398"
  },
@@ -3195,7 +3195,7 @@
   "code": "4637Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) de caf\u00e9, th\u00e9, cacao et \u00e9pices",
+  "label": "Commerce de gros (commerce interentreprises) de café, thé, cacao et épices",
   "modified": "2023-11-03 11:35:07.927600",
   "name": "400"
  },
@@ -3203,7 +3203,7 @@
   "code": "4638A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) de poissons, crustac\u00e9s et mollusques",
+  "label": "Commerce de gros (commerce interentreprises) de poissons, crustacés et mollusques",
   "modified": "2023-11-03 11:35:07.931238",
   "name": "401"
  },
@@ -3211,7 +3211,7 @@
   "code": "4638B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) alimentaire sp\u00e9cialis\u00e9 divers",
+  "label": "Commerce de gros (commerce interentreprises) alimentaire spécialisé divers",
   "modified": "2023-11-03 11:35:07.934898",
   "name": "402"
  },
@@ -3219,7 +3219,7 @@
   "code": "4639A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) de produits surgel\u00e9s",
+  "label": "Commerce de gros (commerce interentreprises) de produits surgelés",
   "modified": "2023-11-03 11:35:07.941424",
   "name": "403"
  },
@@ -3227,7 +3227,7 @@
   "code": "4639B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) alimentaire non sp\u00e9cialis\u00e9",
+  "label": "Commerce de gros (commerce interentreprises) alimentaire non spécialisé",
   "modified": "2023-11-03 11:35:07.945093",
   "name": "404"
  },
@@ -3251,7 +3251,7 @@
   "code": "4643Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) d'appareils \u00e9lectrom\u00e9nagers",
+  "label": "Commerce de gros (commerce interentreprises) d'appareils électroménagers",
   "modified": "2023-11-03 11:35:07.955986",
   "name": "407"
  },
@@ -3267,7 +3267,7 @@
   "code": "4645Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) de parfumerie et de produits de beaut\u00e9",
+  "label": "Commerce de gros (commerce interentreprises) de parfumerie et de produits de beauté",
   "modified": "2023-11-03 11:35:07.963689",
   "name": "409"
  },
@@ -3283,7 +3283,7 @@
   "code": "4647Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) de meubles, de tapis et d'appareils d'\u00e9clairage",
+  "label": "Commerce de gros (commerce interentreprises) de meubles, de tapis et d'appareils d'éclairage",
   "modified": "2023-11-03 11:35:07.970508",
   "name": "411"
  },
@@ -3307,7 +3307,7 @@
   "code": "4651Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) d'ordinateurs, d'\u00e9quipements informatiques p\u00e9riph\u00e9riques et de logiciels",
+  "label": "Commerce de gros (commerce interentreprises) d'ordinateurs, d'équipements informatiques périphériques et de logiciels",
   "modified": "2023-11-03 11:35:07.982297",
   "name": "414"
  },
@@ -3315,7 +3315,7 @@
   "code": "4652Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) de composants et d'\u00e9quipements \u00e9lectroniques et de t\u00e9l\u00e9communication",
+  "label": "Commerce de gros (commerce interentreprises) de composants et d'équipements électroniques et de télécommunication",
   "modified": "2023-11-03 11:35:07.985982",
   "name": "415"
  },
@@ -3323,7 +3323,7 @@
   "code": "4661Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) de mat\u00e9riel agricole",
+  "label": "Commerce de gros (commerce interentreprises) de matériel agricole",
   "modified": "2023-11-03 11:35:07.989901",
   "name": "416"
  },
@@ -3339,7 +3339,7 @@
   "code": "4663Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) de machines pour l'extraction, la construction et le g\u00e9nie civil",
+  "label": "Commerce de gros (commerce interentreprises) de machines pour l'extraction, la construction et le génie civil",
   "modified": "2023-11-03 11:35:07.997470",
   "name": "418"
  },
@@ -3363,7 +3363,7 @@
   "code": "4666Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) d'autres machines et \u00e9quipements de bureau",
+  "label": "Commerce de gros (commerce interentreprises) d'autres machines et équipements de bureau",
   "modified": "2023-11-03 11:35:08.008499",
   "name": "421"
  },
@@ -3371,7 +3371,7 @@
   "code": "4669A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) de mat\u00e9riel \u00e9lectrique",
+  "label": "Commerce de gros (commerce interentreprises) de matériel électrique",
   "modified": "2023-11-03 11:35:08.012289",
   "name": "422"
  },
@@ -3379,7 +3379,7 @@
   "code": "4669B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) de fournitures et \u00e9quipements industriels divers",
+  "label": "Commerce de gros (commerce interentreprises) de fournitures et équipements industriels divers",
   "modified": "2023-11-03 11:35:08.015737",
   "name": "423"
  },
@@ -3387,7 +3387,7 @@
   "code": "4669C",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) de fournitures et \u00e9quipements divers pour le commerce et les services",
+  "label": "Commerce de gros (commerce interentreprises) de fournitures et équipements divers pour le commerce et les services",
   "modified": "2023-11-03 11:35:08.019168",
   "name": "424"
  },
@@ -3403,7 +3403,7 @@
   "code": "4672Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) de minerais et m\u00e9taux",
+  "label": "Commerce de gros (commerce interentreprises) de minerais et métaux",
   "modified": "2023-11-03 11:35:08.026530",
   "name": "426"
  },
@@ -3411,7 +3411,7 @@
   "code": "4673A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) de bois et de mat\u00e9riaux de construction",
+  "label": "Commerce de gros (commerce interentreprises) de bois et de matériaux de construction",
   "modified": "2023-11-03 11:35:08.029925",
   "name": "427"
  },
@@ -3419,7 +3419,7 @@
   "code": "4673B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) d'appareils sanitaires et de produits de d\u00e9coration",
+  "label": "Commerce de gros (commerce interentreprises) d'appareils sanitaires et de produits de décoration",
   "modified": "2023-11-03 11:35:08.033363",
   "name": "428"
  },
@@ -3451,7 +3451,7 @@
   "code": "4676Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) d'autres produits interm\u00e9diaires",
+  "label": "Commerce de gros (commerce interentreprises) d'autres produits intermédiaires",
   "modified": "2023-11-03 11:35:08.048264",
   "name": "432"
  },
@@ -3459,7 +3459,7 @@
   "code": "4677Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) de d\u00e9chets et d\u00e9bris",
+  "label": "Commerce de gros (commerce interentreprises) de déchets et débris",
   "modified": "2023-11-03 11:35:08.051644",
   "name": "433"
  },
@@ -3467,7 +3467,7 @@
   "code": "4690Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de gros (commerce interentreprises) non sp\u00e9cialis\u00e9",
+  "label": "Commerce de gros (commerce interentreprises) non spécialisé",
   "modified": "2023-11-03 11:35:08.055219",
   "name": "434"
  },
@@ -3475,7 +3475,7 @@
   "code": "4711A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de produits surgel\u00e9s",
+  "label": "Commerce de détail de produits surgelés",
   "modified": "2023-11-03 11:35:08.058958",
   "name": "435"
  },
@@ -3483,7 +3483,7 @@
   "code": "4711B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce d'alimentation g\u00e9n\u00e9rale",
+  "label": "Commerce d'alimentation générale",
   "modified": "2023-11-03 11:35:08.062367",
   "name": "436"
  },
@@ -3491,7 +3491,7 @@
   "code": "4711C",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Sup\u00e9rettes",
+  "label": "Supérettes",
   "modified": "2023-11-03 11:35:08.065600",
   "name": "437"
  },
@@ -3499,7 +3499,7 @@
   "code": "4711D",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Supermarch\u00e9s",
+  "label": "Supermarchés",
   "modified": "2023-11-03 11:35:08.069050",
   "name": "438"
  },
@@ -3515,7 +3515,7 @@
   "code": "4711F",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Hypermarch\u00e9s",
+  "label": "Hypermarchés",
   "modified": "2023-11-03 11:35:08.077289",
   "name": "440"
  },
@@ -3531,7 +3531,7 @@
   "code": "4719B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres commerces de d\u00e9tail en magasin non sp\u00e9cialis\u00e9",
+  "label": "Autres commerces de détail en magasin non spécialisé",
   "modified": "2023-11-03 11:35:08.084449",
   "name": "442"
  },
@@ -3539,7 +3539,7 @@
   "code": "4721Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de fruits et l\u00e9gumes en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail de fruits et légumes en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.088154",
   "name": "443"
  },
@@ -3547,7 +3547,7 @@
   "code": "4722Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de viandes et de produits \u00e0 base de viande en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail de viandes et de produits à base de viande en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.093095",
   "name": "444"
  },
@@ -3555,7 +3555,7 @@
   "code": "4723Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de poissons, crustac\u00e9s et mollusques en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail de poissons, crustacés et mollusques en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.096554",
   "name": "445"
  },
@@ -3563,7 +3563,7 @@
   "code": "4724Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de pain, p\u00e2tisserie et confiserie en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail de pain, pâtisserie et confiserie en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.100017",
   "name": "446"
  },
@@ -3571,7 +3571,7 @@
   "code": "4725Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de boissons en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail de boissons en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.103253",
   "name": "447"
  },
@@ -3579,7 +3579,7 @@
   "code": "4726Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de produits \u00e0 base de tabac en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail de produits à base de tabac en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.107010",
   "name": "448"
  },
@@ -3587,7 +3587,7 @@
   "code": "4729Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres commerces de d\u00e9tail alimentaires en magasin sp\u00e9cialis\u00e9",
+  "label": "Autres commerces de détail alimentaires en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.110297",
   "name": "449"
  },
@@ -3595,7 +3595,7 @@
   "code": "4730Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de carburants en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail de carburants en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.113506",
   "name": "450"
  },
@@ -3603,7 +3603,7 @@
   "code": "4741Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail d'ordinateurs, d'unit\u00e9s p\u00e9riph\u00e9riques et de logiciels en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail d'ordinateurs, d'unités périphériques et de logiciels en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.116468",
   "name": "451"
  },
@@ -3611,7 +3611,7 @@
   "code": "4742Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de mat\u00e9riels de t\u00e9l\u00e9communication en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail de matériels de télécommunication en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.119442",
   "name": "452"
  },
@@ -3619,7 +3619,7 @@
   "code": "4743Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de mat\u00e9riels audio et vid\u00e9o en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail de matériels audio et vidéo en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.123635",
   "name": "453"
  },
@@ -3627,7 +3627,7 @@
   "code": "4751Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de textiles en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail de textiles en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.127218",
   "name": "454"
  },
@@ -3635,7 +3635,7 @@
   "code": "4752A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de quincaillerie, peintures et verres en petites surfaces (moins de 400 m\u00b2)",
+  "label": "Commerce de détail de quincaillerie, peintures et verres en petites surfaces (moins de 400 m²)",
   "modified": "2023-11-03 11:35:08.130267",
   "name": "455"
  },
@@ -3643,7 +3643,7 @@
   "code": "4752B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de quincaillerie, peintures et verres en grandes surfaces (400 m\u00b2 et plus)",
+  "label": "Commerce de détail de quincaillerie, peintures et verres en grandes surfaces (400 m² et plus)",
   "modified": "2023-11-03 11:35:08.133688",
   "name": "456"
  },
@@ -3651,7 +3651,7 @@
   "code": "4753Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de tapis, moquettes et rev\u00eatements de murs et de sols en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail de tapis, moquettes et revêtements de murs et de sols en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.136945",
   "name": "457"
  },
@@ -3659,7 +3659,7 @@
   "code": "4754Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail d'appareils \u00e9lectrom\u00e9nagers en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail d'appareils électroménagers en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.140734",
   "name": "458"
  },
@@ -3667,7 +3667,7 @@
   "code": "4759A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de meubles",
+  "label": "Commerce de détail de meubles",
   "modified": "2023-11-03 11:35:08.144175",
   "name": "459"
  },
@@ -3675,7 +3675,7 @@
   "code": "4759B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail d'autres \u00e9quipements du foyer",
+  "label": "Commerce de détail d'autres équipements du foyer",
   "modified": "2023-11-03 11:35:08.147333",
   "name": "460"
  },
@@ -3683,7 +3683,7 @@
   "code": "4761Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de livres en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail de livres en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.150389",
   "name": "461"
  },
@@ -3691,7 +3691,7 @@
   "code": "4762Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de journaux et papeterie en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail de journaux et papeterie en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.153407",
   "name": "462"
  },
@@ -3699,7 +3699,7 @@
   "code": "4763Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail d'enregistrements musicaux et vid\u00e9o en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail d'enregistrements musicaux et vidéo en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.157043",
   "name": "463"
  },
@@ -3707,7 +3707,7 @@
   "code": "4764Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail d'articles de sport en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail d'articles de sport en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.160633",
   "name": "464"
  },
@@ -3715,7 +3715,7 @@
   "code": "4765Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de jeux et jouets en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail de jeux et jouets en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.163729",
   "name": "465"
  },
@@ -3723,7 +3723,7 @@
   "code": "4771Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail d'habillement en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail d'habillement en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.166940",
   "name": "466"
  },
@@ -3731,7 +3731,7 @@
   "code": "4772A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de la chaussure",
+  "label": "Commerce de détail de la chaussure",
   "modified": "2023-11-03 11:35:08.170207",
   "name": "467"
  },
@@ -3739,7 +3739,7 @@
   "code": "4772B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de maroquinerie et d'articles de voyage",
+  "label": "Commerce de détail de maroquinerie et d'articles de voyage",
   "modified": "2023-11-03 11:35:08.173681",
   "name": "468"
  },
@@ -3747,7 +3747,7 @@
   "code": "4773Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de produits pharmaceutiques en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail de produits pharmaceutiques en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.177169",
   "name": "469"
  },
@@ -3755,7 +3755,7 @@
   "code": "4774Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail d'articles m\u00e9dicaux et orthop\u00e9diques en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail d'articles médicaux et orthopédiques en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.180250",
   "name": "470"
  },
@@ -3763,7 +3763,7 @@
   "code": "4775Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de parfumerie et de produits de beaut\u00e9 en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail de parfumerie et de produits de beauté en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.183254",
   "name": "471"
  },
@@ -3771,7 +3771,7 @@
   "code": "4776Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de fleurs, plantes, graines, engrais, animaux de compagnie et aliments pour ces animaux en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail de fleurs, plantes, graines, engrais, animaux de compagnie et aliments pour ces animaux en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.188601",
   "name": "472"
  },
@@ -3779,7 +3779,7 @@
   "code": "4777Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail d'articles d'horlogerie et de bijouterie en magasin sp\u00e9cialis\u00e9",
+  "label": "Commerce de détail d'articles d'horlogerie et de bijouterie en magasin spécialisé",
   "modified": "2023-11-03 11:35:08.192425",
   "name": "473"
  },
@@ -3787,7 +3787,7 @@
   "code": "4778A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerces de d\u00e9tail d'optique",
+  "label": "Commerces de détail d'optique",
   "modified": "2023-11-03 11:35:08.195872",
   "name": "474"
  },
@@ -3795,7 +3795,7 @@
   "code": "4778B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerces de d\u00e9tail de charbons et combustibles",
+  "label": "Commerces de détail de charbons et combustibles",
   "modified": "2023-11-03 11:35:08.199406",
   "name": "475"
  },
@@ -3803,7 +3803,7 @@
   "code": "4778C",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres commerces de d\u00e9tail sp\u00e9cialis\u00e9s divers",
+  "label": "Autres commerces de détail spécialisés divers",
   "modified": "2023-11-03 11:35:08.202867",
   "name": "476"
  },
@@ -3811,7 +3811,7 @@
   "code": "4779Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de biens d'occasion en magasin",
+  "label": "Commerce de détail de biens d'occasion en magasin",
   "modified": "2023-11-03 11:35:08.206944",
   "name": "477"
  },
@@ -3819,7 +3819,7 @@
   "code": "4781Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail alimentaire sur \u00e9ventaires et march\u00e9s",
+  "label": "Commerce de détail alimentaire sur éventaires et marchés",
   "modified": "2023-11-03 11:35:08.211208",
   "name": "478"
  },
@@ -3827,7 +3827,7 @@
   "code": "4782Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Commerce de d\u00e9tail de textiles, d'habillement et de chaussures sur \u00e9ventaires et march\u00e9s",
+  "label": "Commerce de détail de textiles, d'habillement et de chaussures sur éventaires et marchés",
   "modified": "2023-11-03 11:35:08.214626",
   "name": "479"
  },
@@ -3835,7 +3835,7 @@
   "code": "4789Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres commerces de d\u00e9tail sur \u00e9ventaires et march\u00e9s",
+  "label": "Autres commerces de détail sur éventaires et marchés",
   "modified": "2023-11-03 11:35:08.217794",
   "name": "480"
  },
@@ -3843,7 +3843,7 @@
   "code": "4791A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Vente \u00e0 distance sur catalogue g\u00e9n\u00e9ral",
+  "label": "Vente à distance sur catalogue général",
   "modified": "2023-11-03 11:35:08.220786",
   "name": "481"
  },
@@ -3851,7 +3851,7 @@
   "code": "4791B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Vente \u00e0 distance sur catalogue sp\u00e9cialis\u00e9",
+  "label": "Vente à distance sur catalogue spécialisé",
   "modified": "2023-11-03 11:35:08.224760",
   "name": "482"
  },
@@ -3859,7 +3859,7 @@
   "code": "4799A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Vente \u00e0 domicile",
+  "label": "Vente à domicile",
   "modified": "2023-11-03 11:35:08.228011",
   "name": "483"
  },
@@ -3867,7 +3867,7 @@
   "code": "4799B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Vente par automates et autres commerces de d\u00e9tail hors magasin, \u00e9ventaires ou march\u00e9s n.c.a.",
+  "label": "Vente par automates et autres commerces de détail hors magasin, éventaires ou marchés n.c.a.",
   "modified": "2023-11-03 11:35:08.231220",
   "name": "484"
  },
@@ -3907,7 +3907,7 @@
   "code": "4939A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Transports routiers r\u00e9guliers de voyageurs",
+  "label": "Transports routiers réguliers de voyageurs",
   "modified": "2023-11-03 11:35:08.247713",
   "name": "489"
  },
@@ -3923,7 +3923,7 @@
   "code": "4939C",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "T\u00e9l\u00e9ph\u00e9riques et remont\u00e9es m\u00e9caniques",
+  "label": "Téléphériques et remontées mécaniques",
   "modified": "2023-11-03 11:35:08.253723",
   "name": "491"
  },
@@ -3939,7 +3939,7 @@
   "code": "4941B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Transports routiers de fret de proximit\u00e9",
+  "label": "Transports routiers de fret de proximité",
   "modified": "2023-11-03 11:35:08.260924",
   "name": "493"
  },
@@ -3955,7 +3955,7 @@
   "code": "4942Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Services de d\u00e9m\u00e9nagement",
+  "label": "Services de déménagement",
   "modified": "2023-11-03 11:35:08.266829",
   "name": "495"
  },
@@ -3971,7 +3971,7 @@
   "code": "5010Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Transports maritimes et c\u00f4tiers de passagers",
+  "label": "Transports maritimes et côtiers de passagers",
   "modified": "2023-11-03 11:35:08.273109",
   "name": "497"
  },
@@ -3979,7 +3979,7 @@
   "code": "5020Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Transports maritimes et c\u00f4tiers de fret",
+  "label": "Transports maritimes et côtiers de fret",
   "modified": "2023-11-03 11:35:08.276713",
   "name": "498"
  },
@@ -4003,7 +4003,7 @@
   "code": "5110Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Transports a\u00e9riens de passagers",
+  "label": "Transports aériens de passagers",
   "modified": "2023-11-03 11:35:08.285978",
   "name": "501"
  },
@@ -4011,7 +4011,7 @@
   "code": "5121Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Transports a\u00e9riens de fret",
+  "label": "Transports aériens de fret",
   "modified": "2023-11-03 11:35:08.289351",
   "name": "502"
  },
@@ -4059,7 +4059,7 @@
   "code": "5223Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Services auxiliaires des transports a\u00e9riens",
+  "label": "Services auxiliaires des transports aériens",
   "modified": "2023-11-03 11:35:08.309558",
   "name": "508"
  },
@@ -4091,7 +4091,7 @@
   "code": "5229B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Affr\u00e8tement et organisation des transports",
+  "label": "Affrètement et organisation des transports",
   "modified": "2023-11-03 11:35:08.322417",
   "name": "512"
  },
@@ -4099,7 +4099,7 @@
   "code": "5310Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s de poste dans le cadre d'une obligation de service universel",
+  "label": "Activités de poste dans le cadre d'une obligation de service universel",
   "modified": "2023-11-03 11:35:08.326184",
   "name": "513"
  },
@@ -4107,7 +4107,7 @@
   "code": "5320Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres activit\u00e9s de poste et de courrier",
+  "label": "Autres activités de poste et de courrier",
   "modified": "2023-11-03 11:35:08.329536",
   "name": "514"
  },
@@ -4115,7 +4115,7 @@
   "code": "5510Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "H\u00f4tels et h\u00e9bergement similaire",
+  "label": "Hôtels et hébergement similaire",
   "modified": "2023-11-03 11:35:08.332922",
   "name": "515"
  },
@@ -4123,7 +4123,7 @@
   "code": "5520Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "H\u00e9bergement touristique et autre h\u00e9bergement de courte dur\u00e9e",
+  "label": "Hébergement touristique et autre hébergement de courte durée",
   "modified": "2023-11-03 11:35:08.336497",
   "name": "516"
  },
@@ -4131,7 +4131,7 @@
   "code": "5530Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Terrains de camping et parcs pour caravanes ou v\u00e9hicules de loisirs",
+  "label": "Terrains de camping et parcs pour caravanes ou véhicules de loisirs",
   "modified": "2023-11-03 11:35:08.340665",
   "name": "517"
  },
@@ -4139,7 +4139,7 @@
   "code": "5590Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres h\u00e9bergements",
+  "label": "Autres hébergements",
   "modified": "2023-11-03 11:35:08.344568",
   "name": "518"
  },
@@ -4155,7 +4155,7 @@
   "code": "5610B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Caf\u00e9t\u00e9rias et autres libres-services",
+  "label": "Cafétérias et autres libres-services",
   "modified": "2023-11-03 11:35:08.351054",
   "name": "520"
  },
@@ -4195,7 +4195,7 @@
   "code": "5630Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "D\u00e9bits de boissons",
+  "label": "Débits de boissons",
   "modified": "2023-11-03 11:35:08.368690",
   "name": "525"
  },
@@ -4203,7 +4203,7 @@
   "code": "5811Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9dition de livres",
+  "label": "Édition de livres",
   "modified": "2023-11-03 11:35:08.372655",
   "name": "526"
  },
@@ -4211,7 +4211,7 @@
   "code": "5812Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9dition de r\u00e9pertoires et de fichiers d'adresses",
+  "label": "Édition de répertoires et de fichiers d'adresses",
   "modified": "2023-11-03 11:35:08.376841",
   "name": "527"
  },
@@ -4219,7 +4219,7 @@
   "code": "5813Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9dition de journaux",
+  "label": "Édition de journaux",
   "modified": "2023-11-03 11:35:08.380343",
   "name": "528"
  },
@@ -4227,7 +4227,7 @@
   "code": "5814Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9dition de revues et p\u00e9riodiques",
+  "label": "Édition de revues et périodiques",
   "modified": "2023-11-03 11:35:08.383634",
   "name": "529"
  },
@@ -4235,7 +4235,7 @@
   "code": "5819Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres activit\u00e9s d'\u00e9dition",
+  "label": "Autres activités d'édition",
   "modified": "2023-11-03 11:35:08.386883",
   "name": "530"
  },
@@ -4243,7 +4243,7 @@
   "code": "5821Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9dition de jeux \u00e9lectroniques",
+  "label": "Édition de jeux électroniques",
   "modified": "2023-11-03 11:35:08.390810",
   "name": "531"
  },
@@ -4251,7 +4251,7 @@
   "code": "5829A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9dition de logiciels syst\u00e8me et de r\u00e9seau",
+  "label": "Édition de logiciels système et de réseau",
   "modified": "2023-11-03 11:35:08.394348",
   "name": "532"
  },
@@ -4259,7 +4259,7 @@
   "code": "5829B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9dition de logiciels outils de d\u00e9veloppement et de langages",
+  "label": "Édition de logiciels outils de développement et de langages",
   "modified": "2023-11-03 11:35:08.397912",
   "name": "533"
  },
@@ -4267,7 +4267,7 @@
   "code": "5829C",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9dition de logiciels applicatifs",
+  "label": "Édition de logiciels applicatifs",
   "modified": "2023-11-03 11:35:08.401633",
   "name": "534"
  },
@@ -4275,7 +4275,7 @@
   "code": "5911A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Production de films et de programmes pour la t\u00e9l\u00e9vision",
+  "label": "Production de films et de programmes pour la télévision",
   "modified": "2023-11-03 11:35:08.406763",
   "name": "535"
  },
@@ -4291,7 +4291,7 @@
   "code": "5911C",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Production de films pour le cin\u00e9ma",
+  "label": "Production de films pour le cinéma",
   "modified": "2023-11-03 11:35:08.414462",
   "name": "537"
  },
@@ -4299,7 +4299,7 @@
   "code": "5912Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Post-production de films cin\u00e9matographiques, de vid\u00e9o et de programmes de t\u00e9l\u00e9vision",
+  "label": "Post-production de films cinématographiques, de vidéo et de programmes de télévision",
   "modified": "2023-11-03 11:35:08.418010",
   "name": "538"
  },
@@ -4307,7 +4307,7 @@
   "code": "5913A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Distribution de films cin\u00e9matographiques",
+  "label": "Distribution de films cinématographiques",
   "modified": "2023-11-03 11:35:08.421901",
   "name": "539"
  },
@@ -4315,7 +4315,7 @@
   "code": "5913B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9dition et distribution vid\u00e9o",
+  "label": "Édition et distribution vidéo",
   "modified": "2023-11-03 11:35:08.426084",
   "name": "540"
  },
@@ -4323,7 +4323,7 @@
   "code": "5914Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Projection de films cin\u00e9matographiques",
+  "label": "Projection de films cinématographiques",
   "modified": "2023-11-03 11:35:08.429688",
   "name": "541"
  },
@@ -4331,7 +4331,7 @@
   "code": "5920Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Enregistrement sonore et \u00e9dition musicale",
+  "label": "Enregistrement sonore et édition musicale",
   "modified": "2023-11-03 11:35:08.433155",
   "name": "542"
  },
@@ -4339,7 +4339,7 @@
   "code": "6010Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9dition et diffusion de programmes radio",
+  "label": "Édition et diffusion de programmes radio",
   "modified": "2023-11-03 11:35:08.436896",
   "name": "543"
  },
@@ -4347,7 +4347,7 @@
   "code": "6020A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9dition de cha\u00eenes g\u00e9n\u00e9ralistes",
+  "label": "Édition de chaînes généralistes",
   "modified": "2023-11-03 11:35:08.441237",
   "name": "544"
  },
@@ -4355,7 +4355,7 @@
   "code": "6020B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9dition de cha\u00eenes th\u00e9matiques",
+  "label": "Édition de chaînes thématiques",
   "modified": "2023-11-03 11:35:08.444985",
   "name": "545"
  },
@@ -4363,7 +4363,7 @@
   "code": "6110Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "T\u00e9l\u00e9communications filaires",
+  "label": "Télécommunications filaires",
   "modified": "2023-11-03 11:35:08.448519",
   "name": "546"
  },
@@ -4371,7 +4371,7 @@
   "code": "6120Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "T\u00e9l\u00e9communications sans fil",
+  "label": "Télécommunications sans fil",
   "modified": "2023-11-03 11:35:08.452053",
   "name": "547"
  },
@@ -4379,7 +4379,7 @@
   "code": "6130Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "T\u00e9l\u00e9communications par satellite",
+  "label": "Télécommunications par satellite",
   "modified": "2023-11-03 11:35:08.456068",
   "name": "548"
  },
@@ -4387,7 +4387,7 @@
   "code": "6190Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres activit\u00e9s de t\u00e9l\u00e9communication",
+  "label": "Autres activités de télécommunication",
   "modified": "2023-11-03 11:35:08.459923",
   "name": "549"
  },
@@ -4403,7 +4403,7 @@
   "code": "6202A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Conseil en syst\u00e8mes et logiciels informatiques",
+  "label": "Conseil en systèmes et logiciels informatiques",
   "modified": "2023-11-03 11:35:08.466457",
   "name": "551"
  },
@@ -4411,7 +4411,7 @@
   "code": "6202B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Tierce maintenance de syst\u00e8mes et d'applications informatiques",
+  "label": "Tierce maintenance de systèmes et d'applications informatiques",
   "modified": "2023-11-03 11:35:08.469715",
   "name": "552"
  },
@@ -4427,7 +4427,7 @@
   "code": "6209Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres activit\u00e9s informatiques",
+  "label": "Autres activités informatiques",
   "modified": "2023-11-03 11:35:08.477762",
   "name": "554"
  },
@@ -4435,7 +4435,7 @@
   "code": "6311Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Traitement de donn\u00e9es, h\u00e9bergement et activit\u00e9s connexes",
+  "label": "Traitement de données, hébergement et activités connexes",
   "modified": "2023-11-03 11:35:08.481089",
   "name": "555"
  },
@@ -4451,7 +4451,7 @@
   "code": "6391Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s des agences de presse",
+  "label": "Activités des agences de presse",
   "modified": "2023-11-03 11:35:08.487766",
   "name": "557"
  },
@@ -4467,7 +4467,7 @@
   "code": "6411Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s de banque centrale",
+  "label": "Activités de banque centrale",
   "modified": "2023-11-03 11:35:08.495167",
   "name": "559"
  },
@@ -4475,7 +4475,7 @@
   "code": "6419Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres interm\u00e9diations mon\u00e9taires",
+  "label": "Autres intermédiations monétaires",
   "modified": "2023-11-03 11:35:08.498441",
   "name": "560"
  },
@@ -4483,7 +4483,7 @@
   "code": "6420Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s des soci\u00e9t\u00e9s holding",
+  "label": "Activités des sociétés holding",
   "modified": "2023-11-03 11:35:08.501730",
   "name": "561"
  },
@@ -4491,7 +4491,7 @@
   "code": "6430Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Fonds de placement et entit\u00e9s financi\u00e8res similaires",
+  "label": "Fonds de placement et entités financières similaires",
   "modified": "2023-11-03 11:35:08.508414",
   "name": "562"
  },
@@ -4499,7 +4499,7 @@
   "code": "6491Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Cr\u00e9dit-bail",
+  "label": "Crédit-bail",
   "modified": "2023-11-03 11:35:08.512033",
   "name": "563"
  },
@@ -4507,7 +4507,7 @@
   "code": "6492Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autre distribution de cr\u00e9dit",
+  "label": "Autre distribution de crédit",
   "modified": "2023-11-03 11:35:08.515408",
   "name": "564"
  },
@@ -4515,7 +4515,7 @@
   "code": "6499Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres activit\u00e9s des services financiers, hors assurance et caisses de retraite, n.c.a.",
+  "label": "Autres activités des services financiers, hors assurance et caisses de retraite, n.c.a.",
   "modified": "2023-11-03 11:35:08.518677",
   "name": "565"
  },
@@ -4539,7 +4539,7 @@
   "code": "6520Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "R\u00e9assurance",
+  "label": "Réassurance",
   "modified": "2023-11-03 11:35:08.528958",
   "name": "568"
  },
@@ -4555,7 +4555,7 @@
   "code": "6611Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Administration de march\u00e9s financiers",
+  "label": "Administration de marchés financiers",
   "modified": "2023-11-03 11:35:08.535071",
   "name": "570"
  },
@@ -4563,7 +4563,7 @@
   "code": "6612Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Courtage de valeurs mobili\u00e8res et de marchandises",
+  "label": "Courtage de valeurs mobilières et de marchandises",
   "modified": "2023-11-03 11:35:08.538394",
   "name": "571"
  },
@@ -4579,7 +4579,7 @@
   "code": "6619B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres activit\u00e9s auxiliaires de services financiers, hors assurance et caisses de retraite, n.c.a.",
+  "label": "Autres activités auxiliaires de services financiers, hors assurance et caisses de retraite, n.c.a.",
   "modified": "2023-11-03 11:35:08.545276",
   "name": "573"
  },
@@ -4587,7 +4587,7 @@
   "code": "6621Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9valuation des risques et dommages",
+  "label": "Évaluation des risques et dommages",
   "modified": "2023-11-03 11:35:08.548392",
   "name": "574"
  },
@@ -4595,7 +4595,7 @@
   "code": "6622Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s des agents et courtiers d'assurances",
+  "label": "Activités des agents et courtiers d'assurances",
   "modified": "2023-11-03 11:35:08.551418",
   "name": "575"
  },
@@ -4603,7 +4603,7 @@
   "code": "6629Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres activit\u00e9s auxiliaires d'assurance et de caisses de retraite",
+  "label": "Autres activités auxiliaires d'assurance et de caisses de retraite",
   "modified": "2023-11-03 11:35:08.554781",
   "name": "576"
  },
@@ -4619,7 +4619,7 @@
   "code": "6810Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s des marchands de biens immobiliers",
+  "label": "Activités des marchands de biens immobiliers",
   "modified": "2023-11-03 11:35:08.561858",
   "name": "578"
  },
@@ -4643,7 +4643,7 @@
   "code": "6831Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Agences immobili\u00e8res",
+  "label": "Agences immobilières",
   "modified": "2023-11-03 11:35:08.570638",
   "name": "581"
  },
@@ -4667,7 +4667,7 @@
   "code": "6910Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s juridiques",
+  "label": "Activités juridiques",
   "modified": "2023-11-03 11:35:08.581166",
   "name": "584"
  },
@@ -4675,7 +4675,7 @@
   "code": "6920Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s comptables",
+  "label": "Activités comptables",
   "modified": "2023-11-03 11:35:08.585372",
   "name": "585"
  },
@@ -4683,7 +4683,7 @@
   "code": "7010Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s des si\u00e8ges sociaux",
+  "label": "Activités des sièges sociaux",
   "modified": "2023-11-03 11:35:08.589746",
   "name": "586"
  },
@@ -4707,7 +4707,7 @@
   "code": "7111Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s d'architecture",
+  "label": "Activités d'architecture",
   "modified": "2023-11-03 11:35:08.600051",
   "name": "589"
  },
@@ -4715,7 +4715,7 @@
   "code": "7112A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9 des g\u00e9om\u00e8tres",
+  "label": "Activité des géomètres",
   "modified": "2023-11-03 11:35:08.603174",
   "name": "590"
  },
@@ -4723,7 +4723,7 @@
   "code": "7112B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Ing\u00e9nierie, \u00e9tudes techniques",
+  "label": "Ingénierie, études techniques",
   "modified": "2023-11-03 11:35:08.607893",
   "name": "591"
  },
@@ -4731,7 +4731,7 @@
   "code": "7120A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Contr\u00f4le technique automobile",
+  "label": "Contrôle technique automobile",
   "modified": "2023-11-03 11:35:08.611602",
   "name": "592"
  },
@@ -4747,7 +4747,7 @@
   "code": "7211Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Recherche-d\u00e9veloppement en biotechnologie",
+  "label": "Recherche-développement en biotechnologie",
   "modified": "2023-11-03 11:35:08.618618",
   "name": "594"
  },
@@ -4755,7 +4755,7 @@
   "code": "7219Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Recherche-d\u00e9veloppement en autres sciences physiques et naturelles",
+  "label": "Recherche-développement en autres sciences physiques et naturelles",
   "modified": "2023-11-03 11:35:08.622153",
   "name": "595"
  },
@@ -4763,7 +4763,7 @@
   "code": "7220Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Recherche-d\u00e9veloppement en sciences humaines et sociales",
+  "label": "Recherche-développement en sciences humaines et sociales",
   "modified": "2023-11-03 11:35:08.626493",
   "name": "596"
  },
@@ -4771,7 +4771,7 @@
   "code": "7311Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s des agences de publicit\u00e9",
+  "label": "Activités des agences de publicité",
   "modified": "2023-11-03 11:35:08.629664",
   "name": "597"
  },
@@ -4779,7 +4779,7 @@
   "code": "7312Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "R\u00e9gie publicitaire de m\u00e9dias",
+  "label": "Régie publicitaire de médias",
   "modified": "2023-11-03 11:35:08.632749",
   "name": "598"
  },
@@ -4787,7 +4787,7 @@
   "code": "7320Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "\u00c9tudes de march\u00e9 et sondages",
+  "label": "Études de marché et sondages",
   "modified": "2023-11-03 11:35:08.635799",
   "name": "599"
  },
@@ -4795,7 +4795,7 @@
   "code": "7410Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s sp\u00e9cialis\u00e9es de design",
+  "label": "Activités spécialisées de design",
   "modified": "2023-11-03 11:35:08.639236",
   "name": "600"
  },
@@ -4803,7 +4803,7 @@
   "code": "7420Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s photographiques",
+  "label": "Activités photographiques",
   "modified": "2023-11-03 11:35:08.643107",
   "name": "601"
  },
@@ -4811,7 +4811,7 @@
   "code": "7430Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Traduction et interpr\u00e9tation",
+  "label": "Traduction et interprétation",
   "modified": "2023-11-03 11:35:08.646465",
   "name": "602"
  },
@@ -4819,7 +4819,7 @@
   "code": "7490A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9 des \u00e9conomistes de la construction",
+  "label": "Activité des économistes de la construction",
   "modified": "2023-11-03 11:35:08.649975",
   "name": "603"
  },
@@ -4827,7 +4827,7 @@
   "code": "7490B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s sp\u00e9cialis\u00e9es, scientifiques et techniques diverses",
+  "label": "Activités spécialisées, scientifiques et techniques diverses",
   "modified": "2023-11-03 11:35:08.653511",
   "name": "604"
  },
@@ -4835,7 +4835,7 @@
   "code": "7500Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s v\u00e9t\u00e9rinaires",
+  "label": "Activités vétérinaires",
   "modified": "2023-11-03 11:35:08.658470",
   "name": "605"
  },
@@ -4843,7 +4843,7 @@
   "code": "7711A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Location de courte dur\u00e9e de voitures et de v\u00e9hicules automobiles l\u00e9gers",
+  "label": "Location de courte durée de voitures et de véhicules automobiles légers",
   "modified": "2023-11-03 11:35:08.662208",
   "name": "606"
  },
@@ -4851,7 +4851,7 @@
   "code": "7711B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Location de longue dur\u00e9e de voitures et de v\u00e9hicules automobiles l\u00e9gers",
+  "label": "Location de longue durée de voitures et de véhicules automobiles légers",
   "modified": "2023-11-03 11:35:08.665459",
   "name": "607"
  },
@@ -4875,7 +4875,7 @@
   "code": "7722Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Location de vid\u00e9ocassettes et disques vid\u00e9o",
+  "label": "Location de vidéocassettes et disques vidéo",
   "modified": "2023-11-03 11:35:08.676611",
   "name": "610"
  },
@@ -4891,7 +4891,7 @@
   "code": "7731Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Location et location-bail de machines et \u00e9quipements agricoles",
+  "label": "Location et location-bail de machines et équipements agricoles",
   "modified": "2023-11-03 11:35:08.683160",
   "name": "612"
  },
@@ -4899,7 +4899,7 @@
   "code": "7732Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Location et location-bail de machines et \u00e9quipements pour la construction",
+  "label": "Location et location-bail de machines et équipements pour la construction",
   "modified": "2023-11-03 11:35:08.686419",
   "name": "613"
  },
@@ -4907,7 +4907,7 @@
   "code": "7733Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Location et location-bail de machines de bureau et de mat\u00e9riel informatique",
+  "label": "Location et location-bail de machines de bureau et de matériel informatique",
   "modified": "2023-11-03 11:35:08.690457",
   "name": "614"
  },
@@ -4915,7 +4915,7 @@
   "code": "7734Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Location et location-bail de mat\u00e9riels de transport par eau",
+  "label": "Location et location-bail de matériels de transport par eau",
   "modified": "2023-11-03 11:35:08.693688",
   "name": "615"
  },
@@ -4923,7 +4923,7 @@
   "code": "7735Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Location et location-bail de mat\u00e9riels de transport a\u00e9rien",
+  "label": "Location et location-bail de matériels de transport aérien",
   "modified": "2023-11-03 11:35:08.696903",
   "name": "616"
  },
@@ -4931,7 +4931,7 @@
   "code": "7739Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Location et location-bail d'autres machines, \u00e9quipements et biens mat\u00e9riels n.c.a.",
+  "label": "Location et location-bail d'autres machines, équipements et biens matériels n.c.a.",
   "modified": "2023-11-03 11:35:08.700066",
   "name": "617"
  },
@@ -4939,7 +4939,7 @@
   "code": "7740Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Location-bail de propri\u00e9t\u00e9 intellectuelle et de produits similaires, \u00e0 l'exception des \u0153uvres soumises \u00e0 copyright",
+  "label": "Location-bail de propriété intellectuelle et de produits similaires, à l'exception des œuvres soumises à copyright",
   "modified": "2023-11-03 11:35:08.703945",
   "name": "618"
  },
@@ -4947,7 +4947,7 @@
   "code": "7810Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s des agences de placement de main-d'\u0153uvre",
+  "label": "Activités des agences de placement de main-d'œuvre",
   "modified": "2023-11-03 11:35:08.707571",
   "name": "619"
  },
@@ -4955,7 +4955,7 @@
   "code": "7820Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s des agences de travail temporaire",
+  "label": "Activités des agences de travail temporaire",
   "modified": "2023-11-03 11:35:08.710692",
   "name": "620"
  },
@@ -4963,7 +4963,7 @@
   "code": "7830Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autre mise \u00e0 disposition de ressources humaines",
+  "label": "Autre mise à disposition de ressources humaines",
   "modified": "2023-11-03 11:35:08.713608",
   "name": "621"
  },
@@ -4971,7 +4971,7 @@
   "code": "7911Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s des agences de voyage",
+  "label": "Activités des agences de voyage",
   "modified": "2023-11-03 11:35:08.716675",
   "name": "622"
  },
@@ -4979,7 +4979,7 @@
   "code": "7912Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s des voyagistes",
+  "label": "Activités des voyagistes",
   "modified": "2023-11-03 11:35:08.719747",
   "name": "623"
  },
@@ -4987,7 +4987,7 @@
   "code": "7990Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres services de r\u00e9servation et activit\u00e9s connexes",
+  "label": "Autres services de réservation et activités connexes",
   "modified": "2023-11-03 11:35:08.723221",
   "name": "624"
  },
@@ -4995,7 +4995,7 @@
   "code": "8010Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s de s\u00e9curit\u00e9 priv\u00e9e",
+  "label": "Activités de sécurité privée",
   "modified": "2023-11-03 11:35:08.726558",
   "name": "625"
  },
@@ -5003,7 +5003,7 @@
   "code": "8020Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s li\u00e9es aux syst\u00e8mes de s\u00e9curit\u00e9",
+  "label": "Activités liées aux systèmes de sécurité",
   "modified": "2023-11-03 11:35:08.729542",
   "name": "626"
  },
@@ -5011,7 +5011,7 @@
   "code": "8030Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s d'enqu\u00eate",
+  "label": "Activités d'enquête",
   "modified": "2023-11-03 11:35:08.732454",
   "name": "627"
  },
@@ -5019,7 +5019,7 @@
   "code": "8110Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s combin\u00e9es de soutien li\u00e9 aux b\u00e2timents",
+  "label": "Activités combinées de soutien lié aux bâtiments",
   "modified": "2023-11-03 11:35:08.735441",
   "name": "628"
  },
@@ -5027,7 +5027,7 @@
   "code": "8121Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Nettoyage courant des b\u00e2timents",
+  "label": "Nettoyage courant des bâtiments",
   "modified": "2023-11-03 11:35:08.738730",
   "name": "629"
  },
@@ -5035,7 +5035,7 @@
   "code": "8122Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres activit\u00e9s de nettoyage des b\u00e2timents et nettoyage industriel",
+  "label": "Autres activités de nettoyage des bâtiments et nettoyage industriel",
   "modified": "2023-11-03 11:35:08.742729",
   "name": "630"
  },
@@ -5043,7 +5043,7 @@
   "code": "8129A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "D\u00e9sinfection, d\u00e9sinsectisation, d\u00e9ratisation",
+  "label": "Désinfection, désinsectisation, dératisation",
   "modified": "2023-11-03 11:35:08.746520",
   "name": "631"
  },
@@ -5051,7 +5051,7 @@
   "code": "8129B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres activit\u00e9s de nettoyage n.c.a.",
+  "label": "Autres activités de nettoyage n.c.a.",
   "modified": "2023-11-03 11:35:08.750131",
   "name": "632"
  },
@@ -5059,7 +5059,7 @@
   "code": "8130Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Services d'am\u00e9nagement paysager",
+  "label": "Services d'aménagement paysager",
   "modified": "2023-11-03 11:35:08.753599",
   "name": "633"
  },
@@ -5067,7 +5067,7 @@
   "code": "8211Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Services administratifs combin\u00e9s de bureau",
+  "label": "Services administratifs combinés de bureau",
   "modified": "2023-11-03 11:35:08.757730",
   "name": "634"
  },
@@ -5075,7 +5075,7 @@
   "code": "8219Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Photocopie, pr\u00e9paration de documents et autres activit\u00e9s sp\u00e9cialis\u00e9es de soutien de bureau",
+  "label": "Photocopie, préparation de documents et autres activités spécialisées de soutien de bureau",
   "modified": "2023-11-03 11:35:08.761097",
   "name": "635"
  },
@@ -5083,7 +5083,7 @@
   "code": "8220Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s de centres d'appels",
+  "label": "Activités de centres d'appels",
   "modified": "2023-11-03 11:35:08.764246",
   "name": "636"
  },
@@ -5091,7 +5091,7 @@
   "code": "8230Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Organisation de foires, salons professionnels et congr\u00e8s",
+  "label": "Organisation de foires, salons professionnels et congrès",
   "modified": "2023-11-03 11:35:08.767335",
   "name": "637"
  },
@@ -5099,7 +5099,7 @@
   "code": "8291Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s des agences de recouvrement de factures et des soci\u00e9t\u00e9s d'information financi\u00e8re sur la client\u00e8le",
+  "label": "Activités des agences de recouvrement de factures et des sociétés d'information financière sur la clientèle",
   "modified": "2023-11-03 11:35:08.770455",
   "name": "638"
  },
@@ -5107,7 +5107,7 @@
   "code": "8292Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s de conditionnement",
+  "label": "Activités de conditionnement",
   "modified": "2023-11-03 11:35:08.775122",
   "name": "639"
  },
@@ -5115,7 +5115,7 @@
   "code": "8299Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres activit\u00e9s de soutien aux entreprises n.c.a.",
+  "label": "Autres activités de soutien aux entreprises n.c.a.",
   "modified": "2023-11-03 11:35:08.778753",
   "name": "640"
  },
@@ -5123,7 +5123,7 @@
   "code": "8411Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Administration publique g\u00e9n\u00e9rale",
+  "label": "Administration publique générale",
   "modified": "2023-11-03 11:35:08.782240",
   "name": "641"
  },
@@ -5131,7 +5131,7 @@
   "code": "8412Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Administration publique (tutelle) de la sant\u00e9, de la formation, de la culture et des services sociaux, autre que s\u00e9curit\u00e9 sociale",
+  "label": "Administration publique (tutelle) de la santé, de la formation, de la culture et des services sociaux, autre que sécurité sociale",
   "modified": "2023-11-03 11:35:08.785629",
   "name": "642"
  },
@@ -5139,7 +5139,7 @@
   "code": "8413Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Administration publique (tutelle) des activit\u00e9s \u00e9conomiques",
+  "label": "Administration publique (tutelle) des activités économiques",
   "modified": "2023-11-03 11:35:08.789548",
   "name": "643"
  },
@@ -5147,7 +5147,7 @@
   "code": "8421Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Affaires \u00e9trang\u00e8res",
+  "label": "Affaires étrangères",
   "modified": "2023-11-03 11:35:08.793415",
   "name": "644"
  },
@@ -5155,7 +5155,7 @@
   "code": "8422Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "D\u00e9fense",
+  "label": "Défense",
   "modified": "2023-11-03 11:35:08.797144",
   "name": "645"
  },
@@ -5171,7 +5171,7 @@
   "code": "8424Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s d'ordre public et de s\u00e9curit\u00e9",
+  "label": "Activités d'ordre public et de sécurité",
   "modified": "2023-11-03 11:35:08.803831",
   "name": "647"
  },
@@ -5187,7 +5187,7 @@
   "code": "8430A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s g\u00e9n\u00e9rales de s\u00e9curit\u00e9 sociale",
+  "label": "Activités générales de sécurité sociale",
   "modified": "2023-11-03 11:35:08.811194",
   "name": "649"
  },
@@ -5195,7 +5195,7 @@
   "code": "8430B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Gestion des retraites compl\u00e9mentaires",
+  "label": "Gestion des retraites complémentaires",
   "modified": "2023-11-03 11:35:08.814559",
   "name": "650"
  },
@@ -5211,7 +5211,7 @@
   "code": "8510Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Enseignement pr\u00e9-primaire",
+  "label": "Enseignement pré-primaire",
   "modified": "2023-11-03 11:35:08.821712",
   "name": "652"
  },
@@ -5227,7 +5227,7 @@
   "code": "8531Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Enseignement secondaire g\u00e9n\u00e9ral",
+  "label": "Enseignement secondaire général",
   "modified": "2023-11-03 11:35:08.828791",
   "name": "654"
  },
@@ -5243,7 +5243,7 @@
   "code": "8541Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Enseignement post-secondaire non sup\u00e9rieur",
+  "label": "Enseignement post-secondaire non supérieur",
   "modified": "2023-11-03 11:35:08.838043",
   "name": "656"
  },
@@ -5251,7 +5251,7 @@
   "code": "8542Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Enseignement sup\u00e9rieur",
+  "label": "Enseignement supérieur",
   "modified": "2023-11-03 11:35:08.842850",
   "name": "657"
  },
@@ -5259,7 +5259,7 @@
   "code": "8551Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Enseignement de disciplines sportives et d'activit\u00e9s de loisirs",
+  "label": "Enseignement de disciplines sportives et d'activités de loisirs",
   "modified": "2023-11-03 11:35:08.845991",
   "name": "658"
  },
@@ -5299,7 +5299,7 @@
   "code": "8560Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s de soutien \u00e0 l'enseignement",
+  "label": "Activités de soutien à l'enseignement",
   "modified": "2023-11-03 11:35:08.864074",
   "name": "663"
  },
@@ -5307,7 +5307,7 @@
   "code": "8610Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s hospitali\u00e8res",
+  "label": "Activités hospitalières",
   "modified": "2023-11-03 11:35:08.867446",
   "name": "664"
  },
@@ -5315,7 +5315,7 @@
   "code": "8621Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9 des m\u00e9decins g\u00e9n\u00e9ralistes",
+  "label": "Activité des médecins généralistes",
   "modified": "2023-11-03 11:35:08.871787",
   "name": "665"
  },
@@ -5323,7 +5323,7 @@
   "code": "8622A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s de radiodiagnostic et de radioth\u00e9rapie",
+  "label": "Activités de radiodiagnostic et de radiothérapie",
   "modified": "2023-11-03 11:35:08.877172",
   "name": "666"
  },
@@ -5331,7 +5331,7 @@
   "code": "8622B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s chirurgicales",
+  "label": "Activités chirurgicales",
   "modified": "2023-11-03 11:35:08.880642",
   "name": "667"
  },
@@ -5339,7 +5339,7 @@
   "code": "8622C",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres activit\u00e9s des m\u00e9decins sp\u00e9cialistes",
+  "label": "Autres activités des médecins spécialistes",
   "modified": "2023-11-03 11:35:08.884021",
   "name": "668"
  },
@@ -5363,7 +5363,7 @@
   "code": "8690B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Laboratoires d'analyses m\u00e9dicales",
+  "label": "Laboratoires d'analyses médicales",
   "modified": "2023-11-03 11:35:08.896504",
   "name": "671"
  },
@@ -5379,7 +5379,7 @@
   "code": "8690D",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s des infirmiers et des sages-femmes",
+  "label": "Activités des infirmiers et des sages-femmes",
   "modified": "2023-11-03 11:35:08.902822",
   "name": "673"
  },
@@ -5387,7 +5387,7 @@
   "code": "8690E",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s des professionnels de la r\u00e9\u00e9ducation, de l'appareillage et des p\u00e9dicures-podologues",
+  "label": "Activités des professionnels de la rééducation, de l'appareillage et des pédicures-podologues",
   "modified": "2023-11-03 11:35:08.907592",
   "name": "674"
  },
@@ -5395,7 +5395,7 @@
   "code": "8690F",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s de sant\u00e9 humaine non class\u00e9es ailleurs",
+  "label": "Activités de santé humaine non classées ailleurs",
   "modified": "2023-11-03 11:35:08.911754",
   "name": "675"
  },
@@ -5403,7 +5403,7 @@
   "code": "8710A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "H\u00e9bergement m\u00e9dicalis\u00e9 pour personnes \u00e2g\u00e9es",
+  "label": "Hébergement médicalisé pour personnes âgées",
   "modified": "2023-11-03 11:35:08.915197",
   "name": "676"
  },
@@ -5411,7 +5411,7 @@
   "code": "8710B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "H\u00e9bergement m\u00e9dicalis\u00e9 pour enfants handicap\u00e9s",
+  "label": "Hébergement médicalisé pour enfants handicapés",
   "modified": "2023-11-03 11:35:08.918599",
   "name": "677"
  },
@@ -5419,7 +5419,7 @@
   "code": "8710C",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "H\u00e9bergement m\u00e9dicalis\u00e9 pour adultes handicap\u00e9s et autre h\u00e9bergement m\u00e9dicalis\u00e9",
+  "label": "Hébergement médicalisé pour adultes handicapés et autre hébergement médicalisé",
   "modified": "2023-11-03 11:35:08.922070",
   "name": "678"
  },
@@ -5427,7 +5427,7 @@
   "code": "8720A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "H\u00e9bergement social pour handicap\u00e9s mentaux et malades mentaux",
+  "label": "Hébergement social pour handicapés mentaux et malades mentaux",
   "modified": "2023-11-03 11:35:08.925663",
   "name": "679"
  },
@@ -5435,7 +5435,7 @@
   "code": "8720B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "H\u00e9bergement social pour toxicomanes",
+  "label": "Hébergement social pour toxicomanes",
   "modified": "2023-11-03 11:35:08.928974",
   "name": "680"
  },
@@ -5443,7 +5443,7 @@
   "code": "8730A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "H\u00e9bergement social pour personnes \u00e2g\u00e9es",
+  "label": "Hébergement social pour personnes âgées",
   "modified": "2023-11-03 11:35:08.932253",
   "name": "681"
  },
@@ -5451,7 +5451,7 @@
   "code": "8730B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "H\u00e9bergement social pour handicap\u00e9s physiques",
+  "label": "Hébergement social pour handicapés physiques",
   "modified": "2023-11-03 11:35:08.935273",
   "name": "682"
  },
@@ -5459,7 +5459,7 @@
   "code": "8790A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "H\u00e9bergement social pour enfants en difficult\u00e9s",
+  "label": "Hébergement social pour enfants en difficultés",
   "modified": "2023-11-03 11:35:08.938577",
   "name": "683"
  },
@@ -5467,7 +5467,7 @@
   "code": "8790B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "H\u00e9bergement social pour adultes et familles en difficult\u00e9s et autre h\u00e9bergement social",
+  "label": "Hébergement social pour adultes et familles en difficultés et autre hébergement social",
   "modified": "2023-11-03 11:35:08.942167",
   "name": "684"
  },
@@ -5475,7 +5475,7 @@
   "code": "8810A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Aide \u00e0 domicile",
+  "label": "Aide à domicile",
   "modified": "2023-11-03 11:35:08.945254",
   "name": "685"
  },
@@ -5483,7 +5483,7 @@
   "code": "8810B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Accueil ou accompagnement sans h\u00e9bergement d'adultes handicap\u00e9s ou de personnes \u00e2g\u00e9es",
+  "label": "Accueil ou accompagnement sans hébergement d'adultes handicapés ou de personnes âgées",
   "modified": "2023-11-03 11:35:08.948368",
   "name": "686"
  },
@@ -5507,7 +5507,7 @@
   "code": "8891B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Accueil ou accompagnement sans h\u00e9bergement d'enfants handicap\u00e9s",
+  "label": "Accueil ou accompagnement sans hébergement d'enfants handicapés",
   "modified": "2023-11-03 11:35:08.959025",
   "name": "689"
  },
@@ -5515,7 +5515,7 @@
   "code": "8899A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autre accueil ou accompagnement sans h\u00e9bergement d'enfants et d'adolescents",
+  "label": "Autre accueil ou accompagnement sans hébergement d'enfants et d'adolescents",
   "modified": "2023-11-03 11:35:08.962172",
   "name": "690"
  },
@@ -5523,7 +5523,7 @@
   "code": "8899B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Action sociale sans h\u00e9bergement n.c.a.",
+  "label": "Action sociale sans hébergement n.c.a.",
   "modified": "2023-11-03 11:35:08.965147",
   "name": "691"
  },
@@ -5539,7 +5539,7 @@
   "code": "9002Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s de soutien au spectacle vivant",
+  "label": "Activités de soutien au spectacle vivant",
   "modified": "2023-11-03 11:35:08.971210",
   "name": "693"
  },
@@ -5547,7 +5547,7 @@
   "code": "9003A",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Cr\u00e9ation artistique relevant des arts plastiques",
+  "label": "Création artistique relevant des arts plastiques",
   "modified": "2023-11-03 11:35:08.974895",
   "name": "694"
  },
@@ -5555,7 +5555,7 @@
   "code": "9003B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autre cr\u00e9ation artistique",
+  "label": "Autre création artistique",
   "modified": "2023-11-03 11:35:08.978296",
   "name": "695"
  },
@@ -5571,7 +5571,7 @@
   "code": "9101Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Gestion des biblioth\u00e8ques et des archives",
+  "label": "Gestion des bibliothèques et des archives",
   "modified": "2023-11-03 11:35:08.984644",
   "name": "697"
  },
@@ -5579,7 +5579,7 @@
   "code": "9102Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Gestion des mus\u00e9es",
+  "label": "Gestion des musées",
   "modified": "2023-11-03 11:35:08.988230",
   "name": "698"
  },
@@ -5595,7 +5595,7 @@
   "code": "9104Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Gestion des jardins botaniques et zoologiques et des r\u00e9serves naturelles",
+  "label": "Gestion des jardins botaniques et zoologiques et des réserves naturelles",
   "modified": "2023-11-03 11:35:08.995992",
   "name": "700"
  },
@@ -5619,7 +5619,7 @@
   "code": "9312Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s de clubs de sports",
+  "label": "Activités de clubs de sports",
   "modified": "2023-11-03 11:35:09.006914",
   "name": "703"
  },
@@ -5627,7 +5627,7 @@
   "code": "9313Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s des centres de culture physique",
+  "label": "Activités des centres de culture physique",
   "modified": "2023-11-03 11:35:09.010302",
   "name": "704"
  },
@@ -5635,7 +5635,7 @@
   "code": "9319Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres activit\u00e9s li\u00e9es au sport",
+  "label": "Autres activités liées au sport",
   "modified": "2023-11-03 11:35:09.013730",
   "name": "705"
  },
@@ -5643,7 +5643,7 @@
   "code": "9321Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s des parcs d'attractions et parcs \u00e0 th\u00e8mes",
+  "label": "Activités des parcs d'attractions et parcs à thèmes",
   "modified": "2023-11-03 11:35:09.016878",
   "name": "706"
  },
@@ -5651,7 +5651,7 @@
   "code": "9329Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres activit\u00e9s r\u00e9cr\u00e9atives et de loisirs",
+  "label": "Autres activités récréatives et de loisirs",
   "modified": "2023-11-03 11:35:09.020158",
   "name": "707"
  },
@@ -5659,7 +5659,7 @@
   "code": "9411Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s des organisations patronales et consulaires",
+  "label": "Activités des organisations patronales et consulaires",
   "modified": "2023-11-03 11:35:09.023766",
   "name": "708"
  },
@@ -5667,7 +5667,7 @@
   "code": "9412Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s des organisations professionnelles",
+  "label": "Activités des organisations professionnelles",
   "modified": "2023-11-03 11:35:09.026869",
   "name": "709"
  },
@@ -5675,7 +5675,7 @@
   "code": "9420Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s des syndicats de salari\u00e9s",
+  "label": "Activités des syndicats de salariés",
   "modified": "2023-11-03 11:35:09.029709",
   "name": "710"
  },
@@ -5683,7 +5683,7 @@
   "code": "9491Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s des organisations religieuses",
+  "label": "Activités des organisations religieuses",
   "modified": "2023-11-03 11:35:09.032648",
   "name": "711"
  },
@@ -5691,7 +5691,7 @@
   "code": "9492Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s des organisations politiques",
+  "label": "Activités des organisations politiques",
   "modified": "2023-11-03 11:35:09.036094",
   "name": "712"
  },
@@ -5699,7 +5699,7 @@
   "code": "9499Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Autres organisations fonctionnant par adh\u00e9sion volontaire",
+  "label": "Autres organisations fonctionnant par adhésion volontaire",
   "modified": "2023-11-03 11:35:09.040432",
   "name": "713"
  },
@@ -5707,7 +5707,7 @@
   "code": "9511Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "R\u00e9paration d'ordinateurs et d'\u00e9quipements p\u00e9riph\u00e9riques",
+  "label": "Réparation d'ordinateurs et d'équipements périphériques",
   "modified": "2023-11-03 11:35:09.044091",
   "name": "714"
  },
@@ -5715,7 +5715,7 @@
   "code": "9512Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "R\u00e9paration d'\u00e9quipements de communication",
+  "label": "Réparation d'équipements de communication",
   "modified": "2023-11-03 11:35:09.047560",
   "name": "715"
  },
@@ -5723,7 +5723,7 @@
   "code": "9521Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "R\u00e9paration de produits \u00e9lectroniques grand public",
+  "label": "Réparation de produits électroniques grand public",
   "modified": "2023-11-03 11:35:09.050840",
   "name": "716"
  },
@@ -5731,7 +5731,7 @@
   "code": "9522Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "R\u00e9paration d'appareils \u00e9lectrom\u00e9nagers et d'\u00e9quipements pour la maison et le jardin",
+  "label": "Réparation d'appareils électroménagers et d'équipements pour la maison et le jardin",
   "modified": "2023-11-03 11:35:09.054331",
   "name": "717"
  },
@@ -5739,7 +5739,7 @@
   "code": "9523Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "R\u00e9paration de chaussures et d'articles en cuir",
+  "label": "Réparation de chaussures et d'articles en cuir",
   "modified": "2023-11-03 11:35:09.058358",
   "name": "718"
  },
@@ -5747,7 +5747,7 @@
   "code": "9524Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "R\u00e9paration de meubles et d'\u00e9quipements du foyer",
+  "label": "Réparation de meubles et d'équipements du foyer",
   "modified": "2023-11-03 11:35:09.061970",
   "name": "719"
  },
@@ -5755,7 +5755,7 @@
   "code": "9525Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "R\u00e9paration d'articles d'horlogerie et de bijouterie",
+  "label": "Réparation d'articles d'horlogerie et de bijouterie",
   "modified": "2023-11-03 11:35:09.065301",
   "name": "720"
  },
@@ -5763,7 +5763,7 @@
   "code": "9529Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "R\u00e9paration d'autres biens personnels et domestiques",
+  "label": "Réparation d'autres biens personnels et domestiques",
   "modified": "2023-11-03 11:35:09.068648",
   "name": "721"
  },
@@ -5779,7 +5779,7 @@
   "code": "9601B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Blanchisserie-teinturerie de d\u00e9tail",
+  "label": "Blanchisserie-teinturerie de détail",
   "modified": "2023-11-03 11:35:09.076410",
   "name": "723"
  },
@@ -5795,7 +5795,7 @@
   "code": "9602B",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Soins de beaut\u00e9",
+  "label": "Soins de beauté",
   "modified": "2023-11-03 11:35:09.085321",
   "name": "725"
  },
@@ -5803,7 +5803,7 @@
   "code": "9603Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Services fun\u00e9raires",
+  "label": "Services funéraires",
   "modified": "2023-11-03 11:35:09.089319",
   "name": "726"
  },
@@ -5827,7 +5827,7 @@
   "code": "9700Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s des m\u00e9nages en tant qu'employeurs de personnel domestique",
+  "label": "Activités des ménages en tant qu'employeurs de personnel domestique",
   "modified": "2023-11-03 11:35:09.100369",
   "name": "729"
  },
@@ -5835,7 +5835,7 @@
   "code": "9810Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s indiff\u00e9renci\u00e9es des m\u00e9nages en tant que producteurs de biens pour usage propre",
+  "label": "Activités indifférenciées des ménages en tant que producteurs de biens pour usage propre",
   "modified": "2023-11-03 11:35:09.103777",
   "name": "730"
  },
@@ -5843,7 +5843,7 @@
   "code": "9820Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s indiff\u00e9renci\u00e9es des m\u00e9nages en tant que producteurs de services pour usage propre",
+  "label": "Activités indifférenciées des ménages en tant que producteurs de services pour usage propre",
   "modified": "2023-11-03 11:35:09.107117",
   "name": "731"
  },
@@ -5851,7 +5851,7 @@
   "code": "9900Z",
   "docstatus": 0,
   "doctype": "Code Naf",
-  "label": "Activit\u00e9s des organisations et organismes extraterritoriaux",
+  "label": "Activités des organisations et organismes extraterritoriaux",
   "modified": "2023-11-03 11:35:09.110375",
   "name": "732"
  }
