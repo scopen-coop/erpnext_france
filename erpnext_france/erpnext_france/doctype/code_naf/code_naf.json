@@ -49,6 +49,58 @@
    "role": "System Manager",
    "share": 1,
    "write": 1
+  },
+  {
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "import": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "role": "Sales Manager",
+   "share": 0,
+   "write": 0
+  },
+  {
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "import": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "role": "Purchase Manager",
+   "share": 0,
+   "write": 0
+  },
+  {
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "import": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "role": "Sales User",
+   "share": 0,
+   "write": 0
+  },
+  {
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "import": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "role": "Purchase Master Manager",
+   "share": 0,
+   "write": 0
   }
  ],
  "show_title_field_in_link": 1,

@@ -4,13 +4,17 @@
 
 frappe.listview_settings["Customer"] = {
     onload(listview) {
-        listview.page.add_inner_button(__('Import customer from SIRENE'),  import_thirdparty_from_sirene, '', 'primary')
+        if (listview.can_create) {
+            listview.page.add_inner_button(__('Import customer from SIRENE'),  import_thirdparty_from_sirene, '', 'primary')
+        }
     },
 };
 
 frappe.listview_settings["Supplier"] = {
     onload(listview) {
-        listview.page.add_inner_button(__('Import supplier from SIRENE'),  import_thirdparty_from_sirene, '', 'primary')
+        if (listview.can_create) {
+            listview.page.add_inner_button(__('Import supplier from SIRENE'),  import_thirdparty_from_sirene, '', 'primary')
+        }
     },
 };
 
@@ -82,7 +86,14 @@ function import_thirdparty_from_sirene() {
         }
     });
 
-    dialog1.show();
+    frappe.db.get_doc('ERPNext France Settings', null)
+    .then(doc => {
+        if (!doc.api_token || !doc.api_url) {
+            frappe.throw(__('You have to specify Erpnext France Parameters'))
+        } else {
+            dialog1.show();
+        }
+    })
 }
 
 /**

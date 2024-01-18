@@ -122,6 +122,18 @@ fixtures = [
 				'General Ledger',
 			)]
 		]
+	},
+	{
+		"dt": ("Payment Terms Template"),
+		"filters": [
+			["name", "in", ('Règlement à 30 jours')]
+		]
+	},
+	{
+		"dt": ("Payment Term"),
+		"filters": [
+			["name", "in", ('Règlement à 30 jours')]
+		]
 	}
 ]
 # fixtures = ["Custom Field"]
@@ -185,7 +197,7 @@ doctype_list_js = {
 
 # before_install = "erpnext_france.install.before_install"
 # after_install = "erpnext_france.install.after_install"
-after_install = "erpnext_france.install.after_install"
+after_install = "erpnext_france.install.after_install",
 
 # Desk Notifications
 # ------------------
@@ -240,6 +252,9 @@ doc_events = {
 	"Journal Entry": {
 		"validate": "erpnext_france.controllers.journal_entry_down_payment.validate"
 	},
+	"Company": {
+		"after_insert": "erpnext_france.setup_company.setup"
+	},
 }
 
 # Scheduled Tasks
@@ -293,3 +308,7 @@ override_doctype_class = {
 	"Payment Entry": "erpnext_france.erpnext_france.overrides.doctype.payment_entry_down_payment.PaymentEntryDownPayment",
 	"Sales Invoice": "erpnext_france.erpnext_france.overrides.doctype.sales_invoice_down_payment.SalesInvoiceDownPayment",
 }
+
+setup_wizard_complete = "erpnext_france.setup_company.add_bank_account"
+
+export_python_type_annotations = True

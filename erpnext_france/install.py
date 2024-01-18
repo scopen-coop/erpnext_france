@@ -6,8 +6,9 @@ import frappe
 from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
 
 def after_install():
-	# make_custom_fields()
 	add_custom_roles_for_reports()
+	add_custom_roles_for_client_and_suppliers()
+
 	set_accounting_journal_as_mandatory()
 
 def make_custom_fields():
@@ -24,5 +25,6 @@ def add_custom_roles_for_reports():
 				dict(role='Accounts Manager')
 			]
 		)).insert()
+
 def set_accounting_journal_as_mandatory():
 	frappe.db.set_single_value("Accounts Settings", "mandatory_accounting_journal", 1)
