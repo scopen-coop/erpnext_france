@@ -51,69 +51,62 @@
    "write": 1
   },
   {
-   "create": 0,
-   "delete": 0,
-   "email": 0,
-   "export": 0,
-   "import": 0,
-   "print": 0,
+   "export": 1,
    "read": 1,
-   "report": 0,
-   "role": "Sales Manager",
-   "share": 0,
-   "write": 0
+   "report": 1,
+   "role": "Purchase Master Manager"
   },
   {
-   "create": 0,
-   "delete": 0,
-   "email": 0,
-   "export": 0,
-   "import": 0,
-   "print": 0,
+   "export": 1,
    "read": 1,
-   "report": 0,
-   "role": "Purchase Manager",
-   "share": 0,
-   "write": 0
+   "report": 1,
+   "role": "Stock Manager"
   },
   {
-   "create": 0,
-   "delete": 0,
-   "email": 0,
-   "export": 0,
-   "import": 0,
-   "print": 0,
+   "export": 1,
    "read": 1,
-   "report": 0,
-   "role": "Sales User",
-   "share": 0,
-   "write": 0
+   "report": 1,
+   "role": "Purchase User"
   },
   {
-   "create": 0,
-   "delete": 0,
-   "email": 0,
-   "export": 0,
-   "import": 0,
-   "print": 0,
+   "create": 1,
+   "export": 1,
    "read": 1,
-   "report": 0,
-   "role": "Sales Master Manager",
-   "share": 0,
-   "write": 0
+   "report": 1,
+   "role": "Accounts Manager",
+   "write": 1
   },
   {
-   "create": 0,
-   "delete": 0,
-   "email": 0,
-   "export": 0,
-   "import": 0,
-   "print": 0,
+   "create": 1,
+   "export": 1,
    "read": 1,
-   "report": 0,
-   "role": "Purchase Master Manager",
-   "share": 0,
-   "write": 0
+   "report": 1,
+   "role": "Accounts User",
+   "write": 1
+  },
+  {
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Purchase Manager"
+  },
+  {
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Stock User"
+  },
+  {
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Master Manager"
+  },
+  {
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User"
   }
  ],
  "show_title_field_in_link": 1,
