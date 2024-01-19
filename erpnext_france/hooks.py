@@ -197,7 +197,7 @@ doctype_list_js = {
 
 # before_install = "erpnext_france.install.before_install"
 # after_install = "erpnext_france.install.after_install"
-after_install = "erpnext_france.install.after_install",
+after_install = "erpnext_france.install.after_install"
 
 # Desk Notifications
 # ------------------

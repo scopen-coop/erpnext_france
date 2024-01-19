@@ -1,6 +1,6 @@
 [
  {
-  "allocate_payment_based_on_payment_terms": 0,
+  "allocate_payment_based_on_payment_terms": 1,
   "docstatus": 0,
   "doctype": "Payment Terms Template",
   "modified": "2024-01-18 11:26:14.833413",

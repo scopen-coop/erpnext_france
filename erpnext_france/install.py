@@ -7,8 +7,6 @@ from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
 
 def after_install():
 	add_custom_roles_for_reports()
-	add_custom_roles_for_client_and_suppliers()
-
 	set_accounting_journal_as_mandatory()
 
 def make_custom_fields():

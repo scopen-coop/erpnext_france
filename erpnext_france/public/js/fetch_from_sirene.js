@@ -122,7 +122,7 @@ function selectEntity(etablissements) {
             },
         ],
         size: 'extra-large', // small, large, extra-large
-        primary_action_label: 'Submit',
+        primary_action_label: __('Submit'),
         async primary_action() {
             selected = $(this.$wrapper[0]).find('input[name="entity-select"]:checked');
             if (selected.length > 0) {
