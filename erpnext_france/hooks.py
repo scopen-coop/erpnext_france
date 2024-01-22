@@ -198,7 +198,7 @@ doctype_list_js = {
 # before_install = "erpnext_france.install.before_install"
 # after_install = "erpnext_france.install.after_install"
 after_install = "erpnext_france.install.after_install"
-
+# setup_wizard_complete = "erpnext_france.install.after_wizard"
 # Desk Notifications
 # ------------------
 # See frappe.core.notifications.get_notification_config
@@ -255,6 +255,9 @@ doc_events = {
 	"Company": {
 		"after_insert": "erpnext_france.setup_company.setup"
 	},
+	"System Settings":{
+		# "on_update": 'erpnext_france.install.after_wizard'
+	}
 }
 
 # Scheduled Tasks
