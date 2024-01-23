@@ -15,7 +15,7 @@ app_license = "GNU General Public License"
 
 fixtures = [
 	{
-		"dt": ("Custom Field"),
+		"dt": "Custom Field",
 		"filters": [
 			["name", "in", (
 					"Accounts Settings-invoice_and_billing_tab",
@@ -74,7 +74,7 @@ fixtures = [
 		]
 	},
 	{
-		"dt": ("Property Setter"),
+		"dt": "Property Setter",
 		"filters": [
 			["name", "in",
 			 (
@@ -95,7 +95,7 @@ fixtures = [
 		]
 	},
 	{
-		"dt": ("Workspace"),
+		"dt": "Workspace",
 		"filters": [
 			["name", "in",
 			 ('ERPNext France Settings',
@@ -103,19 +103,35 @@ fixtures = [
 		]
 	},
 	{
-		"dt": ("Address Template"),
+		"dt": "Workspace Link",
 		"filters": [
-			["country", "in", ('France')]
+			["label", "in",
+			 ('ERPNext France',
+			  'ERPNext France Settings',
+			  'Legal Form',
+			  'Company',
+			  'Code Naf',
+			  'Accounting Journal',
+			  'Fichier des Ecritures Comptables [FEC]',
+			  'Adjustement Entry',
+			  'Export Comptable'
+			  )],
 		]
 	},
 	{
-		"dt": ("Legal Form"),
+		"dt": "Address Template",
+		"filters": [
+			["country", "in", 'France']
+		]
 	},
 	{
-		"dt": ("Code Naf"),
+		"dt": "Legal Form",
 	},
 	{
-		"dt": ("Report"),
+		"dt": "Code Naf",
+	},
+	{
+		"dt": "Report",
 		"filters": [
 			["name", "in", (
 				'Fichier des Ecritures Comptables [FEC]',
@@ -124,15 +140,15 @@ fixtures = [
 		]
 	},
 	{
-		"dt": ("Payment Terms Template"),
+		"dt": "Payment Terms Template",
 		"filters": [
-			["name", "in", ('Règlement à 30 jours')]
+			["name", "in", 'Règlement à 30 jours']
 		]
 	},
 	{
-		"dt": ("Payment Term"),
+		"dt": "Payment Term",
 		"filters": [
-			["name", "in", ('Règlement à 30 jours')]
+			["name", "in", 'Règlement à 30 jours']
 		]
 	}
 ]
@@ -198,6 +214,7 @@ doctype_list_js = {
 # before_install = "erpnext_france.install.before_install"
 # after_install = "erpnext_france.install.after_install"
 after_install = "erpnext_france.install.after_install"
+after_sync = "erpnext_france.utils.update_workspace.add_cards"
 # setup_wizard_complete = "erpnext_france.install.after_wizard"
 # Desk Notifications
 # ------------------
