@@ -15,9 +15,6 @@ def after_install():
 # 	if frappe.db.get_single_value("System Settings", "enable_onboarding") == 1:
 # 		frappe.db.set_single_value("System Settings", "enable_onboarding", 0)
 
-def make_custom_fields():
-	create_custom_fields(custom_fields)
-
 def add_custom_roles_for_reports():
 	report_name = 'Fichier des Ecritures Comptables [FEC]'
 
@@ -32,3 +29,5 @@ def add_custom_roles_for_reports():
 
 def set_accounting_journal_as_mandatory():
 	frappe.db.set_single_value("Accounts Settings", "mandatory_accounting_journal", 1)
+
+

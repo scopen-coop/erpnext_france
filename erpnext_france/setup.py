@@ -7,7 +7,7 @@ from frappe.utils import cint
 from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
 
 
-def setup(company, action):
+def setup_company_default(company, action):
 	if company.country != 'France':
 		return
 
@@ -34,6 +34,12 @@ def setup(company, action):
 
 	frappe.local.flags.ignore_chart_of_accounts = True
 
+def setup_wizard_complete(args, action=None):
+	add_bank_account(args)
+	set_default_stock_settings()
+	set_default_system_settings()
+
+
 def default_accounts_mapping(accounts):
 	account_map = {
 		"default_bank_account": 5121,
@@ -48,7 +54,7 @@ def default_accounts_mapping(accounts):
 	}
 
 
-def add_bank_account(args, action=None):
+def add_bank_account(args):
 	account = frappe.get_last_doc(
 		"Account",
 		filters={"disabled": 0, "is_group": 0, "company": args.get('company_name'), "account_number": 5121},
@@ -64,3 +70,13 @@ def add_bank_account(args, action=None):
 		account.name,
 		update_modified=False,
 	)
+
+
+def set_default_stock_settings():
+	frappe.db.set_single_value("Stock Settings", "item_naming_by", "Item Code")
+	frappe.db.set_single_value("Stock Settings", "valuation_method", "Moving Average")
+	frappe.db.set_single_value("Stock Settings", "stock_uom", "Unité")
+	frappe.db.set_single_value("Stock Settings", "auto_insert_price_list_rate_if_missing", 1)
+
+def set_default_system_settings():
+	frappe.db.set_single_value("Stock Settings", "first_day_of_the_week", "Monday")

@@ -268,7 +268,7 @@ doc_events = {
 		"validate": "erpnext_france.controllers.journal_entry_down_payment.validate"
 	},
 	"Company": {
-		"after_insert": "erpnext_france.setup_company.setup"
+		"after_insert": "erpnext_france.setup.setup_company_default"
 	},
 	"System Settings":{
 		# "on_update": 'erpnext_france.install.after_wizard'
@@ -327,6 +327,6 @@ override_doctype_class = {
 	"Sales Invoice": "erpnext_france.erpnext_france.overrides.doctype.sales_invoice_down_payment.SalesInvoiceDownPayment",
 }
 
-setup_wizard_complete = "erpnext_france.setup_company.add_bank_account"
+setup_wizard_complete = "erpnext_france.setup.setup_wizard_complete"
 
 export_python_type_annotations = True

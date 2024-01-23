@@ -431,3 +431,8 @@ Email Address (Will be your login ID),"Adresse email (sera le login de ce compte
 Updating global settings, Mise à jour des paramètres globaux,
 "If checked, we will create demo data for you to explore the system. This demo data can be erased later.","Si cette case est cochée, nous créerons des données de démonstration pour vous permettre d'explorer le système. Ces données de démonstration peuvent être effacées ultérieurement.",
 Generate Demo Data for Exploration, Générer des données de démo pour explorer ERPNext,
+Auto Insert Item Price If Missing, Création du prix de l'article dans les listes de prix si absent,
+Merge Similar Account Heads, Fusionner les lignes ayants des codes comptables similaires,
+Rows with Same Account heads will be merged on Ledger, Les lignes associées aux mêmes codes comptables seront fusionnées dans le grand livre,
+Setup Global Settings, Configuration des paramètres globaux,
+
