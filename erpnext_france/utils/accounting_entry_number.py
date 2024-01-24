@@ -85,8 +85,8 @@ def get_accounting_journal(entry):
 	):
 		frappe.throw(
 			_(
-				"Please configure an accounting journal for this transaction type and account: {0} - {1}"
-			).format(_(entry.voucher_type), entry.account)
+				"Please configure an accounting journal for this transaction type and account: {0}"
+			).format(_(entry.voucher_type))
 		)
 
 	return accounting_journal

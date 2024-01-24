@@ -435,4 +435,5 @@ Auto Insert Item Price If Missing, Création du prix de l'article dans les liste
 Merge Similar Account Heads, Fusionner les lignes ayants des codes comptables similaires,
 Rows with Same Account heads will be merged on Ledger, Les lignes associées aux mêmes codes comptables seront fusionnées dans le grand livre,
 Setup Global Settings, Configuration des paramètres globaux,
-
+Please Set Accounting Jounal For Purchases and Sales, Veuillez définir les journaux comptables pour les achats et les ventes,
+Please configure an accounting journal for this transaction type and account: {0}, Veuillez configurer le compte comptable pour ce type de transaction et compte: {0}

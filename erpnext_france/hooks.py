@@ -31,7 +31,6 @@ fixtures = [
 					"Customer-code_naf",
 					"Customer-incoterm",
 					"Customer-legal_form",
-					"Customer-subledger_account",
 					"Customer-siret",
 					"Customer-siren",
 					"GL Entry-accounting_entry_number",
@@ -64,9 +63,9 @@ fixtures = [
 					"Supplier-check_vat_id",
 					"Supplier-code_naf",
 					"Supplier-legal_form",
-					"Supplier-subledger_account",
 					"Supplier-siret",
 					"Supplier-siren",
+					"Party Account-subledger_account"
 				)
 			],
 		]
@@ -214,6 +213,7 @@ doctype_list_js = {
 # after_install = "erpnext_france.install.after_install"
 after_install = "erpnext_france.install.after_install"
 after_sync = "erpnext_france.utils.update_workspace.add_cards"
+after_migrate = "erpnext_france.migrate.move_subledger_account_by_company"
 setup_wizard_complete = "erpnext_france.setup.setup_wizard_complete"
 # setup_wizard_complete = "erpnext_france.install.after_wizard"
 # Desk Notifications

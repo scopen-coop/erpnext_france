@@ -69,12 +69,16 @@ class DataExporter:
 
 	def get_jounal_code(self):
 		if self.accounting_document == "Purchase Invoice":
-			self.journal_code = frappe.db.get_value("Company", self.company, "buying_journal_code")
-		elif self.accounting_document == "Sales Invoice":
-			self.journal_code = frappe.db.get_value("Company", self.company, "selling_journal_code")
+			accounting_journal = frappe.get_last_doc("Accounting Journal", filters={'type': 'Purchase'})
+		else:
+			accounting_journal = frappe.get_last_doc("Accounting Journal", filters={'type': 'Sales'})
+
+		if accounting_journal:
+			self.journal_code = accounting_journal.journal_code
+		else:
+			frappe.throw('Please Set Accounting Jounal For Purchases and Sales')
 
 	def add_data(self):
-
 		def _set_export_date(doc_type=None, voucher_no=None, export_date=None):
 			if export_date is not None and export_date != '' and export_date != 'undefined' and doc_type is not None and voucher_no is not None:
 				invoice = frappe.get_doc(doc_type, voucher_no)
@@ -83,23 +87,27 @@ class DataExporter:
 					# as it is a custom field created by this app bypass validation Invoice rule is OK
 					invoice.db_set('accounting_export_date', export_date)
 
-		sql_already_exported = ""
+
+		gl = frappe.qb.DocType("GL Entry")
+		acc = frappe.qb.DocType("Account", alias='acc')
+		against_acc = frappe.qb.DocType("Account", alias='against_acc')
+		supp = frappe.qb.DocType("Supplier")
+		cust = frappe.qb.DocType("Customer")
+
+		sql_already_exported = ''
 
 		# get journal code and export date
 		if self.accounting_document == "Purchase Invoice":
-			fields_inv = ", pinv.due_date as due_date, pinv.bill_no as orign_no "
-			join_table = " inner join `tabPurchase Invoice` pinv on gl.voucher_no = pinv.name "
-			if self.included_already_exported_document == '0':
-				sql_already_exported = " and pinv.accounting_export_date IS NULL "
-		elif self.accounting_document == "Sales Invoice":
-			fields_inv = ",sinv.due_date as due_date, sinv.po_no as orign_no"
-			join_table = " inner join `tabSales Invoice` sinv on gl.voucher_no = sinv.name "
-			if self.included_already_exported_document == '0':
-				sql_already_exported = " and sinv.accounting_export_date IS NULL"
+			inv = frappe.qb.DocType("Purchase Invoice")
+			fields_inv = inv.bill_no.as_('orign_no')
+		else:
+			inv = frappe.qb.DocType("Sales Invoice")
+			fields_inv = inv.po_no.as_('orign_no')
 
-		# get permitted data only
-		self.data = frappe.db.sql("""
-			select
+
+		sql = (
+			frappe.qb.from_(gl)
+			.select(
 				gl.name,
 				gl.posting_date,
 				gl.debit,
@@ -110,26 +118,34 @@ class DataExporter:
 				gl.against_voucher_type,
 				acc.account_number,
 				acc.account_name,
-				supp.subledger_account as supp_subl_acc,
+				supp.subledger_account.as_('supp_subl_acc'),
 				supp.supplier_name,
-				cust.subledger_account as cust_subl_acc,
-				cust.customer_name
-				{fields_inv}
-			from `tabGL Entry` gl
-			inner join `tabAccount` acc on gl.account = acc.name
-			left join `tabAccount` against_acc on gl.against = against_acc.name
-			left join `tabSupplier` supp on gl.party = supp.name
-			left join `tabCustomer` cust on gl.party = cust.name
-			{join_table}
-			where gl.voucher_type = %(voucher_type)s and gl.posting_date between %(from_date)s and %(to_date)s
-			and acc.account_type not in ("Bank", "Cash") and ifnull(against_acc.account_type, "") not in ("Bank", "Cash")
-			{sql_already_exported}
-			order by gl.voucher_no, acc.account_number""".format(sql_already_exported=sql_already_exported,
-																 fields_inv=fields_inv,
-																 join_table=join_table),
-								  {"voucher_type": self.accounting_document, "from_date": self.from_date,
-								   "to_date": self.to_date},
-								  as_dict=True)
+				cust.subledger_account.as_('cust_subl_acc'),
+				cust.customer_name,
+				inv.due_date.as_('due_date'),
+				fields_inv
+			).inner_join(acc)
+			.on(gl.account == acc.name)
+			.left_join(against_acc)
+			.on(gl.against == against_acc.name)
+			.left_join(supp)
+			.on(gl.party == supp.name)
+			.left_join(cust)
+			.on(gl.party == cust.name)
+			.inner_join(inv)
+			.on(gl.voucher_no == inv.name)
+			.where(gl.voucher_type == self.accounting_document)
+			.where(gl.posting_date[self.from_date:self.to_date])
+			.where(acc.account_type.notin(["Bank", "Cash"]))
+			.where(against_acc.account_type.notin(["Bank", "Cash"]))
+		)
+
+		# TODO: Add subledger account from customer ou supplier
+
+		if self.included_already_exported_document == '0':
+			sql = sql.where(inv.accounting_export_date.isnull())
+
+		self.data = (sql).run(as_dict=True)
 
 		# format row
 		if self.file_format == "CIEL":
@@ -190,9 +206,9 @@ class DataExporter:
 		ecriture_date = format_datetime(doc.get("posting_date"), "yyyyMMdd")
 
 		if doc.get("against_voucher_type") == "Purchase Invoice":
-			echeance_date = format_datetime(doc.get("due_date"), "yyyyMMdd")
+			echeance_date = format_datetime(doc.get("due_date"), "yyyyMMdd") or ''
 		elif doc.get("against_voucher_type") == "Sales Invoice":
-			echeance_date = format_datetime(doc.get("due_date"), "yyyyMMdd")
+			echeance_date = format_datetime(doc.get("due_date"), "yyyyMMdd") or ''
 		else:
 			echeance_date = '{:<8s}'.format("")
 
