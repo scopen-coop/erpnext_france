@@ -141,12 +141,12 @@ function selectEntity(etablissements) {
         }
     });
 
-    let $wrapper = dialog2.fields_dict.table_area.$wrapper
-			.append(`<div class="results my-3"
-			style="border: 1px solid #d1d8dd; border-radius: 3px; height: 300px; overflow: auto;"></div>`);
+    let $wrapper = dialog2.fields_dict.table_area.$wrapper.append(
+        `<div class="results my-3" style="border: 1px solid #d1d8dd; border-radius: 3px; height: 300px; overflow: auto;"></div>`
+    );
 
-		let $results = $wrapper.find(".results");
-		$results.append(make_table(entities, doctype));
+    let $results = $wrapper.find(".results");
+    $results.append(make_table(entities, doctype));
     dialog2.show();
 }
 
@@ -380,7 +380,9 @@ function make_table(entities, doctype) {
             +'                       <span class="static-area ellipsis" style="white-space: normal !important;">' + entity.company_name + '</span>'
             +'                   </div>'
             +'                   <div class="col grid-static-col col-xs-3" style="height: auto !important;">'
-            +'                       <span class="static-area ellipsis" style="white-space: normal !important;">' + entity.address_1 + ' ' + entity.town + '</span>'
+            +'                       <span class="static-area ellipsis" style="white-space: normal !important;">'
+            +                            entity.address_1 + ' ' + entity.town + ' ' + entity.zipcode
+            +'                        </span>'
             +'                   </div>'
             +'                   <div class="col grid-static-col col-xs-2">'
             +'                       <span class="static-area ellipsis">' + entity.date_creation + '</span>'
