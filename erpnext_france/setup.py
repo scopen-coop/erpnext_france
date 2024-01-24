@@ -79,4 +79,4 @@ def set_default_stock_settings():
 	frappe.db.set_single_value("Stock Settings", "auto_insert_price_list_rate_if_missing", 1)
 
 def set_default_system_settings():
-	frappe.db.set_single_value("Stock Settings", "first_day_of_the_week", "Monday")
+	frappe.db.set_single_value("System Settings", "first_day_of_the_week", "Monday")

@@ -89,6 +89,7 @@ fixtures = [
 				"Item-include_item_in_manufacturing-depends_on",
 				"Item-is_stock_item-depends_on",
 				"Item-allow_alternative_item-depends_on",
+			 	"Account-account_number-read_only"
 			 )]
 		]
 	},
@@ -213,6 +214,7 @@ doctype_list_js = {
 # after_install = "erpnext_france.install.after_install"
 after_install = "erpnext_france.install.after_install"
 after_sync = "erpnext_france.utils.update_workspace.add_cards"
+setup_wizard_complete = "erpnext_france.setup.setup_wizard_complete"
 # setup_wizard_complete = "erpnext_france.install.after_wizard"
 # Desk Notifications
 # ------------------
@@ -327,6 +329,5 @@ override_doctype_class = {
 	"Sales Invoice": "erpnext_france.erpnext_france.overrides.doctype.sales_invoice_down_payment.SalesInvoiceDownPayment",
 }
 
-setup_wizard_complete = "erpnext_france.setup.setup_wizard_complete"
 
 export_python_type_annotations = True
