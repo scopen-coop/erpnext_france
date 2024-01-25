@@ -18,6 +18,7 @@ from six import StringIO
 @frappe.whitelist()
 def export_data(company=None, accounting_document=None, from_date=None, to_date=None, export_date=None,
 				included_already_exported_document=None):
+
 	exporter = DataExporter(company=company, accounting_document=accounting_document, from_date=from_date,
 							to_date=to_date, export_date=export_date,
 							included_already_exported_document=included_already_exported_document)
@@ -34,6 +35,7 @@ class DataExporter:
 		self.export_date = export_date
 		self.included_already_exported_document = included_already_exported_document
 		self.file_format = frappe.db.get_value("Company", self.company, "export_file_format")
+		self.journal_code = ''
 
 	def build_response(self):
 
@@ -46,8 +48,8 @@ class DataExporter:
 
 		self.get_jounal_code()
 		if self.journal_code == "" or self.journal_code is None:
-			frappe.respond_as_web_page(_("You should configure Journal Code in your Company first"),
-									   _("You should configure Journal Code in your Company first"),
+			frappe.respond_as_web_page(_("Accounting Export Not Possible"),
+									   _("Please Set Accounting Jounal For Purchases and Sales"),
 									   indicator_color='orange')
 			return
 
@@ -68,19 +70,36 @@ class DataExporter:
 			frappe.response['type'] = 'binary'
 
 	def get_jounal_code(self):
-		if self.accounting_document == "Purchase Invoice":
-			accounting_journal = frappe.get_last_doc("Accounting Journal", filters={'type': 'Purchase'})
-		else:
-			accounting_journal = frappe.get_last_doc("Accounting Journal", filters={'type': 'Sales'})
+		try:
+			if self.accounting_document == "Purchase Invoice":
+				accounting_journal = frappe.db.get_value(
+					"Accounting Journal",
+					{'type': 'Purchase'},
+					['journal_code'],
+					as_dict=True
+				)
+			else:
+				accounting_journal = frappe.db.get_value(
+					"Accounting Journal",
+					{'type': 'Sales'},
+					['journal_code'],
+					as_dict=True
+				)
+		except e:
+			return
 
-		if accounting_journal:
-			self.journal_code = accounting_journal.journal_code
-		else:
-			frappe.throw('Please Set Accounting Jounal For Purchases and Sales')
+		self.journal_code = accounting_journal.journal_code
+
 
 	def add_data(self):
 		def _set_export_date(doc_type=None, voucher_no=None, export_date=None):
-			if export_date is not None and export_date != '' and export_date != 'undefined' and doc_type is not None and voucher_no is not None:
+			if (
+				export_date is not None
+				and export_date != ''
+				and export_date != 'undefined'
+				and doc_type is not None
+				and voucher_no is not None
+			):
 				invoice = frappe.get_doc(doc_type, voucher_no)
 				if invoice is not None:
 					# Use db_set for performance issue
@@ -93,6 +112,8 @@ class DataExporter:
 		against_acc = frappe.qb.DocType("Account", alias='against_acc')
 		supp = frappe.qb.DocType("Supplier")
 		cust = frappe.qb.DocType("Customer")
+		party_acc_cust = frappe.qb.DocType('Party Account', alias='party_acc_cust')
+		party_acc_supp = frappe.qb.DocType('Party Account', alias='party_acc_supp')
 
 		sql_already_exported = ''
 
@@ -103,7 +124,6 @@ class DataExporter:
 		else:
 			inv = frappe.qb.DocType("Sales Invoice")
 			fields_inv = inv.po_no.as_('orign_no')
-
 
 		sql = (
 			frappe.qb.from_(gl)
@@ -118,9 +138,9 @@ class DataExporter:
 				gl.against_voucher_type,
 				acc.account_number,
 				acc.account_name,
-				supp.subledger_account.as_('supp_subl_acc'),
+				party_acc_supp.subledger_account.as_('supp_subl_acc'),
 				supp.supplier_name,
-				cust.subledger_account.as_('cust_subl_acc'),
+				party_acc_cust.subledger_account.as_('cust_subl_acc'),
 				cust.customer_name,
 				inv.due_date.as_('due_date'),
 				fields_inv
@@ -130,17 +150,22 @@ class DataExporter:
 			.on(gl.against == against_acc.name)
 			.left_join(supp)
 			.on(gl.party == supp.name)
+			.left_join(party_acc_supp)
+			.on(supp.name == party_acc_supp.parent)
 			.left_join(cust)
 			.on(gl.party == cust.name)
+			.left_join(party_acc_cust)
+			.on(cust.name == party_acc_cust.parent)
 			.inner_join(inv)
 			.on(gl.voucher_no == inv.name)
 			.where(gl.voucher_type == self.accounting_document)
 			.where(gl.posting_date[self.from_date:self.to_date])
 			.where(acc.account_type.notin(["Bank", "Cash"]))
 			.where(against_acc.account_type.notin(["Bank", "Cash"]))
-		)
+			.where((self.company == party_acc_supp.company) | (party_acc_supp.company.isnull()))
+			.where((self.company == party_acc_cust.company) | (party_acc_cust.company.isnull()))
 
-		# TODO: Add subledger account from customer ou supplier
+		)
 
 		if self.included_already_exported_document == '0':
 			sql = sql.where(inv.accounting_export_date.isnull())
@@ -200,7 +225,6 @@ class DataExporter:
 				self.writer.writerow(row)
 
 	def add_row_ciel(self, doc):
-
 		ecriture_num = '{:>5s}'.format(doc.get("name")[-5:])
 		journal_code = '{:<2s}'.format(self.journal_code)
 		ecriture_date = format_datetime(doc.get("posting_date"), "yyyyMMdd")
@@ -241,8 +265,6 @@ class DataExporter:
 		return ''.join(row)
 
 	def add_row_sage(self, doc):
-
-		# print(doc)
 		journal_code = self.journal_code
 		ecriture_date = format_datetime(doc.get("posting_date"), "ddMMyy")
 
