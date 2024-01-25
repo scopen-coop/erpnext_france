@@ -1,0 +1,23 @@
+[
+ {
+  "align": "Left",
+  "content": "<div style=\"width: 100%; display: flex;\">\n    <span style=\"width: 50%;\"><img src=\"{{ frappe.get_doc('Company', doc.company).company_logo }}\" style=\"width: 120px;\"></span>\n    <span style=\"width: 50%; text-align:right;\">\n        <b>{{ doc.company }}</b>\n\t</span>\n</div>\n",
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Letter Head",
+  "footer": "<div class=\"border-top\" style=\"width: 100%;\"></div>\n<span class=\"small text-center\"></span>",
+  "footer_align": "Left",
+  "footer_image": null,
+  "footer_image_height": 0.0,
+  "footer_image_width": 0.0,
+  "footer_source": "HTML",
+  "image": null,
+  "image_height": 0.0,
+  "image_width": 0.0,
+  "is_default": 1,
+  "letter_head_name": "France Letter Head",
+  "modified": "2024-01-25 15:41:00.984337",
+  "name": "France Letter Head",
+  "source": "HTML"
+ }
+]

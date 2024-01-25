@@ -150,9 +150,9 @@ fixtures = [
 		]
 	},
 	{
-		"dt": "Print Format",
+		"dt": "Letter Head",
 		"filters": [
-			["name", "in", 'Devis-France']
+			["name", "in", 'France Letter Head']
 		]
 	}
 ]
