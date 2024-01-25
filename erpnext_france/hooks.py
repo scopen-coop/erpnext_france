@@ -148,6 +148,12 @@ fixtures = [
 		"filters": [
 			["name", "in", 'Règlement à 30 jours']
 		]
+	},
+	{
+		"dt": "Print Format",
+		"filters": [
+			["name", "in", 'Devis-France']
+		]
 	}
 ]
 # fixtures = ["Custom Field"]

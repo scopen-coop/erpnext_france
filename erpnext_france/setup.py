@@ -38,6 +38,7 @@ def setup_wizard_complete(args, action=None):
 	add_bank_account(args)
 	set_default_stock_settings()
 	set_default_system_settings()
+	set_default_print_settings()
 
 
 def default_accounts_mapping(accounts):
@@ -80,3 +81,8 @@ def set_default_stock_settings():
 
 def set_default_system_settings():
 	frappe.db.set_single_value("System Settings", "first_day_of_the_week", "Monday")
+
+def set_default_print_settings():
+	frappe.db.set_single_value("Print Settings", "print_style", "Modern")
+	frappe.db.set_single_value("Print Settings", "with_letterhead", 1)
+	frappe.db.set_single_value("Print Settings", "allow_page_break_inside_tables", 1)

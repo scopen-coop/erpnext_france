@@ -438,4 +438,4 @@ Setup Global Settings, Configuration des paramètres globaux,
 Please Set Accounting Jounal For Purchases and Sales, Veuillez définir les journaux comptables pour les achats et les ventes,
 Please configure an accounting journal for this transaction type and account: {0}, Veuillez configurer le compte comptable pour ce type de transaction et compte: {0}
 Accounting Export Not Possible, L'export comptable ne peut pas être effectué,
-
+Footer might not be visible as {0} option is disabled</div>, Le pied de page n'est peut être pas visible car l'option {0} est désactivée,
