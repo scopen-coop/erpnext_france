@@ -439,3 +439,20 @@ Please Set Accounting Jounal For Purchases and Sales, Veuillez définir les jour
 Please configure an accounting journal for this transaction type and account: {0}, Veuillez configurer le compte comptable pour ce type de transaction et compte: {0}
 Accounting Export Not Possible, L'export comptable ne peut pas être effectué,
 Footer might not be visible as {0} option is disabled</div>, Le pied de page n'est peut être pas visible car l'option {0} est désactivée,
+France Letter Head, En tête et pied de page pour les documents Français,
+Account Closing Balance, Solde de clôture du compte,
+GL Entry Processing Status, Statut de traitement des entrées GL,
+Let's begin your journey with ERPNext, Commencez votre experince sur ERPNext,
+"Item, Customer, Supplier and Quotation","Article, Client, Fournisseur et Devis",
+Create an Item, Créer un article,
+Create a Customer, Créer un Client,
+Create Your First Sales Invoice, Créer votre première facture de vente,
+Create a new Item, Créer un nouvel article,
+EORI Number, Num. EORI,
+
+
+
+
+
+
+

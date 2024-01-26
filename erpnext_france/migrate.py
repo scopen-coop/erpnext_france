@@ -23,6 +23,9 @@ def move_subledger_account_by_company():
 #
 
 def copy_subledger_account(doctype):
+	if not frappe.db.exists('Custom Field', doctype + "-subledger_account"):
+		return
+
 	for seq, customer in enumerate(frappe.get_all(doctype)):
 		doc = frappe.get_doc(doctype, customer.name)
 
@@ -39,7 +42,7 @@ def copy_subledger_account(doctype):
 				row.subledger_account = doc.subledger_account
 				row.save()
 
-	field_subledger_account = frappe.get_last_doc('Custom Field', filters={'name': doctype + "-subledger_account"})
+	field_subledger_account = frappe.get_doc('Custom Field', doctype + "-subledger_account")
 
 	if field_subledger_account:
 		field_subledger_account.hidden = 1
