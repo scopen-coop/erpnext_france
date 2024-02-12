@@ -97,14 +97,6 @@ fixtures = [
 		]
 	},
 	{
-		"dt": "Workspace",
-		"filters": [
-			["name", "in",
-			 ('ERPNext France Settings',
-			  'ERPNext France Export')]
-		]
-	},
-	{
 		"dt": "Workspace Link",
 		"filters": [
 			["label", "in",
@@ -223,8 +215,14 @@ doctype_list_js = {
 # after_install = "erpnext_france.install.after_install"
 after_install = "erpnext_france.install.after_install"
 after_sync = "erpnext_france.utils.update_workspace.add_cards"
-after_migrate = "erpnext_france.migrate.move_subledger_account_by_company"
 setup_wizard_complete = "erpnext_france.setup.setup_wizard_complete"
+after_migrate = [
+	"erpnext_france.utils.update_workspace.add_cards",
+ 	"erpnext_france.migrate.move_subledger_account_by_company",
+	"erpnext_france.install.after_install",
+	"erpnext_france.setup.setup_migrate"
+]
+
 # setup_wizard_complete = "erpnext_france.install.after_wizard"
 # Desk Notifications
 # ------------------

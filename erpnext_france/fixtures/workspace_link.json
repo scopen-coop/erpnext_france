@@ -10,15 +10,16 @@
   "label": "ERPNext France",
   "link_count": 5,
   "link_to": null,
-  "link_type": "DocType",
+  "link_type": "",
   "modified": "2024-01-23 20:10:41.872694",
   "name": "463658a38e",
   "onboard": 0,
-  "only_for": null,
+  "only_for": "France",
   "parent": "ERPNext Settings",
   "parentfield": "links",
   "parenttype": "Workspace",
-  "type": "Card Break"
+  "type": "Card Break",
+  "idx" : 70
  },
  {
   "dependencies": null,
@@ -35,11 +36,12 @@
   "modified": "2024-01-23 20:10:41.872694",
   "name": "87e757e3c1",
   "onboard": 0,
-  "only_for": null,
+  "only_for": "France",
   "parent": "ERPNext Settings",
   "parentfield": "links",
   "parenttype": "Workspace",
-  "type": "Link"
+  "type": "Link",
+  "idx" : 71
  },
  {
   "dependencies": null,
@@ -56,11 +58,12 @@
   "modified": "2024-01-23 20:10:41.872694",
   "name": "dc2d70f0be",
   "onboard": 0,
-  "only_for": null,
+  "only_for": "France",
   "parent": "ERPNext Settings",
   "parentfield": "links",
   "parenttype": "Workspace",
-  "type": "Link"
+  "type": "Link",
+  "idx" : 72
  },
  {
   "dependencies": null,
@@ -77,11 +80,12 @@
   "modified": "2024-01-23 20:10:41.872694",
   "name": "2faa60a916",
   "onboard": 0,
-  "only_for": null,
+  "only_for": "France",
   "parent": "ERPNext Settings",
   "parentfield": "links",
   "parenttype": "Workspace",
-  "type": "Link"
+  "type": "Link",
+  "idx" : 73
  },
  {
   "dependencies": null,
@@ -98,11 +102,12 @@
   "modified": "2024-01-23 20:10:41.872694",
   "name": "df2fa6d850",
   "onboard": 0,
-  "only_for": null,
+  "only_for": "France",
   "parent": "ERPNext Settings",
   "parentfield": "links",
   "parenttype": "Workspace",
-  "type": "Link"
+  "type": "Link",
+  "idx" : 74
  },
  {
   "dependencies": null,
@@ -119,12 +124,14 @@
   "modified": "2024-01-23 20:10:41.872694",
   "name": "a129c62bb0",
   "onboard": 0,
-  "only_for": null,
+  "only_for": "France",
   "parent": "ERPNext Settings",
   "parentfield": "links",
   "parenttype": "Workspace",
-  "type": "Link"
+  "type": "Link",
+  "idx" : 75
  },
+
  {
   "dependencies": null,
   "description": null,
@@ -136,15 +143,16 @@
   "label": "ERPNext France",
   "link_count": 3,
   "link_to": null,
-  "link_type": "DocType",
+  "link_type": null,
   "modified": "2024-01-23 20:10:41.965120",
   "name": "fc83fdfd07",
   "onboard": 0,
-  "only_for": null,
+  "only_for": "France",
   "parent": "Accounting",
   "parentfield": "links",
   "parenttype": "Workspace",
-  "type": "Card Break"
+  "type": "Card Break",
+  "idx" : 110
  },
  {
   "dependencies": null,
@@ -161,11 +169,12 @@
   "modified": "2024-01-23 20:10:41.965120",
   "name": "24d4382374",
   "onboard": 0,
-  "only_for": null,
+  "only_for": "France",
   "parent": "Accounting",
   "parentfield": "links",
   "parenttype": "Workspace",
-  "type": "Link"
+  "type": "Link",
+  "idx" : 111
  },
  {
   "dependencies": null,
@@ -182,10 +191,12 @@
   "modified": "2024-01-23 20:10:41.965120",
   "name": "7ebfb534d8",
   "onboard": 0,
-  "only_for": null,
+  "only_for": "France",
+  "insert_after": "Fichier des Ecritures Comptables [FEC]",
   "parent": "Accounting",
   "parentfield": "links",
   "parenttype": "Workspace",
-  "type": "Link"
+  "type": "Link",
+  "idx" : 112
  }
 ]

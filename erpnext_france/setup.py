@@ -7,6 +7,18 @@ from frappe.utils import cint
 from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
 
 
+def setup_wizard_complete(args, action=None):
+	add_bank_account(args)
+	set_default_stock_settings()
+	set_default_system_settings()
+	set_default_print_settings()
+
+
+def setup_migrate():
+	set_default_stock_settings()
+	set_default_system_settings()
+	set_default_print_settings()
+
 def setup_company_default(company, action):
 	if company.country != 'France':
 		return
@@ -33,12 +45,6 @@ def setup_company_default(company, action):
 	company.db_set("payment_terms", 'Règlement à 30 jours')
 
 	frappe.local.flags.ignore_chart_of_accounts = True
-
-def setup_wizard_complete(args, action=None):
-	add_bank_account(args)
-	set_default_stock_settings()
-	set_default_system_settings()
-	set_default_print_settings()
 
 
 def default_accounts_mapping(accounts):
@@ -74,6 +80,7 @@ def add_bank_account(args):
 
 
 def set_default_stock_settings():
+	frappe.reload_doctype("Stock Settings")
 	frappe.db.set_single_value("Stock Settings", "item_naming_by", "Item Code")
 	frappe.db.set_single_value("Stock Settings", "valuation_method", "Moving Average")
 	frappe.db.set_single_value("Stock Settings", "stock_uom", "Unité")
@@ -83,6 +90,7 @@ def set_default_system_settings():
 	frappe.db.set_single_value("System Settings", "first_day_of_the_week", "Monday")
 
 def set_default_print_settings():
+	frappe.reload_doctype("Print Settings")
 	frappe.db.set_single_value("Print Settings", "print_style", "Modern")
 	frappe.db.set_single_value("Print Settings", "with_letterhead", 1)
 	frappe.db.set_single_value("Print Settings", "allow_page_break_inside_tables", 1)
