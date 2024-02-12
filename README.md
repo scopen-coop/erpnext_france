@@ -29,7 +29,7 @@ Using bench, [install ERPNext](https://github.com/frappe/bench#installation) as 
 Once ERPNext is installed, add ERPNext France app to your bench by running
 
 ```sh
-$ bench get-app https://github.com/scopen/erpnext_france.git
+$ bench get-app https://github.com/scopen-coop/erpnext_france.git
 ```
 
 After that, you can install the app on required site (let's say demo.com )by running
