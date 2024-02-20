@@ -451,9 +451,11 @@ Create a new Item, Créer un nouvel article,
 EORI Number, N° EORI,
 Swift Number, BIC/SWIFT,
 Intracom Number, N° Intracom,
-
-
-
-
-
+d,j,
+Configure Columns, Configurer les colonnes,
+Add / Remove Columns, Ajouter / Supprimer des colonnes,
+Make Attachments Public by Default, Rendre les PJ publique par defaut,
+Show Title in Link Fields, Afficher le champ titre dans les liens plutôt que le nom,
+Translate Link Fields, Traduire les liens,
+Default View, Vue par defaut,
 
