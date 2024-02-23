@@ -316,7 +316,7 @@ Navbar, Barre de navigation,
 Show Language Picker, Afficher le sélécteur de languages,
 Footer Details, Détail du pied de page,
 Hide footer signup, Cacher le pied de page sur la page d'inscription,
-Custom Footer, Pied de page personnalisé, 
+Custom Footer, Pied de page personnalisé,
 Enable in-app website tracking,  Enable in-app website tracking,
 Enable Google indexing, Activer l'indexation Google,
 Google Analytics anonymise IP, Anonymiser l'IP pour Google Analytics,
@@ -458,4 +458,6 @@ Make Attachments Public by Default, Rendre les PJ publique par defaut,
 Show Title in Link Fields, Afficher le champ titre dans les liens plutôt que le nom,
 Translate Link Fields, Traduire les liens,
 Default View, Vue par defaut,
-
+Special Filter Parent Task,Filtre spéciale sur tâche parente par projet
+Filter On Parent Task By Project,Filter la liste par projet et tâche parente du projet
+Apply Filter,Appliquer le filtre
