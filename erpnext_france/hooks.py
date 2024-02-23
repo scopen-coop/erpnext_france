@@ -180,6 +180,7 @@ doctype_js = {
 	"Purchase Invoice": ["public/js/purchase_invoice.js"],
 	"Sales Invoice": ["public/js/sales_invoice.js"],
 	"Company": ["public/js/company.js"],
+	"Task": ["public/js/task_list.js"]
 }
 
 doctype_list_js = {
