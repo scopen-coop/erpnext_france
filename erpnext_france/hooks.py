@@ -107,7 +107,6 @@ fixtures = [
 			  'Code Naf',
 			  'Accounting Journal',
 			  'Fichier des Ecritures Comptables [FEC]',
-			  'Adjustement Entry',
 			  'Export Comptable'
 			  )],
 		]
