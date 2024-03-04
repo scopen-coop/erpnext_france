@@ -82,8 +82,10 @@ def add_bank_account(args):
 def set_default_stock_settings():
 	frappe.reload_doctype("Stock Settings")
 	frappe.db.set_single_value("Stock Settings", "item_naming_by", "Item Code")
+	frappe.db.set_default("item_naming_by", "Item Code")
 	frappe.db.set_single_value("Stock Settings", "valuation_method", "Moving Average")
 	frappe.db.set_single_value("Stock Settings", "stock_uom", "Unité")
+	frappe.db.set_default("stock_uom", "Unité")
 	frappe.db.set_single_value("Stock Settings", "auto_insert_price_list_rate_if_missing", 1)
 
 def set_default_system_settings():
