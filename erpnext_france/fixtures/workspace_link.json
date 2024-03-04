@@ -175,28 +175,5 @@
   "parenttype": "Workspace",
   "type": "Link",
   "idx" : 111
- },
- {
-  "dependencies": null,
-  "description": null,
-  "docstatus": 0,
-  "doctype": "Workspace Link",
-  "hidden": 0,
-  "icon": null,
-  "is_query_report": 0,
-  "label": "Adjustement Entry",
-  "link_count": 0,
-  "link_to": "Adjustment Entry",
-  "link_type": "DocType",
-  "modified": "2024-01-23 20:10:41.965120",
-  "name": "7ebfb534d8",
-  "onboard": 0,
-  "only_for": "France",
-  "insert_after": "Fichier des Ecritures Comptables [FEC]",
-  "parent": "Accounting",
-  "parentfield": "links",
-  "parenttype": "Workspace",
-  "type": "Link",
-  "idx" : 112
  }
 ]
