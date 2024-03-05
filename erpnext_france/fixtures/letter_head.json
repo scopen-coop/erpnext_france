@@ -1,7 +1,7 @@
 [
  {
   "align": "Left",
-  "content": "{% set company = frappe.get_doc('Company', doc.company) %}\n<div style=\"width: 100%; display: flex;\">\n    <span style=\"width: 50%;\">\n        {% if company.company_logo: %}\n            <img src=\"{{ company.company_logo }}\" style=\"width: 120px;\">\n        {% endif %}\n    </span>\n    <span style=\"width: 50%; text-align:right;\">\n        <b>{{ doc.company }}</b>\n\t</span>\n</div>\n",
+  "content": "{% set company = frappe.get_doc('Company', doc.company) %}\n<div class=\"row\">\n    <div class=\"column-break col-xs-6\">\n        {% if company.company_logo: %}\n            <img src=\"{{ company.company_logo }}\" style=\"width: 120px;\">\n        {% endif %}\n    </div>\n    <div class=\"column-break col-xs-6\">\n        <b>{{ doc.company }}</b>\n    </div>\n<div class=\"row\"></div></div>",
   "disabled": 0,
   "docstatus": 0,
   "doctype": "Letter Head",
@@ -18,7 +18,7 @@
   "image_width": 0.0,
   "is_default": 1,
   "letter_head_name": "France Letter Head",
-  "modified": "2024-04-03 16:24:03.360574",
+  "modified": "2024-03-05 14:50:01.466879",
   "name": "France Letter Head",
   "source": "HTML"
  }
