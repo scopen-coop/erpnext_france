@@ -161,7 +161,7 @@
   "doctype": "Workspace Link",
   "hidden": 0,
   "icon": null,
-  "is_query_report": 0,
+  "is_query_report": 1,
   "label": "Fichier des Ecritures Comptables [FEC]",
   "link_count": 0,
   "link_to": "Fichier des Ecritures Comptables [FEC]",
