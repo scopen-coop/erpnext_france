@@ -52,6 +52,9 @@ def http_post(url, headers=None, body=None, data=None):
 		response = requests.post(url=url, json=body, data=data, headers=headers)
 
 		response = json.loads(response.content)
+		if 'fault' in response:
+			frappe.throw(str(response['fault']['description']))
+
 		if response['header']['statut'] not in [201, 200]:
 			if response['header']['statut'] == 401:
 				frappe.db.commit()
@@ -65,10 +68,9 @@ def http_post(url, headers=None, body=None, data=None):
 				frappe.throw(response['header']['reason'], title=response['header']['statut'])
 
 	except Exception as e:
-		frappe.throw(str(e))
+		frappe.throw(str(type(e).__name__))
 
 	return response
-
 
 def get_filters(search_values):
 	filters = []
