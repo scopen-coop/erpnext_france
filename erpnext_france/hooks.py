@@ -12,7 +12,6 @@ app_icon = "octicon octicon-home"
 app_color = "#318CE7"
 app_email = "contact@scopen.fr"
 app_license = "GNU General Public License"
-
 fixtures = [
 	{
 		"dt": "Custom Field",
@@ -31,6 +30,8 @@ fixtures = [
 					"Company-legal_form",
 					"Company-eori_number",
 					"Company-capital",
+					"Company-type_export_fec",
+					"Company-column_break_898956",
 					"Customer-check_vat_id",
 					"Customer-code_naf",
 					"Customer-incoterm",
@@ -151,6 +152,7 @@ fixtures = [
 		]
 	}
 ]
+
 # fixtures = ["Custom Field"]
 
 # Includes in <head>

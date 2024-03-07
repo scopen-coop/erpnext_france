@@ -18,27 +18,63 @@ frappe.query_reports["Fichier des Ecritures Comptables [FEC]"] = {
 			"options": "Fiscal Year",
 			"default": erpnext.utils.get_fiscal_year(frappe.datetime.get_today()),
 			"reqd": 1
-		}
+		},
+		{
+			"fieldname":"from_date",
+			"label": __("From Date"),
+			"fieldtype": "Date",
+			"default": frappe.datetime.add_months(frappe.datetime.get_today(), -1),
+			"reqd": 0
+		},
+		{
+			"fieldname":"to_date",
+			"label": __("To Date"),
+			"fieldtype": "Date",
+			"default": frappe.datetime.get_today(),
+			"reqd": 0
+		},
+		{
+			"fieldname":"hide_already_exported",
+			"label": __("Hide Already Exported"),
+			"fieldtype": "Check",
+			"default": false,
+			"reqd": 0
+		},
 	],
 	onload: function(query_report) {
+
+        let report = query_report;
 		query_report.page.add_inner_button(__("Export"), function() {
-			fec_export(query_report);
-		});
+            if (query_report.columns) {
+                let dialog = new frappe.ui.Dialog({
+                    title: 'Export FEC File',
+                    fields: [{
+                        label: 'Mark Gl Entry As Exported',
+                        fieldname: 'mark_exported',
+                        fieldtype: 'Check'
+                    }],
+                    size: 'small',
+                    primary_action_label: 'Export',
+                    primary_action(values) {
+                        fec_export(query_report, values.mark_exported);
+                        dialog.hide();
+                    }
+                });
+                dialog.show();
+            } else {
+                frappe.msgprint('Nothing to export')
+            }
+        });
 
 		query_report.add_make_chart_button = function() {
 			//
 		};
-
-		query_report.export_report = function() {
-			fec_export(query_report);
-		};
 	}
 };
 
-let fec_export = function(query_report) {
+let fec_export = function(query_report, mark_exported) {
 	const fiscal_year = query_report.get_values().fiscal_year;
 	const company = query_report.get_values().company;
-
 	frappe.db.get_value("Company", company, "siren_number", (value) => {
 		const company_data = value.siren_number;
 		if (company_data === null || company_data === undefined) {
@@ -47,12 +83,17 @@ let fec_export = function(query_report) {
 			frappe.db.get_value("Fiscal Year", fiscal_year, "year_end_date", (r) => {
 				const fy = r.year_end_date;
 				const title = company_data + "FEC" + moment(fy).format('YYYYMMDD');
-				const column_row = query_report.columns.map(col => col.label);
+				// Remove unwanted columns in CSV Export
+				const column_row = query_report.columns.filter(col => !['ExportDate', 'GlName'].includes(col.fieldname)).map(col => col.label);
 				const column_data = query_report.get_data_for_csv(false);
 				const result = [column_row].concat(column_data);
 				downloadify(result, null, title);
-			});
 
+				if (mark_exported) {
+                    const gl_entries = column_data.map(row => row.pop());
+				    mark_as_exported(gl_entries);
+				}
+			});
 		}
 	});
 };
@@ -63,7 +104,7 @@ let downloadify = function(data, roles, title) {
 		return;
 	}
 
-	const filename = title + ".txt";
+	const filename = title + ".csv";
 	let csv_data = to_tab_csv(data);
 	const a = document.createElement('a');
 
@@ -91,7 +132,25 @@ let downloadify = function(data, roles, title) {
 let to_tab_csv = function(data) {
 	let res = [];
 	$.each(data, function(i, row) {
-		res.push(row.join("\t"));
+		res.push(row.join(";"));
 	});
 	return res.join("\n");
 };
+
+
+function mark_as_exported(gl_entries) {
+    frappe.call({
+        method: "erpnext_france.controllers.mark_gl_entry_as_exported.mark_gl_entry_as_exported",
+        args: {gl_entries},
+        callback: function (response) {
+            if (!response || !response.message) {
+                frappe.throw(__('No Response From Server'));
+                return
+            }
+
+            if (response.message.error) {
+                return
+            }
+        }
+    });
+}

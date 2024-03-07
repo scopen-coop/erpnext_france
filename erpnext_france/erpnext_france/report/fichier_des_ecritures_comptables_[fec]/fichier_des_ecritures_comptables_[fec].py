@@ -65,12 +65,6 @@ COLUMNS = [
 		"width": 90,
 	},
 	{
-		"label": _("PieceDate"),
-		"fieldname": "PieceDate",
-		"fieldtype": "Date",
-		"width": 90,
-	},
-	{
 		"label": _("EcritureLib"),
 		"fieldname": "EcritureLib",
 		"fieldtype": "Data",
@@ -118,6 +112,19 @@ COLUMNS = [
 		"fieldtype": "Data",
 		"width": 90,
 	},
+	{
+		"label": _("Export Date"),
+		"fieldname": "ExportDate",
+		"fieldtype": "Datetime",
+		"width": 90,
+	},
+	{
+		"label": _("GL Entry"),
+		"fieldname": "GlName",
+		"fieldtype": "Link",
+		"options": "GL Entry",
+		"width": 0,
+	},
 ]
 
 
@@ -126,6 +133,9 @@ def execute(filters=None):
 	return COLUMNS, get_result(
 		company=filters["company"],
 		fiscal_year=filters["fiscal_year"],
+		from_date=filters["from_date"],
+		to_date=filters["to_date"],
+		hide_already_exported=True if filters.get("hide_already_exported") else False
 	)
 
 
@@ -137,7 +147,7 @@ def validate_filters(filters):
 		frappe.throw(_("{0} is mandatory").format(_("Fiscal Year")))
 
 
-def get_gl_entries(company, fiscal_year):
+def get_gl_entries(company, fiscal_year, from_date, to_date, hide_already_exported):
 	gle = frappe.qb.DocType("GL Entry")
 	sales_invoice = frappe.qb.DocType("Sales Invoice")
 	purchase_invoice = frappe.qb.DocType("Purchase Invoice")
@@ -177,6 +187,7 @@ def get_gl_entries(company, fiscal_year):
 			gle.name.as_("GlName"),
 			gle.account,
 			gle.transaction_date,
+			gle.export_date.as_("ExportDate"),
 			debit,
 			credit,
 			debit_currency,
@@ -212,15 +223,22 @@ def get_gl_entries(company, fiscal_year):
 			employee.name.as_("empName"),
 		)
 		.where((gle.company == company) & (gle.fiscal_year == fiscal_year))
-		.groupby(gle.voucher_type, gle.voucher_no, gle.account, gle.name, gle.accounting_entry_number)
+		.where((gle.posting_date >= from_date) & (gle.posting_date <= to_date))
+	)
+
+	if hide_already_exported:
+		query = query.where(gle.export_date.isnull())
+
+	query = (
+		query.groupby(gle.voucher_type, gle.voucher_no, gle.account, gle.name, gle.accounting_entry_number)
 		.orderby(gle.posting_date, gle.voucher_no, gle.accounting_entry_number)
 	)
 
 	return query.run(as_dict=True)
 
 
-def get_result(company, fiscal_year):
-	data = get_gl_entries(company, fiscal_year)
+def get_result(company, fiscal_year, from_date, to_date, hide_already_exported):
+	data = get_gl_entries(company, fiscal_year, from_date, to_date, hide_already_exported)
 
 	result = []
 
@@ -241,8 +259,10 @@ def get_result(company, fiscal_year):
 	for d in data:
 		JournalCode = d.get("accounting_journal") or re.split("-|/|[0-9]", d.get("voucher_no"))[0]
 		EcritureNum = d.get("accounting_entry_number")
+		GlName = d.get("GlName")
 
 		EcritureDate = format_datetime(d.get("GlPostDate"), "yyyyMMdd")
+		ExportDate = format_datetime(d.get("ExportDate"))
 
 		account_number = [
 			{"account_number": account.account_number, "account_name": account.account_name}
@@ -291,7 +311,7 @@ def get_result(company, fiscal_year):
 		# EcritureLib is the reference title unless it is an opening entry
 		if d.get("is_opening") == "Yes":
 			EcritureLib = _("Opening Entry Journal")
-		if d.get("remarks") and d.get("remarks").lower() not in ("no remarks", _("no remarks")):
+		elif d.get("remarks") and d.get("remarks").lower() not in ("no remarks", _("no remarks")):
 			EcritureLib = d.get("remarks")
 		elif d.get("voucher_type") == "Sales Invoice":
 			EcritureLib = d.get("InvTitle")
@@ -305,8 +325,6 @@ def get_result(company, fiscal_year):
 			EcritureLib = d.get("voucher_type")
 
 		EcritureLib = " ".join(EcritureLib.splitlines())
-
-		PieceDate = format_datetime(d.get("GlPostDate"), "yyyyMMdd")
 
 		debit = "{:.2f}".format(d.get("debit")).replace(".", ",")
 
@@ -344,7 +362,6 @@ def get_result(company, fiscal_year):
 			CompAuxNum,
 			CompAuxLib,
 			PieceRef,
-			PieceDate,
 			EcritureLib,
 			debit,
 			credit,
@@ -353,6 +370,8 @@ def get_result(company, fiscal_year):
 			ValidDate,
 			Montantdevise,
 			Idevise,
+			ExportDate,
+			GlName
 		]
 
 		result.append(row)
