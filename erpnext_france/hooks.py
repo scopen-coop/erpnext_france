@@ -155,6 +155,16 @@ fixtures = [
 		"filters": [
 			["name", "in", 'France Letter Head']
 		]
+	},
+	{
+		"dt": "Bank Account Type",
+		"filters": [
+			["name", "in", (
+				'Savings',
+				'Current Account',
+				'Cashier',
+			)]
+		]
 	}
 ]
 

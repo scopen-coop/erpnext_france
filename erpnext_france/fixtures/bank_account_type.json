@@ -1,0 +1,23 @@
+[
+ {
+  "account_type": "Current Account",
+  "docstatus": 0,
+  "doctype": "Bank Account Type",
+  "modified": "2024-03-08 17:19:49.078065",
+  "name": "Compte Courant"
+ },
+ {
+  "account_type": "Cashier",
+  "docstatus": 0,
+  "doctype": "Bank Account Type",
+  "modified": "2024-03-08 17:20:05.283128",
+  "name": "Caisse liquide"
+ },
+ {
+  "account_type": "Savings",
+  "docstatus": 0,
+  "doctype": "Bank Account Type",
+  "modified": "2024-03-08 17:20:15.857340",
+  "name": "Épargne"
+ }
+]
