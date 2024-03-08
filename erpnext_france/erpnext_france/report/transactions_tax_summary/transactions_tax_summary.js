@@ -5,8 +5,8 @@
 frappe.query_reports["Transactions Tax Summary"] = {
 	"formatter": function(value, row, column, data, default_formatter) {
 		value = default_formatter(value || "", row, column, data);
-		if (data && data.indent == 0) {
-			if (column.id == "base_grand_total" && data.difference != 0) {
+		if (data && data.indent === 0) {
+			if (column.id === "base_grand_total" && data.difference !== 0) {
 				value = $(value).append(`<span class="text-danger"> (${format_currency(data.difference, null, 2)})</span>`)
 			} else {
 				value = $(`<span>${value}</span>`);

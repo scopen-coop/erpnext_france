@@ -20,59 +20,57 @@ frappe.query_reports["Fichier des Ecritures Comptables [FEC]"] = {
 			"reqd": 1
 		},
 		{
-			"fieldname":"from_date",
+			"fieldname": "from_date",
 			"label": __("From Date"),
 			"fieldtype": "Date",
 			"default": frappe.datetime.add_months(frappe.datetime.get_today(), -1),
 			"reqd": 0
 		},
 		{
-			"fieldname":"to_date",
+			"fieldname": "to_date",
 			"label": __("To Date"),
 			"fieldtype": "Date",
 			"default": frappe.datetime.get_today(),
 			"reqd": 0
 		},
 		{
-			"fieldname":"hide_already_exported",
+			"fieldname": "hide_already_exported",
 			"label": __("Hide Already Exported"),
 			"fieldtype": "Check",
 			"default": false,
 			"reqd": 0
 		},
 	],
-	onload: function(query_report) {
+	onload: function (query_report) {
+		query_report.page.add_inner_button(__("Export"), function () {
+			if (query_report.columns) {
+				let dialog = new frappe.ui.Dialog({
+					title: 'Export FEC File',
+					fields: [{
+							label: 'Mark Gl Entry As Exported',
+							fieldname: 'mark_exported',
+							fieldtype: 'Check'
+						}],
+					size: 'small',
+					primary_action_label: 'Export',
+					primary_action(values) {
+						fec_export(query_report, values.mark_exported);
+						dialog.hide();
+					}
+				});
+				dialog.show();
+			} else {
+				frappe.msgprint('Nothing to export');
+			}
+		});
 
-        let report = query_report;
-		query_report.page.add_inner_button(__("Export"), function() {
-            if (query_report.columns) {
-                let dialog = new frappe.ui.Dialog({
-                    title: 'Export FEC File',
-                    fields: [{
-                        label: 'Mark Gl Entry As Exported',
-                        fieldname: 'mark_exported',
-                        fieldtype: 'Check'
-                    }],
-                    size: 'small',
-                    primary_action_label: 'Export',
-                    primary_action(values) {
-                        fec_export(query_report, values.mark_exported);
-                        dialog.hide();
-                    }
-                });
-                dialog.show();
-            } else {
-                frappe.msgprint('Nothing to export')
-            }
-        });
-
-		query_report.add_make_chart_button = function() {
+		query_report.add_make_chart_button = function () {
 			//
 		};
 	}
 };
 
-let fec_export = function(query_report, mark_exported) {
+let fec_export = function (query_report, mark_exported) {
 	const fiscal_year = query_report.get_values().fiscal_year;
 	const company = query_report.get_values().company;
 	frappe.db.get_value("Company", company, "siren_number", (value) => {
@@ -86,19 +84,24 @@ let fec_export = function(query_report, mark_exported) {
 				// Remove unwanted columns in CSV Export
 				const column_row = query_report.columns.filter(col => !['ExportDate', 'GlName'].includes(col.fieldname)).map(col => col.label);
 				const column_data = query_report.get_data_for_csv(false);
+
+				let gl_entries = [];
+				column_data.forEach(data => {
+					gl_entries.push([data.pop(), data.pop()])
+				});
+
 				const result = [column_row].concat(column_data);
 				downloadify(result, null, title);
 
 				if (mark_exported) {
-                    const gl_entries = column_data.map(row => row.pop());
-				    mark_as_exported(gl_entries);
+					mark_as_exported(gl_entries);
 				}
 			});
 		}
 	});
 };
 
-let downloadify = function(data, roles, title) {
+let downloadify = function (data, roles, title) {
 	if (roles && roles.length && !has_common(roles, roles)) {
 		frappe.msgprint(__("Export not allowed. You need {0} role to export.", [frappe.utils.comma_or(roles)]));
 		return;
@@ -129,9 +132,9 @@ let downloadify = function(data, roles, title) {
 	document.body.removeChild(a);
 };
 
-let to_tab_csv = function(data) {
+let to_tab_csv = function (data) {
 	let res = [];
-	$.each(data, function(i, row) {
+	$.each(data, function (i, row) {
 		res.push(row.join(";"));
 	});
 	return res.join("\n");
@@ -139,18 +142,18 @@ let to_tab_csv = function(data) {
 
 
 function mark_as_exported(gl_entries) {
-    frappe.call({
-        method: "erpnext_france.controllers.mark_gl_entry_as_exported.mark_gl_entry_as_exported",
-        args: {gl_entries},
-        callback: function (response) {
-            if (!response || !response.message) {
-                frappe.throw(__('No Response From Server'));
-                return
-            }
+	frappe.call({
+		method: "erpnext_france.controllers.mark_gl_entry_as_exported.mark_gl_entry_as_exported",
+		args: {gl_entries},
+		callback: function (response) {
+			if (!response || !response.message) {
+				frappe.throw(__('No Response From Server'));
+				return
+			}
 
-            if (response.message.error) {
-                return
-            }
-        }
-    });
+			if (response.message.error) {
+				return
+			}
+		}
+	});
 }

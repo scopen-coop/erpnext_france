@@ -3,7 +3,6 @@
 
 frappe.ui.form.on("Customer", {
 	check_vat_id(frm) {
-		frappe.msgprint()
 		frappe.call({
 			method: "erpnext_france.utils.eu_vat.check_vat",
 			args: {vat_id: frm.doc.tax_id},
@@ -27,7 +26,7 @@ frappe.ui.form.on("Customer", {
 						});
 					}
 			}
-		})
+		});
 	},
 });
 

@@ -8,7 +8,7 @@ frappe.ui.form.on("Company", {
                     filters: {
                         'root_type': 'Expense'
                     }
-                }
+                };
             });
         }
     }

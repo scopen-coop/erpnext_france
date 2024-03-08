@@ -6,6 +6,7 @@ import re
 import frappe
 from frappe import _
 from frappe.utils import format_datetime
+from frappe.utils.data import get_datetime_in_timezone
 
 COLUMNS = [
 	{
@@ -262,7 +263,7 @@ def get_result(company, fiscal_year, from_date, to_date, hide_already_exported):
 		GlName = d.get("GlName")
 
 		EcritureDate = format_datetime(d.get("GlPostDate"), "yyyyMMdd")
-		ExportDate = format_datetime(d.get("ExportDate"))
+		ExportDate = format_datetime(d.get("ExportDate"), "yyyy-MM-dd HH:mm")
 
 		account_number = [
 			{"account_number": account.account_number, "account_name": account.account_name}

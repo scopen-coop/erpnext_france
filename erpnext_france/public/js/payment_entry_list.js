@@ -27,7 +27,7 @@ frappe.listview_settings['Payment Entry'] = {
 				__("Accounting Journal Adjustment"),
 				() => {
 					const docnames = list_view.get_checked_items(true);
-					new erpnext.journalAdjustment({doctype: list_view.doctype, docnames: docnames})
+					new erpnext.journalAdjustment({doctype: list_view.doctype, docnames: docnames});
 				},
 				true
 			);

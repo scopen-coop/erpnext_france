@@ -16,7 +16,7 @@ special_filter_feature = {
 
     //Purpose of this custom JS : add a spécial filter button on the list
     listview.page.add_inner_button(__('Special Filter Parent Task'), () => {
-      dialog_filter_parent_task(listview)
+      dialog_filter_parent_task(listview);
     }, '');
 
   },
@@ -64,6 +64,6 @@ function dialog_filter_parent_task(listview) {
   function set_query_filter(prj) {
     d.fields_dict.task_filter.get_query = {
       "filters": {"is_group": 1, "project": prj}
-    }
+    };
   }
 }

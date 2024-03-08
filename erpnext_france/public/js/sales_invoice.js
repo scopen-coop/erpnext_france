@@ -136,9 +136,9 @@ frappe.ui.form.on('Sales Invoice Item', {
 const calculate_down_payment = line => {
     if (line.sales_order && line.is_down_payment_item) {
         frappe.db.get_value("Sales Order", line.sales_order, ["base_total", "total"], r => {
-            frappe.model.set_value(line.doctype, line.name, "price_list_rate", flt(line.down_payment_rate) / 100.0 * flt(r.total))
-            frappe.model.set_value(line.doctype, line.name, "base_rate", flt(line.down_payment_rate) / 100.0 * flt(r.base_total))
-            frappe.model.set_value(line.doctype, line.name, "rate", flt(line.down_payment_rate) / 100.0 * flt(r.total))
+            frappe.model.set_value(line.doctype, line.name, "price_list_rate", flt(line.down_payment_rate) / 100.0 * flt(r.total));
+            frappe.model.set_value(line.doctype, line.name, "base_rate", flt(line.down_payment_rate) / 100.0 * flt(r.base_total));
+            frappe.model.set_value(line.doctype, line.name, "rate", flt(line.down_payment_rate) / 100.0 * flt(r.total));
         })
     }
 }
