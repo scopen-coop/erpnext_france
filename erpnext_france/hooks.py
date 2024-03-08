@@ -40,6 +40,7 @@ fixtures = [
 					"Customer-siren",
 					"GL Entry-accounting_entry_number",
 					"GL Entry-accounting_journal",
+					"GL Entry-export_date",
 					"Item-down_payment_percentage",
 					"Item-is_down_payment_item",
 					"Mode of Payment Account-discount_supplier_account",
@@ -100,16 +101,19 @@ fixtures = [
 	{
 		"dt": "Workspace Link",
 		"filters": [
-			["label", "in",
-			 ('ERPNext France',
-			  'ERPNext France Settings',
-			  'Legal Form',
-			  'Company',
-			  'Code Naf',
-			  'Accounting Journal',
-			  'Fichier des Ecritures Comptables [FEC]',
-			  'Export Comptable'
-			  )],
+			["name", "in",
+			 (
+				 "463658a38e",
+				 "87e757e3c1",
+				 "dc2d70f0be",
+				 "2faa60a916",
+				 "df2fa6d850",
+				 "a129c62bb0",
+				 "fc83fdfd07",
+				 "24d4382374",
+				 "df2fa6d847",
+			 )
+			],
 		]
 	},
 	{
