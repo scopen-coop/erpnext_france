@@ -18,8 +18,7 @@
   "parent": "ERPNext Settings",
   "parentfield": "links",
   "parenttype": "Workspace",
-  "type": "Card Break",
-  "idx" : 70
+  "type": "Card Break"
  },
  {
   "dependencies": null,
@@ -40,8 +39,7 @@
   "parent": "ERPNext Settings",
   "parentfield": "links",
   "parenttype": "Workspace",
-  "type": "Link",
-  "idx" : 71
+  "type": "Link"
  },
  {
   "dependencies": null,
@@ -62,8 +60,7 @@
   "parent": "ERPNext Settings",
   "parentfield": "links",
   "parenttype": "Workspace",
-  "type": "Link",
-  "idx" : 72
+  "type": "Link"
  },
  {
   "dependencies": null,
@@ -84,8 +81,7 @@
   "parent": "ERPNext Settings",
   "parentfield": "links",
   "parenttype": "Workspace",
-  "type": "Link",
-  "idx" : 73
+  "type": "Link"
  },
  {
   "dependencies": null,
@@ -106,8 +102,7 @@
   "parent": "ERPNext Settings",
   "parentfield": "links",
   "parenttype": "Workspace",
-  "type": "Link",
-  "idx" : 74
+  "type": "Link"
  },
  {
   "dependencies": null,
@@ -128,8 +123,7 @@
   "parent": "ERPNext Settings",
   "parentfield": "links",
   "parenttype": "Workspace",
-  "type": "Link",
-  "idx" : 75
+  "type": "Link"
  },
  {
   "dependencies": null,
@@ -150,8 +144,7 @@
   "parent": "Accounting",
   "parentfield": "links",
   "parenttype": "Workspace",
-  "type": "Card Break",
-  "idx" : 110
+  "type": "Card Break"
  },
  {
   "dependencies": null,
@@ -172,8 +165,7 @@
   "parent": "Accounting",
   "parentfield": "links",
   "parenttype": "Workspace",
-  "type": "Link",
-  "idx" : 111
+  "type": "Link"
  },
  {
   "dependencies": null,
@@ -194,7 +186,6 @@
   "parent": "Accounting",
   "parentfield": "links",
   "parenttype": "Workspace",
-  "type": "Link",
-  "idx" : 111
+  "type": "Link"
  }
 ]
