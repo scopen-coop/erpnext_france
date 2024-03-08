@@ -175,5 +175,27 @@
   "parenttype": "Workspace",
   "type": "Link",
   "idx" : 111
+ },
+ {
+  "dependencies": null,
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Workspace Link",
+  "hidden": 0,
+  "icon": null,
+  "is_query_report": 0,
+  "label": "Accounting Journal",
+  "link_count": 0,
+  "link_to": "Accounting Journal",
+  "link_type": "DocType",
+  "modified": "2024-01-23 20:10:41.872694",
+  "name": "df2fa6d847",
+  "onboard": 0,
+  "only_for": "France",
+  "parent": "Accounting",
+  "parentfield": "links",
+  "parenttype": "Workspace",
+  "type": "Link",
+  "idx" : 111
  }
 ]
