@@ -7,6 +7,7 @@ import frappe
 from frappe import _
 from frappe.utils import format_datetime
 from frappe.utils.data import get_datetime_in_timezone
+from pypika import Order
 
 COLUMNS = [
 	{
@@ -149,6 +150,7 @@ def validate_filters(filters):
 
 
 def get_gl_entries(company, fiscal_year, from_date, to_date, hide_already_exported):
+	company_doc = frappe.get_doc('Company', company)
 	gle = frappe.qb.DocType("GL Entry")
 	sales_invoice = frappe.qb.DocType("Sales Invoice")
 	purchase_invoice = frappe.qb.DocType("Purchase Invoice")
@@ -230,9 +232,14 @@ def get_gl_entries(company, fiscal_year, from_date, to_date, hide_already_export
 	if hide_already_exported:
 		query = query.where(gle.export_date.isnull())
 
+	current_order = Order.desc
+	if company_doc.type_export_fec == "Standard FEC Export":
+		current_order = Order.asc
+
 	query = (
 		query.groupby(gle.voucher_type, gle.voucher_no, gle.account, gle.name, gle.accounting_entry_number)
-		.orderby(gle.posting_date, gle.voucher_no, gle.accounting_entry_number)
+		.orderby(gle.posting_date, order=current_order)
+		.orderby(gle.voucher_no, gle.accounting_entry_number)
 	)
 
 	return query.run(as_dict=True)
