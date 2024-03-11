@@ -95,7 +95,9 @@ fixtures = [
 				"Item-is_stock_item-depends_on",
 				"Item-allow_alternative_item-depends_on",
 			 	"Account-account_number-read_only",
-				"Address-main-field_order"
+				"Address-main-field_order",
+				"Opportunity-opportunity_type-translatable",
+				"Opportunity Type-main-translated_doctype"
 			 )]
 		]
 	},
