@@ -5,7 +5,6 @@
 import frappe
 from frappe.utils import cint
 from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
-from frappe.exceptions import DoesNotExistError
 
 
 def setup_wizard_complete(args, action=None):
@@ -63,13 +62,11 @@ def default_accounts_mapping(accounts):
 
 
 def add_bank_account(args):
-	try:
-		account = frappe.get_last_doc(
-			"Account",
-			filters={"disabled": 0, "is_group": 0, "company": args.get('company_name'), "account_number": 5121},
-		)
-	except DoesNotExistError:
-		return
+
+	account = frappe.get_last_doc(
+		"Account",
+		filters={"disabled": 0, "is_group": 0, "company": args.get('company_name'), "account_number": 5121},
+	)
 
 	if not account:
 		return
