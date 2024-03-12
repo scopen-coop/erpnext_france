@@ -1,24 +1,25 @@
 # Copyright (c) 2023, Scopen and contributors
 # For license information, please see license.txt
-
-
 import frappe
 from frappe import _
-from erpnext_france.controllers.party import get_party_account
-from erpnext.accounts.doctype.sales_invoice.sales_invoice import SalesInvoice, update_linked_doc
 from frappe.utils import (cint, flt)
-from erpnext.accounts.general_ledger import make_gl_entries, make_reverse_gl_entries
-from erpnext.accounts.doctype.gl_entry.gl_entry import update_outstanding_amt
-from erpnext.controllers.accounts_controller import validate_account_head
-from erpnext_france.controllers.accounts_controller import update_against_document_in_jv, make_exchange_gain_loss_gl_entries
-from erpnext.setup.doctype.company.company import update_company_current_month_sales
-from erpnext.accounts.general_ledger import merge_similar_entries
+
+from erpnext.accounts.general_ledger import make_gl_entries, make_reverse_gl_entries, merge_similar_entries
+from erpnext.accounts.doctype.sales_invoice.sales_invoice import SalesInvoice, update_linked_doc
+from erpnext.accounts.doctype.gl_entry.gl_entry import update_outstanding_amt, rename_temporarily_named_docs
 from erpnext.accounts.utils import get_account_currency
+from erpnext.controllers.accounts_controller import validate_account_head
+from erpnext.setup.doctype.company.company import update_company_current_month_sales
+
+from erpnext_france.controllers.party import get_party_account
+from erpnext_france.controllers.accounts_controller import (
+	update_against_document_in_jv, make_exchange_gain_loss_gl_entries
+)
 
 
 class SalesInvoiceDownPayment(SalesInvoice):
 	def on_submit(self):
-		if cint(self.is_pos) == 1 or self.is_return: # Mo
+		if cint(self.is_pos) == 1 or self.is_return:  # Mo
 			super(SalesInvoiceDownPayment, self).on_submit()
 			return
 
@@ -42,6 +43,7 @@ class SalesInvoiceDownPayment(SalesInvoice):
 
 		# this sequence because outstanding may get -ve
 		self.make_gl_entries()
+		rename_temporarily_named_docs('GL Entry')
 
 		if self.update_stock == 1:
 			self.repost_future_sle_and_gle()
@@ -51,22 +53,20 @@ class SalesInvoiceDownPayment(SalesInvoice):
 		self.check_credit_limit()
 
 		if not cint(self.is_pos) == 1:
-			update_against_document_in_jv(self) # Erpnext France Modif
+			update_against_document_in_jv(self)  # Erpnext France Modif
 
 		self.update_time_sheet(self.name)
 
-		if (
-			frappe.db.get_single_value("Selling Settings", "sales_update_frequency") == "Each Transaction"
-		):
+		if frappe.db.get_single_value("Selling Settings", "sales_update_frequency") == "Each Transaction":
 			update_company_current_month_sales(self.company)
 			self.update_project()
-		
+
 		update_linked_doc(self.doctype, self.name, self.inter_company_invoice_reference)
 
 		# create the loyalty point ledger entry if the customer is enrolled in any loyalty program
 		if not self.is_consolidated and self.loyalty_program:
 			self.make_loyalty_point_entry()
-		
+
 		if self.redeem_loyalty_points and not self.is_consolidated and self.loyalty_points:
 			self.apply_loyalty_points()
 
@@ -91,9 +91,9 @@ class SalesInvoiceDownPayment(SalesInvoice):
 	def validate_down_payment_advances(self):
 		for advance in self.get("advances"):
 			if (
-			flt(advance.allocated_amount) <= flt(advance.advance_amount)
-			and advance.reference_type == "Payment Entry"
-			and cint(advance.is_down_payment)
+				flt(advance.allocated_amount) <= flt(advance.advance_amount)
+				and advance.reference_type == "Payment Entry"
+				and cint(advance.is_down_payment)
 			):
 				advance.allocated_amount = advance.advance_amount
 
@@ -105,8 +105,8 @@ class SalesInvoiceDownPayment(SalesInvoice):
 
 		for d in self.get("advances"):
 			if (
-				flt(d.allocated_amount) <= 0 
-				or d.reference_type != "Payment Entry" 
+				flt(d.allocated_amount) <= 0
+				or d.reference_type != "Payment Entry"
 				or not cint(d.is_down_payment)
 			):
 				continue
@@ -175,7 +175,7 @@ class SalesInvoiceDownPayment(SalesInvoice):
 					else:
 						gl_entry["debit"] += down_payment_entry["credit"]
 						gl_entry["debit_in_account_currency"] += down_payment_entry["credit_in_account_currency"]
-	
+
 	def get_gl_entries(self, warehouse_account=None):
 
 		gl_entries = []
@@ -201,7 +201,6 @@ class SalesInvoiceDownPayment(SalesInvoice):
 		self.make_gle_for_rounding_adjustment(gl_entries)
 
 		return gl_entries
-
 
 	def make_item_gl_entries(self, gl_entries):
 		# income account gl entries
@@ -241,41 +240,40 @@ class SalesInvoiceDownPayment(SalesInvoice):
 						gl_entries.append(self.get_gl_dict(gle, item=item))
 
 					self.set_asset_status(asset)
-				else:
-					# Do not book income for transfer within same company
-					if not self.is_internal_transfer():
-						income_account = (
-							item.income_account
-							if (not item.enable_deferred_revenue or self.is_return or self.is_down_payment_invoice)
-							else item.deferred_revenue_account
-						)
-						amount, base_amount = self.get_amount_and_base_amount(item, enable_discount_accounting)
 
-						account_currency = get_account_currency(income_account)
-						gl_dict = self.get_gl_dict(
-							{
-								"account": income_account,
-								"against": self.customer,
-								"credit": flt(base_amount, item.precision("base_net_amount")),
-								"credit_in_account_currency": (
-									flt(base_amount, item.precision("base_net_amount"))
-									if account_currency == self.company_currency
-									else flt(amount, item.precision("net_amount"))
-								),
-								"cost_center": item.cost_center,
-								"project": item.project or self.project,
-								"remarks": item.get("remarks")
-								or f'{_("Item")}: {item.qty} {item.item_code} - {_(item.uom)} / {_("Customer")}: {self.customer}',
-								"accounting_journal": self.accounting_journal,
-							},
-							account_currency,
-							item=item,
-						)
+				elif not self.is_internal_transfer():
+					income_account = (
+						item.income_account
+						if (not item.enable_deferred_revenue or self.is_return or self.is_down_payment_invoice)
+						else item.deferred_revenue_account
+					)
+					amount, base_amount = self.get_amount_and_base_amount(item, enable_discount_accounting)
 
-						if self.is_down_payment_invoice:
-							gl_dict.update({"party_type": "Customer", "party": self.customer})
+					account_currency = get_account_currency(income_account)
+					gl_dict = self.get_gl_dict(
+						{
+							"account": income_account,
+							"against": self.customer,
+							"credit": flt(base_amount, item.precision("base_net_amount")),
+							"credit_in_account_currency": (
+								flt(base_amount, item.precision("base_net_amount"))
+								if account_currency == self.company_currency
+								else flt(amount, item.precision("net_amount"))
+							),
+							"cost_center": item.cost_center,
+							"project": item.project or self.project,
+							"remarks": item.get("remarks")
+							           or f'{_("Item")}: {item.qty} {item.item_code} - {_(item.uom)} / {_("Customer")}: {self.customer}',
+							"accounting_journal": self.accounting_journal,
+						},
+						account_currency,
+						item=item,
+					)
 
-						gl_entries.append(gl_dict)
+					if self.is_down_payment_invoice:
+						gl_dict.update({"party_type": "Customer", "party": self.customer})
+
+					gl_entries.append(gl_dict)
 
 		# expense account gl entries
 		if cint(self.update_stock) and erpnext.is_perpetual_inventory_enabled(self.company):
