@@ -1,6 +1,22 @@
 [
  {
   "default_value": null,
+  "doc_type": "Address",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocType",
+  "field_name": null,
+  "is_system_generated": 0,
+  "modified": "2024-03-08 17:12:53.403139",
+  "module": null,
+  "name": "Address-main-field_order",
+  "property": "field_order",
+  "property_type": "Data",
+  "row_name": null,
+  "value": "[\"address_details\", \"address_title\", \"address_type\", \"address_line1\", \"address_line2\", \"pincode\", \"city\", \"county\", \"state\", \"country\", \"column_break0\", \"email_id\", \"phone\", \"fax\", \"tax_category\", \"is_primary_address\", \"is_shipping_address\", \"disabled\", \"linked_with\", \"is_your_company_address\", \"links\"]"
+ },
+ {
+  "default_value": null,
   "doc_type": "Item",
   "docstatus": 0,
   "doctype": "Property Setter",
@@ -206,5 +222,54 @@
   "property_type": "Boolean",
   "row_name": null,
   "value": "0"
+ },
+ {
+  "default_value": null,
+  "doc_type": "Opportunity Type",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocType",
+  "field_name": null,
+  "is_system_generated": 0,
+  "modified": "2024-03-11 14:44:40.107300",
+  "module": null,
+  "name": "Opportunity Type-main-translated_doctype",
+  "property": "translated_doctype",
+  "property_type": "Check",
+  "row_name": null,
+  "value": "1"
+ },
+ {
+  "default_value": null,
+  "doc_type": "Opportunity",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocField",
+  "field_name": null,
+  "is_system_generated": 0,
+  "modified": "2024-03-11 14:44:40.107300",
+  "module": null,
+  "name": "Opportunity-opportunity_type-translatable",
+  "property": "translatable",
+  "property_type": "Check",
+  "row_name": null,
+  "value": "1"
+ },
+ {
+  "default_value": null,
+  "doc_type": "Opportunity",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocField",
+  "field_name": "opportunity_type",
+  "modified": "2024-03-24 21:31:25.576989",
+  "name": "Opportunity-opportunity_type-default",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "property": "default",
+  "property_type": "Text",
+  "row_name": null,
+  "value": "Ventes"
  }
 ]

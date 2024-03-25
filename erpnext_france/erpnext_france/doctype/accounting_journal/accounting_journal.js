@@ -48,4 +48,4 @@ frappe.tour['Accounting Journal'] = [
 		title: __("Link it to a transaction"),
 		description: __("You can link your journal with specific transactions and add some conditions. E.g: Link it to a sales invoice with a condition `doc.is_return` for a credit notes journal."),
 	}
-]
+];

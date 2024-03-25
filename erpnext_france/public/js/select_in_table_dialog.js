@@ -5,7 +5,7 @@ class SelectInTableDialog {
 	constructor(opts) {
 		/* Options: doctype, target, setters, get_query, action, add_filters_group, data_fields, primary_action_label, columns */
 		Object.assign(this, opts);
-		this.for_select = this.doctype == "[Select]";
+		this.for_select = this.doctype === "[Select]";
 		if (!this.for_select) {
 			frappe.model.with_doctype(this.doctype, () => this.init());
 		} else {
@@ -275,7 +275,7 @@ class SelectInTableDialog {
 
 		let checked_names = this.datatable.rowmanager.checkMap.reduce(
 			(checked_names, checked, index) => {
-				if (checked == 1) {
+				if (checked === 1) {
 					const child_row_name = this.child_results[index].name;
 					checked_names.push(child_row_name);
 				}
@@ -413,7 +413,7 @@ class SelectInTableDialog {
 		} else {
 			Object.keys(this.setters).forEach(function (setter) {
 				var value = me.dialog.fields_dict[setter].get_value();
-				if (me.dialog.fields_dict[setter].df.fieldtype == "Data" && value) {
+				if (me.dialog.fields_dict[setter].df.fieldtype === "Data" && value) {
 					filters[setter] = ["like", "%" + value + "%"];
 				} else {
 					filters[setter] = value || undefined;
@@ -496,7 +496,7 @@ class SelectInTableDialog {
 	add_custom_child_filters(filters) {
 		if (this.add_filters_group && this.filter_group) {
 			this.filter_group.get_filters().forEach((filter) => {
-				if (filter[0] == this.child_doctype) {
+				if (filter[0] === this.child_doctype) {
 					filters.push([filter[1], filter[2], filter[3]]);
 				}
 			});

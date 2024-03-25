@@ -8,7 +8,7 @@ frappe.ui.form.on("Purchase Invoice", {
             if (frm.doc.docstatus === 1) {
                 frm.add_custom_button(__('Accounting Journal Adjustment'), () => {
                     frappe.require("assets/erpnext_france/js/accounting_journal_adjustment.js", () => {
-                        new erpnext.journalAdjustment({doctype: frm.doctype, docnames: [frm.docname]})
+                        new erpnext.journalAdjustment({doctype: frm.doctype, docnames: [frm.docname]});
                     });
                 }, __('Create'), true);
             }

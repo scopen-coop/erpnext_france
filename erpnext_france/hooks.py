@@ -12,7 +12,6 @@ app_icon = "octicon octicon-home"
 app_color = "#318CE7"
 app_email = "contact@scopen.fr"
 app_license = "GNU General Public License"
-
 fixtures = [
 	{
 		"dt": "Custom Field",
@@ -31,6 +30,8 @@ fixtures = [
 					"Company-legal_form",
 					"Company-eori_number",
 					"Company-capital",
+					"Company-type_export_fec",
+					"Company-column_break_898956",
 					"Customer-check_vat_id",
 					"Customer-code_naf",
 					"Customer-incoterm",
@@ -39,6 +40,7 @@ fixtures = [
 					"Customer-siren",
 					"GL Entry-accounting_entry_number",
 					"GL Entry-accounting_journal",
+					"GL Entry-export_date",
 					"Item-down_payment_percentage",
 					"Item-is_down_payment_item",
 					"Mode of Payment Account-discount_supplier_account",
@@ -92,23 +94,31 @@ fixtures = [
 				"Item-include_item_in_manufacturing-depends_on",
 				"Item-is_stock_item-depends_on",
 				"Item-allow_alternative_item-depends_on",
-			 	"Account-account_number-read_only"
-			 )]
+			 	"Account-account_number-read_only",
+				"Address-main-field_order",
+				"Opportunity-opportunity_type-translatable",
+				"Opportunity-opportunity_type-default",
+				"Opportunity Type-main-translated_doctype",
+			 )
+			]
 		]
 	},
 	{
 		"dt": "Workspace Link",
 		"filters": [
-			["label", "in",
-			 ('ERPNext France',
-			  'ERPNext France Settings',
-			  'Legal Form',
-			  'Company',
-			  'Code Naf',
-			  'Accounting Journal',
-			  'Fichier des Ecritures Comptables [FEC]',
-			  'Export Comptable'
-			  )],
+			["name", "in",
+			 (
+				 "463658a38e",
+				 "87e757e3c1",
+				 "dc2d70f0be",
+				 "2faa60a916",
+				 "df2fa6d850",
+				 "a129c62bb0",
+				 "fc83fdfd07",
+				 "24d4382374",
+				 "df2fa6d847",
+			 )
+			],
 		]
 	},
 	{
@@ -149,8 +159,19 @@ fixtures = [
 		"filters": [
 			["name", "in", 'France Letter Head']
 		]
+	},
+	{
+		"dt": "Bank Account Type",
+		"filters": [
+			["name", "in", (
+				'Savings',
+				'Current Account',
+				'Cashier',
+			)]
+		]
 	}
 ]
+
 # fixtures = ["Custom Field"]
 
 # Includes in <head>
@@ -323,7 +344,6 @@ regional_overrides = {
 	"France": {
 		"erpnext.controllers.taxes_and_totals.update_itemised_tax_data": "erpnext_france.regional.france.taxes.update_itemised_tax_data",
 		"erpnext.controllers.taxes_and_totals.get_itemised_tax": "erpnext_france.regional.france.taxes.get_itemised_tax",
-		"erpnext.accounts.report.balance_sheet.balance_sheet.execute": "erpnext_france.regional.france.report.balance_sheet.balance_sheet.execute",
 		"erpnext.accounts.controllers.accounts_controller.update_against_document_in_jv": "erpnext_france.controllers.accounts_controller.update_against_document_in_jv",
 	},
 }

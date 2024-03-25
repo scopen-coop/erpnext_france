@@ -53,7 +53,7 @@ class BankReconciliationPage {
 			get_query: function() {
 				if(!me.company) {
 					frappe.throw(__("Please select company first"));
-					return
+					return;
 				}
 
 				return {
@@ -65,7 +65,7 @@ class BankReconciliationPage {
 			onchange: function() {
 				if (this.value) {
 					me.bank_account = this.value;
-					erpnext.bank_reconciliation.trigger("filter_change", {name: 'BANK_ACCOUNT', value: me.bank_account})
+					erpnext.bank_reconciliation.trigger("filter_change", {name: 'BANK_ACCOUNT', value: me.bank_account});
 				} else {
 					me.bank_account = null;
 				}
@@ -81,7 +81,7 @@ class BankReconciliationPage {
 			onchange: function() {
 				if (this.value) {
 					me.date_range = this.value;
-					erpnext.bank_reconciliation.trigger("filter_change", {name: 'DATE_RANGE', value: me.date_range})
+					erpnext.bank_reconciliation.trigger("filter_change", {name: 'DATE_RANGE', value: me.date_range});
 				} else {
 					me.date_range = null;
 				}
@@ -115,7 +115,7 @@ class BankReconciliationPage {
 						new erpnext.accounts.bankTransactionUpload('plaid');
 					});
 				}
-			})
+			});
 			me.page.add_action_item(__("Upload an ofx statement"), function() {
 				new erpnext.accounts.bankTransactionUpload('ofx');
 			});

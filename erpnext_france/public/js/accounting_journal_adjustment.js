@@ -32,14 +32,14 @@ erpnext.journalAdjustment = class AccountingJournalAdjustment {
 					docnames: me.docnames,
 					accounting_journal: me.dialog.get_values().new_journal
 				}).then(() => {
-					frappe.show_alert({message: __('Accounting Journal adjustment in progress'), indicator: 'green'})
+					frappe.show_alert({message: __('Accounting Journal adjustment in progress'), indicator: 'green'});
 				})
-				me.dialog.hide()
+				me.dialog.hide();
 			},
 			primary_action_label: __('Submit')
 		})
 
-		this.get_accounting_entries()
+		this.get_accounting_entries();
 	}
 
 	get_accounting_entries() {
@@ -56,7 +56,7 @@ erpnext.journalAdjustment = class AccountingJournalAdjustment {
 						<td>${format_currency(f.credit, f.account_currency)}</td>
 						<td>${f.accounting_journal || ""}</td>
 					</tr>
-				`).join("")
+				`).join("");
 
 				const table = `
 					<table class="table">
@@ -73,14 +73,14 @@ erpnext.journalAdjustment = class AccountingJournalAdjustment {
 							${rows}
 						</tbody>
 					</table>
-				`
+				`;
 				this.dialog.fields_dict.current_journal.$wrapper.html(table);
-				this.dialog.show()
+				this.dialog.show();
 			} else {
 				frappe.msgprint({
 					message: __("No corresponding general ledger entries found for this document"),
 					title: __("Accounting journal not found")
-				})
+				});
 			}
 		})
 	}

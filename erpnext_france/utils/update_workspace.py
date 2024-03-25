@@ -4,33 +4,19 @@ import frappe
 from frappe import _
 import re
 
-# TODO: Actuellement ne marche pas voir si l'on fait ça ou une PR dans FRAPPE
-def execute(aa,bb):
-	regexShortcut = re.compile(r"^.*Your Shortcuts.*$", re.IGNORECASE)
-	regexReport = re.compile(r"^.*Reports & Masters.*$", re.IGNORECASE)
-	for seq, workspace in enumerate(frappe.get_all("Workspace")):
-		doc = frappe.get_doc("Workspace", workspace.name)
-		content = json.loads(doc.content)
-		modified = False
-		for section in content:
-			if not 'data' in section or not 'text' in section['data']:
-				continue
-
-			section['data']['text'] = regexShortcut.sub(_('Your Shortcuts'), section['data']['text'])
-			section['data']['text'] = regexReport.sub('Reports et Masters', section['data']['text'])
-			modified = True
-
-		if modified:
-			doc.db_set('content', str(content))
-
 
 def add_cards():
 	add_card("ERPNext Settings", "ERPNext France")
 	add_card("Accounting", "ERPNext France")
+	update_workspace_link_idx()
 
 
 def add_card(workspace_name, workspace_link_label):
 	workspace = frappe.get_doc('Workspace', workspace_name)
+
+	if not workspace:
+		return
+
 	workspace_link = frappe.get_last_doc(
 		'Workspace Link',
 		filters={'label': workspace_link_label, "parent": workspace_name}
@@ -57,3 +43,51 @@ def add_card(workspace_name, workspace_link_label):
 
 	workspace.content = json.dumps(content)
 	workspace.save()
+
+
+def update_workspace_link_idx():
+	workspace_link_idx = [
+		{
+			"name": "463658a38e",
+			"idx": 70
+		},
+		{
+			"name": "87e757e3c1",
+			"idx": 71
+		},
+		{
+			"name": "dc2d70f0be",
+			"idx": 72
+		},
+		{
+			"name": "2faa60a916",
+			"idx": 73
+		},
+		{
+			"name": "df2fa6d850",
+			"idx": 74
+		},
+		{
+			"name": "a129c62bb0",
+			"idx": 75
+		},
+		{
+			"name": "fc83fdfd07",
+			"idx": 110
+		},
+		{
+			"name": "24d4382374",
+			"idx": 111
+		},
+		{
+			"name": "df2fa6d847",
+			"idx": 112
+		},
+	]
+	for workspace_info in workspace_link_idx:
+		if not frappe.db.exists("Workspace Link", dict(name=workspace_info['name'])):
+			continue
+
+		workspace_link  = frappe.get_doc('Workspace Link', workspace_info['name'])
+		workspace_link.idx =  workspace_info['idx']
+		workspace_link.save()
