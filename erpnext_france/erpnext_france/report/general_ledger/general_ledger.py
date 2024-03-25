@@ -96,7 +96,6 @@ def get_gl_entries(filters, accounting_dimensions):
 			gle.credit_in_account_currency
 		)
 	)
-	# {transaction_currency_fields}
 	# {dimension_fields}
 
 	if filters.get("add_values_in_transaction_currency"):

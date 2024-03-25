@@ -97,8 +97,10 @@ fixtures = [
 			 	"Account-account_number-read_only",
 				"Address-main-field_order",
 				"Opportunity-opportunity_type-translatable",
-				"Opportunity Type-main-translated_doctype"
-			 )]
+				"Opportunity-opportunity_type-default",
+				"Opportunity Type-main-translated_doctype",
+			 )
+			]
 		]
 	},
 	{
