@@ -13,6 +13,10 @@ def add_cards():
 
 def add_card(workspace_name, workspace_link_label):
 	workspace = frappe.get_doc('Workspace', workspace_name)
+
+	if not workspace:
+		return
+
 	workspace_link = frappe.get_last_doc(
 		'Workspace Link',
 		filters={'label': workspace_link_label, "parent": workspace_name}
