@@ -99,8 +99,6 @@ fixtures = [
 				"Opportunity-opportunity_type-translatable",
 				"Opportunity-opportunity_type-default",
 				"Opportunity Type-main-translated_doctype",
-				"Delivery Note-incoterm-fetch_if_empty",
-				"Delivery Note-incoterm-fetch_from",
 			 )
 			]
 		]
