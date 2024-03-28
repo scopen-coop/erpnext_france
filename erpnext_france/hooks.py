@@ -94,11 +94,13 @@ fixtures = [
 				"Item-include_item_in_manufacturing-depends_on",
 				"Item-is_stock_item-depends_on",
 				"Item-allow_alternative_item-depends_on",
-			 	"Account-account_number-read_only",
+				"Account-account_number-read_only",
 				"Address-main-field_order",
 				"Opportunity-opportunity_type-translatable",
 				"Opportunity-opportunity_type-default",
 				"Opportunity Type-main-translated_doctype",
+				"Delivery Note-incoterm-fetch_if_empty",
+				"Delivery Note-incoterm-fetch_from",
 			 )
 			]
 		]
