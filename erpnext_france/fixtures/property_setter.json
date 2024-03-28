@@ -263,7 +263,7 @@
   "doctype_or_field": "DocField",
   "field_name": "opportunity_type",
   "is_system_generated": 0,
-  "modified": "2024-03-24 21:31:25.576989",
+  "modified": "2024-03-28 10:31:25.576989",
   "module": null,
   "name": "Opportunity-opportunity_type-default",
   "property": "default",
