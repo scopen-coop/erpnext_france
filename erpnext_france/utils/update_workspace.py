@@ -6,7 +6,7 @@ import re
 
 
 def add_cards():
-	add_card("ERPNext Settings", "ERPNext France")
+	add_card("Settings", "ERPNext France")
 	add_card("Accounting", "ERPNext France")
 	update_workspace_link_idx()
 
