@@ -50,7 +50,6 @@ def setup_company_default(company, action):
 
 def default_accounts_mapping(accounts):
     account_map = {
-        "default_bank_account": 5121,
         "default_cash_account": 5311,
         "default_receivable_account": 4111,
         "default_payable_account": 4011,
