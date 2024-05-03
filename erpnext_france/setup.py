@@ -8,6 +8,7 @@ from frappe.utils import cint
 
 def setup_wizard_complete(args, action=None):
     add_bank_account(args)
+    set_4191_account_type(args)
     set_default_stock_settings()
     set_default_system_settings()
     set_default_print_settings()
@@ -85,6 +86,24 @@ def add_bank_account(args):
         account.name,
         update_modified=False,
     )
+
+
+def set_4191_account_type(args):
+    account = frappe.get_last_doc(
+        "Account",
+        filters={
+            "disabled": 0,
+            "is_group": 0,
+            "company": args.get("company_name"),
+            "account_number": 4191,
+        },
+    )
+
+    if not account:
+        return
+
+    account.account_type = "Income Account"
+    account.save()
 
 
 def set_default_source_letter_head():
