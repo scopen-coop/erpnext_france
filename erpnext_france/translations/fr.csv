@@ -488,3 +488,4 @@ Deferred Accounting,Comptabilité différée,
 "Cannot find Deposit Item, may be missing Default Accountancy table with Income Account","Aucun article utilisable pour une facture d'acompte, vérifiez si il existe un article avec Article d'acompte coché et qu'il y a une bien une ligne dans Comptabilité avec un code comptable pour Compte de produit (vente) par défaut"
 Left,Gauche,
 Discount Amount,Remise en montant
+Named Place,Lieu Incoterm
