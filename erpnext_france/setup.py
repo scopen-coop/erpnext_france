@@ -8,6 +8,7 @@ from frappe.utils import cint
 
 def setup_wizard_complete(args, action=None):
     add_bank_account(args)
+    set_default_accounting_journal(args.get("company_name"))
     set_4191_account_type(args)
     set_default_stock_settings()
     set_default_system_settings()
@@ -45,6 +46,8 @@ def setup_company_default(company, action):
 
     company.db_set("enable_perpetual_inventory", 0)
     company.db_set("payment_terms", "Règlement à 30 jours")
+    company.create_default_warehouses()
+    set_default_accounting_journal(company.company_name)
 
     frappe.local.flags.ignore_chart_of_accounts = True
 
@@ -54,6 +57,9 @@ def default_accounts_mapping(accounts):
         "default_cash_account": 5311,
         "default_receivable_account": 4111,
         "default_payable_account": 4011,
+        "asset_received_but_not_billed": 4084,
+        "default_expense_account": 6011,
+        "default_income_account": 7011,
     }
 
     return {
@@ -129,6 +135,20 @@ def set_default_stock_settings():
     frappe.db.set_single_value(
         "Stock Settings", "auto_insert_price_list_rate_if_missing", 1
     )
+
+
+def set_default_accounting_journal(company):
+    journal = frappe.get_doc(
+        {
+            "doctype": "Accounting Journal",
+            "journal_code": "AC",
+            "journal_name": "Achat",
+            "type": "Purchase",
+            "conditions": [{"document_type": "Purchase Invoice"}],
+        }
+    )
+    journal.company = company.name
+    journal.insert()
 
 
 def set_default_system_settings():
