@@ -10,6 +10,7 @@ def setup_wizard_complete(args, action=None):
     add_bank_account(args)
     set_default_accounting_journal(args.get("company_name"))
     set_4191_account_type(args)
+    set_4084_account_type(args)
     set_default_stock_settings()
     set_default_system_settings()
     set_default_print_settings()
@@ -112,6 +113,24 @@ def set_4191_account_type(args):
     account.save()
 
 
+def set_4084_account_type(args):
+    account = frappe.get_last_doc(
+        "Account",
+        filters={
+            "disabled": 0,
+            "is_group": 0,
+            "company": args.get("company_name"),
+            "account_number": 4084,
+        },
+    )
+
+    if not account:
+        return
+
+    account.account_type = "Asset Received But Not Billed"
+    account.save()
+
+
 def set_default_source_letter_head():
     letter_head = frappe.get_last_doc(
         "Letter Head",
@@ -137,17 +156,45 @@ def set_default_stock_settings():
     )
 
 
-def set_default_accounting_journal(company):
+def set_default_accounting_journal(company_name):
+    demo_journal_code = ""
+    if frappe.db.get_single_value("Global Defaults", "demo_company") != "":
+        demo_journal_code = " - Demo"
+
     journal = frappe.get_doc(
         {
             "doctype": "Accounting Journal",
-            "journal_code": "AC",
+            "journal_code": "AC" + demo_journal_code,
             "journal_name": "Achat",
             "type": "Purchase",
+            "company": company_name,
             "conditions": [{"document_type": "Purchase Invoice"}],
         }
     )
-    journal.company = company.name
+    journal.insert()
+
+    journal = frappe.get_doc(
+        {
+            "doctype": "Accounting Journal",
+            "journal_code": "VT" + demo_journal_code,
+            "journal_name": "Vente",
+            "type": "Sales",
+            "company": company_name,
+            "conditions": [{"document_type": "Sales Invoice"}],
+        }
+    )
+    journal.insert()
+
+    journal = frappe.get_doc(
+        {
+            "doctype": "Accounting Journal",
+            "journal_code": "BQ" + demo_journal_code,
+            "journal_name": "Banque",
+            "type": "Bank",
+            "company": company_name,
+            "conditions": [{"document_type": "Payment Entry"}],
+        }
+    )
     journal.insert()
 
 
