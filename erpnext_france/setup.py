@@ -157,7 +157,7 @@ def set_default_stock_settings():
 
 def set_default_accounting_journal(company_name):
     demo_journal_code = ""
-    if frappe.db.get_single_value("Global Defaults", "demo_company") != "":
+    if " (Demo)" in company_name:
         demo_journal_code = " - Demo"
 
     journal = frappe.get_doc(
