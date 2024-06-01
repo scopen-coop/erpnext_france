@@ -8,7 +8,6 @@ from frappe.utils import cint
 
 def setup_wizard_complete(args, action=None):
     add_bank_account(args)
-    set_default_accounting_journal(args.get("company_name"))
     set_4191_account_type(args)
     set_4084_account_type(args)
     set_default_stock_settings()
