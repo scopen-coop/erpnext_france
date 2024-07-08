@@ -47,7 +47,7 @@ def setup_company_default(company, action):
     company.db_set("enable_perpetual_inventory", 0)
     company.db_set("payment_terms", "Règlement à 30 jours")
     company.create_default_warehouses()
-    set_default_accounting_journal(company.company_name)
+    set_default_accounting_journal(company.company_name, company.abbr)
 
     frappe.local.flags.ignore_chart_of_accounts = True
 
@@ -155,15 +155,17 @@ def set_default_stock_settings():
     )
 
 
-def set_default_accounting_journal(company_name):
-    demo_journal_code = ""
+def set_default_accounting_journal(company_name, company_abbr):
+    journal_code = ""
     if " (Demo)" in company_name:
-        demo_journal_code = " - Demo"
+        journal_code = " - Demo"
+    elif company_abbr != "":
+        journal_code = company_abbr
 
     journal = frappe.get_doc(
         {
             "doctype": "Accounting Journal",
-            "journal_code": "AC" + demo_journal_code,
+            "journal_code": "AC" + journal_code,
             "journal_name": "Achat",
             "type": "Purchase",
             "company": company_name,
@@ -175,7 +177,7 @@ def set_default_accounting_journal(company_name):
     journal = frappe.get_doc(
         {
             "doctype": "Accounting Journal",
-            "journal_code": "VT" + demo_journal_code,
+            "journal_code": "VT" + journal_code,
             "journal_name": "Vente",
             "type": "Sales",
             "company": company_name,
@@ -187,7 +189,7 @@ def set_default_accounting_journal(company_name):
     journal = frappe.get_doc(
         {
             "doctype": "Accounting Journal",
-            "journal_code": "BQ" + demo_journal_code,
+            "journal_code": "BQ" + journal_code,
             "journal_name": "Banque",
             "type": "Bank",
             "company": company_name,
