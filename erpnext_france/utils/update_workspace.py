@@ -17,7 +17,7 @@ def add_card(workspace_name, workspace_link_label):
     workspace = frappe.get_doc("Workspace", workspace_name)
 
     if not workspace:
-        return None
+        return
 
     workspace_link = frappe.get_last_doc(
         "Workspace Link",
@@ -32,7 +32,7 @@ def add_card(workspace_name, workspace_link_label):
             should_add_entry = False
 
     if not should_add_entry:
-        return None
+        return
 
     content.append(
         {
@@ -44,7 +44,6 @@ def add_card(workspace_name, workspace_link_label):
 
     workspace.content = json.dumps(content)
     workspace.save()
-    return 1
 
 
 def update_workspace_link_idx():
