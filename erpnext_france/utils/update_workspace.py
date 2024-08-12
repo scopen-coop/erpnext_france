@@ -7,12 +7,10 @@ from frappe.query_builder.functions import Max
 
 
 def add_cards():
-    res = add_card("ERPNext Settings", "ERPNext France")
-    if res is not None:
-        update_workspace_link_idx()
-    res = add_card("Accounting", "ERPNext France")
-    if res is not None:
-        update_workspace_link_idx()
+    add_card("ERPNext Settings", "ERPNext France")
+    update_workspace_link_idx()
+    add_card("Accounting", "ERPNext France")
+    update_workspace_link_idx()
 
 
 def add_card(workspace_name, workspace_link_label):
@@ -86,9 +84,9 @@ def update_workspace_link_idx():
         workspace_link = frappe.get_doc("Workspace Link", workspace_info["name"])
         if workspace_link.parenttype == "Workspace":
             workspace_link.idx = find_next_idx_links(workspace_link.parent)
-        workspace_link.save()
 
-    return 1
+        if workspace_link.idx != 0:
+            workspace_link.save()
 
 
 def find_next_idx_links(workspace_name):
