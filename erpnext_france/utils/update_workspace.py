@@ -88,6 +88,8 @@ def update_workspace_link_idx():
             workspace_link.idx = find_next_idx_links(workspace_link.parent)
         workspace_link.save()
 
+    return 1
+
 
 def find_next_idx_links(workspace_name):
     workspace_link = frappe.qb.DocType("Workspace Link")
