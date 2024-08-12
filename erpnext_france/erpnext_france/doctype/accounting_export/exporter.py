@@ -342,11 +342,6 @@ class DataExporter:
         debit = "{:.2f}".format(doc.get("debit")).replace(".", ",")
         credit = "{:.2f}".format(doc.get("credit")).replace(".", ",")
 
-        # if doc.get("party_type") in ("Supplier", "Customer"):
-        #     libelle_compte = "{:.17s}".format(format(doc.get("party") or ""))
-        # else:
-        #     libelle_compte = "{:.17s}".format(format(doc.get("account_name") or ""))
-
         if doc.get("against_voucher_type") == "Purchase Invoice":
             ref_inv_inv = piece_num
             piece_num = ref_inv
