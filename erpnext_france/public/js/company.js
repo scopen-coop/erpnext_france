@@ -24,7 +24,7 @@ frappe.ui.form.on("Company", {
           frm.call({
             method:
               "erpnext_france.utils.create_tax_template.create_tax_template",
-            doc: frm.doc,
+            args: { doc: frm.doc },
             freeze: true,
             callback: function () {
               frappe.msgprint(
