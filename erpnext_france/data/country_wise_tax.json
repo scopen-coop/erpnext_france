@@ -230,54 +230,6 @@
 						]
 					},
 					{
-						"title": "TVA 20% Déductible - Achat - Incluse dans le prix",
-						"taxes": [
-							{
-								"tax_type": {
-									"account_name": "TVA 20% Déductible",
-									"account_number": "445620",
-									"root_type": "Asset",
-									"tax_rate": 20.0
-								},
-								"included_in_print_rate": 1,
-								"description": "TVA 20%",
-								"tax_rate": 20
-							}
-						]
-					},
-					{
-						"title": "TVA 10% Déductible - Achat - Incluse dans le prix",
-						"taxes": [
-							{
-								"tax_type": {
-									"account_name": "TVA 10% Déductible",
-									"account_number": "445610",
-									"root_type": "Asset",
-									"tax_rate": 10.0
-								},
-								"included_in_print_rate": 1,
-								"description": "TVA 10%",
-								"tax_rate": 10
-							}
-						]
-					},
-					{
-						"title": "TVA 5.5% Déductible - Achat - Incluse dans le prix",
-						"taxes": [
-							{
-								"tax_type": {
-									"account_name": "TVA 5.5% Déductible",
-									"account_number": "445655",
-									"root_type": "Asset",
-									"tax_rate": 5.5
-								},
-								"included_in_print_rate": 1,
-								"description": "TVA 5.5%",
-								"tax_rate": 5.5
-							}
-						]
-					},
-					{
 						"title": "TVA 20% Collecté - Vente",
 						"taxes": [
 							{
@@ -317,54 +269,6 @@
 									"root_type": "Liability",
 									"tax_rate": 5.5
 								},
-								"description": "TVA 5.5%",
-								"tax_rate": 5.5
-							}
-						]
-					},
-					{
-						"title": "TVA 20% Collecté - Vente - Incluse dans le prix",
-						"taxes": [
-							{
-								"tax_type": {
-									"account_name": "TVA 20% Collecté",
-									"account_number": "445720",
-									"root_type": "Liability",
-									"tax_rate": 20.0
-								},
-								"included_in_print_rate": 1,
-								"description": "TVA 20%",
-								"tax_rate": 20
-							}
-						]
-					},
-					{
-						"title": "TVA 10% Collecté - Vente - Incluse dans le prix",
-						"taxes": [
-							{
-								"tax_type": {
-									"account_name": "TVA 10% Collecté",
-									"account_number": "445710",
-									"root_type": "Liability",
-									"tax_rate": 10.0
-								},
-								"included_in_print_rate": 1,
-								"description": "TVA 10%",
-								"tax_rate": 10
-							}
-						]
-					},
-					{
-						"title": "TVA 5.5% Collecté - Vente - Incluse dans le prix",
-						"taxes": [
-							{
-								"tax_type": {
-									"account_name": "TVA 5.5% Collecté",
-									"account_number": "445755",
-									"root_type": "Liability",
-									"tax_rate": 5.5
-								},
-								"included_in_print_rate": 1,
 								"description": "TVA 5.5%",
 								"tax_rate": 5.5
 							}
