@@ -193,7 +193,10 @@ def set_default_accounting_journal(company_name, company_abbr):
             "journal_name": "Banque",
             "type": "Bank",
             "company": company_name,
-            "conditions": [{"document_type": "Payment Entry"}],
+            "conditions": [
+                {"document_type": "Payment Entry"},
+                {"document_type": "Journal Entry"},
+            ],
         }
     )
     journal.insert()
