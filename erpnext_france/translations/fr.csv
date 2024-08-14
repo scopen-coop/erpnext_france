@@ -490,3 +490,20 @@ Left,Gauche,
 Discount Amount,Remise en montant
 Named Place,Lieu Incoterm
 ERPNext France - Create Tax Template,ERPNext France - Créer les modéles de taxes
+Portal Users,Utilisateurs Portail
+Supplier Portal Users,Utilisateurs du portail Fournisseurs
+Percentage you are allowed to transfer more against the quantity ordered. For example: If you have ordered 100 units. and your Allowance is 10% then you are allowed to transfer 110 units.,Pourcentage que vous êtes autorisé à transférer en plus de la quantité commandée. Par exemple, si vous avez commandé 100 unités et que votre tolérance est de 10 %, vous êtes autorisé à transférer 110 unités.
+Percentage you are allowed to order beyond the Blanket Order quantity.,Pourcentage que vous êtes autorisé à commander au-delà de la quantité de la commande globale.
+Is Purchase Order Required for Purchase Invoice & Receipt Creation?,Le bon de commande est-il nécessaire pour la création d'une facture d'achat et d'un bon de réception ?
+Configure the action to stop the transaction or just warn if the same rate is not maintained.,Configurez l'action pour arrêter la transaction ou simplement avertir si le même tarif n'est pas maintenu.
+Action If Same Rate is Not Maintained,Mesures à prendre si le tarif évolue
+company,société
+All companies,Toutes les sociétés
+Abbr,Abréviation
+Commentaire sur la performance des employés,Evaluation des critères
+Employee Performance Feedback,Evaluation des critères
+Employee Feedback Criteria,Critères d'Evaluation des Employés
+KRA,Domaines de résultats clés (KRA)
+Submitted,Validé
+Appraisal,Evaluation Globale
+Appraisal template,Grilles d'évaluation
