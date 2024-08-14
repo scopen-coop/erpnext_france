@@ -55,6 +55,22 @@
 								"rate": 5.5
 							}
 						]
+					},
+					{
+						"title": "TVA 2.1% Collectée",
+						"tax_category": "Vente Domestique",
+						"taxes": [
+							{
+								"account_head": {
+									"account_name": "TVA 2.1% Collectée",
+									"account_number": "445721",
+									"root_type": "Liability",
+									"tax_rate": 2.10
+								},
+								"description": "TVA 2.1%",
+								"rate": 2.1
+							}
+						]
 					}
 				],
 				"purchase_tax_templates": [
@@ -107,6 +123,22 @@
 						]
 					},
 					{
+						"title": "TVA 2.1% Déductible",
+						"tax_category": "Achat Domestique",
+						"taxes": [
+							{
+								"account_head": {
+									"account_name": "TVA 2.1% Déductible",
+									"account_number": "445621",
+									"root_type": "Asset",
+									"tax_rate": 2.1
+								},
+								"description": "TVA 2.1%",
+								"rate": 2.1
+							}
+						]
+					},
+					{
 						"title": "TVA 20% Déductible - Incluse dans le prix",
 						"taxes": [
 							{
@@ -151,6 +183,22 @@
 								"included_in_print_rate": 1,
 								"description": "TVA 5.5%",
 								"rate": 5.5
+							}
+						]
+					},
+					{
+						"title": "TVA 2.1% Déductible - Incluse dans le prix",
+						"taxes": [
+							{
+								"account_head": {
+									"account_name": "TVA 2.1% Déductible",
+									"account_number": "445621",
+									"root_type": "Asset",
+									"tax_rate": 2.1
+								},
+								"included_in_print_rate": 1,
+								"description": "TVA 2.1%",
+								"rate": 2.1
 							}
 						]
 					},
@@ -230,6 +278,21 @@
 						]
 					},
 					{
+						"title": "TVA 2.1% Déductible - Achat",
+						"taxes": [
+							{
+								"tax_type": {
+									"account_name": "TVA 2.1% Déductible",
+									"account_number": "445621",
+									"root_type": "Asset",
+									"tax_rate": 2.1
+								},
+								"description": "TVA 2.1%",
+								"tax_rate": 2.1
+							}
+						]
+					},
+					{
 						"title": "TVA 20% Collecté - Vente",
 						"taxes": [
 							{
@@ -271,6 +334,21 @@
 								},
 								"description": "TVA 5.5%",
 								"tax_rate": 5.5
+							}
+						]
+					},
+					{
+						"title": "TVA 2.1% Collecté - Vente",
+						"taxes": [
+							{
+								"tax_type": {
+									"account_name": "TVA 2.1% Collecté",
+									"account_number": "445721",
+									"root_type": "Liability",
+									"tax_rate": 2.1
+								},
+								"description": "TVA 2.1%",
+								"tax_rate": 2.1
 							}
 						]
 					}
