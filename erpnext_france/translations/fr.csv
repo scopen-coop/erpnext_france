@@ -86,7 +86,7 @@ Subcontracting Purchase Order,Commande d'achat de sous traitance
 Service Items,Prestations de sous traitance acheter
 Available Qty For Consumption,Quantité dispo. pour consommation
 % Returned,% retourné
-Discount (%) on Price List Rate with Margin,Remise sur prix de la liste de prix
+Discount (%) on Price List Rate with Margin,Remise (%) sur prix de la liste de prix
 Creation Date,Date de création,
 Legal Form,Forme Juridique,
 Opportunity Owner,Responsable de l'opportunité
@@ -434,9 +434,9 @@ Auto Insert Item Price If Missing,Création du prix de l'article dans les listes
 Merge Similar Account Heads,Fusionner les lignes ayants des codes comptables similaires,
 Rows with Same Account heads will be merged on Ledger,Les lignes associées aux mêmes codes comptables seront fusionnées dans le grand livre,
 Setup Global Settings,Configuration des paramètres globaux,
-Please Set Accounting Jounal For Purchases and Sales,Veuillez définir les journaux comptables pour les achats et les ventes,
-Please configure an accounting journal for this transaction type and account: {0},Veuillez configurer le compte comptable pour ce type de transaction et compte: {0}
-Accounting Export Not Possible,L'export comptable ne peut pas être effectué,
+ERPNext France - Please Set Accounting Jounal For Purchases and Sales,ERPNext France - Veuillez définir les journaux comptables pour les achats et les ventes,
+ERPNext France - Please configure an accounting journal for this transaction type and account: {0},ERPNext France - Veuillez configurer le compte comptable pour ce type de transaction et compte: {0}
+ERPNext France - Accounting Export Not Possible,ERPNext France - L'export comptable ne peut pas être effectué,
 Footer might not be visible as {0} option is disabled</div>,Le pied de page n'est peut être pas visible car l'option {0} est désactivée,
 France Letter Head,En tête et pied de page pour les documents Français,
 Account Closing Balance,Solde de clôture du compte,
@@ -486,3 +486,24 @@ Deferred Accounting,Comptabilité différée,
 "Cannot find Deposit Item, may be missing Item with checkbox Is Down Payment","Aucun article utilisable pour une facture d'acompte, vérifiez si il existe un article avec Article d'acompte coché"
 "Cannot find Deposit Item, may be missing Default Accountancy table","Aucun article utilisable pour une facture d'acompte, vérifiez si il existe un article avec Article d'acompte coché et qu'il y a une bien une ligne dans Comptabilité"
 "Cannot find Deposit Item, may be missing Default Accountancy table with Income Account","Aucun article utilisable pour une facture d'acompte, vérifiez si il existe un article avec Article d'acompte coché et qu'il y a une bien une ligne dans Comptabilité avec un code comptable pour Compte de produit (vente) par défaut"
+Left,Gauche,
+Discount Amount,Remise en montant
+Named Place,Lieu Incoterm
+ERPNext France - Create Tax Template,ERPNext France - Créer les modéles de taxes
+Portal Users,Utilisateurs Portail
+Supplier Portal Users,Utilisateurs du portail Fournisseurs
+Percentage you are allowed to transfer more against the quantity ordered. For example: If you have ordered 100 units. and your Allowance is 10% then you are allowed to transfer 110 units.,Pourcentage que vous êtes autorisé à transférer en plus de la quantité commandée. Par exemple, si vous avez commandé 100 unités et que votre tolérance est de 10 %, vous êtes autorisé à transférer 110 unités.
+Percentage you are allowed to order beyond the Blanket Order quantity.,Pourcentage que vous êtes autorisé à commander au-delà de la quantité de la commande globale.
+Is Purchase Order Required for Purchase Invoice & Receipt Creation?,Le bon de commande est-il nécessaire pour la création d'une facture d'achat et d'un bon de réception ?
+Configure the action to stop the transaction or just warn if the same rate is not maintained.,Configurez l'action pour arrêter la transaction ou simplement avertir si le même tarif n'est pas maintenu.
+Action If Same Rate is Not Maintained,Mesures à prendre si le tarif évolue
+company,société
+All companies,Toutes les sociétés
+Abbr,Abréviation
+Commentaire sur la performance des employés,Evaluation des critères
+Employee Performance Feedback,Evaluation des critères
+Employee Feedback Criteria,Critères d'Evaluation des Employés
+KRA,Domaines de résultats clés (KRA)
+Submitted,Validé
+Appraisal,Evaluation Globale
+Appraisal template,Grilles d'évaluation
