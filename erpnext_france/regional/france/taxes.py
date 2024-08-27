@@ -4,6 +4,7 @@ import frappe
 from frappe.utils import flt
 
 
+# Not use actually in hook.py because I don't understand what it should do
 def update_itemised_tax_data(doc):
     if not doc.taxes:
         return
