@@ -1,7 +1,6 @@
 # Copyright (c) 2023, Scopen and contributors
 # For license information, please see license.txt
 
-import frappe
 from frappe.model.document import Document
 
 
@@ -16,15 +15,5 @@ class LegalForm(Document):
 
         code: DF.Data
         label: DF.Data
-        title: DF.Data | None
-
     # end: auto-generated types
-    def validate(self):
-        self.set_title()
-
-    def after_rename(self, old_name, new_name, merge=False):
-        self.set_title()
-        frappe.db.set_value("Legal Form", new_name, "title", self.title)
-
-    def set_title(self):
-        self.title = " - ".join(filter(None, [self.code, self.label]))
+    pass
