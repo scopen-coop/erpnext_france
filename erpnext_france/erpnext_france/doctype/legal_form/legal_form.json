@@ -9,6 +9,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "title",
   "code",
   "label"
  ],
@@ -17,22 +18,27 @@
    "fieldname": "code",
    "fieldtype": "Data",
    "in_global_search": 1,
-   "in_list_view": 1,
-   "in_standard_filter": 1,
    "label": "Code",
+   "reqd": 1,
    "unique": 1
   },
   {
    "fieldname": "label",
    "fieldtype": "Data",
+   "label": "Label",
+   "reqd": 1
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Label"
+   "label": "Title",
+   "read_only": 1
   }
  ],
- "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-27 10:43:35.612015",
+ "modified": "2024-08-27 15:21:16.265345",
  "modified_by": "Administrator",
  "module": "ERPNext France",
  "name": "Legal Form",
@@ -111,10 +117,9 @@
    "role": "Sales User"
   }
  ],
- "search_fields": "label,code",
  "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
- "title_field": "label"
+ "title_field": "title"
 }

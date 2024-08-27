@@ -16,7 +16,6 @@ class CodeNaf(Document):
 
         code: DF.Data
         label: DF.Data
-        old_code: DF.Data | None
         title: DF.Data | None
     # end: auto-generated types
 

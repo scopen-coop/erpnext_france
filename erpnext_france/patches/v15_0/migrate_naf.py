@@ -1,4 +1,4 @@
-# Copyright (c) 2023, Scopen and contributors
+# Copyright (c) 2024, Scopen and contributors
 # For license information, please see license.txt
 
 
@@ -8,7 +8,7 @@ import frappe
 def execute():
     if "erpnext_france" in frappe.get_installed_apps():
         try:
-            frappe.db.sql("delete from `tabCode Naf` WHERE creation<'2024-06-08'")
+            frappe.db.sql("delete from `tabCode Naf` WHERE creation<'2024-08-26'")
 
             for tabName in ["tabCompany", "tabCustomer", "tabSupplier"]:
                 frappe.db.sql(

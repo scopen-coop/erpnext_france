@@ -26,22 +26,19 @@
    "fieldname": "code",
    "fieldtype": "Data",
    "in_global_search": 1,
-   "in_list_view": 0,
-   "in_standard_filter": 0,
    "label": "Code",
-   "reqd": 1
+   "reqd": 1,
+   "unique": 1
   },
   {
    "fieldname": "label",
    "fieldtype": "Data",
-   "in_list_view": 0,
-   "in_standard_filter": 0,
    "label": "Label",
    "reqd": 1
   }
  ],
  "links": [],
- "modified": "2024-08-27 14:22:07.775125",
+ "modified": "2024-08-27 15:21:33.883488",
  "modified_by": "Administrator",
  "module": "ERPNext France",
  "name": "Code Naf",
@@ -120,7 +117,6 @@
    "role": "Sales User"
   }
  ],
- "search_fields": "label,code",
  "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
