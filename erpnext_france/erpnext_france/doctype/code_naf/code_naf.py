@@ -1,7 +1,7 @@
 # Copyright (c) 2023, Scopen and contributors
 # For license information, please see license.txt
 
-# import frappe
+import frappe
 from frappe.model.document import Document
 
 
@@ -16,5 +16,16 @@ class CodeNaf(Document):
 
         code: DF.Data
         label: DF.Data
+        old_code: DF.Data | None
+        title: DF.Data | None
     # end: auto-generated types
-    pass
+
+    def validate(self):
+        self.set_title()
+
+    def after_rename(self, old_name, new_name, merge=False):
+        self.set_title()
+        frappe.db.set_value("Code Naf", new_name, "title", self.title)
+
+    def set_title(self):
+        self.title = " - ".join(filter(None, [self.code, self.label]))
