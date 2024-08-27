@@ -44,7 +44,7 @@ def update_itemised_tax_data(doc):
 
         # First check if tax rate is present
         # If not then look up in item_wise_tax_detail
-        if item_tax_rate:
+        if item_tax_rate and hasattr(item_tax_rate, "items"):
             for tax, tax_rate_detail in item_tax_rate.items():
                 tax_rate += tax_rate_detail
 
