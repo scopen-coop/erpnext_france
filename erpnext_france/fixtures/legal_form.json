@@ -5,8 +5,7 @@
   "doctype": "Legal Form",
   "label": "Artisan Commerçant (EI)",
   "modified": "2024-08-27 11:53:15.238344",
-  "name": "1",
-  "title": "1 - Artisan Commerçant (EI)"
+  "name": "1"
  },
  {
   "code": "2",
@@ -14,8 +13,7 @@
   "doctype": "Legal Form",
   "label": "Commerçant (EI)",
   "modified": "2024-08-27 11:53:15.256837",
-  "name": "2",
-  "title": "2 - Commerçant (EI)"
+  "name": "2"
  },
  {
   "code": "3",
@@ -23,8 +21,7 @@
   "doctype": "Legal Form",
   "label": "Artisan (EI)",
   "modified": "2024-08-27 11:53:15.262353",
-  "name": "3",
-  "title": "3 - Artisan (EI)"
+  "name": "3"
  },
  {
   "code": "4",
@@ -32,8 +29,7 @@
   "doctype": "Legal Form",
   "label": "Officier public ou ministériel",
   "modified": "2024-08-27 11:53:15.266801",
-  "name": "4",
-  "title": "4 - Officier public ou ministériel"
+  "name": "4"
  },
  {
   "code": "5",
@@ -41,8 +37,7 @@
   "doctype": "Legal Form",
   "label": "Profession libérale (EI)",
   "modified": "2024-08-27 11:53:15.270928",
-  "name": "5",
-  "title": "5 - Profession libérale (EI)"
+  "name": "5"
  },
  {
   "code": "6",
@@ -50,8 +45,7 @@
   "doctype": "Legal Form",
   "label": "Exploitant agricole",
   "modified": "2024-08-27 11:53:15.274847",
-  "name": "6",
-  "title": "6 - Exploitant agricole"
+  "name": "6"
  },
  {
   "code": "7",
@@ -59,8 +53,7 @@
   "doctype": "Legal Form",
   "label": "Agent commercial",
   "modified": "2024-08-27 11:53:15.280557",
-  "name": "7",
-  "title": "7 - Agent commercial"
+  "name": "7"
  },
  {
   "code": "8",
@@ -68,8 +61,7 @@
   "doctype": "Legal Form",
   "label": "Associé Gérant de société",
   "modified": "2024-08-27 11:53:15.287118",
-  "name": "8",
-  "title": "8 - Associé Gérant de société"
+  "name": "8"
  },
  {
   "code": "9",
@@ -77,8 +69,7 @@
   "doctype": "Legal Form",
   "label": "Personne physique",
   "modified": "2024-08-27 11:53:15.291131",
-  "name": "9",
-  "title": "9 - Personne physique"
+  "name": "9"
  },
  {
   "code": "10",
@@ -86,8 +77,7 @@
   "doctype": "Legal Form",
   "label": "Indivision",
   "modified": "2024-08-27 11:53:15.296119",
-  "name": "10",
-  "title": "10 - Indivision"
+  "name": "10"
  },
  {
   "code": "11",
@@ -95,8 +85,7 @@
   "doctype": "Legal Form",
   "label": "Société créée de fait",
   "modified": "2024-08-27 11:53:15.301215",
-  "name": "11",
-  "title": "11 - Société créée de fait"
+  "name": "11"
  },
  {
   "code": "12",
@@ -104,8 +93,7 @@
   "doctype": "Legal Form",
   "label": "Société en participation",
   "modified": "2024-08-27 11:53:15.305749",
-  "name": "12",
-  "title": "12 - Société en participation"
+  "name": "12"
  },
  {
   "code": "13",
@@ -113,8 +101,7 @@
   "doctype": "Legal Form",
   "label": "Paroisse hors zone concordataire",
   "modified": "2024-08-27 11:53:15.309371",
-  "name": "13",
-  "title": "13 - Paroisse hors zone concordataire"
+  "name": "13"
  },
  {
   "code": "14",
@@ -122,8 +109,7 @@
   "doctype": "Legal Form",
   "label": "Groupement de droit privé non doté de la personnalité morale",
   "modified": "2024-08-27 11:53:15.313809",
-  "name": "14",
-  "title": "14 - Groupement de droit privé non doté de la personnalité morale"
+  "name": "14"
  },
  {
   "code": "15",
@@ -131,8 +117,7 @@
   "doctype": "Legal Form",
   "label": "Personne morale de droit étranger, immatriculée au RCS",
   "modified": "2024-08-27 11:53:15.319128",
-  "name": "15",
-  "title": "15 - Personne morale de droit étranger, immatriculée au RCS"
+  "name": "15"
  },
  {
   "code": "16",
@@ -140,8 +125,7 @@
   "doctype": "Legal Form",
   "label": "Personne morale de droit étranger, non immatriculée au RCS",
   "modified": "2024-08-27 11:53:15.323771",
-  "name": "16",
-  "title": "16 - Personne morale de droit étranger, non immatriculée au RCS"
+  "name": "16"
  },
  {
   "code": "17",
@@ -149,8 +133,7 @@
   "doctype": "Legal Form",
   "label": "Régime auto-entrepreneur",
   "modified": "2024-08-27 11:53:15.328326",
-  "name": "17",
-  "title": "17 - Régime auto-entrepreneur"
+  "name": "17"
  },
  {
   "code": "18",
@@ -158,8 +141,7 @@
   "doctype": "Legal Form",
   "label": "Etablissement public ou régie à caractère industriel ou commercial",
   "modified": "2024-08-27 11:53:15.332932",
-  "name": "18",
-  "title": "18 - Etablissement public ou régie à caractère industriel ou commercial"
+  "name": "18"
  },
  {
   "code": "19",
@@ -167,8 +149,7 @@
   "doctype": "Legal Form",
   "label": "Société coopérative commerciale particulière",
   "modified": "2024-08-27 11:53:15.337006",
-  "name": "19",
-  "title": "19 - Société coopérative commerciale particulière"
+  "name": "19"
  },
  {
   "code": "20",
@@ -176,8 +157,7 @@
   "doctype": "Legal Form",
   "label": "Société en nom collectif",
   "modified": "2024-08-27 11:53:15.340629",
-  "name": "20",
-  "title": "20 - Société en nom collectif"
+  "name": "20"
  },
  {
   "code": "21",
@@ -185,8 +165,7 @@
   "doctype": "Legal Form",
   "label": "Société en commandite",
   "modified": "2024-08-27 11:53:15.345077",
-  "name": "21",
-  "title": "21 - Société en commandite"
+  "name": "21"
  },
  {
   "code": "22",
@@ -194,8 +173,7 @@
   "doctype": "Legal Form",
   "label": "Société à responsabilité limitée (SARL)",
   "modified": "2024-08-27 11:53:15.350955",
-  "name": "22",
-  "title": "22 - Société à responsabilité limitée (SARL)"
+  "name": "22"
  },
  {
   "code": "23",
@@ -203,8 +181,7 @@
   "doctype": "Legal Form",
   "label": "Société anonyme à conseil d administration",
   "modified": "2024-08-27 11:53:15.356142",
-  "name": "23",
-  "title": "23 - Société anonyme à conseil d administration"
+  "name": "23"
  },
  {
   "code": "24",
@@ -212,8 +189,7 @@
   "doctype": "Legal Form",
   "label": "Société anonyme à directoire",
   "modified": "2024-08-27 11:53:15.361094",
-  "name": "24",
-  "title": "24 - Société anonyme à directoire"
+  "name": "24"
  },
  {
   "code": "25",
@@ -221,8 +197,7 @@
   "doctype": "Legal Form",
   "label": "Société par actions simplifiée (SAS)",
   "modified": "2024-08-27 11:53:15.367556",
-  "name": "25",
-  "title": "25 - Société par actions simplifiée (SAS)"
+  "name": "25"
  },
  {
   "code": "26",
@@ -230,8 +205,7 @@
   "doctype": "Legal Form",
   "label": "Entreprise Unipersonnelle à Responsabilité Limitée (EURL)",
   "modified": "2024-08-27 11:53:15.371357",
-  "name": "26",
-  "title": "26 - Entreprise Unipersonnelle à Responsabilité Limitée (EURL)"
+  "name": "26"
  },
  {
   "code": "27",
@@ -239,8 +213,7 @@
   "doctype": "Legal Form",
   "label": "Société par actions simplifiée unipersonnelle (SASU)",
   "modified": "2024-08-27 11:53:15.375779",
-  "name": "27",
-  "title": "27 - Société par actions simplifiée unipersonnelle (SASU)"
+  "name": "27"
  },
  {
   "code": "28",
@@ -248,8 +221,7 @@
   "doctype": "Legal Form",
   "label": "Entreprise Individuelle à Responsabilité Limitée (EIRL)",
   "modified": "2024-08-27 11:53:15.381365",
-  "name": "28",
-  "title": "28 - Entreprise Individuelle à Responsabilité Limitée (EIRL)"
+  "name": "28"
  },
  {
   "code": "29",
@@ -257,8 +229,7 @@
   "doctype": "Legal Form",
   "label": "Caisse d'épargne et de prévoyance",
   "modified": "2024-08-27 11:53:15.385223",
-  "name": "29",
-  "title": "29 - Caisse d'épargne et de prévoyance"
+  "name": "29"
  },
  {
   "code": "30",
@@ -266,8 +237,7 @@
   "doctype": "Legal Form",
   "label": "Groupement d'intérêt économique (GIE)",
   "modified": "2024-08-27 11:53:15.388747",
-  "name": "30",
-  "title": "30 - Groupement d'intérêt économique (GIE)"
+  "name": "30"
  },
  {
   "code": "31",
@@ -275,8 +245,7 @@
   "doctype": "Legal Form",
   "label": "Société coopérative agricole",
   "modified": "2024-08-27 11:53:15.392319",
-  "name": "31",
-  "title": "31 - Société coopérative agricole"
+  "name": "31"
  },
  {
   "code": "32",
@@ -284,8 +253,7 @@
   "doctype": "Legal Form",
   "label": "Société non commerciale d assurances",
   "modified": "2024-08-27 11:53:15.397438",
-  "name": "32",
-  "title": "32 - Société non commerciale d assurances"
+  "name": "32"
  },
  {
   "code": "33",
@@ -293,8 +261,7 @@
   "doctype": "Legal Form",
   "label": "Société civile",
   "modified": "2024-08-27 11:53:15.401926",
-  "name": "33",
-  "title": "33 - Société civile"
+  "name": "33"
  },
  {
   "code": "34",
@@ -302,8 +269,7 @@
   "doctype": "Legal Form",
   "label": "Personnes de droit privé inscrites au RCS",
   "modified": "2024-08-27 11:53:15.405699",
-  "name": "34",
-  "title": "34 - Personnes de droit privé inscrites au RCS"
+  "name": "34"
  },
  {
   "code": "35",
@@ -311,8 +277,7 @@
   "doctype": "Legal Form",
   "label": "Administration de l état",
   "modified": "2024-08-27 11:53:15.409319",
-  "name": "35",
-  "title": "35 - Administration de l état"
+  "name": "35"
  },
  {
   "code": "36",
@@ -320,8 +285,7 @@
   "doctype": "Legal Form",
   "label": "Collectivité territoriale",
   "modified": "2024-08-27 11:53:15.414386",
-  "name": "36",
-  "title": "36 - Collectivité territoriale"
+  "name": "36"
  },
  {
   "code": "37",
@@ -329,8 +293,7 @@
   "doctype": "Legal Form",
   "label": "Etablissement public administratif",
   "modified": "2024-08-27 11:53:15.418654",
-  "name": "37",
-  "title": "37 - Etablissement public administratif"
+  "name": "37"
  },
  {
   "code": "38",
@@ -338,8 +301,7 @@
   "doctype": "Legal Form",
   "label": "Personne morale de droit public administratif",
   "modified": "2024-08-27 11:53:15.422142",
-  "name": "38",
-  "title": "38 - Personne morale de droit public administratif"
+  "name": "38"
  },
  {
   "code": "39",
@@ -347,8 +309,7 @@
   "doctype": "Legal Form",
   "label": "Organisme gérant régime de protection social à adhésion obligatoire",
   "modified": "2024-08-27 11:53:15.425421",
-  "name": "39",
-  "title": "39 - Organisme gérant régime de protection social à adhésion obligatoire"
+  "name": "39"
  },
  {
   "code": "40",
@@ -356,8 +317,7 @@
   "doctype": "Legal Form",
   "label": "Organisme mutualiste",
   "modified": "2024-08-27 11:53:15.428960",
-  "name": "40",
-  "title": "40 - Organisme mutualiste"
+  "name": "40"
  },
  {
   "code": "41",
@@ -365,8 +325,7 @@
   "doctype": "Legal Form",
   "label": "Comité d entreprise",
   "modified": "2024-08-27 11:53:15.432660",
-  "name": "41",
-  "title": "41 - Comité d entreprise"
+  "name": "41"
  },
  {
   "code": "42",
@@ -374,8 +333,7 @@
   "doctype": "Legal Form",
   "label": "Organisme professionnel",
   "modified": "2024-08-27 11:53:15.438371",
-  "name": "42",
-  "title": "42 - Organisme professionnel"
+  "name": "42"
  },
  {
   "code": "43",
@@ -383,8 +341,7 @@
   "doctype": "Legal Form",
   "label": "Organisme de retraite à adhésion non obligatoire",
   "modified": "2024-08-27 11:53:15.441945",
-  "name": "43",
-  "title": "43 - Organisme de retraite à adhésion non obligatoire"
+  "name": "43"
  },
  {
   "code": "44",
@@ -392,8 +349,7 @@
   "doctype": "Legal Form",
   "label": "Syndicat de propriétaires",
   "modified": "2024-08-27 11:53:15.445267",
-  "name": "44",
-  "title": "44 - Syndicat de propriétaires"
+  "name": "44"
  },
  {
   "code": "45",
@@ -401,8 +357,7 @@
   "doctype": "Legal Form",
   "label": "Association loi 1901 ou assimilé",
   "modified": "2024-08-27 11:53:15.448768",
-  "name": "45",
-  "title": "45 - Association loi 1901 ou assimilé"
+  "name": "45"
  },
  {
   "code": "46",
@@ -410,8 +365,7 @@
   "doctype": "Legal Form",
   "label": "Fondation",
   "modified": "2024-08-27 11:53:15.453158",
-  "name": "46",
-  "title": "46 - Fondation"
+  "name": "46"
  },
  {
   "code": "47",
@@ -419,8 +373,7 @@
   "doctype": "Legal Form",
   "label": "Personne morale de droit privé",
   "modified": "2024-08-27 11:53:15.459180",
-  "name": "47",
-  "title": "47 - Personne morale de droit privé"
+  "name": "47"
  },
  {
   "code": "5458",
@@ -428,8 +381,7 @@
   "doctype": "Legal Form",
   "label": "SARL coopérative de production (SCOP) ",
   "modified": "2024-08-27 15:25:31.821674",
-  "name": "5458",
-  "title": "5458 - SARL coopérative de production (SCOP) "
+  "name": "5458"
  },
  {
   "code": "5558",
@@ -437,8 +389,7 @@
   "doctype": "Legal Form",
   "label": "SA coopérative de production (SCOP) à conseil d'administration",
   "modified": "2024-08-27 15:26:03.131394",
-  "name": "5558",
-  "title": "5558 - SA coopérative de production (SCOP) à conseil d'administration"
+  "name": "5558"
  },
  {
   "code": "5658",
@@ -446,7 +397,6 @@
   "doctype": "Legal Form",
   "label": "SA coopérative de production (SCOP) à directoire ",
   "modified": "2024-08-27 15:26:19.786865",
-  "name": "5658",
-  "title": "5658 - SA coopérative de production (SCOP) à directoire "
+  "name": "5658"
  }
 ]
