@@ -1,11 +1,11 @@
 [
  {
   "align": "Left",
-  "content": "{% set company = frappe.get_doc('Company', doc.company) %}\n<div class=\"row\">\n    <div class=\"column-break col-xs-6\">\n        {% if company.company_logo: %}\n            <img src=\"{{ company.company_logo }}\" style=\"width: 120px;\">\n        {% endif %}\n    </div>\n    <div class=\"column-break col-xs-6\">\n        <b>{{ doc.company }}</b>\n    </div>\n<div class=\"row\"></div></div>",
+  "content": "{% set company = None %}\n\n{% if doc.company %}\n    {% set company = frappe.get_doc('Company', doc.company) %}\n{% endif %}\n\n{% if company %}\n<div class=\"row\">\n    <div class=\"column-break col-xs-6\">\n        {% if company.company_logo: %}\n            <img src=\"{{ company.company_logo }}\" style=\"width: 120px;\">\n        {% endif %}\n    </div>\n    <div class=\"column-break col-xs-6\">\n        <div class=\"row\">\n            <b>{{ doc.company }}</b>\n        </div>\n    {% set companyAdress = frappe.get_all('Dynamic Link', filters={'link_doctype': 'Company', 'link_name': doc.company, 'parenttype': 'Address'}, fields=['parent']) %}\n    {% if companyAdress %}\n        {% for adrName in companyAdress %}\n            {% set companyAdr = frappe.get_doc(\"Address\", adrName.parent) %}\n                {% if companyAdr.is_your_company_address %}\n    <div class=\"row\">\n        {{ companyAdr.address_line1 }}\n    </div>\n                {% if companyAdr.address_line2 %}\n                <div class=\"row\">\n                    {{ companyAdr.address_line2 }}\n                </div>\n                {% endif %}\n    <div class=\"row\">\n        {{ companyAdr.pincode }} {{ companyAdr.city }}\n    </div>\n    <div class=\"row\">\n        {{ companyAdr.country }}\n    </div>\n                {% endif %}\n        {% endfor %}\n    {% endif %}\n    <div class=\"row\"></div>\n</div>\n{% endif %}</div>",
   "disabled": 0,
   "docstatus": 0,
   "doctype": "Letter Head",
-  "footer": "{% set company = frappe.get_doc('Company', doc.company) %}\n{% set bank_account = frappe.db.get_list('Bank Account', fields=['iban', 'swift_number'], filters={'company': company.name, 'is_company_account': 1 }, page_length=1) %}\n{% if company.legal_form: %}\n    {% set legal_form = frappe.get_doc('Legal Form', company.legal_form) %}\n{% endif %}\n\n<div class=\"border-top\" style=\"width: 100%;\"></div>\n<span class=\"small text-center\">\n{% if company.siret: %}\n    {{ _(\"Siret\") }}: {{ company.siret }},\n{% endif %}\n{% if company.tax_id: %}\n    {{ _(\"Intracom Number\") }}: {{ company.tax_id }},\n{% endif %}\n{% if legal_form and legal_form.label: %}\n    {{ _(\"Legal Form\") }}: {{ legal_form.label }},\n{% endif %}\n{% if company.eori_number: %}\n    {{ _(\"EORI Number\") }}: {{ company.eori_number }}\n{% endif %}\n{% if bank_account and bank_account[0].iban: %}\n    {{ _(\"IBAN\") }}: {{ bank_account[0].iban }}\n{% endif %}\n{% if bank_account and bank_account[0].swift_number: %}\n    {{ _(\"Swift Number\") }}: {{ bank_account[0].swift_number }}\n{% endif %}\n</span>",
+  "footer": "{% set company = None %}\n\n{% if doc.company %}\n    {% set company = frappe.get_doc('Company', doc.company) %}\n{% endif %}\n\n{% if company %}\n\n    {% set bank_account = frappe.db.get_list('Bank Account', fields=['iban', 'swift_number'], filters={'company': company.name, 'is_company_account': 1 }, page_length=1) %}\n    {% if company.legal_form: %}\n        {% set legal_form = frappe.get_doc('Legal Form', company.legal_form) %}\n    {% endif %}\n\n<div class=\"border-top\" style=\"width: 100%;\"></div>\n<span class=\"small text-center\">\n    {% if company.siret: %}\n        {{ _(\"Siret\") }}: {{ company.siret }},\n    {% endif %}\n    {% if company.tax_id: %}\n        {{ _(\"Intracom Number\") }}: {{ company.tax_id }},\n    {% endif %}\n    {% if legal_form and legal_form.label: %}\n        {{ _(\"Legal Form\") }}: {{ legal_form.label }},\n    {% endif %}\n    {% if company.eori_number: %}\n        {{ _(\"EORI Number\") }}: {{ company.eori_number }}\n    {% endif %}\n    {% if bank_account and bank_account[0].iban: %}\n        {{ _(\"IBAN\") }}: {{ bank_account[0].iban }}\n    {% endif %}\n    {% if bank_account and bank_account[0].swift_number: %}\n        {{ _(\"Swift Number\") }}: {{ bank_account[0].swift_number }}\n    {% endif %}                                         \n</span>\n\n{% endif %}",
   "footer_align": "Left",
   "footer_image": null,
   "footer_image_height": 0.0,
@@ -16,9 +16,9 @@
   "image": null,
   "image_height": 0.0,
   "image_width": 0.0,
-  "is_default": 0,
+  "is_default": 1,
   "letter_head_name": "France Letter Head",
-  "modified": "2024-05-03 11:20:21.356907",
+  "modified": "2024-09-03 13:37:47.840511",
   "name": "France Letter Head",
   "source": "HTML"
  }
