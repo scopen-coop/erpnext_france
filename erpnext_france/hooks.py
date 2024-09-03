@@ -203,8 +203,8 @@ fixtures = [
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 doctype_js = {
-    "Customer": ["public/js/customer.js", "public/js/party_check_vat.js"],
-    "Supplier": ["public/js/supplier.js", "public/js/party_check_vat.js"],
+    "Customer": ["public/js/party.js", "public/js/party_check_vat.js"],
+    "Supplier": ["public/js/party.js", "public/js/party_check_vat.js"],
     "Sales Order": ["public/js/sales_order.js"],
     "Purchase Invoice": ["public/js/purchase_invoice.js"],
     "Sales Invoice": ["public/js/sales_invoice.js"],
