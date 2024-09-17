@@ -379,7 +379,7 @@
   "code": "5458",
   "docstatus": 0,
   "doctype": "Legal Form",
-  "label": "SARL coopérative de production (SCOP) ",
+  "label": "SARL coopérative de production (SCOP)",
   "modified": "2024-08-27 15:25:31.821674",
   "name": "5458"
  },
@@ -395,8 +395,176 @@
   "code": "5658",
   "docstatus": 0,
   "doctype": "Legal Form",
-  "label": "SA coopérative de production (SCOP) à directoire ",
-  "modified": "2024-08-27 15:26:19.786865",
+  "label": "SA coopérative de production (SCOP) à directoire",
+  "modified": "2024-09-17 06:26:19.786865",
   "name": "5658"
+ },
+ {
+  "code": "55",
+  "docstatus": 0,
+  "doctype": "Legal Form",
+  "label": "Société anonyme à conseil d'administration",
+  "modified": "2024-09-17 06:26:19.786865",
+  "name": "55"
+ },
+ {
+  "code": "57",
+  "docstatus": 0,
+  "doctype": "Legal Form",
+  "label": "Société par actions simplifiée",
+  "modified": "2024-09-17 06:26:19.786865",
+  "name": "57"
+ },
+ {
+  "code": "61",
+  "docstatus": 0,
+  "doctype": "Legal Form",
+  "label": "Caisse d'épargne et de prévoyance",
+  "modified": "2024-09-17 06:26:19.786865",
+  "name": "61"
+ },
+ {
+  "code": "62",
+  "docstatus": 0,
+  "doctype": "Legal Form",
+  "label": "Groupement d'intérêt économique",
+  "modified": "2024-09-17 06:26:19.786865",
+  "name": "62"
+ },
+ {
+  "code": "63",
+  "docstatus": 0,
+  "doctype": "Legal Form",
+  "label": "Société coopérative agricole",
+  "modified": "2024-09-17 06:26:19.786865",
+  "name": "63"
+ },
+ {
+  "code": "64",
+  "docstatus": 0,
+  "doctype": "Legal Form",
+  "label": "Société d'assurance mutuelle",
+  "modified": "2024-09-17 06:26:19.786865",
+  "name": "64"
+ },
+ {
+  "code": "65",
+  "docstatus": 0,
+  "doctype": "Legal Form",
+  "label": "Société civile",
+  "modified": "2024-09-17 06:26:19.786865",
+  "name": "65"
+ },
+ {
+  "code": "69",
+  "docstatus": 0,
+  "doctype": "Legal Form",
+  "label": "Autre personne morale de droit privé inscrite au registre du commerce et des sociétés",
+  "modified": "2024-09-17 06:26:19.786865",
+  "name": "69"
+ },
+ {
+  "code": "71",
+  "docstatus": 0,
+  "doctype": "Legal Form",
+  "label": "Administration de l'état",
+  "modified": "2024-09-17 06:26:19.786865",
+  "name": "71"
+ },
+ {
+  "code": "72",
+  "docstatus": 0,
+  "doctype": "Legal Form",
+  "label": "Collectivité territoriale",
+  "modified": "2024-09-17 06:26:19.786865",
+  "name": "72"
+ },
+ {
+  "code": "73",
+  "docstatus": 0,
+  "doctype": "Legal Form",
+  "label": "Etablissement public administratif",
+  "modified": "2024-09-17 06:26:19.786865",
+  "name": "73"
+ },
+ {
+  "code": "74",
+  "docstatus": 0,
+  "doctype": "Legal Form",
+  "label": "Autre personne morale de droit public administratif",
+  "modified": "2024-09-17 06:26:19.786865",
+  "name": "74"
+ },
+ {
+  "code": "81",
+  "docstatus": 0,
+  "doctype": "Legal Form",
+  "label": "Organisme gérant un régime de protection sociale à adhésion obligatoire",
+  "modified": "2024-09-17 06:26:19.786865",
+  "name": "81"
+ },
+ {
+  "code": "82",
+  "docstatus": 0,
+  "doctype": "Legal Form",
+  "label": "Organisme mutualiste",
+  "modified": "2024-09-17 06:26:19.786865",
+  "name": "82"
+ },
+ {
+  "code": "83",
+  "docstatus": 0,
+  "doctype": "Legal Form",
+  "label": "Comité d'entreprise",
+  "modified": "2024-09-17 06:26:19.786865",
+  "name": "83"
+ },
+ {
+  "code": "84",
+  "docstatus": 0,
+  "doctype": "Legal Form",
+  "label": "Organisme professionnel",
+  "modified": "2024-09-17 06:26:19.786865",
+  "name": "84"
+ },
+ {
+  "code": "85",
+  "docstatus": 0,
+  "doctype": "Legal Form",
+  "label": "Organisme de retraite à adhésion non obligatoire",
+  "modified": "2024-09-17 06:26:19.786865",
+  "name": "85"
+ },
+ {
+  "code": "91",
+  "docstatus": 0,
+  "doctype": "Legal Form",
+  "label": "Syndicat de propriétaires",
+  "modified": "2024-09-17 06:26:19.786865",
+  "name": "91"
+ },
+ {
+  "code": "92",
+  "docstatus": 0,
+  "doctype": "Legal Form",
+  "label": "Association loi 1901 ou assimilé",
+  "modified": "2024-09-17 06:26:19.786865",
+  "name": "92"
+ },
+ {
+  "code": "93",
+  "docstatus": 0,
+  "doctype": "Legal Form",
+  "label": "Fondation",
+  "modified": "2024-09-17 06:26:19.786865",
+  "name": "93"
+ },
+ {
+  "code": "99",
+  "docstatus": 0,
+  "doctype": "Legal Form",
+  "label": "Autre personne morale de droit privé",
+  "modified": "2024-09-17 06:26:19.786865",
+  "name": "99"
  }
 ]
