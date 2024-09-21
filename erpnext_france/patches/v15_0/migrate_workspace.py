@@ -9,13 +9,13 @@ def execute():
     if "erpnext_france" in frappe.get_installed_apps():
         try:
             frappe.db.sql(
-                "delete from `tabWorkspace Link` WHERE parent='ERPNext Settings'"
+                "delete from `tabWorkspace Link` WHERE parent='ERPNext Settings' and only_for='France'"
             )
             frappe.db.sql(
-                "delete from `tabWorkspace Link` WHERE label='ERPNext France'"
+                "delete from `tabWorkspace Link` WHERE label='ERPNext France' and only_for='France'"
             )
             frappe.db.sql(
-                "delete from `tabWorkspace Link` WHERE only_for='France' and parent='Accounting'"
+                "delete from `tabWorkspace Link` WHERE parent='Accounting' and only_for='France'"
             )
 
         except Exception:
