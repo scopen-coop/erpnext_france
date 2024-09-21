@@ -119,26 +119,6 @@ fixtures = [
             ]
         ],
     },
-    {
-        "dt": "Workspace Link",
-        "filters": [
-            [
-                "name",
-                "in",
-                (
-                    "463658a38e",
-                    "87e757e3c1",
-                    "dc2d70f0be",
-                    "2faa60a916",
-                    "df2fa6d850",
-                    "a129c62bb0",
-                    "fc83fdfd07",
-                    "24d4382374",
-                    "df2fa6d847",
-                ),
-            ],
-        ],
-    },
     {"dt": "Address Template", "filters": [["country", "in", "France"]]},
     {
         "dt": "Legal Form",
@@ -245,10 +225,8 @@ doctype_list_js = {
 # before_install = "erpnext_france.install.before_install"
 # after_install = "erpnext_france.install.after_install"
 after_install = "erpnext_france.install.after_install"
-after_sync = "erpnext_france.utils.update_workspace.add_cards"
 setup_wizard_complete = "erpnext_france.setup.setup_wizard_complete"
 after_migrate = [
-    "erpnext_france.utils.update_workspace.add_cards",
     "erpnext_france.migrate.move_subledger_account_by_company",
     "erpnext_france.install.after_install",
     "erpnext_france.setup.setup_migrate",
