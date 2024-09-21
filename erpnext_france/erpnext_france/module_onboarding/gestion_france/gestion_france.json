@@ -1,0 +1,35 @@
+{
+ "allow_roles": [
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "creation": "2024-09-21 13:10:15.994011",
+ "docstatus": 0,
+ "doctype": "Module Onboarding",
+ "documentation_url": "https://github.com/scopen-coop/erpnext_france/blob/version-15/README.md",
+ "idx": 0,
+ "is_complete": 0,
+ "modified": "2024-09-21 13:17:42.898996",
+ "modified_by": "Administrator",
+ "module": "ERPNext France",
+ "name": "Gestion France",
+ "owner": "Administrator",
+ "steps": [
+  {
+   "step": "Company Set Up"
+  },
+  {
+   "step": "Setup SIRENE API"
+  }
+ ],
+ "subtitle": "Param\u00e8trage de l'API SIRENE",
+ "success_message": "La configuration est r\u00e9ussie",
+ "title": "Gestion des fonctionnalit\u00e9s sp\u00e9cifiques \u00e0 la France"
+}
