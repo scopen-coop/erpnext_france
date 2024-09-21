@@ -19,7 +19,7 @@
  "documentation_url": "https://github.com/scopen-coop/erpnext_france/blob/version-15/README.md",
  "idx": 0,
  "is_complete": 0,
- "modified": "2024-09-21 13:25:01.430430",
+ "modified": "2024-09-21 13:57:54.875921",
  "modified_by": "Administrator",
  "module": "ERPNext France",
  "name": "Gestion France",
@@ -30,9 +30,12 @@
   },
   {
    "step": "Setup SIRENE API"
+  },
+  {
+   "step": "Verification des journaux comptable"
   }
  ],
- "subtitle": "Param\u00e8trage de l'API SIRENE",
+ "subtitle": "Gestion des fonctionnalit\u00e9s sp\u00e9cifiques \u00e0 la France",
  "success_message": "La configuration est r\u00e9ussie",
- "title": "Gestion des fonctionnalit\u00e9s sp\u00e9cifiques \u00e0 la France"
+ "title": "Module ERPNext France"
 }
