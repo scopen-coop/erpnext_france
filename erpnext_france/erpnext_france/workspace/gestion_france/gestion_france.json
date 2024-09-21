@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"MHUnBY7-Ya\",\"type\":\"card\",\"data\":{\"card_name\":\"Export comptable au format FEC\",\"col\":4}},{\"id\":\"LOI5EfXMnY\",\"type\":\"card\",\"data\":{\"card_name\":\"Param\u00e8tres\",\"col\":4}}]",
+ "content": "[{\"id\":\"dZBgcHB3-i\",\"type\":\"onboarding\",\"data\":{\"onboarding_name\":\"Gestion France\",\"col\":12}},{\"id\":\"pWPiOexDi2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Gestion France<br></span>\",\"col\":12}},{\"id\":\"MHUnBY7-Ya\",\"type\":\"card\",\"data\":{\"card_name\":\"Export comptable au format FEC\",\"col\":4}},{\"id\":\"LOI5EfXMnY\",\"type\":\"card\",\"data\":{\"card_name\":\"Param\u00e8tres\",\"col\":4}}]",
  "creation": "2024-09-21 12:07:59.981532",
  "custom_blocks": [],
  "docstatus": 0,
@@ -86,7 +86,7 @@
    "type": "Link"
   }
  ],
- "modified": "2024-09-21 13:20:36.897110",
+ "modified": "2024-09-21 13:29:46.314185",
  "modified_by": "Administrator",
  "module": "ERPNext France",
  "name": "Gestion France",

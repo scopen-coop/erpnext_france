@@ -8,6 +8,9 @@
   },
   {
    "role": "System Manager"
+  },
+  {
+   "role": "Administrator"
   }
  ],
  "creation": "2024-09-21 13:10:15.994011",
@@ -16,7 +19,7 @@
  "documentation_url": "https://github.com/scopen-coop/erpnext_france/blob/version-15/README.md",
  "idx": 0,
  "is_complete": 0,
- "modified": "2024-09-21 13:17:42.898996",
+ "modified": "2024-09-21 13:25:01.430430",
  "modified_by": "Administrator",
  "module": "ERPNext France",
  "name": "Gestion France",
