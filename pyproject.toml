@@ -2,7 +2,6 @@
 name = "erpnext_france"
 authors = [
   { name = "SCOPEN", email = "contact@scopen.fr"},
-  { name = "Britlog", email = "contact@scopen.fr"},
   { name = "Frappe Technologies Pvt Ltd", email = "developers@frappe.io"}
 ]
 description = "App for french localization"
