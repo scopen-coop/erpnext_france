@@ -2,39 +2,47 @@
  "actions": [],
  "allow_import": 1,
  "allow_rename": 1,
+ "autoname": "field:code",
  "creation": "2023-10-11 17:53:49.091215",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "title",
   "code",
   "label"
  ],
  "fields": [
   {
-   "fieldname": "code",
+   "fieldname": "title",
    "fieldtype": "Data",
    "in_list_view": 1,
    "in_standard_filter": 1,
+   "label": "Title",
+   "read_only": 1
+  },
+  {
+   "fieldname": "code",
+   "fieldtype": "Data",
+   "in_global_search": 1,
    "label": "Code",
-   "reqd": 1
+   "reqd": 1,
+   "unique": 1
   },
   {
    "fieldname": "label",
    "fieldtype": "Data",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
    "label": "Label",
    "reqd": 1
   }
  ],
- "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-11-03 11:59:02.654917",
+ "modified": "2024-08-27 15:21:33.883488",
  "modified_by": "Administrator",
  "module": "ERPNext France",
  "name": "Code Naf",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
@@ -113,5 +121,5 @@
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
- "title_field": "label"
+ "title_field": "title"
 }

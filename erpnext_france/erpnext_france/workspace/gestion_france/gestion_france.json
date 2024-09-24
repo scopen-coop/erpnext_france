@@ -1,0 +1,116 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"pWPiOexDi2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Gestion France<br></span>\",\"col\":12}},{\"id\":\"oOJRdk4api\",\"type\":\"onboarding\",\"data\":{\"onboarding_name\":\"Gestion France\",\"col\":12}},{\"id\":\"MHUnBY7-Ya\",\"type\":\"card\",\"data\":{\"card_name\":\"Export comptable au format FEC\",\"col\":4}},{\"id\":\"LOI5EfXMnY\",\"type\":\"card\",\"data\":{\"card_name\":\"Param\u00e8tres\",\"col\":4}}]",
+ "creation": "2024-09-21 12:07:59.981532",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "milestone",
+ "idx": 0,
+ "indicator_color": "",
+ "is_hidden": 0,
+ "label": "Gestion France",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Export comptable au format FEC",
+   "link_count": 1,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Export format FEC",
+   "link_count": 0,
+   "link_to": "Fichier des Ecritures Comptables [FEC]",
+   "link_type": "Report",
+   "onboard": 0,
+   "only_for": "France",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Param\u00e8tres",
+   "link_count": 4,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Param\u00e8tres du module France",
+   "link_count": 0,
+   "link_to": "ERPNext France Settings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "only_for": "France",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Liste des codes NAF",
+   "link_count": 0,
+   "link_to": "Code Naf",
+   "link_type": "DocType",
+   "onboard": 0,
+   "only_for": "France",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Liste des formes juridique ",
+   "link_count": 0,
+   "link_to": "Legal Form",
+   "link_type": "DocType",
+   "onboard": 0,
+   "only_for": "France",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Journaux comptables",
+   "link_count": 0,
+   "link_to": "Accounting Journal",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2024-09-21 13:49:02.897197",
+ "modified_by": "Administrator",
+ "module": "ERPNext France",
+ "name": "Gestion France",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "Accounting",
+ "public": 1,
+ "quick_lists": [],
+ "restrict_to_domain": "",
+ "roles": [
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Administrator"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "sequence_id": 5.1,
+ "shortcuts": [],
+ "title": "Gestion France"
+}

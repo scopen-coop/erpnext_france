@@ -4,11 +4,14 @@
 
 import frappe
 from frappe.utils import cint
+from frappe.exceptions import DoesNotExistError
+from frappe import _
 
 
 def setup_wizard_complete(args, action=None):
     add_bank_account(args)
     set_4191_account_type(args)
+    set_6241_account_type(args)
     set_4084_account_type(args)
     set_default_stock_settings()
     set_default_system_settings()
@@ -72,15 +75,23 @@ def default_accounts_mapping(accounts):
 
 
 def add_bank_account(args):
-    account = frappe.get_last_doc(
-        "Account",
-        filters={
-            "disabled": 0,
-            "is_group": 0,
-            "company": args.get("company_name"),
-            "account_number": 5121,
-        },
-    )
+    try:
+        account = frappe.get_last_doc(
+            "Account",
+            filters={
+                "disabled": 0,
+                "is_group": 0,
+                "company": args.get("company_name"),
+                "account_number": 5121,
+            },
+        )
+    except DoesNotExistError:
+        frappe.msgprint(
+            _(
+                "ERPNext France - Company accounting auto setup cannot be done with chart of account without code"
+            )
+        )
+        return
 
     if not account:
         return
@@ -95,15 +106,23 @@ def add_bank_account(args):
 
 
 def set_4191_account_type(args):
-    account = frappe.get_last_doc(
-        "Account",
-        filters={
-            "disabled": 0,
-            "is_group": 0,
-            "company": args.get("company_name"),
-            "account_number": 4191,
-        },
-    )
+    try:
+        account = frappe.get_last_doc(
+            "Account",
+            filters={
+                "disabled": 0,
+                "is_group": 0,
+                "company": args.get("company_name"),
+                "account_number": 4191,
+            },
+        )
+    except DoesNotExistError:
+        frappe.msgprint(
+            _(
+                "ERPNext France - Company accounting auto setup cannot be done with chart of account without code"
+            )
+        )
+        return
 
     if not account:
         return
@@ -112,16 +131,50 @@ def set_4191_account_type(args):
     account.save()
 
 
+def set_6241_account_type(args):
+    try:
+        account = frappe.get_last_doc(
+            "Account",
+            filters={
+                "disabled": 0,
+                "is_group": 0,
+                "company": args.get("company_name"),
+                "account_number": 6241,
+            },
+        )
+    except DoesNotExistError:
+        frappe.msgprint(
+            _(
+                "ERPNext France - Company accounting auto setup cannot be done with chart of account without code"
+            )
+        )
+        return
+
+    if not account:
+        return
+
+    account.account_type = "Chargeable"
+    account.save()
+
+
 def set_4084_account_type(args):
-    account = frappe.get_last_doc(
-        "Account",
-        filters={
-            "disabled": 0,
-            "is_group": 0,
-            "company": args.get("company_name"),
-            "account_number": 4084,
-        },
-    )
+    try:
+        account = frappe.get_last_doc(
+            "Account",
+            filters={
+                "disabled": 0,
+                "is_group": 0,
+                "company": args.get("company_name"),
+                "account_number": 4084,
+            },
+        )
+    except DoesNotExistError:
+        frappe.msgprint(
+            _(
+                "ERPNext France - Company accounting auto setup cannot be done with chart of account without code"
+            )
+        )
+        return
 
     if not account:
         return
@@ -204,6 +257,7 @@ def set_default_accounting_journal(company_name, company_abbr):
 
 def set_default_system_settings():
     frappe.db.set_single_value("System Settings", "first_day_of_the_week", "Monday")
+    frappe.db.set_default("first_day_of_the_week", "Monday")
 
 
 def set_default_print_settings():

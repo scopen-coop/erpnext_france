@@ -1,0 +1,21 @@
+{
+ "action": "Update Settings",
+ "action_label": "V\u00e9rifier les codes et types de transaction",
+ "creation": "2024-09-21 13:56:31.698015",
+ "description": "V\u00e9rifier les codes des journaux comptables qui seront utilis\u00e9 dans votre export FEC",
+ "docstatus": 0,
+ "doctype": "Onboarding Step",
+ "idx": 0,
+ "is_complete": 0,
+ "is_single": 0,
+ "is_skipped": 0,
+ "modified": "2024-09-21 13:57:42.835586",
+ "modified_by": "Administrator",
+ "name": "Verification des journaux comptable",
+ "owner": "Administrator",
+ "reference_document": "Accounting Journal",
+ "show_form_tour": 0,
+ "show_full_form": 0,
+ "title": "Verification des journaux comptable",
+ "validate_action": 0
+}

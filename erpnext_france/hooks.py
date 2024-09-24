@@ -119,26 +119,6 @@ fixtures = [
             ]
         ],
     },
-    {
-        "dt": "Workspace Link",
-        "filters": [
-            [
-                "name",
-                "in",
-                (
-                    "463658a38e",
-                    "87e757e3c1",
-                    "dc2d70f0be",
-                    "2faa60a916",
-                    "df2fa6d850",
-                    "a129c62bb0",
-                    "fc83fdfd07",
-                    "24d4382374",
-                    "df2fa6d847",
-                ),
-            ],
-        ],
-    },
     {"dt": "Address Template", "filters": [["country", "in", "France"]]},
     {
         "dt": "Legal Form",
@@ -203,8 +183,8 @@ fixtures = [
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 doctype_js = {
-    "Customer": ["public/js/customer.js", "public/js/party_check_vat.js"],
-    "Supplier": ["public/js/supplier.js", "public/js/party_check_vat.js"],
+    "Customer": ["public/js/party.js", "public/js/party_check_vat.js"],
+    "Supplier": ["public/js/party.js", "public/js/party_check_vat.js"],
     "Sales Order": ["public/js/sales_order.js"],
     "Purchase Invoice": ["public/js/purchase_invoice.js"],
     "Sales Invoice": ["public/js/sales_invoice.js"],
@@ -216,7 +196,7 @@ doctype_list_js = {
     "Customer": ["public/js/fetch_from_sirene.js"],
     "Supplier": ["public/js/fetch_from_sirene.js"],
     "Payment Entry": ["public/js/payment_entry_list.js"],
-    "Item Price": ["public/js/payment_entry_list.js"],
+    "Item Price": ["public/js/item_price_list.js"],
 }
 
 # Home Pages
@@ -245,10 +225,8 @@ doctype_list_js = {
 # before_install = "erpnext_france.install.before_install"
 # after_install = "erpnext_france.install.after_install"
 after_install = "erpnext_france.install.after_install"
-after_sync = "erpnext_france.utils.update_workspace.add_cards"
 setup_wizard_complete = "erpnext_france.setup.setup_wizard_complete"
 after_migrate = [
-    "erpnext_france.utils.update_workspace.add_cards",
     "erpnext_france.migrate.move_subledger_account_by_company",
     "erpnext_france.install.after_install",
     "erpnext_france.setup.setup_migrate",
@@ -350,7 +328,7 @@ override_whitelisted_methods = {
 # Regional Overrides
 regional_overrides = {
     "France": {
-        "erpnext.controllers.taxes_and_totals.update_itemised_tax_data": "erpnext_france.regional.france.taxes.update_itemised_tax_data",
+        # "erpnext.controllers.taxes_and_totals.update_itemised_tax_data": "erpnext_france.regional.france.taxes.update_itemised_tax_data",
         # "erpnext.controllers.taxes_and_totals.get_itemised_tax": "erpnext_france.regional.france.taxes.get_itemised_tax", #Not regionnalized
         # "erpnext.accounts.controllers.accounts_controller.update_against_document_in_jv": "erpnext_france.controllers.accounts_controller.update_against_document_in_jv", #Not regionnalized
     },

@@ -2,6 +2,7 @@
  "actions": [],
  "allow_import": 1,
  "allow_rename": 1,
+ "autoname": "field:code",
  "creation": "2023-11-03 11:45:32.571420",
  "default_view": "List",
  "doctype": "DocType",
@@ -15,24 +16,27 @@
   {
    "fieldname": "code",
    "fieldtype": "Data",
+   "label": "Code",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Code"
+   "reqd": 1,
+   "unique": 1
   },
   {
    "fieldname": "label",
    "fieldtype": "Data",
+   "label": "Label",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Label"
+   "reqd": 1
   }
  ],
- "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-04-04 11:58:23.783149",
+ "modified": "2024-08-27 15:21:16.265345",
  "modified_by": "Administrator",
  "module": "ERPNext France",
  "name": "Legal Form",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
