@@ -11,7 +11,6 @@ app_color = "#318CE7"
 app_email = "contact@scopen.fr"
 app_license = "GNU General Public License"
 source_link = "https://github.com/scopen-coop/erpnext_france"
-required_apps = ["frappe/erpnext"]
 
 fixtures = [
 	{
