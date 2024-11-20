@@ -10,6 +10,13 @@ frappe.ui.form.on("Company", {
         },
       };
     });
+    frm.set_query("legal_form", function () {
+      return {
+        filters: {
+          docstatus: 1,
+        },
+      };
+    });
   },
   refresh: function (frm) {
     if (
