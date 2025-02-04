@@ -189,7 +189,6 @@ doctype_js = {
 	"Purchase Invoice": ["public/js/purchase_invoice.js"],
 	"Sales Invoice": ["public/js/sales_invoice.js"],
 	"Company": ["public/js/company.js"],
-	"Task": ["public/js/task_list.js"],
 }
 
 doctype_list_js = {
@@ -197,6 +196,7 @@ doctype_list_js = {
 	"Supplier": ["public/js/fetch_from_sirene.js"],
 	"Payment Entry": ["public/js/payment_entry_list.js"],
 	"Item Price": ["public/js/item_price_list.js"],
+	"Task": ["public/js/task_list.js"],
 }
 
 # Home Pages
