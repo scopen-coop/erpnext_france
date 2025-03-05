@@ -1,6 +1,17 @@
 # Copyright (c) 2023, Scopen and contributors
 # For license information, please see license.txt
 
+import erpnext
+from erpnext.accounts.doctype.account.chart_of_accounts.chart_of_accounts import get_chart
+
+import erpnext_france
+from erpnext_france.regional.france.chart_of_accounts.chart_of_accounts import get_chart_fr
+
+
+erpnext.accounts.doctype.account.chart_of_accounts.chart_of_accounts.get_chart = (
+	erpnext_france.regional.france.chart_of_accounts.chart_of_accounts.get_chart_fr
+)
+
 
 app_name = "erpnext_france"
 app_title = "ERPNext France"
@@ -318,8 +329,10 @@ doc_events = {
 # ------------------------------
 #
 override_whitelisted_methods = {
+	"erpnext.accounts.doctype.account.chart_of_accounts.chart_of_accounts.get_charts_for_country": "erpnext_france.regional.france.chart_of_accounts.chart_of_accounts.get_charts_for_fr",
 	"erpnext.stock.get_item_details.get_item_details": "erpnext_france.controllers.get_item_details_down_payment.get_item_details_down_payment"
 }
+
 
 # Regional Overrides
 regional_overrides = {
