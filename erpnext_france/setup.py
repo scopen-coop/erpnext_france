@@ -9,24 +9,20 @@ from frappe import _
 
 
 def setup_wizard_complete(args, action=None):
-    try:
-        add_bank_account(args)
-        set_4191_account_type(args)
-        set_6241_account_type(args)
-        set_4084_account_type(args)
-        set_default_stock_settings()
-        set_default_system_settings()
-        set_default_print_settings()
-    except E:
-        frappe.throw('here' + str(E))
+    add_bank_account(args)
+    set_4191_account_type(args)
+    set_6241_account_type(args)
+    set_4084_account_type(args)
+    set_default_stock_settings()
+    set_default_system_settings()
+    set_default_print_settings()
+
+
 def setup_migrate():
-    try:
-        set_default_stock_settings()
-        set_default_system_settings()
-        set_default_print_settings()
-        set_default_source_letter_head()
-    except E:
-        frappe.throw('here' + str(E))
+    set_default_stock_settings()
+    set_default_system_settings()
+    set_default_print_settings()
+    set_default_source_letter_head()
 
 
 def setup_company_default(company, action):
@@ -82,25 +78,13 @@ def add_bank_account(args):
     try:
         account = frappe.get_last_doc(
             "Account",
-            {
+            filters={
                 "disabled": 0,
                 "is_group": 0,
                 "company": args.get("company_name"),
                 "account_number": 5121,
             },
         )
-
-        if not account:
-            return
-
-        frappe.db.set_value(
-            "Company",
-            args.get("company_name"),
-            "default_bank_account",
-            account.name,
-            update_modified=False,
-        )
-
     except DoesNotExistError:
         frappe.msgprint(
             _(
@@ -108,6 +92,17 @@ def add_bank_account(args):
             )
         )
         return
+
+    if not account:
+        return
+
+    frappe.db.set_value(
+        "Company",
+        args.get("company_name"),
+        "default_bank_account",
+        account.name,
+        update_modified=False,
+    )
 
 
 def set_4191_account_type(args):
@@ -121,12 +116,6 @@ def set_4191_account_type(args):
                 "account_number": 4191,
             },
         )
-        if not account:
-            return
-
-        account.account_type = "Income Account"
-        account.save()
-
     except DoesNotExistError:
         frappe.msgprint(
             _(
@@ -134,6 +123,12 @@ def set_4191_account_type(args):
             )
         )
         return
+
+    if not account:
+        return
+
+    account.account_type = "Income Account"
+    account.save()
 
 
 def set_6241_account_type(args):
@@ -147,13 +142,6 @@ def set_6241_account_type(args):
                 "account_number": 6241,
             },
         )
-
-        if not account:
-            return
-
-        account.account_type = "Chargeable"
-        account.save()
-
     except DoesNotExistError:
         frappe.msgprint(
             _(
@@ -161,6 +149,12 @@ def set_6241_account_type(args):
             )
         )
         return
+
+    if not account:
+        return
+
+    account.account_type = "Chargeable"
+    account.save()
 
 
 def set_4084_account_type(args):
@@ -174,13 +168,6 @@ def set_4084_account_type(args):
                 "account_number": 4084,
             },
         )
-
-        if not account:
-            return
-
-        account.account_type = "Asset Received But Not Billed"
-        account.save()
-
     except DoesNotExistError:
         frappe.msgprint(
             _(
@@ -188,6 +175,12 @@ def set_4084_account_type(args):
             )
         )
         return
+
+    if not account:
+        return
+
+    account.account_type = "Asset Received But Not Billed"
+    account.save()
 
 
 def set_default_source_letter_head():
@@ -234,7 +227,7 @@ def set_default_accounting_journal(company_name, company_abbr):
     )
     journal.insert()
 
-    journal2 = frappe.get_doc(
+    journal = frappe.get_doc(
         {
             "doctype": "Accounting Journal",
             "journal_code": "VT" + journal_code,
@@ -244,9 +237,9 @@ def set_default_accounting_journal(company_name, company_abbr):
             "conditions": [{"document_type": "Sales Invoice"}],
         }
     )
-    journal2.insert()
+    journal.insert()
 
-    journal3 = frappe.get_doc(
+    journal = frappe.get_doc(
         {
             "doctype": "Accounting Journal",
             "journal_code": "BQ" + journal_code,
@@ -259,32 +252,16 @@ def set_default_accounting_journal(company_name, company_abbr):
             ],
         }
     )
-    journal3.insert()
+    journal.insert()
 
 
 def set_default_system_settings():
-    try:
-        frappe.reload_doctype("System Settings")
-        frappe.db.set_single_value("System Settings", "first_day_of_the_week", "Monday")
-        frappe.db.set_default("first_day_of_the_week", "Monday")
-    except DoesNotExistError:
-        frappe.msgprint(
-            _(
-                "ERPNext France - Error in System settings default"
-            )
-        )
-        return
+    frappe.db.set_single_value("System Settings", "first_day_of_the_week", "Monday")
+    frappe.db.set_default("first_day_of_the_week", "Monday")
+
 
 def set_default_print_settings():
-    try :
-        frappe.reload_doctype("Print Settings")
-        frappe.db.set_single_value("Print Settings", "print_style", "Modern")
-        frappe.db.set_single_value("Print Settings", "with_letterhead", 1)
-        frappe.db.set_single_value("Print Settings", "allow_page_break_inside_tables", 1)
-    except DoesNotExistError:
-        frappe.msgprint(
-            _(
-                "ERPNext France - Error in print settings default"
-            )
-        )
-        return
+    frappe.reload_doctype("Print Settings")
+    frappe.db.set_single_value("Print Settings", "print_style", "Modern")
+    frappe.db.set_single_value("Print Settings", "with_letterhead", 1)
+    frappe.db.set_single_value("Print Settings", "allow_page_break_inside_tables", 1)
