@@ -820,9 +820,7 @@
                     "account_number": "341"
                 },
                 "Prestations de services en cours": {
-                    "Prestations de services S1": {
-                     "account_number": "345"
-                    }
+                    "account_number": "345"
                 },
                 "account_number": "34"
             },
@@ -971,7 +969,7 @@
                 "Etat - Subventions et aides \u00e0 recevoir": {
                     "account_number": "441"
                 },
-                    "Etat - Taxes sur le chiffre d'affaires (ACTIF)": {
+                "Etat - Taxes sur le chiffre d'affaires (ACTIF)": {
                     "TVA due intracommunautaire": {
                         "account_number": "4452"
                     },
@@ -1033,7 +1031,16 @@
             },
             "45-Groupe et associ\u00e9s (ACTIF)": {
                 "Associ\u00e9s - Op\u00e9rations sur le capital (ACTIF)": {
-                    "456-Apporteurs - Capital appel\u00e9, non vers\u00e9": {
+                    "Associés - Comptes d'apport en société": {
+                        "Apports en nature": {
+                            "account_number": "45611"
+                        },
+                        "Apports en numéraire": {
+                            "account_number": "45615"
+                        },
+                        "account_number": "4561"
+                    },
+                    "Apporteurs - Capital appel\u00e9, non vers\u00e9": {
                         "Actionnaires - Capital souscrit et appel\u00e9, non vers\u00e9": {
                             "account_number": "45621"
                         },
@@ -1041,26 +1048,43 @@
                             "account_number": "45625"
                         },
                         "account_number": "4562"
-                    }
+                    },
+                    "Associés - Versements reçus sur augmentation de capital": {
+                        "account_number": "4563"
+                    },
+                    "Associés - Versements anticipés": {
+                        "account_number": "4564"
+                    },
+                    "Actionnaires défaillants": {
+                        "account_number": "4566"
+                    },
+                    "Associés - Capital à rembourser": {
+                        "account_number": "4567"
+                    },
+                    "account_number": "456"
                 }
             },
             "46-D\u00e9biteurs divers et cr\u00e9diteurs divers (ACTIF)": {
                 "Cr\u00e9ances sur cessions d'immobilisations": {
                     "account_number": "462"
                 },
+                "Dettes sur acquisitions de valeurs mobilières de placement": {
+                    "account_number": "465"
+                },
                 "Cr\u00e9ances sur cessions de valeurs mobili\u00e8res de placement": {
                     "account_number": "465"
                 },
-                "467-Divers comptes d\u00e9biteurs et produits u00e0 recevoir ": {
+                "Divers comptes d\u00e9biteurs et produits u00e0 recevoir ": {
                     "account_number": "467"
                 },
-                "468-Divers comptes cr00e9diteurs et charges u00e0 payer": {
+                "Divers comptes cr00e9diteurs et charges u00e0 payer": {
                     "account_number": "468"
                 }
             },
             "47-Comptes transitoires ou d'attente (ACTIF)": {
-                "471-Comptes d'attente (ACTIF)": {
-                    "account_type": "Temporary"
+                "Comptes d'attente (ACTIF)": {
+                    "account_type": "Temporary",
+                    "account_number": "471"
                 },
                 "Diff\u00e9rences de conversion (ACTIF)": {
                     "Diminution des cr\u00e9ances": {
