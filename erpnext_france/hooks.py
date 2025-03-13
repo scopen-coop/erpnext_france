@@ -41,6 +41,7 @@ fixtures = [
 					"Customer-legal_form",
 					"Customer-siret",
 					"Customer-siren",
+					"Customer-custom_default_payment_terms_template_before_invoice",
 					"GL Entry-accounting_entry_number",
 					"GL Entry-accounting_journal",
 					"GL Entry-export_date",
@@ -75,6 +76,10 @@ fixtures = [
 					"Supplier-siret",
 					"Supplier-siren",
 					"Party Account-subledger_account",
+					"Payment Term-payment_terms_before_invoice",
+					"Payment Term-date_computed_based_on",
+					"Payment Terms Template-template_payment_terms_before_invoice",
+					"Payment Terms Template-payment_terms_before_invoice",
 				),
 			],
 		],
@@ -115,6 +120,12 @@ fixtures = [
 					"Item Price-uom-in_list_view",
 					"Item Price-valid_from-in_list_view",
 					"Item Price-valid_upto-in_list_view",
+					"Payment Term-due_date_based_on-depends_on",
+					"Payment Term-section_break_8-depends_on",
+					"Payment Terms Template-terms-depends_on",
+					"Payment Terms Template-terms-mandatory_depends_on",
+					"Payment Terms Template-terms-reqd",
+					"Payment Terms Template-allocate_payment_based_on_payment_terms-depends_on",
 				),
 			]
 		],
@@ -337,6 +348,7 @@ regional_overrides = {
 override_doctype_class = {
 	"Payment Entry": "erpnext_france.erpnext_france.overrides.doctype.payment_entry_down_payment.PaymentEntryDownPayment",
 	"Sales Invoice": "erpnext_france.erpnext_france.overrides.doctype.sales_invoice_down_payment.SalesInvoiceDownPayment",
+	"Payment Terms Template": "erpnext_france.erpnext_france.overrides.doctype.payment_terms_template.PaymentTermsTemplateWithTermsBeforeInvoice",
 }
 
 export_python_type_annotations = True

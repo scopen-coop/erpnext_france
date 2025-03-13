@@ -2,6 +2,7 @@
  {
   "credit_days": 30,
   "credit_months": 0,
+  "date_computed_based_on": null,
   "description": "Règlement à 30 jours",
   "discount": 0.0,
   "discount_type": "Percentage",
@@ -14,6 +15,7 @@
   "mode_of_payment": null,
   "modified": "2024-01-18 11:25:42.632616",
   "name": "Règlement à 30 jours",
-  "payment_term_name": "Règlement à 30 jours"
+  "payment_term_name": "Règlement à 30 jours",
+  "payment_terms_before_invoice": 0
  }
 ]

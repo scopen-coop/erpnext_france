@@ -5,7 +5,9 @@
   "doctype": "Payment Terms Template",
   "modified": "2024-01-18 11:26:14.833413",
   "name": "Règlement à 30 jours",
+  "payment_terms_before_invoice": [],
   "template_name": "Règlement à 30 jours",
+  "template_payment_terms_before_invoice": 0,
   "terms": [
    {
     "credit_days": 30,
