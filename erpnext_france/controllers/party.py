@@ -5,15 +5,22 @@ import frappe
 from frappe import _, scrub
 import erpnext
 from erpnext import get_company_currency
-from frappe.utils import  cint
-
-from erpnext.accounts.party import (get_party_gle_currency, get_party_gle_account, 
-	get_due_date, set_address_details, set_contact_details, set_other_values,
-	set_price_list, set_taxes, get_payment_terms_template)
+from frappe.utils import  cint, flt, getdate, add_days
+from erpnext.controllers.accounts_controller import get_discount_date
+from erpnext.accounts.party import (
+	get_party_gle_currency,
+	get_party_gle_account,
+	get_due_date,
+	set_address_details,
+	set_contact_details,
+	set_other_values,
+	set_price_list,
+	set_taxes
+)
 
 @frappe.whitelist()
 def get_party_account(
-party_type, party=None, company=None, include_advance=False, down_payment=None
+	party_type, party=None, company=None, include_advance=False, down_payment=None
 ):
 	"""Returns the account for the given `party`.
 	Will first search in party (Customer / Supplier) record, if not found,
@@ -238,3 +245,82 @@ def set_account_and_due_date(
 	}
 
 	return out
+
+def get_payment_terms_template(party_name, party_type, company=None):
+	if party_type not in ("Customer", "Supplier"):
+		return
+	template = None
+
+	if party_type == "Customer":
+		customer = frappe.get_cached_value(
+			"Customer", party_name, fieldname=["default_payment_terms_template_before_invoice", "customer_group"], as_dict=1
+		)
+		template = customer.default_payment_terms_template_before_invoice
+		# payment_terms_before_invoice on customer group
+		if not template and customer.customer_group:
+			template = frappe.get_cached_value("Customer Group", customer.customer_group, "payment_terms")
+	else:
+		supplier = frappe.get_cached_value(
+			"Supplier", party_name, fieldname=["payment_terms", "supplier_group"], as_dict=1
+		)
+		template = supplier.payment_terms
+		if not template and supplier.supplier_group:
+			template = frappe.get_cached_value("Supplier Group", supplier.supplier_group, "payment_terms")
+
+	if not template and company:
+		template = frappe.get_cached_value("Company", company, fieldname="payment_terms")
+
+	return template
+
+@frappe.whitelist()
+def get_payment_terms_before_invoice(
+	terms_template, posting_date=None, grand_total=None, base_grand_total=None, delivery_date=None
+):
+	if not terms_template:
+		return
+
+	terms_doc = frappe.get_doc("Payment Terms Template", terms_template)
+	schedule = []
+	for d in terms_doc.as_dict()["payment_terms_before_invoice"]:
+		term_details = get_payment_term_details(d, posting_date, grand_total, base_grand_total, delivery_date)
+		schedule.append(term_details)
+
+	return schedule
+
+@frappe.whitelist()
+def get_payment_term_details(
+	term, posting_date=None, grand_total=None, base_grand_total=None, delivery_date=None
+):
+	term_details = frappe._dict()
+	if isinstance(term, str):
+		term = frappe.get_doc("Payment Term", term)
+	else:
+		term_details.payment_term = term.payment_term
+
+	term_details.description = term.description
+	term_details.invoice_portion = term.invoice_portion
+	term_details.payment_amount = flt(term.invoice_portion) * flt(grand_total) / 100
+	term_details.base_payment_amount = flt(term.invoice_portion) * flt(base_grand_total) / 100
+	term_details.discount_type = term.discount_type
+	term_details.discount = term.discount
+	term_details.outstanding = term_details.payment_amount
+	term_details.mode_of_payment = term.mode_of_payment
+
+	term_details.due_date = get_due_date_before_invoice(term, posting_date, delivery_date)
+	term_details.discount_date = get_discount_date(term, posting_date, delivery_date)
+	if getdate(term_details.due_date) < getdate(posting_date):
+		term_details.due_date = posting_date
+
+	return term_details
+
+
+def get_due_date_before_invoice(term, document_date, delivery_date):
+	due_date = None
+	if not term.credit_days:
+		return due_date
+
+	if term.date_computed_based_on == "Document Date":
+		due_date = add_days(document_date, term.credit_days)
+	elif term.date_computed_based_on == "Delivery Date":
+		due_date = add_days(delivery_date, term.credit_days)
+	return due_date

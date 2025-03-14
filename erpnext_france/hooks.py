@@ -41,7 +41,7 @@ fixtures = [
 					"Customer-legal_form",
 					"Customer-siret",
 					"Customer-siren",
-					"Customer-custom_default_payment_terms_template_before_invoice",
+					"Customer-default_payment_terms_template_before_invoice",
 					"GL Entry-accounting_entry_number",
 					"GL Entry-accounting_journal",
 					"GL Entry-export_date",
@@ -126,6 +126,10 @@ fixtures = [
 					"Payment Terms Template-terms-mandatory_depends_on",
 					"Payment Terms Template-terms-reqd",
 					"Payment Terms Template-allocate_payment_based_on_payment_terms-depends_on",
+					"Sales Order-payment_schedule-label",
+					"Sales Order-payment_terms_template-label",
+					"Quotation-payment_schedule-label",
+					"Quotation-payment_terms_template-label",
 				),
 			]
 		],
@@ -199,6 +203,7 @@ doctype_js = {
 	"Sales Order": ["public/js/sales_order.js"],
 	"Purchase Invoice": ["public/js/purchase_invoice.js"],
 	"Sales Invoice": ["public/js/sales_invoice.js"],
+	"Quotation": ["public/js/quotation.js"],
 	"Company": ["public/js/company.js"],
 }
 
@@ -329,7 +334,10 @@ doc_events = {
 # ------------------------------
 #
 override_whitelisted_methods = {
-	"erpnext.stock.get_item_details.get_item_details": "erpnext_france.controllers.get_item_details_down_payment.get_item_details_down_payment"
+	"erpnext.stock.get_item_details.get_item_details": "erpnext_france.controllers.get_item_details_down_payment.get_item_details_down_payment",
+	"erpnext.controllers.accounts_controller.get_payment_terms": "erpnext_france.controllers.party.get_payment_terms_before_invoice",
+	"erpnext.controllers.accounts_controller.get_payment_term_details": "erpnext_france.controllers.party.get_payment_term_details",
+	"erpnext.accounts.party.get_party_details": "erpnext_france.controllers.party.get_party_details",
 }
 
 # Regional Overrides

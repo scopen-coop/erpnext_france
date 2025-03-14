@@ -14,6 +14,7 @@ class PaymentTermsTemplateDetailBeforeInvoice(Document):
 	if TYPE_CHECKING:
 		from frappe.types import DF
 
+		credit_days: DF.Int
 		date_computed_based_on: DF.Literal["Document Date", "Delivery Date"]
 		description: DF.SmallText | None
 		invoice_portion: DF.Float

@@ -15,7 +15,8 @@
   "mode_of_payment",
   "payment_terms_before_invoice",
   "column_break_3",
-  "date_computed_based_on"
+  "date_computed_based_on",
+  "credit_days"
  ],
  "fields": [
   {
@@ -82,12 +83,18 @@
    "fieldname": "payment_terms_before_invoice",
    "fieldtype": "Check",
    "label": "Payment Term Before Invoice"
+  },
+  {
+   "fetch_from": "payment_term.credit_days",
+   "fieldname": "credit_days",
+   "fieldtype": "Int",
+   "label": "Credit Days"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-03-13 14:54:52.191028",
+ "modified": "2025-03-14 13:44:53.773461",
  "modified_by": "Administrator",
  "module": "ERPNext France",
  "name": "Payment Terms Template Detail Before Invoice",
