@@ -184,6 +184,7 @@ fixtures = [
 # include js, css files in header of desk.html
 # app_include_css = "/assets/erpnext_france/css/erpnext_france.css"
 # app_include_js = "/assets/erpnext_france/js/erpnext_france.js"
+app_include_js = ["erpnext_france.bundle.js"]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/erpnext_france/css/erpnext_france.css"
@@ -335,7 +336,6 @@ doc_events = {
 #
 override_whitelisted_methods = {
 	"erpnext.stock.get_item_details.get_item_details": "erpnext_france.controllers.get_item_details_down_payment.get_item_details_down_payment",
-	"erpnext.controllers.accounts_controller.get_payment_terms": "erpnext_france.controllers.party.get_payment_terms_before_invoice",
 	"erpnext.controllers.accounts_controller.get_payment_term_details": "erpnext_france.controllers.party.get_payment_term_details",
 	"erpnext.accounts.party.get_party_details": "erpnext_france.controllers.party.get_party_details",
 }

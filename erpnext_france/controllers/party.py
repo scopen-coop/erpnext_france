@@ -272,17 +272,38 @@ def get_payment_terms_template(party_name, party_type, company=None):
 
 	return template
 
+# @frappe.whitelist()
+# def get_payment_terms_before_invoice(
+# 	terms_template, posting_date=None, grand_total=None, base_grand_total=None, delivery_date=None
+# ):
+# 	if not terms_template:
+# 		return
+# 	terms_doc = frappe.get_doc("Payment Terms Template", terms_template)
+# 	schedule = []
+# 	for d in terms_doc.as_dict()["payment_terms_before_invoice"]:
+# 		term_details = get_payment_term_details(d, posting_date, grand_total, base_grand_total, delivery_date)
+# 		schedule.append(term_details)
+#
+# 	return schedule
+
 @frappe.whitelist()
-def get_payment_terms_before_invoice(
-	terms_template, posting_date=None, grand_total=None, base_grand_total=None, delivery_date=None
-):
-	if not terms_template:
+def get_payment_terms_before_invoice(doctype,grand_total=None, base_grand_total=None, posting_date=None, delivery_date=None, payment_terms_template=None):
+	if doctype not in ('Quotation', 'Sales Order', 'Sales Invoice'):
 		return
 
-	terms_doc = frappe.get_doc("Payment Terms Template", terms_template)
+	if not payment_terms_template:
+		return
+
+	terms_doc = frappe.get_doc("Payment Terms Template", payment_terms_template)
 	schedule = []
 	for d in terms_doc.as_dict()["payment_terms_before_invoice"]:
-		term_details = get_payment_term_details(d, posting_date, grand_total, base_grand_total, delivery_date)
+		term_details = get_payment_term_details(
+			d,
+			posting_date,
+			grand_total,
+			base_grand_total,
+			delivery_date
+		)
 		schedule.append(term_details)
 
 	return schedule
@@ -307,6 +328,7 @@ def get_payment_term_details(
 	term_details.mode_of_payment = term.mode_of_payment
 
 	term_details.due_date = get_due_date_before_invoice(term, posting_date, delivery_date)
+
 	term_details.discount_date = get_discount_date(term, posting_date, delivery_date)
 	if getdate(term_details.due_date) < getdate(posting_date):
 		term_details.due_date = posting_date
@@ -317,10 +339,11 @@ def get_payment_term_details(
 def get_due_date_before_invoice(term, document_date, delivery_date):
 	due_date = None
 	if not term.credit_days:
-		return due_date
+		return document_date
 
 	if term.date_computed_based_on == "Document Date":
 		due_date = add_days(document_date, term.credit_days)
+
 	elif term.date_computed_based_on == "Delivery Date":
 		due_date = add_days(delivery_date, term.credit_days)
 	return due_date
