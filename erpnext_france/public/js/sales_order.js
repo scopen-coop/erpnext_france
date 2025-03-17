@@ -16,3 +16,12 @@ frappe.ui.form.on("Sales Order", "onload", function (frm) {
     };
   });
 });
+
+frappe.ui.form.on("Sales Order", {
+  delivery_date: function (frm) {
+    frm.trigger('payment_terms_template');
+  },
+  transaction_date: function (frm) {
+    frm.trigger('payment_terms_template');
+  },
+});

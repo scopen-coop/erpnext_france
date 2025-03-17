@@ -11,7 +11,6 @@ app_color = "#318CE7"
 app_email = "contact@scopen.fr"
 app_license = "GNU General Public License"
 source_link = "https://github.com/scopen-coop/erpnext_france"
-
 fixtures = [
 	{
 		"dt": "Custom Field",
@@ -126,6 +125,7 @@ fixtures = [
 					"Payment Terms Template-terms-mandatory_depends_on",
 					"Payment Terms Template-terms-reqd",
 					"Payment Terms Template-allocate_payment_based_on_payment_terms-depends_on",
+					"Payment Terms Template Detail-payment_term-link_filters",
 					"Sales Order-payment_schedule-label",
 					"Sales Order-payment_terms_template-label",
 					"Quotation-payment_schedule-label",
@@ -158,7 +158,33 @@ fixtures = [
 		"dt": "Payment Terms Template",
 		"filters": [["name", "in", "Règlement à 30 jours"]],
 	},
-	{"dt": "Payment Term", "filters": [["name", "in", "Règlement à 30 jours"]]},
+	{
+		"dt": "Payment Term", "filters": [[
+			"name",
+			"in", (
+				"Règlement à 30 jours",
+				"30% à la commande",
+				"70% avant expédition",
+				"50% à la commande",
+				"50% avant expédition",
+				"100% à la commande",
+				"100% avant expédition",
+				"15 jours fin de mois",
+			)
+		]]
+	},
+	{
+		"dt": "Payment Terms Template", "filters": [[
+			"name",
+			"in", (
+				"30% à la commande, 70% avant expédition",
+				"50% à la commande, 50% avant expédition",
+				"100% à la commande",
+				"100% avant expédition",
+				"30 jours",
+			)
+		]]
+	},
 	{"dt": "Letter Head", "filters": [["name", "in", "France Letter Head"]]},
 	{
 		"dt": "Bank Account Type",
@@ -175,6 +201,7 @@ fixtures = [
 		],
 	},
 ]
+
 
 # fixtures = ["Custom Field"]
 
