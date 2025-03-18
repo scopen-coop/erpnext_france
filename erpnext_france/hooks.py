@@ -124,7 +124,6 @@ fixtures = [
 					"Payment Terms Template-terms-depends_on",
 					"Payment Terms Template-terms-mandatory_depends_on",
 					"Payment Terms Template-terms-reqd",
-					"Payment Terms Template-allocate_payment_based_on_payment_terms-depends_on",
 					"Payment Terms Template Detail-payment_term-link_filters",
 					"Payment Schedule-payment_term-allow_on_submit",
 					"Payment Schedule-description-allow_on_submit",
