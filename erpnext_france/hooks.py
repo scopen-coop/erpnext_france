@@ -126,7 +126,13 @@ fixtures = [
 					"Payment Terms Template-terms-reqd",
 					"Payment Terms Template-allocate_payment_based_on_payment_terms-depends_on",
 					"Payment Terms Template Detail-payment_term-link_filters",
+					"Payment Schedule-payment_term-allow_on_submit",
+					"Payment Schedule-description-allow_on_submit",
+					"Payment Schedule-due_date-allow_on_submit",
+					"Payment Schedule-payment_amount-allow_on_submit",
+					"Payment Schedule-invoice_portion-allow_on_submit",
 					"Sales Order-payment_schedule-label",
+					"Sales Order-payment_schedule-allow_on_submit",
 					"Sales Order-payment_terms_template-label",
 					"Quotation-payment_schedule-label",
 					"Quotation-payment_terms_template-label",
@@ -365,7 +371,7 @@ override_whitelisted_methods = {
 	"erpnext.stock.get_item_details.get_item_details": "erpnext_france.controllers.get_item_details_down_payment.get_item_details_down_payment",
 	"erpnext.controllers.accounts_controller.get_payment_term_details": "erpnext_france.controllers.party.get_payment_term_details",
 	"erpnext.accounts.party.get_party_details": "erpnext_france.controllers.party.get_party_details",
-	"erpnext.selling.doctype.sales_order.sales_order.make_sales_invoice": "erpnext_france.controllers.sales_order.make_sales_invoice_with_payment_terms"
+	# "erpnext.selling.doctype.sales_order.sales_order.make_sales_invoice": "erpnext_france.controllers.sales_order.make_sales_invoice_with_payment_terms"
 }
 
 # Regional Overrides
