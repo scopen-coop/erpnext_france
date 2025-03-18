@@ -545,3 +545,5 @@ Payment Terms Template Detail Before Invoice, Détail du modèle de conditions d
 Default Payment Terms Template Before Invoice, Modèle de termes de paiement par défaut avant facture,
 Payment Terms Template Before Invoice, Modèle de termes de paiement avant facture,
 Payment Schedule Before Invoice, Calendrier de paiement avant facture,
+Cannot Delete term {0} because its on a payment, Vous ne pouvez pas supprimer le terme de paiement {0} car celui çi a déjà été payé,
+Cannot Modify term {0} because its on a payment, Vous ne pouvez pas modifier le terme de paiement {0} car celui çi a déjà été payé,

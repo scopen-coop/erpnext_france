@@ -323,6 +323,9 @@ doc_events = {
 			"erpnext_france.utils.transaction_log.create_transaction_log",
 		],
 	},
+	"Sales Order": {
+		"before_update_after_submit": "erpnext_france.controllers.sales_order.verify_sales_orders_terms",
+	},
 	"Payment Entry": {
 		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
 		"on_submit": "erpnext_france.utils.transaction_log.create_transaction_log",
