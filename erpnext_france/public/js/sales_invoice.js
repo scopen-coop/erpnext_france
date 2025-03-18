@@ -202,3 +202,13 @@ const calculate_down_payment = (line) => {
     );
   }
 };
+
+
+frappe.ui.form.on("Sales Invoice", {
+  customer: function (frm) {
+    frm.trigger('payment_terms_template');
+  },
+  due_date: function (frm) {
+    frm.trigger('payment_terms_template');
+  },
+});

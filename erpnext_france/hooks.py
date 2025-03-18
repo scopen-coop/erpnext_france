@@ -365,6 +365,7 @@ override_whitelisted_methods = {
 	"erpnext.stock.get_item_details.get_item_details": "erpnext_france.controllers.get_item_details_down_payment.get_item_details_down_payment",
 	"erpnext.controllers.accounts_controller.get_payment_term_details": "erpnext_france.controllers.party.get_payment_term_details",
 	"erpnext.accounts.party.get_party_details": "erpnext_france.controllers.party.get_party_details",
+	"erpnext.selling.doctype.sales_order.sales_order.make_sales_invoice": "erpnext_france.controllers.sales_order.make_sales_invoice_with_payment_terms"
 }
 
 # Regional Overrides
@@ -384,6 +385,10 @@ override_doctype_class = {
 	"Payment Entry": "erpnext_france.erpnext_france.overrides.doctype.payment_entry_down_payment.PaymentEntryDownPayment",
 	"Sales Invoice": "erpnext_france.erpnext_france.overrides.doctype.sales_invoice_down_payment.SalesInvoiceDownPayment",
 	"Payment Terms Template": "erpnext_france.erpnext_france.overrides.doctype.payment_terms_template.PaymentTermsTemplateWithTermsBeforeInvoice",
+}
+
+override_doctype_dashboards = {
+    "Payment Term": "erpnext_france.dashboard.payment_term.get_dashboard_data.get_dashboard_data",
 }
 
 export_python_type_annotations = True
