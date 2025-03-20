@@ -46,9 +46,10 @@ fixtures = [
 					"GL Entry-export_date",
 					"Item-down_payment_percentage",
 					"Item-is_down_payment_item",
+					"Item-eco_part",
 					"Mode of Payment Account-discount_supplier_account",
 					"Mode of Payment Account-journal_label",
-					"Party Account-advance_account",
+					"Party Accountvariant-field-advance_account",
 					"Payment Entry-down_payment",
 					"Payment Entry-accounting_journal",
 					"Payment Entry-subscription",
@@ -145,6 +146,7 @@ fixtures = [
 	},
 	{"dt": "Payment Term", "filters": [["name", "in", "Règlement à 30 jours"]]},
 	{"dt": "Letter Head", "filters": [["name", "in", "France Letter Head"]]},
+	{"dt": "Variant Field", "filters": [["field_name", "in", "eco_part"]]},
 	{
 		"dt": "Bank Account Type",
 		"filters": [
@@ -189,6 +191,7 @@ doctype_js = {
 	"Purchase Invoice": ["public/js/purchase_invoice.js"],
 	"Sales Invoice": ["public/js/sales_invoice.js"],
 	"Company": ["public/js/company.js"],
+	"Item": ["public/js/item.js"]
 }
 
 doctype_list_js = {
@@ -283,6 +286,7 @@ doc_events = {
 	"Payment Ledger Entry": {"on_update": "erpnext_france.controllers.ple_down_payment.on_update"},
 	"Journal Entry": {"validate": "erpnext_france.controllers.journal_entry_down_payment.validate"},
 	"Company": {"after_insert": "erpnext_france.setup.setup_company_default"},
+	"Item": {"on_update": "erpnext_france.controllers.item.on_update"},
 	"System Settings": {
 		# "on_update": 'erpnext_france.install.after_wizard'
 	},

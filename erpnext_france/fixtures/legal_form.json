@@ -1,5 +1,6 @@
 [
  {
+  "amended_from": null,
   "code": "0000",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -8,6 +9,7 @@
   "name": "0000"
  },
  {
+  "amended_from": null,
   "code": "1000",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -16,6 +18,7 @@
   "name": "1000"
  },
  {
+  "amended_from": null,
   "code": "2110",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -24,6 +27,7 @@
   "name": "2110"
  },
  {
+  "amended_from": null,
   "code": "2120",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -32,6 +36,7 @@
   "name": "2120"
  },
  {
+  "amended_from": null,
   "code": "2210",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -40,6 +45,7 @@
   "name": "2210"
  },
  {
+  "amended_from": null,
   "code": "2220",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -48,6 +54,7 @@
   "name": "2220"
  },
  {
+  "amended_from": null,
   "code": "2310",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -56,6 +63,7 @@
   "name": "2310"
  },
  {
+  "amended_from": null,
   "code": "2320",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -64,6 +72,7 @@
   "name": "2320"
  },
  {
+  "amended_from": null,
   "code": "2385",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -72,6 +81,7 @@
   "name": "2385"
  },
  {
+  "amended_from": null,
   "code": "2400",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -80,6 +90,7 @@
   "name": "2400"
  },
  {
+  "amended_from": null,
   "code": "2700",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -88,6 +99,7 @@
   "name": "2700"
  },
  {
+  "amended_from": null,
   "code": "2800",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -96,6 +108,7 @@
   "name": "2800"
  },
  {
+  "amended_from": null,
   "code": "2900",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -104,6 +117,7 @@
   "name": "2900"
  },
  {
+  "amended_from": null,
   "code": "3110",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -112,6 +126,7 @@
   "name": "3110"
  },
  {
+  "amended_from": null,
   "code": "3120",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -120,6 +135,7 @@
   "name": "3120"
  },
  {
+  "amended_from": null,
   "code": "3205",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -128,6 +144,7 @@
   "name": "3205"
  },
  {
+  "amended_from": null,
   "code": "3210",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -136,6 +153,7 @@
   "name": "3210"
  },
  {
+  "amended_from": null,
   "code": "3220",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -144,6 +162,7 @@
   "name": "3220"
  },
  {
+  "amended_from": null,
   "code": "3290",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -152,6 +171,7 @@
   "name": "3290"
  },
  {
+  "amended_from": null,
   "code": "4110",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -160,6 +180,7 @@
   "name": "4110"
  },
  {
+  "amended_from": null,
   "code": "4120",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -168,6 +189,7 @@
   "name": "4120"
  },
  {
+  "amended_from": null,
   "code": "4130",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -176,6 +198,7 @@
   "name": "4130"
  },
  {
+  "amended_from": null,
   "code": "4140",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -184,6 +207,7 @@
   "name": "4140"
  },
  {
+  "amended_from": null,
   "code": "4150",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -192,6 +216,7 @@
   "name": "4150"
  },
  {
+  "amended_from": null,
   "code": "4160",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -200,6 +225,7 @@
   "name": "4160"
  },
  {
+  "amended_from": null,
   "code": "5191",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -208,6 +234,7 @@
   "name": "5191"
  },
  {
+  "amended_from": null,
   "code": "5192",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -216,6 +243,7 @@
   "name": "5192"
  },
  {
+  "amended_from": null,
   "code": "5193",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -224,6 +252,7 @@
   "name": "5193"
  },
  {
+  "amended_from": null,
   "code": "5194",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -232,6 +261,7 @@
   "name": "5194"
  },
  {
+  "amended_from": null,
   "code": "5195",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -240,6 +270,7 @@
   "name": "5195"
  },
  {
+  "amended_from": null,
   "code": "5196",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -248,6 +279,7 @@
   "name": "5196"
  },
  {
+  "amended_from": null,
   "code": "5202",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -256,6 +288,7 @@
   "name": "5202"
  },
  {
+  "amended_from": null,
   "code": "5203",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -264,6 +297,7 @@
   "name": "5203"
  },
  {
+  "amended_from": null,
   "code": "5306",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -272,6 +306,7 @@
   "name": "5306"
  },
  {
+  "amended_from": null,
   "code": "5307",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -280,6 +315,7 @@
   "name": "5307"
  },
  {
+  "amended_from": null,
   "code": "5308",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -288,6 +324,7 @@
   "name": "5308"
  },
  {
+  "amended_from": null,
   "code": "5309",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -296,6 +333,7 @@
   "name": "5309"
  },
  {
+  "amended_from": null,
   "code": "5310",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -304,6 +342,7 @@
   "name": "5310"
  },
  {
+  "amended_from": null,
   "code": "5370",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -312,6 +351,7 @@
   "name": "5370"
  },
  {
+  "amended_from": null,
   "code": "5385",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -320,6 +360,7 @@
   "name": "5385"
  },
  {
+  "amended_from": null,
   "code": "5410",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -328,6 +369,7 @@
   "name": "5410"
  },
  {
+  "amended_from": null,
   "code": "5415",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -336,6 +378,7 @@
   "name": "5415"
  },
  {
+  "amended_from": null,
   "code": "5422",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -344,6 +387,7 @@
   "name": "5422"
  },
  {
+  "amended_from": null,
   "code": "5426",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -352,6 +396,7 @@
   "name": "5426"
  },
  {
+  "amended_from": null,
   "code": "5430",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -360,6 +405,7 @@
   "name": "5430"
  },
  {
+  "amended_from": null,
   "code": "5431",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -368,6 +414,7 @@
   "name": "5431"
  },
  {
+  "amended_from": null,
   "code": "5432",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -376,6 +423,7 @@
   "name": "5432"
  },
  {
+  "amended_from": null,
   "code": "5442",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -384,6 +432,7 @@
   "name": "5442"
  },
  {
+  "amended_from": null,
   "code": "5443",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -392,6 +441,7 @@
   "name": "5443"
  },
  {
+  "amended_from": null,
   "code": "5451",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -400,6 +450,7 @@
   "name": "5451"
  },
  {
+  "amended_from": null,
   "code": "5453",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -408,6 +459,7 @@
   "name": "5453"
  },
  {
+  "amended_from": null,
   "code": "5454",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -416,6 +468,7 @@
   "name": "5454"
  },
  {
+  "amended_from": null,
   "code": "5455",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -424,6 +477,7 @@
   "name": "5455"
  },
  {
+  "amended_from": null,
   "code": "5458",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -432,6 +486,7 @@
   "name": "5458"
  },
  {
+  "amended_from": null,
   "code": "5459",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -440,6 +495,7 @@
   "name": "5459"
  },
  {
+  "amended_from": null,
   "code": "5460",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -448,6 +504,7 @@
   "name": "5460"
  },
  {
+  "amended_from": null,
   "code": "5470",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -456,6 +513,7 @@
   "name": "5470"
  },
  {
+  "amended_from": null,
   "code": "5485",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -464,6 +522,7 @@
   "name": "5485"
  },
  {
+  "amended_from": null,
   "code": "5499",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -472,6 +531,7 @@
   "name": "5499"
  },
  {
+  "amended_from": null,
   "code": "5505",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -480,6 +540,7 @@
   "name": "5505"
  },
  {
+  "amended_from": null,
   "code": "5510",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -488,6 +549,7 @@
   "name": "5510"
  },
  {
+  "amended_from": null,
   "code": "5515",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -496,6 +558,7 @@
   "name": "5515"
  },
  {
+  "amended_from": null,
   "code": "5520",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -504,6 +567,7 @@
   "name": "5520"
  },
  {
+  "amended_from": null,
   "code": "5522",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -512,6 +576,7 @@
   "name": "5522"
  },
  {
+  "amended_from": null,
   "code": "5525",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -520,6 +585,7 @@
   "name": "5525"
  },
  {
+  "amended_from": null,
   "code": "5530",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -528,6 +594,7 @@
   "name": "5530"
  },
  {
+  "amended_from": null,
   "code": "5531",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -536,6 +603,7 @@
   "name": "5531"
  },
  {
+  "amended_from": null,
   "code": "5532",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -544,6 +612,7 @@
   "name": "5532"
  },
  {
+  "amended_from": null,
   "code": "5542",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -552,6 +621,7 @@
   "name": "5542"
  },
  {
+  "amended_from": null,
   "code": "5543",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -560,6 +630,7 @@
   "name": "5543"
  },
  {
+  "amended_from": null,
   "code": "5546",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -568,6 +639,7 @@
   "name": "5546"
  },
  {
+  "amended_from": null,
   "code": "5547",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -576,6 +648,7 @@
   "name": "5547"
  },
  {
+  "amended_from": null,
   "code": "5548",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -584,6 +657,7 @@
   "name": "5548"
  },
  {
+  "amended_from": null,
   "code": "5551",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -592,6 +666,7 @@
   "name": "5551"
  },
  {
+  "amended_from": null,
   "code": "5552",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -600,6 +675,7 @@
   "name": "5552"
  },
  {
+  "amended_from": null,
   "code": "5553",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -608,6 +684,7 @@
   "name": "5553"
  },
  {
+  "amended_from": null,
   "code": "5554",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -616,6 +693,7 @@
   "name": "5554"
  },
  {
+  "amended_from": null,
   "code": "5555",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -624,6 +702,7 @@
   "name": "5555"
  },
  {
+  "amended_from": null,
   "code": "5558",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -632,6 +711,7 @@
   "name": "5558"
  },
  {
+  "amended_from": null,
   "code": "5559",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -640,6 +720,7 @@
   "name": "5559"
  },
  {
+  "amended_from": null,
   "code": "5560",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -648,6 +729,7 @@
   "name": "5560"
  },
  {
+  "amended_from": null,
   "code": "5570",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -656,6 +738,7 @@
   "name": "5570"
  },
  {
+  "amended_from": null,
   "code": "5585",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -664,6 +747,7 @@
   "name": "5585"
  },
  {
+  "amended_from": null,
   "code": "5599",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -672,6 +756,7 @@
   "name": "5599"
  },
  {
+  "amended_from": null,
   "code": "5605",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -680,6 +765,7 @@
   "name": "5605"
  },
  {
+  "amended_from": null,
   "code": "5610",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -688,6 +774,7 @@
   "name": "5610"
  },
  {
+  "amended_from": null,
   "code": "5615",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -696,6 +783,7 @@
   "name": "5615"
  },
  {
+  "amended_from": null,
   "code": "5620",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -704,6 +792,7 @@
   "name": "5620"
  },
  {
+  "amended_from": null,
   "code": "5622",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -712,6 +801,7 @@
   "name": "5622"
  },
  {
+  "amended_from": null,
   "code": "5625",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -720,6 +810,7 @@
   "name": "5625"
  },
  {
+  "amended_from": null,
   "code": "5630",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -728,6 +819,7 @@
   "name": "5630"
  },
  {
+  "amended_from": null,
   "code": "5631",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -736,6 +828,7 @@
   "name": "5631"
  },
  {
+  "amended_from": null,
   "code": "5632",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -744,6 +837,7 @@
   "name": "5632"
  },
  {
+  "amended_from": null,
   "code": "5642",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -752,6 +846,7 @@
   "name": "5642"
  },
  {
+  "amended_from": null,
   "code": "5643",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -760,6 +855,7 @@
   "name": "5643"
  },
  {
+  "amended_from": null,
   "code": "5646",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -768,6 +864,7 @@
   "name": "5646"
  },
  {
+  "amended_from": null,
   "code": "5647",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -776,6 +873,7 @@
   "name": "5647"
  },
  {
+  "amended_from": null,
   "code": "5648",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -784,6 +882,7 @@
   "name": "5648"
  },
  {
+  "amended_from": null,
   "code": "5651",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -792,6 +891,7 @@
   "name": "5651"
  },
  {
+  "amended_from": null,
   "code": "5652",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -800,6 +900,7 @@
   "name": "5652"
  },
  {
+  "amended_from": null,
   "code": "5653",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -808,6 +909,7 @@
   "name": "5653"
  },
  {
+  "amended_from": null,
   "code": "5654",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -816,6 +918,7 @@
   "name": "5654"
  },
  {
+  "amended_from": null,
   "code": "5655",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -824,6 +927,7 @@
   "name": "5655"
  },
  {
+  "amended_from": null,
   "code": "5658",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -832,6 +936,7 @@
   "name": "5658"
  },
  {
+  "amended_from": null,
   "code": "5659",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -840,6 +945,7 @@
   "name": "5659"
  },
  {
+  "amended_from": null,
   "code": "5660",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -848,6 +954,7 @@
   "name": "5660"
  },
  {
+  "amended_from": null,
   "code": "5670",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -856,6 +963,7 @@
   "name": "5670"
  },
  {
+  "amended_from": null,
   "code": "5685",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -864,6 +972,7 @@
   "name": "5685"
  },
  {
+  "amended_from": null,
   "code": "5699",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -872,6 +981,7 @@
   "name": "5699"
  },
  {
+  "amended_from": null,
   "code": "5710",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -880,6 +990,7 @@
   "name": "5710"
  },
  {
+  "amended_from": null,
   "code": "5770",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -888,6 +999,7 @@
   "name": "5770"
  },
  {
+  "amended_from": null,
   "code": "5785",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -896,6 +1008,7 @@
   "name": "5785"
  },
  {
+  "amended_from": null,
   "code": "5800",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -904,6 +1017,7 @@
   "name": "5800"
  },
  {
+  "amended_from": null,
   "code": "6100",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -912,6 +1026,7 @@
   "name": "6100"
  },
  {
+  "amended_from": null,
   "code": "6210",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -920,6 +1035,7 @@
   "name": "6210"
  },
  {
+  "amended_from": null,
   "code": "6220",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -928,6 +1044,7 @@
   "name": "6220"
  },
  {
+  "amended_from": null,
   "code": "6316",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -936,6 +1053,7 @@
   "name": "6316"
  },
  {
+  "amended_from": null,
   "code": "6317",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -944,6 +1062,7 @@
   "name": "6317"
  },
  {
+  "amended_from": null,
   "code": "6318",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -952,6 +1071,7 @@
   "name": "6318"
  },
  {
+  "amended_from": null,
   "code": "6411",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -960,6 +1080,7 @@
   "name": "6411"
  },
  {
+  "amended_from": null,
   "code": "6511",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -968,6 +1089,7 @@
   "name": "6511"
  },
  {
+  "amended_from": null,
   "code": "6521",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -976,6 +1098,7 @@
   "name": "6521"
  },
  {
+  "amended_from": null,
   "code": "6532",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -984,6 +1107,7 @@
   "name": "6532"
  },
  {
+  "amended_from": null,
   "code": "6533",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -992,6 +1116,7 @@
   "name": "6533"
  },
  {
+  "amended_from": null,
   "code": "6534",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1000,6 +1125,7 @@
   "name": "6534"
  },
  {
+  "amended_from": null,
   "code": "6535",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1008,6 +1134,7 @@
   "name": "6535"
  },
  {
+  "amended_from": null,
   "code": "6536",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1016,6 +1143,7 @@
   "name": "6536"
  },
  {
+  "amended_from": null,
   "code": "6537",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1024,6 +1152,7 @@
   "name": "6537"
  },
  {
+  "amended_from": null,
   "code": "6538",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1032,6 +1161,7 @@
   "name": "6538"
  },
  {
+  "amended_from": null,
   "code": "6539",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1040,6 +1170,7 @@
   "name": "6539"
  },
  {
+  "amended_from": null,
   "code": "6540",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1048,6 +1179,7 @@
   "name": "6540"
  },
  {
+  "amended_from": null,
   "code": "6541",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1056,6 +1188,7 @@
   "name": "6541"
  },
  {
+  "amended_from": null,
   "code": "6542",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1064,6 +1197,7 @@
   "name": "6542"
  },
  {
+  "amended_from": null,
   "code": "6543",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1072,6 +1206,7 @@
   "name": "6543"
  },
  {
+  "amended_from": null,
   "code": "6544",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1080,6 +1215,7 @@
   "name": "6544"
  },
  {
+  "amended_from": null,
   "code": "6551",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1088,6 +1224,7 @@
   "name": "6551"
  },
  {
+  "amended_from": null,
   "code": "6554",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1096,6 +1233,7 @@
   "name": "6554"
  },
  {
+  "amended_from": null,
   "code": "6558",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1104,6 +1242,7 @@
   "name": "6558"
  },
  {
+  "amended_from": null,
   "code": "6560",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1112,6 +1251,7 @@
   "name": "6560"
  },
  {
+  "amended_from": null,
   "code": "6561",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1120,6 +1260,7 @@
   "name": "6561"
  },
  {
+  "amended_from": null,
   "code": "6562",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1128,6 +1269,7 @@
   "name": "6562"
  },
  {
+  "amended_from": null,
   "code": "6563",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1136,6 +1278,7 @@
   "name": "6563"
  },
  {
+  "amended_from": null,
   "code": "6564",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1144,6 +1287,7 @@
   "name": "6564"
  },
  {
+  "amended_from": null,
   "code": "6565",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1152,6 +1296,7 @@
   "name": "6565"
  },
  {
+  "amended_from": null,
   "code": "6566",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1160,6 +1305,7 @@
   "name": "6566"
  },
  {
+  "amended_from": null,
   "code": "6567",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1168,6 +1314,7 @@
   "name": "6567"
  },
  {
+  "amended_from": null,
   "code": "6568",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1176,6 +1323,7 @@
   "name": "6568"
  },
  {
+  "amended_from": null,
   "code": "6569",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1184,6 +1332,7 @@
   "name": "6569"
  },
  {
+  "amended_from": null,
   "code": "6571",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1192,6 +1341,7 @@
   "name": "6571"
  },
  {
+  "amended_from": null,
   "code": "6572",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1200,6 +1350,7 @@
   "name": "6572"
  },
  {
+  "amended_from": null,
   "code": "6573",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1208,6 +1359,7 @@
   "name": "6573"
  },
  {
+  "amended_from": null,
   "code": "6574",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1216,6 +1368,7 @@
   "name": "6574"
  },
  {
+  "amended_from": null,
   "code": "6575",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1224,6 +1377,7 @@
   "name": "6575"
  },
  {
+  "amended_from": null,
   "code": "6576",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1232,6 +1386,7 @@
   "name": "6576"
  },
  {
+  "amended_from": null,
   "code": "6577",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1240,6 +1395,7 @@
   "name": "6577"
  },
  {
+  "amended_from": null,
   "code": "6578",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1248,6 +1404,7 @@
   "name": "6578"
  },
  {
+  "amended_from": null,
   "code": "6585",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1256,6 +1413,7 @@
   "name": "6585"
  },
  {
+  "amended_from": null,
   "code": "6589",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1264,6 +1422,7 @@
   "name": "6589"
  },
  {
+  "amended_from": null,
   "code": "6595",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1272,6 +1431,7 @@
   "name": "6595"
  },
  {
+  "amended_from": null,
   "code": "6596",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1280,6 +1440,7 @@
   "name": "6596"
  },
  {
+  "amended_from": null,
   "code": "6597",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1288,6 +1449,7 @@
   "name": "6597"
  },
  {
+  "amended_from": null,
   "code": "6598",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1296,6 +1458,7 @@
   "name": "6598"
  },
  {
+  "amended_from": null,
   "code": "6599",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1304,6 +1467,7 @@
   "name": "6599"
  },
  {
+  "amended_from": null,
   "code": "6901",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1312,6 +1476,7 @@
   "name": "6901"
  },
  {
+  "amended_from": null,
   "code": "7111",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1320,6 +1485,7 @@
   "name": "7111"
  },
  {
+  "amended_from": null,
   "code": "7112",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1328,6 +1494,7 @@
   "name": "7112"
  },
  {
+  "amended_from": null,
   "code": "7113",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1336,6 +1503,7 @@
   "name": "7113"
  },
  {
+  "amended_from": null,
   "code": "7120",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1344,6 +1512,7 @@
   "name": "7120"
  },
  {
+  "amended_from": null,
   "code": "7150",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1352,6 +1521,7 @@
   "name": "7150"
  },
  {
+  "amended_from": null,
   "code": "7160",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1360,6 +1530,7 @@
   "name": "7160"
  },
  {
+  "amended_from": null,
   "code": "7171",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1368,6 +1539,7 @@
   "name": "7171"
  },
  {
+  "amended_from": null,
   "code": "7172",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1376,6 +1548,7 @@
   "name": "7172"
  },
  {
+  "amended_from": null,
   "code": "7179",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1384,6 +1557,7 @@
   "name": "7179"
  },
  {
+  "amended_from": null,
   "code": "7190",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1392,6 +1566,7 @@
   "name": "7190"
  },
  {
+  "amended_from": null,
   "code": "7210",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1400,6 +1575,7 @@
   "name": "7210"
  },
  {
+  "amended_from": null,
   "code": "7220",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1408,6 +1584,7 @@
   "name": "7220"
  },
  {
+  "amended_from": null,
   "code": "7225",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1416,6 +1593,7 @@
   "name": "7225"
  },
  {
+  "amended_from": null,
   "code": "7229",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1424,6 +1602,7 @@
   "name": "7229"
  },
  {
+  "amended_from": null,
   "code": "7230",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1432,6 +1611,7 @@
   "name": "7230"
  },
  {
+  "amended_from": null,
   "code": "7312",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1440,6 +1620,7 @@
   "name": "7312"
  },
  {
+  "amended_from": null,
   "code": "7313",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1448,6 +1629,7 @@
   "name": "7313"
  },
  {
+  "amended_from": null,
   "code": "7314",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1456,6 +1638,7 @@
   "name": "7314"
  },
  {
+  "amended_from": null,
   "code": "7321",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1464,6 +1647,7 @@
   "name": "7321"
  },
  {
+  "amended_from": null,
   "code": "7322",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1472,6 +1656,7 @@
   "name": "7322"
  },
  {
+  "amended_from": null,
   "code": "7323",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1480,6 +1665,7 @@
   "name": "7323"
  },
  {
+  "amended_from": null,
   "code": "7331",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1488,6 +1674,7 @@
   "name": "7331"
  },
  {
+  "amended_from": null,
   "code": "7340",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1496,6 +1683,7 @@
   "name": "7340"
  },
  {
+  "amended_from": null,
   "code": "7341",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1504,6 +1692,7 @@
   "name": "7341"
  },
  {
+  "amended_from": null,
   "code": "7342",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1512,6 +1701,7 @@
   "name": "7342"
  },
  {
+  "amended_from": null,
   "code": "7343",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1520,6 +1710,7 @@
   "name": "7343"
  },
  {
+  "amended_from": null,
   "code": "7344",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1528,6 +1719,7 @@
   "name": "7344"
  },
  {
+  "amended_from": null,
   "code": "7345",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1536,6 +1728,7 @@
   "name": "7345"
  },
  {
+  "amended_from": null,
   "code": "7346",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1544,6 +1737,7 @@
   "name": "7346"
  },
  {
+  "amended_from": null,
   "code": "7347",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1552,6 +1746,7 @@
   "name": "7347"
  },
  {
+  "amended_from": null,
   "code": "7348",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1560,6 +1755,7 @@
   "name": "7348"
  },
  {
+  "amended_from": null,
   "code": "7349",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1568,6 +1764,7 @@
   "name": "7349"
  },
  {
+  "amended_from": null,
   "code": "7351",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1576,6 +1773,7 @@
   "name": "7351"
  },
  {
+  "amended_from": null,
   "code": "7352",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1584,6 +1782,7 @@
   "name": "7352"
  },
  {
+  "amended_from": null,
   "code": "7353",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1592,6 +1791,7 @@
   "name": "7353"
  },
  {
+  "amended_from": null,
   "code": "7354",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1600,6 +1800,7 @@
   "name": "7354"
  },
  {
+  "amended_from": null,
   "code": "7355",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1608,6 +1809,7 @@
   "name": "7355"
  },
  {
+  "amended_from": null,
   "code": "7356",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1616,6 +1818,7 @@
   "name": "7356"
  },
  {
+  "amended_from": null,
   "code": "7357",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1624,6 +1827,7 @@
   "name": "7357"
  },
  {
+  "amended_from": null,
   "code": "7361",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1632,6 +1836,7 @@
   "name": "7361"
  },
  {
+  "amended_from": null,
   "code": "7362",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1640,6 +1845,7 @@
   "name": "7362"
  },
  {
+  "amended_from": null,
   "code": "7363",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1648,6 +1854,7 @@
   "name": "7363"
  },
  {
+  "amended_from": null,
   "code": "7364",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1656,6 +1863,7 @@
   "name": "7364"
  },
  {
+  "amended_from": null,
   "code": "7365",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1664,6 +1872,7 @@
   "name": "7365"
  },
  {
+  "amended_from": null,
   "code": "7366",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1672,6 +1881,7 @@
   "name": "7366"
  },
  {
+  "amended_from": null,
   "code": "7367",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1680,6 +1890,7 @@
   "name": "7367"
  },
  {
+  "amended_from": null,
   "code": "7371",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1688,6 +1899,7 @@
   "name": "7371"
  },
  {
+  "amended_from": null,
   "code": "7372",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1696,6 +1908,7 @@
   "name": "7372"
  },
  {
+  "amended_from": null,
   "code": "7373",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1704,6 +1917,7 @@
   "name": "7373"
  },
  {
+  "amended_from": null,
   "code": "7378",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1712,6 +1926,7 @@
   "name": "7378"
  },
  {
+  "amended_from": null,
   "code": "7379",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1720,6 +1935,7 @@
   "name": "7379"
  },
  {
+  "amended_from": null,
   "code": "7381",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1728,6 +1944,7 @@
   "name": "7381"
  },
  {
+  "amended_from": null,
   "code": "7382",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1736,6 +1953,7 @@
   "name": "7382"
  },
  {
+  "amended_from": null,
   "code": "7383",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1744,6 +1962,7 @@
   "name": "7383"
  },
  {
+  "amended_from": null,
   "code": "7384",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1752,6 +1971,7 @@
   "name": "7384"
  },
  {
+  "amended_from": null,
   "code": "7385",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1760,6 +1980,7 @@
   "name": "7385"
  },
  {
+  "amended_from": null,
   "code": "7389",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1768,6 +1989,7 @@
   "name": "7389"
  },
  {
+  "amended_from": null,
   "code": "7410",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1776,6 +1998,7 @@
   "name": "7410"
  },
  {
+  "amended_from": null,
   "code": "7430",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1784,6 +2007,7 @@
   "name": "7430"
  },
  {
+  "amended_from": null,
   "code": "7450",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1792,6 +2016,7 @@
   "name": "7450"
  },
  {
+  "amended_from": null,
   "code": "7470",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1800,6 +2025,7 @@
   "name": "7470"
  },
  {
+  "amended_from": null,
   "code": "7490",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1808,6 +2034,7 @@
   "name": "7490"
  },
  {
+  "amended_from": null,
   "code": "8110",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1816,6 +2043,7 @@
   "name": "8110"
  },
  {
+  "amended_from": null,
   "code": "8120",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1824,6 +2052,7 @@
   "name": "8120"
  },
  {
+  "amended_from": null,
   "code": "8130",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1832,6 +2061,7 @@
   "name": "8130"
  },
  {
+  "amended_from": null,
   "code": "8140",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1840,6 +2070,7 @@
   "name": "8140"
  },
  {
+  "amended_from": null,
   "code": "8150",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1848,6 +2079,7 @@
   "name": "8150"
  },
  {
+  "amended_from": null,
   "code": "8160",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1856,6 +2088,7 @@
   "name": "8160"
  },
  {
+  "amended_from": null,
   "code": "8170",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1864,6 +2097,7 @@
   "name": "8170"
  },
  {
+  "amended_from": null,
   "code": "8190",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1872,6 +2106,7 @@
   "name": "8190"
  },
  {
+  "amended_from": null,
   "code": "8210",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1880,6 +2115,7 @@
   "name": "8210"
  },
  {
+  "amended_from": null,
   "code": "8250",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1888,6 +2124,7 @@
   "name": "8250"
  },
  {
+  "amended_from": null,
   "code": "8290",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1896,6 +2133,7 @@
   "name": "8290"
  },
  {
+  "amended_from": null,
   "code": "8310",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1904,6 +2142,7 @@
   "name": "8310"
  },
  {
+  "amended_from": null,
   "code": "8311",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1912,6 +2151,7 @@
   "name": "8311"
  },
  {
+  "amended_from": null,
   "code": "8410",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1920,6 +2160,7 @@
   "name": "8410"
  },
  {
+  "amended_from": null,
   "code": "8420",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1928,6 +2169,7 @@
   "name": "8420"
  },
  {
+  "amended_from": null,
   "code": "8450",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1936,6 +2178,7 @@
   "name": "8450"
  },
  {
+  "amended_from": null,
   "code": "8470",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1944,6 +2187,7 @@
   "name": "8470"
  },
  {
+  "amended_from": null,
   "code": "8490",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1952,6 +2196,7 @@
   "name": "8490"
  },
  {
+  "amended_from": null,
   "code": "8510",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1960,6 +2205,7 @@
   "name": "8510"
  },
  {
+  "amended_from": null,
   "code": "8520",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1968,6 +2214,7 @@
   "name": "8520"
  },
  {
+  "amended_from": null,
   "code": "9110",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1976,6 +2223,7 @@
   "name": "9110"
  },
  {
+  "amended_from": null,
   "code": "9150",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1984,6 +2232,7 @@
   "name": "9150"
  },
  {
+  "amended_from": null,
   "code": "9210",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -1992,6 +2241,7 @@
   "name": "9210"
  },
  {
+  "amended_from": null,
   "code": "9220",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -2000,6 +2250,7 @@
   "name": "9220"
  },
  {
+  "amended_from": null,
   "code": "9221",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -2008,6 +2259,7 @@
   "name": "9221"
  },
  {
+  "amended_from": null,
   "code": "9222",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -2016,6 +2268,7 @@
   "name": "9222"
  },
  {
+  "amended_from": null,
   "code": "9223",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -2024,6 +2277,7 @@
   "name": "9223"
  },
  {
+  "amended_from": null,
   "code": "9224",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -2032,6 +2286,7 @@
   "name": "9224"
  },
  {
+  "amended_from": null,
   "code": "9230",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -2040,6 +2295,7 @@
   "name": "9230"
  },
  {
+  "amended_from": null,
   "code": "9240",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -2048,6 +2304,7 @@
   "name": "9240"
  },
  {
+  "amended_from": null,
   "code": "9260",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -2056,6 +2313,7 @@
   "name": "9260"
  },
  {
+  "amended_from": null,
   "code": "9300",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -2064,6 +2322,7 @@
   "name": "9300"
  },
  {
+  "amended_from": null,
   "code": "9900",
   "docstatus": 1,
   "doctype": "Legal Form",
@@ -2072,6 +2331,7 @@
   "name": "9900"
  },
  {
+  "amended_from": null,
   "code": "9970",
   "docstatus": 1,
   "doctype": "Legal Form",

@@ -536,3 +536,8 @@ Décalage par défaut,Quart par défaut
 Shift Schedule,Planification des quarts
 Shift Schedule Assignment,Affect. plan. des quarts
 Shift Assignment Tool,Affect. planning des quarts en masse
+Eco Part, Eco Participation,
+Buy Account, Code Comptable Achat,
+Sell Account, Code Comptable Vente
+Item EcoTax, Ecotaxe sur l'article,
+Cannot Update EcoPart because there is no conversion factor between units, Le nouveau montant de l’Eco participation (onglet Taxe) ne peux être calculé car les conversions d’unités ne sont pas disponibles,
