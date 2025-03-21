@@ -287,6 +287,7 @@ doc_events = {
 	"Journal Entry": {"validate": "erpnext_france.controllers.journal_entry_down_payment.validate"},
 	"Company": {"after_insert": "erpnext_france.setup.setup_company_default"},
 	"Item": {"on_update": "erpnext_france.controllers.item.on_update"},
+	"Quotation": {"on_update": "erpnext_france.controllers.quotation.on_update"},
 	"System Settings": {
 		# "on_update": 'erpnext_france.install.after_wizard'
 	},
@@ -344,3 +345,7 @@ override_doctype_class = {
 }
 
 export_python_type_annotations = True
+
+# extend_bootinfo = [
+# 	"erpnext_france.startup.boot.boot_session",
+# ]

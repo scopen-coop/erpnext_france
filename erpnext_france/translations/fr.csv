@@ -541,3 +541,5 @@ Buy Account, Code Comptable Achat,
 Sell Account, Code Comptable Vente
 Item EcoTax, Ecotaxe sur l'article,
 Cannot Update EcoPart because there is no conversion factor between units, Le nouveau montant de l’Eco participation (onglet Taxe) ne peux être calculé car les conversions d’unités ne sont pas disponibles,
+Eco Part VAT: {0}, Eco Part TVA: {0},
+Eco Part {0}%:, Eco Participation {0}%,
