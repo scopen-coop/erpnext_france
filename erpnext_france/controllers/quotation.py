@@ -4,9 +4,9 @@ from erpnext.stock.get_item_details import get_uom_conv_factor
 
 
 def on_update(doc, method):
-	old_doc = doc.get_doc_before_save()
-	if not old_doc:
-		return
+	# old_doc = doc.get_doc_before_save()
+	# if not old_doc:
+	# 	return
 
 	# Verif before update
 	update_ecopart_taxes_for_item(doc)
@@ -32,13 +32,13 @@ def update_ecopart_taxes_for_item(doc):
 				for tax in item_tax_template.taxes:
 					if tax.tax_type not in taxes_map[ecotax_type]:
 						taxes_map[ecotax_type][tax.tax_type] = {}
-						tax_vat_account = tax.tax_type
+					tax_vat_account = tax.tax_type
 			elif doc.taxes_and_charges:
 				sales_taxes_and_charges_template = frappe.get_doc('Sales Taxes and Charges Template', doc.taxes_and_charges)
 				for tax in sales_taxes_and_charges_template.taxes:
 					if tax.account_head not in taxes_map[ecotax_type]:
 						taxes_map[ecotax_type][tax.account_head] = {}
-						tax_vat_account = tax.account_head
+					tax_vat_account = tax.account_head
 			else:
 				continue
 
@@ -63,18 +63,19 @@ def update_ecopart_taxes_for_item(doc):
 	account_to_delete = []
 	account_to_append = used_ecopart_accounts
 	for tax in doc.taxes:
-		if tax.charge_type == 'Actual' and tax.account_head in used_ecopart_accounts:
+		if tax.charge_type != 'Actual':
+			continue
+		if tax.account_head in used_ecopart_accounts:
 			account_to_append.remove(tax.account_head)
 			account_to_update.append(tax.account_head)
-		elif tax.charge_type == 'Actual' and tax.account_head not in used_ecopart_accounts:
+		else:
 			account_to_delete.append(tax.account_head)
 
-	for ecopart_account in account_to_append:
-		for vat_account in used_vat_accounts:
+	for vat_account in used_vat_accounts:
+		for ecopart_account in account_to_append:
 			total_tax = 0
 			if vat_account not in taxes_map[ecotax_type]:
 				continue
-
 
 			for ecotax_type in ('DEEE', 'PMCB'):
 				if ecopart_account in taxes_map[ecotax_type][vat_account]:
@@ -91,6 +92,7 @@ def update_ecopart_taxes_for_item(doc):
 				'parent': doc.name,
 				'parenttype': doc.doctype
 			})
+
 
 			ecopart_sales_taxes_and_charges.insert()
 			doc.append("taxes", ecopart_sales_taxes_and_charges)
@@ -117,9 +119,8 @@ def update_ecopart_taxes_for_item(doc):
 			vat_sales_taxes_and_charges.insert()
 			doc.append("taxes", vat_sales_taxes_and_charges)
 
-	doc.reload()
-	for ecopart_account in account_to_update:
-		for vat_account in used_vat_accounts:
+	for vat_account in used_vat_accounts:
+		for ecopart_account in account_to_update:
 			total_tax = 0
 			if vat_account not in taxes_map[ecotax_type]:
 				continue
@@ -127,6 +128,7 @@ def update_ecopart_taxes_for_item(doc):
 			for ecotax_type in ('DEEE', 'PMCB'):
 				if ecopart_account in taxes_map[ecotax_type][vat_account]:
 					total_tax += taxes_map[ecotax_type][vat_account][ecopart_account]
+			# frappe.throw(str(taxes_map))
 			tax_rate = frappe.get_value('Account', vat_account, 'tax_rate')
 
 			ecopart_sales_taxes_and_charges = None
@@ -155,31 +157,30 @@ def update_ecopart_taxes_for_item(doc):
 			vat_sales_taxes_and_charges.row_id = row_id
 			vat_sales_taxes_and_charges.save()
 
-	doc.reload()
-	# Remove not used Taxes
-	for vat_account in used_vat_accounts:
-		tax_rate = frappe.get_value('Account', vat_account, 'tax_rate')
-		ecopart_sales_taxes_and_charges = None
-		row_id = 1
-		for taxe in doc.taxes:
-			if taxe.description == _('Eco Part {0}%'.format(str(tax_rate))):
-				ecopart_sales_taxes_and_charges = taxe
-				break
-			row_id += 1
-
-		if not ecopart_sales_taxes_and_charges:
-			continue
-
-		vat_sales_taxes_and_charges = None
-		for taxe in doc.taxes:
-			if taxe.description == _('Eco Part VAT: {0}'.format(str(tax_rate))):
-				vat_sales_taxes_and_charges = taxe
-				break
-
-		if ecopart_sales_taxes_and_charges:
-			doc.taxes.remove(ecopart_sales_taxes_and_charges)
-		if vat_sales_taxes_and_charges:
-			doc.taxes.remove(vat_sales_taxes_and_charges)
+	# # Remove not used Taxes
+	# for vat_account in used_vat_accounts:
+	# 	tax_rate = frappe.get_value('Account', vat_account, 'tax_rate')
+	# 	ecopart_sales_taxes_and_charges = None
+	# 	row_id = 1
+	# 	for taxe in doc.taxes:
+	# 		if taxe.description == _('Eco Part {0}%'.format(str(tax_rate))):
+	# 			ecopart_sales_taxes_and_charges = taxe
+	# 			break
+	# 		row_id += 1
+	#
+	# 	if not ecopart_sales_taxes_and_charges:
+	# 		continue
+	#
+	# 	vat_sales_taxes_and_charges = None
+	# 	for taxe in doc.taxes:
+	# 		if taxe.description == _('Eco Part VAT: {0}'.format(str(tax_rate))):
+	# 			vat_sales_taxes_and_charges = taxe
+	# 			break
+	#
+	# 	if ecopart_sales_taxes_and_charges:
+	# 		doc.taxes.remove(ecopart_sales_taxes_and_charges)
+	# 	if vat_sales_taxes_and_charges:
+	# 		doc.taxes.remove(vat_sales_taxes_and_charges)
 
 
 	from erpnext.controllers.taxes_and_totals import calculate_taxes_and_totals
