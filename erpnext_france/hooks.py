@@ -275,6 +275,7 @@ doc_events = {
 		"on_submit": [
 			"erpnext_france.utils.transaction_log.create_transaction_log",
 		],
+		"before_save": "erpnext_france.controllers.taxes.before_save"
 	},
 	"Payment Entry": {
 		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
@@ -287,7 +288,8 @@ doc_events = {
 	"Journal Entry": {"validate": "erpnext_france.controllers.journal_entry_down_payment.validate"},
 	"Company": {"after_insert": "erpnext_france.setup.setup_company_default"},
 	"Item": {"on_update": "erpnext_france.controllers.item.on_update"},
-	"Quotation": {"on_update": "erpnext_france.controllers.quotation.on_update"},
+	"Quotation": {"before_save": "erpnext_france.controllers.taxes.before_save"},
+	"Sales Order": {"before_save": "erpnext_france.controllers.taxes.before_save"},
 	"System Settings": {
 		# "on_update": 'erpnext_france.install.after_wizard'
 	},
