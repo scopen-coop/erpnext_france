@@ -9,15 +9,18 @@ def before_save(doc, method):
 
 
 def update_ecopart_taxes_for_item(doc):
+	if len(doc.items) == 0:
+		return
+
 	taxes_map, used_ecopart_accounts, used_vat_accounts = create_ecopart_taxes_map(doc)
-	account_to_delete, account_to_update = find_accounts_to_update_delete(doc, taxes_map, used_vat_accounts)
+	account_to_delete = find_accounts_to_update_delete(doc, taxes_map, used_vat_accounts)
 
 	# Remove not used Taxes
 	for vat_account in account_to_delete:
 		delete_ecopart_taxes(doc, vat_account)
 
 	for vat_account in used_vat_accounts:
-		if vat_account in taxes_map:
+		if vat_account in taxes_map.keys():
 			create_update_ecopart_taxes(doc, taxes_map, used_ecopart_accounts, vat_account)
 
 	# Recharge des numéros de ligne
@@ -29,24 +32,14 @@ def update_ecopart_taxes_for_item(doc):
 
 
 def find_accounts_to_update_delete(doc, taxes_map, used_vat_accounts):
-	account_to_update = []
 	accounts_vat = []
 	for tax in doc.taxes:
 		if tax.charge_type == 'On Net Total':
 			accounts_vat.append(tax.account_head)
 			continue
-		if tax.charge_type not in ('Actual', 'On Previous Row Amount'):
-			continue
-
-		for vat_tax in used_vat_accounts:
-			tax_rate = frappe.get_value('Account', vat_tax, 'tax_rate')
-
-			if vat_tax in taxes_map and taxes_map[vat_tax] and tax.description in _(
-					'Eco Part {0}%'.format(str(tax_rate))):
-				account_to_update.append(vat_tax)
 
 	account_to_delete = list(set(accounts_vat) - set(used_vat_accounts))
-	return account_to_delete, account_to_update
+	return account_to_delete
 
 
 def create_ecopart_taxes_map(doc):
@@ -101,20 +94,38 @@ def create_update_ecopart_taxes(doc, taxes_map, used_ecopart_accounts, vat_accou
 		total_tax = taxes_map[vat_account][ecopart_account]
 		tax_rate = frappe.get_value('Account', vat_account, 'tax_rate')
 		# Check if tax already exists
-		existing_ecopart = None
-		existing_vat = None
+		origin_vat_tax = None
+		ecopart_tax = None
+		ecopart_vat_tax = None
 
 		for taxe in doc.taxes:
-			if taxe.description == _('Eco Part {0}%'.format(str(tax_rate))) and taxe.account_head == ecopart_account:
-				existing_ecopart = taxe
-			elif taxe.description == _('Eco Part VAT: {0}'.format(str(tax_rate))) and taxe.account_head == vat_account:
-				existing_vat = taxe
+			if (
+					taxe.charge_type == 'Actual'
+					and taxe.description == _('Eco Part {0}%'.format(str(tax_rate)))
+					and taxe.account_head == ecopart_account
+			):
+				ecopart_tax = taxe
+			elif taxe.charge_type == 'On Previous Row Amount' and taxe.account_head == vat_account:
+				ecopart_vat_tax = taxe
+			elif taxe.charge_type == 'On Net Total' and taxe.account_head == vat_account:
+				origin_vat_tax = taxe
+
+		if not origin_vat_tax:
+			origin_vat_tax = frappe.get_doc({
+				'doctype': 'Sales Taxes and Charges',
+				'charge_type': 'On Net Total',
+				'description': str(vat_account),
+				'account_head': vat_account,
+				'parent': doc.name,
+				'parenttype': doc.doctype
+			})
+			doc.append("taxes", origin_vat_tax)
 
 		# Update existing tax rows if found
-		if existing_ecopart:
-			existing_ecopart.tax_amount = total_tax
+		if ecopart_tax:
+			ecopart_tax.tax_amount = total_tax
 		else:
-			existing_ecopart = frappe.get_doc({
+			ecopart_tax = frappe.get_doc({
 				'doctype': 'Sales Taxes and Charges',
 				'charge_type': 'Actual',
 				'description': _('Eco Part {0}%'.format(str(tax_rate))),
@@ -123,24 +134,24 @@ def create_update_ecopart_taxes(doc, taxes_map, used_ecopart_accounts, vat_accou
 				'parent': doc.name,
 				'parenttype': doc.doctype
 			})
-			doc.append("taxes", existing_ecopart)
+			doc.append("taxes", ecopart_tax)
 
-		if existing_vat:
-			existing_vat.tax_amount = total_tax * tax_rate / 100
-			existing_vat.row_id = existing_ecopart.idx
+		if ecopart_vat_tax:
+			ecopart_vat_tax.tax_amount = total_tax * tax_rate / 100
+			ecopart_vat_tax.row_id = ecopart_tax.idx
 		else:
-			existing_vat = frappe.get_doc({
+			ecopart_vat_tax = frappe.get_doc({
 				'doctype': 'Sales Taxes and Charges',
 				'charge_type': 'On Previous Row Amount',
 				'description': _('Eco Part VAT: {0}'.format(str(tax_rate))),
 				'account_head': vat_account,
 				'tax_amount': total_tax * tax_rate / 100,
-				'row_id': existing_ecopart.idx,
+				'row_id': ecopart_tax.idx,
 				'rate': tax_rate,
 				'parent': doc.name,
 				'parenttype': doc.doctype
 			})
-			doc.append("taxes", existing_vat)
+			doc.append("taxes", ecopart_vat_tax)
 
 
 def delete_ecopart_taxes(doc, vat_account):
