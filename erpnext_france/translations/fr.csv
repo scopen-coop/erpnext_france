@@ -547,3 +547,10 @@ Payment Terms Template Before Invoice, Modèle de termes de paiement avant factu
 Payment Schedule Before Invoice, Calendrier de paiement avant facture,
 Cannot Delete term {0} because its on a payment, Vous ne pouvez pas supprimer le terme de paiement {0} car celui çi a déjà été payé,
 Cannot Modify term {0} because its on a payment, Vous ne pouvez pas modifier le terme de paiement {0} car celui çi a déjà été payé,
+Eco Part, Eco Participation,
+Buy Account, Code Comptable Achat,
+Sell Account, Code Comptable Vente
+Item EcoTax, Ecotaxe sur l'article,
+Cannot Update EcoPart because there is no conversion factor between units, Le nouveau montant de l’Eco participation (onglet Taxe) ne peux être calculé car les conversions d’unités ne sont pas disponibles,
+Eco Part VAT: {0}, Eco Part TVA: {0},
+Eco Part {0}%:, Eco Participation {0}%,

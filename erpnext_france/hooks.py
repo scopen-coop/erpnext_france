@@ -46,9 +46,10 @@ fixtures = [
 					"GL Entry-export_date",
 					"Item-down_payment_percentage",
 					"Item-is_down_payment_item",
+					"Item-eco_part",
 					"Mode of Payment Account-discount_supplier_account",
 					"Mode of Payment Account-journal_label",
-					"Party Account-advance_account",
+					"Party Accountvariant-field-advance_account",
 					"Payment Entry-down_payment",
 					"Payment Entry-accounting_journal",
 					"Payment Entry-subscription",
@@ -191,6 +192,7 @@ fixtures = [
 		]]
 	},
 	{"dt": "Letter Head", "filters": [["name", "in", "France Letter Head"]]},
+	{"dt": "Variant Field", "filters": [["field_name", "in", "eco_part"]]},
 	{
 		"dt": "Bank Account Type",
 		"filters": [
@@ -238,6 +240,7 @@ doctype_js = {
 	"Sales Invoice": ["public/js/sales_invoice.js"],
 	"Quotation": ["public/js/quotation.js"],
 	"Company": ["public/js/company.js"],
+	"Item": ["public/js/item.js"]
 }
 
 doctype_list_js = {
@@ -321,6 +324,7 @@ doc_events = {
 		"on_submit": [
 			"erpnext_france.utils.transaction_log.create_transaction_log",
 		],
+		"before_save": "erpnext_france.controllers.taxes.before_save"
 	},
 	"Sales Order": {
 		"before_update_after_submit": "erpnext_france.controllers.sales_order.verify_sales_orders_terms",
@@ -335,6 +339,9 @@ doc_events = {
 	"Payment Ledger Entry": {"on_update": "erpnext_france.controllers.ple_down_payment.on_update"},
 	"Journal Entry": {"validate": "erpnext_france.controllers.journal_entry_down_payment.validate"},
 	"Company": {"after_insert": "erpnext_france.setup.setup_company_default"},
+	"Item": {"on_update": "erpnext_france.controllers.item.on_update"},
+	"Quotation": {"before_save": "erpnext_france.controllers.taxes.before_save"},
+	"Sales Order": {"before_save": "erpnext_france.controllers.taxes.before_save"},
 	"System Settings": {
 		# "on_update": 'erpnext_france.install.after_wizard'
 	},
@@ -400,3 +407,7 @@ override_doctype_dashboards = {
 }
 
 export_python_type_annotations = True
+
+# extend_bootinfo = [
+# 	"erpnext_france.startup.boot.boot_session",
+# ]
