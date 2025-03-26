@@ -41,10 +41,7 @@ erpnext.TransactionController.prototype.payment_terms_template = async function(
           }
         }
       });
-    } else {
-      console.log("here")
     }
-
   } else {
     me.frm.transaction_controller.payment_terms_template();
   }

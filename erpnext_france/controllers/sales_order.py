@@ -1,16 +1,16 @@
 import frappe
 from frappe import _
-
 from frappe.utils import getdate
+from erpnext.selling.doctype.sales_order.sales_order import make_sales_invoice
 
 
-# import erpnext.selling.doctype.sales_order.sales_order.make_sales_invoice
+@frappe.whitelist()
+def make_sales_invoice_with_payment_terms(source_name, target_doc=None, ignore_permissions=False):
+	doclist = make_sales_invoice(source_name, target_doc, ignore_permissions)
 
-# @frappe.whitelist()
-# def make_sales_invoice_with_payment_terms(source_name, target_doc=None, ignore_permissions=False):
-# 	doclist = make_sales_invoice(source_name, target_doc, ignore_permissions)
-#
-# 	return doclist
+	customer = frappe.get_doc('Customer', doclist.get("customer"))
+	doclist.payment_terms_template = customer.get('payment_terms')
+	return doclist
 
 
 def verify_sales_orders_terms(doc, method):

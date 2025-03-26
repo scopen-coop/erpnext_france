@@ -328,6 +328,7 @@ doc_events = {
 	},
 	"Sales Order": {
 		"before_update_after_submit": "erpnext_france.controllers.sales_order.verify_sales_orders_terms",
+		"before_save": "erpnext_france.controllers.taxes.before_save"
 	},
 	"Payment Entry": {
 		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
@@ -341,7 +342,6 @@ doc_events = {
 	"Company": {"after_insert": "erpnext_france.setup.setup_company_default"},
 	"Item": {"on_update": "erpnext_france.controllers.item.on_update"},
 	"Quotation": {"before_save": "erpnext_france.controllers.taxes.before_save"},
-	"Sales Order": {"before_save": "erpnext_france.controllers.taxes.before_save"},
 	"System Settings": {
 		# "on_update": 'erpnext_france.install.after_wizard'
 	},
@@ -380,7 +380,7 @@ override_whitelisted_methods = {
 	"erpnext.stock.get_item_details.get_item_details": "erpnext_france.controllers.get_item_details_down_payment.get_item_details_down_payment",
 	"erpnext.controllers.accounts_controller.get_payment_term_details": "erpnext_france.controllers.party.get_payment_term_details",
 	"erpnext.accounts.party.get_party_details": "erpnext_france.controllers.party.get_party_details",
-	# "erpnext.selling.doctype.sales_order.sales_order.make_sales_invoice": "erpnext_france.controllers.sales_order.make_sales_invoice_with_payment_terms"
+	"erpnext.selling.doctype.sales_order.sales_order.make_sales_invoice": "erpnext_france.controllers.sales_order.make_sales_invoice_with_payment_terms",
 }
 
 # Regional Overrides

@@ -23,7 +23,11 @@ from erpnext.accounts.party import (
 
 @frappe.whitelist()
 def get_party_account(
-		party_type, party=None, company=None, include_advance=False, down_payment=None
+	party_type,
+	party=None,
+	company=None,
+	include_advance=False,
+	down_payment=None
 ):
 	"""Returns the account for the given `party`.
 	Will first search in party (Customer / Supplier) record, if not found,
@@ -100,22 +104,22 @@ def get_party_advance_account(party_type, party, company):
 
 @frappe.whitelist()
 def get_party_details(
-		party=None,
-		account=None,
-		party_type="Customer",
-		company=None,
-		posting_date=None,
-		bill_date=None,
-		price_list=None,
-		currency=None,
-		doctype=None,
-		ignore_permissions=False,
-		fetch_payment_terms_template=True,
-		party_address=None,
-		company_address=None,
-		shipping_address=None,
-		pos_profile=None,
-		down_payment=None,
+	party=None,
+	account=None,
+	party_type="Customer",
+	company=None,
+	posting_date=None,
+	bill_date=None,
+	price_list=None,
+	currency=None,
+	doctype=None,
+	ignore_permissions=False,
+	fetch_payment_terms_template=True,
+	party_address=None,
+	company_address=None,
+	shipping_address=None,
+	pos_profile=None,
+	down_payment=None,
 ):
 	if not party:
 		return {}
@@ -142,22 +146,22 @@ def get_party_details(
 
 
 def _get_party_details(
-		party=None,
-		account=None,
-		party_type="Customer",
-		company=None,
-		posting_date=None,
-		bill_date=None,
-		price_list=None,
-		currency=None,
-		doctype=None,
-		ignore_permissions=False,
-		fetch_payment_terms_template=True,
-		party_address=None,
-		company_address=None,
-		shipping_address=None,
-		pos_profile=None,
-		down_payment=None,
+	party=None,
+	account=None,
+	party_type="Customer",
+	company=None,
+	posting_date=None,
+	bill_date=None,
+	price_list=None,
+	currency=None,
+	doctype=None,
+	ignore_permissions=False,
+	fetch_payment_terms_template=True,
+	party_address=None,
+	company_address=None,
+	shipping_address=None,
+	pos_profile=None,
+	down_payment=None,
 ):
 	party_details = frappe._dict(
 		set_account_and_due_date(
@@ -232,7 +236,14 @@ def _get_party_details(
 
 
 def set_account_and_due_date(
-		party, account, party_type, company, posting_date, bill_date, doctype, down_payment
+	party,
+	account,
+	party_type,
+	company,
+	posting_date,
+	bill_date,
+	doctype,
+	down_payment
 ):
 	if doctype not in ["POS Invoice", "Sales Invoice", "Purchase Invoice"]:
 		# not an invoice
@@ -290,7 +301,7 @@ def get_payment_terms_before_invoice(
 	delivery_date=None,
 	payment_terms_template=None
 ):
-	if doctype not in ('Quotation', 'Sales Order', 'Sales Invoice'):
+	if doctype not in ('Quotation', 'Sales Order'):
 		return
 
 	if not payment_terms_template:
@@ -345,12 +356,10 @@ def get_payment_term_details(
 
 def get_due_date_before_invoice(term, document_date, delivery_date):
 	due_date = None
-	if not term.credit_days:
-		return document_date
-
 	if term.date_computed_based_on == "Document Date":
-		due_date = add_days(document_date, term.credit_days)
-
+		due_date = document_date
 	elif term.date_computed_based_on == "Delivery Date":
+		if not term.credit_days:
+			return delivery_date or document_date
 		due_date = add_days(delivery_date, term.credit_days)
 	return due_date
