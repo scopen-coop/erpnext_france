@@ -411,3 +411,12 @@ export_python_type_annotations = True
 # extend_bootinfo = [
 # 	"erpnext_france.startup.boot.boot_session",
 # ]
+
+jinja = {
+    "methods": [
+        "erpnext_france.utils.jinja_methods.letter_head_by_doctype",
+        "erpnext_france.utils.jinja_methods.print_standard_document",
+        "erpnext_france.utils.jinja_methods.footer_by_doctype",
+    ],
+    # "filters": "technix.utils.jinja_filters"
+}
