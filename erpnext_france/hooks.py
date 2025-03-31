@@ -11,6 +11,7 @@ app_color = "#318CE7"
 app_email = "contact@scopen.fr"
 app_license = "GNU General Public License"
 source_link = "https://github.com/scopen-coop/erpnext_france"
+
 fixtures = [
 	{
 		"dt": "Custom Field",
@@ -49,7 +50,7 @@ fixtures = [
 					"Item-eco_part",
 					"Mode of Payment Account-discount_supplier_account",
 					"Mode of Payment Account-journal_label",
-					"Party Accountvariant-field-advance_account",
+					"Party Account-advance_account",
 					"Payment Entry-down_payment",
 					"Payment Entry-accounting_journal",
 					"Payment Entry-subscription",
@@ -414,7 +415,8 @@ export_python_type_annotations = True
 
 jinja = {
     "methods": [
-        "erpnext_france.utils.jinja_methods.build_ecopart_table"
+        "erpnext_france.utils.jinja_methods.build_ecopart_table",
+        "erpnext_france.utils.jinja_methods.get_ecopart_table"
     ],
     # "filters": "technix.utils.jinja_filters"
 }

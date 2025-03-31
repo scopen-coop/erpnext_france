@@ -80,3 +80,60 @@ def get_tax_map(doc):
 
 		tax_map[tax.account_head]["amount"] += tax.tax_amount
 	return tax_map
+
+
+def get_ecopart_table(doc):
+	html = """
+        <table class="table borderless table-condensed">
+            <tr>
+                <th class="verdana left">Dont</th>
+                <th class="verdana right">H.T.</th>
+                <th class="verdana right">T.V.A.</th>
+                <th class="verdana right">T.T.C.</th>
+            </tr>
+    """
+	ecopart_tax_map = get_ecopart_tax_map(doc)
+	for idx in ecopart_tax_map.keys():
+		line = ecopart_tax_map[idx]
+
+		html += f"""
+            <tr class="line_bordered">
+                <td>{line['description']}</td>
+                <td class="verdana right">{frappe.format_value(line['ht'], {"fieldtype": "Currency"})}</td>
+                <td class="verdana right">{frappe.format_value(line['tva'], {"fieldtype": "Currency"})}</td>
+                <td class="verdana right">{frappe.format_value(line['ht'] + line['tva'], {"fieldtype": "Currency"})}</td>
+            </tr>
+        """
+	html += f"""
+        </table>
+    """
+	return html
+
+
+def get_ecopart_tax_map(doc):
+	tax_map = {}
+	for tax in doc.taxes:
+		if tax.tax_amount == 0:
+			continue
+
+		if tax.charge_type == 'On Net Total':
+			continue
+
+		account = frappe.get_doc("Account", tax.account_head)
+		if tax.charge_type == 'Actual':
+			if str(tax.idx) not in tax_map:
+				tax_map[str(tax.idx)] = {
+					'ht': 0,
+					'tva': 0,
+					"description": tax.description,
+				}
+			tax_map[str(tax.idx)]["ht"] = tax.tax_amount
+		elif tax.charge_type == 'On Previous Row Amount' and tax.row_id:
+			if str(tax.row_id) not in tax_map:
+				tax_map[str(tax.row_id)] = {
+					'ht': 0,
+					'tva': 0,
+					'description': ''
+				}
+			tax_map[str(tax.row_id)]["tva"] += tax.tax_amount
+	return tax_map
