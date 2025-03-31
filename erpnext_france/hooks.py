@@ -414,9 +414,7 @@ export_python_type_annotations = True
 
 jinja = {
     "methods": [
-        "erpnext_france.utils.jinja_methods.letter_head_by_doctype",
-        "erpnext_france.utils.jinja_methods.print_standard_document",
-        "erpnext_france.utils.jinja_methods.footer_by_doctype",
+        "erpnext_france.utils.jinja_methods.build_ecopart_table"
     ],
     # "filters": "technix.utils.jinja_filters"
 }
