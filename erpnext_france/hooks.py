@@ -333,11 +333,11 @@ doc_events = {
 		"on_submit": [
 			"erpnext_france.utils.transaction_log.create_transaction_log",
 		],
-		# "before_save": "erpnext_france.controllers.taxes.before_save"
+		"before_save": "erpnext_france.controllers.taxes.before_save"
 	},
 	"Sales Order": {
 		"before_update_after_submit": "erpnext_france.controllers.sales_order.verify_sales_orders_terms",
-		# "before_save": "erpnext_france.controllers.taxes.before_save"
+		"before_save": "erpnext_france.controllers.taxes.before_save"
 	},
 	"Payment Entry": {
 		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
@@ -350,7 +350,7 @@ doc_events = {
 	"Journal Entry": {"validate": "erpnext_france.controllers.journal_entry_down_payment.validate"},
 	"Company": {"after_insert": "erpnext_france.setup.setup_company_default"},
 	"Item": {"on_update": "erpnext_france.controllers.item.on_update"},
-	# "Quotation": {"before_save": "erpnext_france.controllers.taxes.before_save"},
+	"Quotation": {"before_save": "erpnext_france.controllers.taxes.before_save"},
 	"System Settings": {
 		# "on_update": 'erpnext_france.install.after_wizard'
 	},
@@ -408,7 +408,7 @@ regional_overrides = {
 override_doctype_class = {
 	"Payment Entry": "erpnext_france.erpnext_france.overrides.doctype.payment_entry_down_payment.PaymentEntryDownPayment",
 	"Sales Invoice": "erpnext_france.erpnext_france.overrides.doctype.sales_invoice_down_payment.SalesInvoiceDownPayment",
-	# "Payment Terms Template": "erpnext_france.erpnext_france.overrides.doctype.payment_terms_template.PaymentTermsTemplateWithTermsBeforeInvoice",
+	"Payment Terms Template": "erpnext_france.erpnext_france.overrides.doctype.payment_terms_template.PaymentTermsTemplateWithTermsBeforeInvoice",
 }
 
 override_doctype_dashboards = {
