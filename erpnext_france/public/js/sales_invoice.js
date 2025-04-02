@@ -18,7 +18,6 @@ frappe.ui.form.on("Sales Invoice", {
         "grand_total",
       ]);
       total = total.message.grand_total;
-
       let down_payment_items = await frappe.db.get_list("Item", {
         fields: [
           "item_name",
@@ -178,27 +177,37 @@ const calculate_down_payment = (line) => {
     frappe.db.get_value(
       "Sales Order",
       line.sales_order,
-      ["base_total", "total"],
+      ["base_total", "total", 'grand_total'],
       (r) => {
         frappe.model.set_value(
           line.doctype,
           line.name,
           "price_list_rate",
-          (flt(line.down_payment_rate) / 100.0) * flt(r.total)
+          (flt(line.down_payment_rate) / 100.0) * flt(r.grand_total)
         );
         frappe.model.set_value(
           line.doctype,
           line.name,
           "base_rate",
-          (flt(line.down_payment_rate) / 100.0) * flt(r.base_total)
+          (flt(line.down_payment_rate) / 100.0) * flt(r.grand_total)
         );
         frappe.model.set_value(
           line.doctype,
           line.name,
           "rate",
-          (flt(line.down_payment_rate) / 100.0) * flt(r.total)
+          (flt(line.down_payment_rate) / 100.0) * flt(r.grand_total)
         );
       }
     );
   }
 };
+
+
+frappe.ui.form.on("Sales Invoice", {
+  customer: function (frm) {
+    frm.trigger('payment_terms_template');
+  },
+  due_date: function (frm) {
+    frm.trigger('payment_terms_template');
+  },
+});

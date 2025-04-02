@@ -50,7 +50,7 @@ fixtures = [
 					"Item-eco_part",
 					"Mode of Payment Account-discount_supplier_account",
 					"Mode of Payment Account-journal_label",
-					"Party Accountvariant-field-advance_account",
+					"Party Account-advance_account",
 					"Payment Entry-down_payment",
 					"Payment Entry-accounting_journal",
 					"Payment Entry-subscription",
