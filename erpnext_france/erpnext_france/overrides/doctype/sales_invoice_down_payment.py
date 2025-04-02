@@ -47,7 +47,7 @@ class SalesInvoiceDownPayment(SalesInvoice):
         if self.is_return and not self.update_billed_amount_in_sales_order:
             # NOTE status updating bypassed for is_return
             self.status_updater = []
-        frappe.msgprint(str(self.docstatus))
+
         self.update_status_updater_args()
         self.update_prevdoc_status()
 

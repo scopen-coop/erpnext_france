@@ -178,7 +178,6 @@ def update_against_document_in_jv(doc):
             }
         )
         lst.append(args)
-    frappe.throw(str(lst))
     if lst:
         from erpnext.accounts.utils import reconcile_against_document
 
