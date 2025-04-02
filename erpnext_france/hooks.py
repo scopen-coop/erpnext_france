@@ -166,31 +166,39 @@ fixtures = [
 		"filters": [["name", "in", "Règlement à 30 jours"]],
 	},
 	{
-		"dt": "Payment Term", "filters": [[
-			"name",
-			"in", (
-				"Règlement à 30 jours",
-				"30% à la commande",
-				"70% avant expédition",
-				"50% à la commande",
-				"50% avant expédition",
-				"100% à la commande",
-				"100% avant expédition",
-				"15 jours fin de mois",
-			)
-		]]
+		"dt": "Payment Term",
+		"filters": [
+			[
+				"name",
+				"in",
+				(
+					"Règlement à 30 jours",
+					"30% à la commande",
+					"70% avant expédition",
+					"50% à la commande",
+					"50% avant expédition",
+					"100% à la commande",
+					"100% avant expédition",
+					"15 jours fin de mois",
+				),
+			]
+		],
 	},
 	{
-		"dt": "Payment Terms Template", "filters": [[
-			"name",
-			"in", (
-				"30% à la commande, 70% avant expédition",
-				"50% à la commande, 50% avant expédition",
-				"100% à la commande",
-				"100% avant expédition",
-				"30 jours",
-			)
-		]]
+		"dt": "Payment Terms Template",
+		"filters": [
+			[
+				"name",
+				"in",
+				(
+					"30% à la commande, 70% avant expédition",
+					"50% à la commande, 50% avant expédition",
+					"100% à la commande",
+					"100% avant expédition",
+					"30 jours",
+				),
+			]
+		],
 	},
 	{"dt": "Letter Head", "filters": [["name", "in", "France Letter Head"]]},
 	{"dt": "Variant Field", "filters": [["field_name", "in", "eco_part"]]},
@@ -241,7 +249,7 @@ doctype_js = {
 	"Sales Invoice": ["public/js/sales_invoice.js"],
 	"Quotation": ["public/js/quotation.js"],
 	"Company": ["public/js/company.js"],
-	"Item": ["public/js/item.js"]
+	"Item": ["public/js/item.js"],
 }
 
 doctype_list_js = {
@@ -325,11 +333,11 @@ doc_events = {
 		"on_submit": [
 			"erpnext_france.utils.transaction_log.create_transaction_log",
 		],
-		"before_save": "erpnext_france.controllers.taxes.before_save"
+		# "before_save": "erpnext_france.controllers.taxes.before_save"
 	},
 	"Sales Order": {
 		"before_update_after_submit": "erpnext_france.controllers.sales_order.verify_sales_orders_terms",
-		"before_save": "erpnext_france.controllers.taxes.before_save"
+		# "before_save": "erpnext_france.controllers.taxes.before_save"
 	},
 	"Payment Entry": {
 		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
@@ -342,7 +350,7 @@ doc_events = {
 	"Journal Entry": {"validate": "erpnext_france.controllers.journal_entry_down_payment.validate"},
 	"Company": {"after_insert": "erpnext_france.setup.setup_company_default"},
 	"Item": {"on_update": "erpnext_france.controllers.item.on_update"},
-	"Quotation": {"before_save": "erpnext_france.controllers.taxes.before_save"},
+	# "Quotation": {"before_save": "erpnext_france.controllers.taxes.before_save"},
 	"System Settings": {
 		# "on_update": 'erpnext_france.install.after_wizard'
 	},
@@ -400,11 +408,11 @@ regional_overrides = {
 override_doctype_class = {
 	"Payment Entry": "erpnext_france.erpnext_france.overrides.doctype.payment_entry_down_payment.PaymentEntryDownPayment",
 	"Sales Invoice": "erpnext_france.erpnext_france.overrides.doctype.sales_invoice_down_payment.SalesInvoiceDownPayment",
-	"Payment Terms Template": "erpnext_france.erpnext_france.overrides.doctype.payment_terms_template.PaymentTermsTemplateWithTermsBeforeInvoice",
+	# "Payment Terms Template": "erpnext_france.erpnext_france.overrides.doctype.payment_terms_template.PaymentTermsTemplateWithTermsBeforeInvoice",
 }
 
 override_doctype_dashboards = {
-    "Payment Term": "erpnext_france.dashboard.payment_term.get_dashboard_data.get_dashboard_data",
+	# "Payment Term": "erpnext_france.dashboard.payment_term.get_dashboard_data.get_dashboard_data",
 }
 
 export_python_type_annotations = True
@@ -414,9 +422,9 @@ export_python_type_annotations = True
 # ]
 
 jinja = {
-    "methods": [
-        "erpnext_france.utils.jinja_methods.build_ecopart_table",
-        "erpnext_france.utils.jinja_methods.get_ecopart_table"
-    ],
-    # "filters": "technix.utils.jinja_filters"
+	"methods": [
+		"erpnext_france.utils.jinja_methods.build_ecopart_table",
+		"erpnext_france.utils.jinja_methods.get_ecopart_table",
+	],
+	# "filters": "technix.utils.jinja_filters"
 }
