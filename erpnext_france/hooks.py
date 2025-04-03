@@ -162,41 +162,6 @@ fixtures = [
 			]
 		],
 	},
-	{
-		"dt": "Payment Term",
-		"filters": [
-			[
-				"name",
-				"in",
-				(
-					"Règlement à 30 jours",
-					"30% à la commande",
-					"70% avant expédition",
-					"50% à la commande",
-					"50% avant expédition",
-					"100% à la commande",
-					"100% avant expédition",
-					"15 jours fin de mois",
-				),
-			]
-		],
-	},
-	{
-		"dt": "Payment Terms Template",
-		"filters": [
-			[
-				"name",
-				"in",
-				(
-					"30% à la commande, 70% avant expédition",
-					"50% à la commande, 50% avant expédition",
-					"100% à la commande",
-					"100% avant expédition",
-					"30 jours",
-				),
-			]
-		],
-	},
 	{"dt": "Letter Head", "filters": [["name", "in", "France Letter Head"]]},
 	{"dt": "Variant Field", "filters": [["field_name", "in", "eco_part"]]},
 	{
@@ -284,11 +249,13 @@ doctype_list_js = {
 # before_install = "erpnext_france.install.before_install"
 # after_install = "erpnext_france.install.after_install"
 after_install = "erpnext_france.install.after_install"
+after_sync = "erpnext_france.setup.make_payment_terms_fixtures"
 setup_wizard_complete = "erpnext_france.setup.setup_wizard_complete"
 after_migrate = [
 	"erpnext_france.migrate.move_subledger_account_by_company",
 	"erpnext_france.install.after_install",
 	"erpnext_france.setup.setup_migrate",
+	"erpnext_france.setup.make_payment_terms_fixtures"
 ]
 
 # setup_wizard_complete = "erpnext_france.install.after_wizard"

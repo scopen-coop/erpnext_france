@@ -3,7 +3,6 @@
 
 
 import frappe
-from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
 
 def move_subledger_account_by_company():
 	copy_subledger_account('Customer')

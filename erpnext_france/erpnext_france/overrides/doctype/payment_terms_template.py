@@ -36,12 +36,17 @@ class PaymentTermsTemplateWithTermsBeforeInvoice(PaymentTermsTemplate):
 
 
 	def verify_rows(self, term, terms):
-		if self.allocate_payment_based_on_payment_terms and not term.payment_term:
-			frappe.throw(_("Row {0}: Payment Term is mandatory").format(term.idx))
+		if self.allocate_payment_based_on_payment_terms and not term.get('payment_term'):
+			frappe.throw(_("Row {0}: Payment Term is mandatory").format(term.get('idx')))
 		if self.template_payment_terms_before_invoice:
 			return
 
-		term_info = (term.payment_term, term.credit_days, term.credit_months, term.due_date_based_on)
+		term_info = (
+			term.get('payment_term'),
+			term.get('credit_days'),
+			term.get('credit_months'),
+			term.get('due_date_based_on')
+		)
 		if term_info in terms:
 			frappe.msgprint(
 				_("The Payment Term at row {0} is possibly a duplicate.").format(term.idx),
