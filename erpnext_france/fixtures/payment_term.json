@@ -19,7 +19,7 @@
   "payment_terms_before_invoice": 1
  },
  {
-  "credit_days": 0,
+  "credit_days": 30,
   "credit_months": 0,
   "date_computed_based_on": "Delivery Date",
   "description": "70% avant expédition",
@@ -57,7 +57,7 @@
   "payment_terms_before_invoice": 1
  },
  {
-  "credit_days": 0,
+  "credit_days": 30,
   "credit_months": 0,
   "date_computed_based_on": "Delivery Date",
   "description": "50% avant expédition",
@@ -95,7 +95,7 @@
   "payment_terms_before_invoice": 1
  },
  {
-  "credit_days": 0,
+  "credit_days": 30,
   "credit_months": 0,
   "date_computed_based_on": "Delivery Date",
   "description": "100% avant expédition",
