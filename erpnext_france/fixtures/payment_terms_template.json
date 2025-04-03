@@ -1,6 +1,6 @@
 [
  {
-  "allocate_payment_based_on_payment_terms": 0,
+  "allocate_payment_based_on_payment_terms": 1,
   "docstatus": 0,
   "doctype": "Payment Terms Template",
   "modified": "2025-03-17 16:11:53.479277",
@@ -36,7 +36,7 @@
   "terms": []
  },
  {
-  "allocate_payment_based_on_payment_terms": 0,
+  "allocate_payment_based_on_payment_terms": 1,
   "docstatus": 0,
   "doctype": "Payment Terms Template",
   "modified": "2025-03-17 16:11:53.491851",
@@ -72,7 +72,7 @@
   "terms": []
  },
  {
-  "allocate_payment_based_on_payment_terms": 0,
+  "allocate_payment_based_on_payment_terms": 1,
   "docstatus": 0,
   "doctype": "Payment Terms Template",
   "modified": "2025-03-17 16:11:53.501178",
@@ -96,7 +96,7 @@
   "terms": []
  },
  {
-  "allocate_payment_based_on_payment_terms": 0,
+  "allocate_payment_based_on_payment_terms": 1,
   "docstatus": 0,
   "doctype": "Payment Terms Template",
   "modified": "2025-03-17 16:11:53.515845",
@@ -120,7 +120,7 @@
   "terms": []
  },
  {
-  "allocate_payment_based_on_payment_terms": 0,
+  "allocate_payment_based_on_payment_terms": 1,
   "docstatus": 0,
   "doctype": "Payment Terms Template",
   "modified": "2025-03-17 16:11:53.527630",

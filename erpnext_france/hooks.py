@@ -11,7 +11,6 @@ app_color = "#318CE7"
 app_email = "contact@scopen.fr"
 app_license = "GNU General Public License"
 source_link = "https://github.com/scopen-coop/erpnext_france"
-
 fixtures = [
 	{
 		"dt": "Custom Field",
@@ -123,6 +122,8 @@ fixtures = [
 					"Item Price-valid_upto-in_list_view",
 					"Payment Term-due_date_based_on-depends_on",
 					"Payment Term-section_break_8-depends_on",
+					"Payment Term-credit_days-depends_on",
+					"Payment Term-main-field_order",
 					"Payment Terms Template-terms-depends_on",
 					"Payment Terms Template-terms-mandatory_depends_on",
 					"Payment Terms Template-terms-reqd",
@@ -160,10 +161,6 @@ fixtures = [
 				),
 			]
 		],
-	},
-	{
-		"dt": "Payment Terms Template",
-		"filters": [["name", "in", "Règlement à 30 jours"]],
 	},
 	{
 		"dt": "Payment Term",
@@ -217,6 +214,7 @@ fixtures = [
 		],
 	},
 ]
+
 
 
 # fixtures = ["Custom Field"]
@@ -426,5 +424,4 @@ jinja = {
 		"erpnext_france.utils.jinja_methods.build_ecopart_table",
 		"erpnext_france.utils.jinja_methods.get_ecopart_table",
 	],
-	# "filters": "technix.utils.jinja_filters"
 }
