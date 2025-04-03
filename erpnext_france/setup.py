@@ -65,7 +65,8 @@ def setup_company_default(company, action):
 		company.db_set(account, account_map[account])
 
 	company.db_set("enable_perpetual_inventory", 0)
-	company.db_set("payment_terms", "Règlement à 30 jours")
+	company.db_set("payment_terms", "30 jours")
+	company.db_set("default_payment_terms_template_before_invoice", "30% à la commande, 70% avant expédition")
 	company.create_default_warehouses()
 	set_default_accounting_journal(company.company_name, company.abbr)
 
