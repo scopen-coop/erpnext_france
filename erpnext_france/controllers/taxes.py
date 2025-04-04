@@ -171,4 +171,5 @@ def delete_ecopart_taxes(doc, vat_account):
 	for taxe in to_remove:
 		doc.taxes.remove(taxe)
 
-	doc.db_update()
+	if not doc.is_new():
+		doc.db_update()

@@ -309,15 +309,16 @@ def get_payment_terms_before_invoice(
 
 	terms_doc = frappe.get_doc("Payment Terms Template", payment_terms_template)
 	schedule = []
-	for d in terms_doc.as_dict()["payment_terms_before_invoice"]:
-		term_details = get_payment_term_details(
-			d,
-			posting_date,
-			grand_total,
-			base_grand_total,
-			delivery_date
-		)
-		schedule.append(term_details)
+	if terms_doc.get("payment_terms_before_invoice"):
+		for d in terms_doc.get("payment_terms_before_invoice"):
+			term_details = get_payment_term_details(
+				d,
+				posting_date,
+				grand_total,
+				base_grand_total,
+				delivery_date
+			)
+			schedule.append(term_details)
 
 	return schedule
 
