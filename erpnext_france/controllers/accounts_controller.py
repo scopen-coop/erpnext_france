@@ -46,6 +46,21 @@ def get_down_payment(doc):
 
     return doc
 
+@frappe.whitelist()
+def get_down_payment_item_default(item_code):
+    item = frappe.get_doc('Item', item_code)
+
+    if not item or len(item.item_defaults) == 0:
+        frappe.throw(_('Item {0} does not has default settings'.format(item_code)))
+
+    for item_default in item.item_defaults:
+        if item_default.company != frappe.defaults.get_user_default("Company"):
+            continue
+
+        if item_default.income_account:
+            return item_default.income_account
+
+    frappe.throw(_('Missing Default Income Account On Item {0}'.format(item_code)))
 
 def get_advance_entries(doc):
     party_type = "Customer"

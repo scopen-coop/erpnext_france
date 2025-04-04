@@ -40,15 +40,15 @@ frappe.ui.form.on("Sales Invoice", {
         return;
       }
       let down_payment_item = down_payment_items[0];
-
-      let down_payment_item_defaults = await frappe.db.get_list(
-        "Item Default",
-        {
-          fields: ["company", "income_account"],
-          filters: { parent: down_payment_item.item_code },
+      let response = await frappe.call({
+        method:
+          "erpnext_france.controllers.accounts_controller.get_down_payment_item_default",
+        args: {
+          item_code: down_payment_item.item_code,
         }
-      );
-      if (down_payment_item_defaults.length === 0) {
+      });
+
+      if (!response || !response.message) {
         frm.set_value("is_down_payment_invoice", 0);
         frappe.throw(
           __(
@@ -57,12 +57,9 @@ frappe.ui.form.on("Sales Invoice", {
         );
         return;
       }
+      income_account = response.message
 
-      let down_payment_item_default = down_payment_item_defaults[0];
-      if (
-        down_payment_item_default.income_account === null ||
-        down_payment_item_default.income_account === ""
-      ) {
+      if (income_account === null || income_account === "") {
         frm.set_value("is_down_payment_invoice", 0);
         frappe.throw(
           __(
@@ -73,18 +70,13 @@ frappe.ui.form.on("Sales Invoice", {
       }
 
       down_payment_item.sales_order = so[0];
-      down_payment_item.rate =
-        (parseFloat(total) *
-          parseFloat(down_payment_item.down_payment_percentage)) /
-        100;
+      down_payment_item.rate = (parseFloat(total) * parseFloat(down_payment_item.down_payment_percentage)) / 100;
       down_payment_item.qty = 1;
       down_payment_item.amount = down_payment_item.rate;
       down_payment_item.uom = down_payment_item.stock_uom;
       down_payment_item.conversion_factor = 1;
-      down_payment_item.income_account =
-        down_payment_item_default.income_account;
-      down_payment_item.down_payment_rate =
-        down_payment_item.down_payment_percentage;
+      down_payment_item.income_account = income_account;
+      down_payment_item.down_payment_rate = down_payment_item.down_payment_percentage;
 
       frm.add_child("items", down_payment_item);
       frm.refresh_field("items");
