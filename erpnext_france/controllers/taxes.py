@@ -21,8 +21,9 @@ def update_ecopart_taxes_for_item(doc):
 			delete_ecopart_taxes(doc, vat_account)
 
 	for vat_account in used_vat_accounts:
-		create_update_ecopart_taxes(doc, taxes_map, used_ecopart_accounts, vat_account)
-		create_other_vat_taxes(doc, vat_account)
+		if vat_account:
+			create_update_ecopart_taxes(doc, taxes_map, used_ecopart_accounts, vat_account)
+			create_other_vat_taxes(doc, vat_account)
 
 	# Recharge des numéros de ligne
 	for i, tax in enumerate(doc.taxes, start=1):
