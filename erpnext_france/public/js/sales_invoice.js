@@ -57,7 +57,7 @@ frappe.ui.form.on("Sales Invoice", {
         );
         return;
       }
-      income_account = response.message
+      let income_account = response.message
 
       if (income_account === null || income_account === "") {
         frm.set_value("is_down_payment_invoice", 0);

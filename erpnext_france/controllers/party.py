@@ -265,7 +265,6 @@ def set_account_and_due_date(
 def get_payment_terms_template(party_name, party_type, company=None):
 	if party_type not in ("Customer", "Supplier"):
 		return
-	template = None
 
 	if party_type == "Customer":
 		customer = frappe.get_cached_value(

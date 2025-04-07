@@ -21,8 +21,8 @@ def update_ecopart_taxes_for_item(doc):
 			delete_ecopart_taxes(doc, vat_account)
 
 	for vat_account in used_vat_accounts:
-		if vat_account in taxes_map.keys():
-			create_update_ecopart_taxes(doc, taxes_map, used_ecopart_accounts, vat_account)
+		create_update_ecopart_taxes(doc, taxes_map, used_ecopart_accounts, vat_account)
+		create_other_vat_taxes(doc, vat_account)
 
 	# Recharge des numéros de ligne
 	for i, tax in enumerate(doc.taxes, start=1):
@@ -30,6 +30,31 @@ def update_ecopart_taxes_for_item(doc):
 
 	from erpnext.controllers.taxes_and_totals import calculate_taxes_and_totals
 	calculate_taxes_and_totals(doc)
+
+
+def create_other_vat_taxes(doc, vat_account):
+	origin_vat_tax = None
+	account = frappe.get_doc('Account', vat_account)
+	for taxe in doc.taxes:
+		if (
+				taxe.charge_type == 'On Net Total'
+				and taxe.account_head == vat_account
+		):
+			origin_vat_tax = taxe
+			if taxe.rate != account.tax_rate:
+				taxe.rate = account.tax_rate
+
+	if not origin_vat_tax:
+		origin_vat_tax = frappe.get_doc({
+			'doctype': 'Sales Taxes and Charges',
+			'charge_type': 'On Net Total',
+			'description': str(vat_account),
+			'account_head': vat_account,
+			'rate': account.tax_rate,
+			'parent': doc.name,
+			'parenttype': doc.doctype
+		})
+		doc.append("taxes", origin_vat_tax)
 
 
 def find_accounts_to_update_delete(doc, used_vat_accounts):
@@ -50,9 +75,6 @@ def create_ecopart_taxes_map(doc):
 	for doc_item in doc.items:
 		item = frappe.get_doc('Item', doc_item.item_code)
 
-		if not len(item.eco_part):
-			continue
-
 		tax_vat_account = None
 		if doc_item.item_tax_template:
 			item_tax_template = frappe.get_doc('Item Tax Template', doc_item.item_tax_template)
@@ -67,10 +89,19 @@ def create_ecopart_taxes_map(doc):
 					taxes_map[tax.account_head] = {}
 				tax_vat_account = tax.account_head
 		else:
-			taxes_map[None] = {}
+			if len(item.taxes) > 0:
+				item_tax_template = frappe.get_doc('Item Tax Template', item.taxes[0].get('item_tax_template'))
+
+				for tax in item_tax_template.taxes:
+					if tax.tax_type not in taxes_map:
+						taxes_map[tax.tax_type] = {}
+					tax_vat_account = tax.tax_type
 
 		if tax_vat_account not in used_vat_accounts:
 			used_vat_accounts.append(tax_vat_account)
+
+		if not len(item.eco_part):
+			continue
 
 		for ecopart in item.eco_part:
 			if (
