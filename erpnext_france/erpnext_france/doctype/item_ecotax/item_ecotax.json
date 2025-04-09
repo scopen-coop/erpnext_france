@@ -16,7 +16,8 @@
    "fieldname": "amount",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Amount"
+   "label": "Amount",
+   "precision": "6"
   },
   {
    "fieldname": "buy_account",
@@ -44,12 +45,13 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-03-20 14:07:37.719737",
+ "modified": "2025-04-08 11:00:53.903793",
  "modified_by": "Administrator",
  "module": "ERPNext France",
  "name": "Item EcoTax",
  "owner": "Administrator",
  "permissions": [],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []
