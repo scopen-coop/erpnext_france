@@ -340,14 +340,19 @@ def get_payment_term_details(
 	term_details.invoice_portion = term.get('invoice_portion')
 	term_details.payment_amount = flt(term.get('invoice_portion')) * flt(grand_total) / 100
 	term_details.base_payment_amount = flt(term.get('invoice_portion')) * flt(base_grand_total) / 100
-	term_details.discount_type = term.get('discount_type')
-	term_details.discount = term.get('discount')
 	term_details.outstanding = term_details.get('payment_amount')
 	term_details.mode_of_payment = term.get('mode_of_payment')
 
 	term_details.due_date = get_due_date_before_invoice(term, posting_date, delivery_date)
 
-	term_details.discount_date = get_discount_date(term, posting_date, delivery_date)
+	term_details.discount_type = term.get('discount_type')
+	term_details.discount = term.get('discount')
+
+	if term.get('discount_validity_based_on'):
+		term_details.discount_date = get_discount_date(term, posting_date, delivery_date)
+	else:
+		term_details.discount_date = None
+
 	if getdate(term_details.due_date) < getdate(posting_date):
 		term_details.due_date = posting_date
 
