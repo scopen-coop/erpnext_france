@@ -334,16 +334,16 @@ def get_payment_term_details(
 	if isinstance(term, str):
 		term = frappe.get_doc("Payment Term", term)
 	else:
-		term_details.payment_term = term.payment_term
+		term_details.payment_term = term.get('payment_term')
 
-	term_details.description = term.description
-	term_details.invoice_portion = term.invoice_portion
-	term_details.payment_amount = flt(term.invoice_portion) * flt(grand_total) / 100
-	term_details.base_payment_amount = flt(term.invoice_portion) * flt(base_grand_total) / 100
-	term_details.discount_type = term.discount_type
-	term_details.discount = term.discount
-	term_details.outstanding = term_details.payment_amount
-	term_details.mode_of_payment = term.mode_of_payment
+	term_details.description = term.get('description')
+	term_details.invoice_portion = term.get('invoice_portion')
+	term_details.payment_amount = flt(term.get('invoice_portion')) * flt(grand_total) / 100
+	term_details.base_payment_amount = flt(term.get('invoice_portion')) * flt(base_grand_total) / 100
+	term_details.discount_type = term.get('discount_type')
+	term_details.discount = term.get('discount')
+	term_details.outstanding = term_details.get('payment_amount')
+	term_details.mode_of_payment = term.get('mode_of_payment')
 
 	term_details.due_date = get_due_date_before_invoice(term, posting_date, delivery_date)
 
@@ -356,10 +356,10 @@ def get_payment_term_details(
 
 def get_due_date_before_invoice(term, document_date, delivery_date):
 	due_date = None
-	if term.date_computed_based_on == "Document Date":
+	if term.get('date_computed_based_on') == "Document Date":
 		due_date = document_date
-	elif term.date_computed_based_on == "Delivery Date":
-		if not term.credit_days:
+	elif term.get('date_computed_based_on') == "Delivery Date":
+		if not term.get('credit_days'):
 			return delivery_date or document_date
-		due_date = add_days(delivery_date, term.credit_days)
+		due_date = add_days(delivery_date, term.get('credit_days'))
 	return due_date
