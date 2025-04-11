@@ -141,9 +141,12 @@ fixtures = [
 					"Quotation-payment_terms_template-label",
 					"Purchase Order Item-supplier_part_no-print_hide",
 					"Purchase Order Item-supplier_part_no-hidden",
+					"Purchase Order Item-supplier_part_no-read_only",
 					"Request for Quotation Item-supplier_part_no-hidden",
+					"Request for Quotation Item-supplier_part_no-read_only",
 					"Supplier Quotation Item-supplier_part_no-print_hide",
 					"Supplier Quotation Item-supplier_part_no-hidden",
+					"Supplier Quotation Item-supplier_part_no-read_only",
 				),
 			]
 		],
