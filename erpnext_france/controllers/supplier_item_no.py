@@ -1,11 +1,20 @@
 import frappe
 
-def before_save(doc, method):
-	if not 0 < len(doc.suppliers) < 2 :
+
+def before_save_request_for_quotation(doc, method):
+	if not 0 < len(doc.suppliers) < 2:
 		doc.before_save()
 		return
 
 	update_supplier_part_no(doc, doc.suppliers[0].supplier)
+
+
+def before_save(doc, method):
+	if not doc.supplier:
+		doc.before_save()
+		return
+
+	update_supplier_part_no(doc, doc.supplier)
 
 
 def update_supplier_part_no(doc, supplier):

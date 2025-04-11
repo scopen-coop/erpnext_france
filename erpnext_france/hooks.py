@@ -297,10 +297,17 @@ after_migrate = [
 
 doc_events = {
 	"Purchase Invoice": {
-		"on_submit": "erpnext_france.erpnext_france.purchase_invoice.purchase_invoice.correct_gl_entry_supplier_discount"
+		"on_submit": "erpnext_france.erpnext_france.purchase_invoice.purchase_invoice.correct_gl_entry_supplier_discount",
+		"before_save": "erpnext_france.controllers.supplier_item_no.before_save",
+	},
+	"Purchase Order": {
+		"before_save": "erpnext_france.controllers.supplier_item_no.before_save",
+	},
+	"Supplier Quotation": {
+		"before_save": "erpnext_france.controllers.supplier_item_no.before_save",
 	},
 	"Request for Quotation": {
-		"before_save": "erpnext_france.controllers.supplier_item_no.before_save",
+		"before_save": "erpnext_france.controllers.supplier_item_no.before_save_request_for_quotation",
 	},
 	"Sales Invoice": {
 		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
