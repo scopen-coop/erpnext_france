@@ -80,6 +80,7 @@ fixtures = [
 					"Payment Term-date_computed_based_on",
 					"Payment Terms Template-template_payment_terms_before_invoice",
 					"Payment Terms Template-payment_terms_before_invoice",
+					"Purchase Invoice Item-supplier_part_no",
 				),
 			],
 		],
@@ -138,6 +139,11 @@ fixtures = [
 					"Sales Order-payment_terms_template-label",
 					"Quotation-payment_schedule-label",
 					"Quotation-payment_terms_template-label",
+					"Purchase Order Item-supplier_part_no-print_hide",
+					"Purchase Order Item-supplier_part_no-hidden",
+					"Request for Quotation Item-supplier_part_no-hidden",
+					"Supplier Quotation Item-supplier_part_no-print_hide",
+					"Supplier Quotation Item-supplier_part_no-hidden",
 				),
 			]
 		],
@@ -293,6 +299,9 @@ doc_events = {
 	"Purchase Invoice": {
 		"on_submit": "erpnext_france.erpnext_france.purchase_invoice.purchase_invoice.correct_gl_entry_supplier_discount"
 	},
+	"Request for Quotation": {
+		"before_save": "erpnext_france.controllers.supplier_item_no.before_save",
+	},
 	"Sales Invoice": {
 		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
 		"on_submit": [
@@ -315,6 +324,7 @@ doc_events = {
 	"Journal Entry": {"validate": "erpnext_france.controllers.journal_entry_down_payment.validate"},
 	"Company": {"after_insert": "erpnext_france.setup.setup_company_default"},
 	"Item": {"on_update": "erpnext_france.controllers.item.on_update"},
+	"Item Price": {"on_update": "erpnext_france.controllers.item_price.before_save"},
 	"Quotation": {"before_save": "erpnext_france.controllers.taxes.before_save"},
 	"System Settings": {
 		# "on_update": 'erpnext_france.install.after_wizard'
