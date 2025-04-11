@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<title>Diff file</title>
+<style>
+    table{
+        border: 1px solid black;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    th, td {
+        border: 1px solid black;
+    }
+    .child_table{
+        border: none;
+        width: 100%;
+    }
+    .child_td{
+        border: none;
+        width: 50%;    
+}
+</style>
+</head>
+<body>
+<table>
+<caption>
+custom_field
+</caption>
+<thead>
+<tr>
+<th>Doctype</th>
+<th>Fieldname</th>
+<th>Before/After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Purchase Invoice Item</td>
+<td>supplier_part_no</td>
+<td>
+<table class="child_table">
+<tbody>
+<tr>
+<td class="child_td">read_only : 1</td>
+<td class="child_td">read_only : 0</td>
+</tr>
+<tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td>Item</td>
+<td>eco_part</td>
+<td>
+<table class="child_table">
+<tbody>
+<tr>
+<td class="child_td">insert_after : pmcb_rates</td>
+<td class="child_td">insert_after : taxes</td>
+</tr>
+<tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>
+property_setters
+</caption>
+<thead>
+<tr>
+<th>Doctype</th>
+<th>Fieldname</th>
+<th>Property</th>
+<th>Before/After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Supplier Quotation Item</td>
+<td>supplier_part_no</td>
+<td>read_only</td>
+<td>
+<table class="child_table">
+<tr>
+<td class="child_td"></td>
+<td class="child_td">doctype : Property Setter</td>
+</tr>
+<tr>
+<td class="child_td"></td>
+<td class="child_td">doctype_or_field : DocField</td>
+</tr>
+<tr>
+<td class="child_td"></td>
+<td class="child_td">field_name : supplier_part_no</td>
+</tr>
+<tr>
+<td class="child_td"></td>
+<td class="child_td">property : read_only</td>
+</tr>
+<tr>
+<td class="child_td"></td>
+<td class="child_td">value : 0</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td>Request for Quotation Item</td>
+<td>supplier_part_no</td>
+<td>read_only</td>
+<td>
+<table class="child_table">
+<tr>
+<td class="child_td"></td>
+<td class="child_td">doctype : Property Setter</td>
+</tr>
+<tr>
+<td class="child_td"></td>
+<td class="child_td">doctype_or_field : DocField</td>
+</tr>
+<tr>
+<td class="child_td"></td>
+<td class="child_td">field_name : supplier_part_no</td>
+</tr>
+<tr>
+<td class="child_td"></td>
+<td class="child_td">property : read_only</td>
+</tr>
+<tr>
+<td class="child_td"></td>
+<td class="child_td">value : 0</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td>Purchase Order Item</td>
+<td>supplier_part_no</td>
+<td>read_only</td>
+<td>
+<table class="child_table">
+<tr>
+<td class="child_td"></td>
+<td class="child_td">doctype : Property Setter</td>
+</tr>
+<tr>
+<td class="child_td"></td>
+<td class="child_td">doctype_or_field : DocField</td>
+</tr>
+<tr>
+<td class="child_td"></td>
+<td class="child_td">field_name : supplier_part_no</td>
+</tr>
+<tr>
+<td class="child_td"></td>
+<td class="child_td">property : read_only</td>
+</tr>
+<tr>
+<td class="child_td"></td>
+<td class="child_td">value : 0</td>
+</tr>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
