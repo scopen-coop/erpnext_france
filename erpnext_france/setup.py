@@ -5,10 +5,10 @@ import json
 import os
 
 import frappe
-from frappe.utils import cint
+from frappe import _
 from frappe.desk.page.setup_wizard.setup_wizard import make_records
 from frappe.exceptions import DoesNotExistError
-from frappe import _
+from frappe.utils import cint
 
 
 def make_payment_terms_fixtures():
@@ -142,7 +142,7 @@ def set_4191_account_type(args):
 	if not account:
 		return
 
-	account.account_type = "Income Account"
+	account.account_type = "Payable"
 	account.save()
 
 
@@ -218,9 +218,7 @@ def set_default_stock_settings():
 	frappe.db.set_single_value("Stock Settings", "valuation_method", "Moving Average")
 	frappe.db.set_single_value("Stock Settings", "stock_uom", "Unité")
 	frappe.db.set_default("stock_uom", "Unité")
-	frappe.db.set_single_value(
-		"Stock Settings", "auto_insert_price_list_rate_if_missing", 1
-	)
+	frappe.db.set_single_value("Stock Settings", "auto_insert_price_list_rate_if_missing", 1)
 
 
 def set_default_accounting_journal(company_name, company_abbr):
