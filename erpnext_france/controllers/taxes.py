@@ -32,7 +32,7 @@ def update_ecopart_taxes_for_item(doc):
 
 	for vat_account in used_vat_accounts:
 		if vat_account:
-			create_update_ecopart_taxes(
+			create_update_ecopart_with_vat_taxes(
 				doc,
 				taxes_map,
 				item_wise_tax_detail_before_tva,
@@ -40,21 +40,31 @@ def update_ecopart_taxes_for_item(doc):
 				used_ecopart_accounts,
 				vat_account
 			)
-			create_update_vat_tax(doc, item_wise_tax_detail_standard_tva, vat_account)
+			create_update_vat_taxes(doc, item_wise_tax_detail_standard_tva, vat_account)
 		else:
-			for ecopart_account in used_ecopart_accounts:
-				delete_ecopart_taxes(doc, ecopart_account)
-				if ecopart_account in item_wise_tax_detail_before_tva:
-					item_tax_wise = item_wise_tax_detail_before_tva[ecopart_account]
-					total_tax = taxes_map[None][ecopart_account]
-					create_update_ecotax(doc, ecopart_account, None, item_tax_wise, total_tax)
+			create_update_ecopart_without_vat_taxes(
+				doc,
+				item_wise_tax_detail_before_tva,
+				taxes_map,
+				used_ecopart_accounts
+			)
 
-	# Recharge des numéros de ligne
+	doc.taxes.sort(key=lambda tax_obj: tax_obj.charge_type == "On Previous Row Amount")
+	# # Recharge des numéros de ligne
 	for i, tax in enumerate(doc.taxes, start=1):
 		tax.idx = i
 
 	from erpnext.controllers.taxes_and_totals import calculate_taxes_and_totals
 	calculate_taxes_and_totals(doc)
+
+
+def create_update_ecopart_without_vat_taxes(doc, item_wise_tax_detail_before_tva, taxes_map, used_ecopart_accounts):
+	for ecopart_account in used_ecopart_accounts:
+		delete_ecopart_taxes(doc, ecopart_account)
+		if ecopart_account in item_wise_tax_detail_before_tva:
+			item_tax_wise = item_wise_tax_detail_before_tva[ecopart_account]
+			total_tax = taxes_map[None][ecopart_account]
+			create_update_ecotax(doc, ecopart_account, None, item_tax_wise, total_tax)
 
 
 def find_accounts_to_update_delete(doc, used_vat_accounts):
@@ -233,7 +243,7 @@ def build_item_wise_taxes_map(item_map, taxes_itemised_map, taxes_map, used_ecop
 	return item_wise_tax_detail_before_tva, item_wise_tax_detail_standard_tva, item_wise_tax_detail_with_tva
 
 
-def create_update_ecopart_taxes(
+def create_update_ecopart_with_vat_taxes(
 		doc,
 		taxes_map,
 		item_wise_tax_detail_before_tva,
@@ -283,7 +293,7 @@ def create_update_ecopart_taxes(
 			)
 
 
-def create_update_vat_tax(doc, item_wise_tax_detail_standard_tva, vat_account):
+def create_update_vat_taxes(doc, item_wise_tax_detail_standard_tva, vat_account):
 	vat_tax = None
 	for tax in doc.taxes:
 		if (
