@@ -29,6 +29,7 @@ def update_ecopart_taxes_for_item(doc):
 		if vat_account:
 			delete_ecopart_taxes(doc, vat_account)
 
+
 	for vat_account in used_vat_accounts:
 		if vat_account:
 			create_update_ecopart_taxes(
@@ -82,17 +83,20 @@ def create_ecopart_taxes_map(doc):
 		if vat_account not in used_vat_accounts:
 			used_vat_accounts.append(vat_account)
 
-		if not len(item.eco_part):
-			continue
+		if len(item.eco_part):
+			create_item_and_tax_maps_with_ecopart(
+				doc_item,
+				item,
+				taxes_itemised_map,
+				taxes_map,
+				vat_account,
+				used_ecopart_accounts
+			)
 
-		create_item_and_tax_maps(
+		create_item_and_tax_maps_without_ecopart(
 			doc_item,
-			item,
 			item_map,
-			taxes_itemised_map,
-			taxes_map,
 			vat_account,
-			used_ecopart_accounts
 		)
 
 	(
@@ -141,10 +145,9 @@ def init_taxes_map_and_vat_account(doc, doc_item, item, taxes_map):
 	return vat_account
 
 
-def create_item_and_tax_maps(
+def create_item_and_tax_maps_with_ecopart(
 	doc_item,
 	item,
-	item_map,
 	taxes_itemised_map,
 	taxes_map,
 	vat_account,
@@ -167,35 +170,48 @@ def create_item_and_tax_maps(
 		if doc_item.item_code not in taxes_itemised_map[vat_account][ecopart.sell_account]:
 			taxes_itemised_map[vat_account][ecopart.sell_account][doc_item.item_code] = 0
 
-		if vat_account not in item_map:
-			item_map[vat_account] = {}
-
-		if doc_item.item_code not in item_map[vat_account]:
-			item_map[vat_account][doc_item.item_code] = 0
-
-		item_map[vat_account][doc_item.item_code] += doc_item.amount
 		taxes_map[vat_account][ecopart.sell_account] += ecopart.amount * doc_item.qty
 		taxes_itemised_map[vat_account][ecopart.sell_account][doc_item.item_code] += ecopart.amount * doc_item.qty
 
 		if ecopart.sell_account not in used_ecopart_accounts:
 			used_ecopart_accounts.append(ecopart.sell_account)
 
+def create_item_and_tax_maps_without_ecopart(
+	doc_item,
+	item_map,
+	vat_account,
+):
+	if vat_account not in item_map:
+		item_map[vat_account] = {}
+
+	if doc_item.item_code not in item_map[vat_account]:
+		item_map[vat_account][doc_item.item_code] = 0
+
+	item_map[vat_account][doc_item.item_code] += doc_item.amount
+
+
 
 def build_item_wise_taxes_map(item_map, taxes_itemised_map, taxes_map, used_ecopart_accounts, used_vat_accounts):
 	item_wise_tax_detail_standard_tva = {}
 	item_wise_tax_detail_before_tva = {}
 	item_wise_tax_detail_with_tva = {}
-	for ecopart_account in used_ecopart_accounts:
-		for vat_account in used_vat_accounts:
-			if vat_account not in taxes_map or ecopart_account not in taxes_map[vat_account]:
+	for vat_account in used_vat_accounts:
+		if vat_account not in taxes_map:
+			continue
+
+		if not vat_account in item_wise_tax_detail_with_tva:
+			item_wise_tax_detail_with_tva[vat_account] = {}
+			item_wise_tax_detail_standard_tva[vat_account] = {}
+
+		tax_rate = frappe.get_value('Account', vat_account, 'tax_rate') or 0
+
+		for ecopart_account in used_ecopart_accounts:
+			if ecopart_account not in taxes_map[vat_account]:
 				continue
 
-			tax_rate = frappe.get_value('Account', vat_account, 'tax_rate') or 0
+
 			tax_itemised = taxes_itemised_map[vat_account][ecopart_account]
 
-			if not vat_account in item_wise_tax_detail_with_tva:
-				item_wise_tax_detail_with_tva[vat_account] = {}
-				item_wise_tax_detail_standard_tva[vat_account] = {}
 			if not ecopart_account in item_wise_tax_detail_with_tva[vat_account]:
 				item_wise_tax_detail_with_tva[vat_account][ecopart_account] = {}
 
@@ -203,16 +219,17 @@ def build_item_wise_taxes_map(item_map, taxes_itemised_map, taxes_map, used_ecop
 				item_wise_tax_detail_before_tva[ecopart_account] = {}
 
 			for item_key in tax_itemised.keys():
-				item_wise_tax_detail_standard_tva[vat_account][item_key] = [
-					tax_rate,
-					item_map[vat_account][item_key] * tax_rate / 100
-				]
-
 				item_wise_tax_detail_before_tva[ecopart_account][item_key] = tax_itemised[item_key]
 				item_wise_tax_detail_with_tva[vat_account][ecopart_account][item_key] = [
 					tax_rate,
 					tax_itemised[item_key] * tax_rate / 100
 				]
+		for item_key in item_map[vat_account].keys():
+			item_wise_tax_detail_standard_tva[vat_account][item_key] = [
+				tax_rate,
+				item_map[vat_account][item_key] * tax_rate / 100
+			]
+
 	return item_wise_tax_detail_before_tva, item_wise_tax_detail_standard_tva, item_wise_tax_detail_with_tva
 
 
