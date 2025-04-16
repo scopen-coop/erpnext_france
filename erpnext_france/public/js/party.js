@@ -44,6 +44,13 @@ frappe.ui.form.on("Customer", "onload", function (frm) {
       },
     };
   });
+  frm.set_query("payment_terms", function () {
+    return {
+      filters: {
+        template_payment_terms_before_invoice: 0,
+      },
+    };
+  });
 });
 
 frappe.ui.form.on("Supplier", "onload", function (frm) {

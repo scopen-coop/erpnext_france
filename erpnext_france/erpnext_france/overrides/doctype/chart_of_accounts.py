@@ -13,7 +13,7 @@ from erpnext.accounts.doctype.account.chart_of_accounts.chart_of_accounts import
 
 
 @frappe.whitelist()
-def get_charts_for_fr(country, with_standard=False):
+def get_charts_for_country_fr(country, with_standard=False):
 	charts = []
 
 	def _get_chart_name(content):
