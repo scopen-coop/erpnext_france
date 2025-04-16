@@ -49,7 +49,7 @@ def update_ecopart_taxes_for_item(doc):
 				used_ecopart_accounts
 			)
 
-	doc.taxes.sort(key=lambda tax_obj: tax_obj.charge_type == "On Previous Row Amount")
+	doc.taxes.sort(key=lambda tax_obj: tax_obj.charge_type in ["On Previous Row Amount", "On Previous Row Total"])
 	# # Recharge des numéros de ligne
 	for i, tax in enumerate(doc.taxes, start=1):
 		tax.idx = i
