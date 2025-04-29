@@ -29,7 +29,6 @@ def update_ecopart_taxes_for_item(doc):
 		if vat_account:
 			delete_ecopart_taxes(doc, vat_account)
 
-
 	for vat_account in used_vat_accounts:
 		if vat_account:
 			create_update_ecopart_with_vat_taxes(
@@ -49,13 +48,40 @@ def update_ecopart_taxes_for_item(doc):
 				used_ecopart_accounts
 			)
 
-	doc.taxes.sort(key=lambda tax_obj: tax_obj.charge_type in ["On Previous Row Amount", "On Previous Row Total"])
-	# # Recharge des numéros de ligne
 	for i, tax in enumerate(doc.taxes, start=1):
 		tax.idx = i
 
+	reorder_tax(doc)
+
 	from erpnext.controllers.taxes_and_totals import calculate_taxes_and_totals
 	calculate_taxes_and_totals(doc)
+
+def reorder_tax(doc):
+	# Étape 1 : Séparer les taxes selon leur type
+	regular_taxes = [tax for tax in doc.taxes if tax.charge_type == "On Net Total"]
+	ecopart_taxes = [tax for tax in doc.taxes if tax.charge_type == "Actual"]
+	dependent_taxes = [tax for tax in doc.taxes if tax.charge_type not in ["On Net Total", "Actual"]]
+
+	# Étape 2 : Réorganiser les taxes dans le bon ordre
+	reordered_taxes = regular_taxes + ecopart_taxes + dependent_taxes
+
+	# Étape 3 : Mémoriser les anciens idx avant modification
+	old_idx_map = {id(tax): tax.idx for tax in reordered_taxes}
+
+	# Étape 4 : Réassigner les nouveaux idx et créer le mapping ancien_idx -> nouveau_idx
+	old_to_new_idx = {}
+	for new_idx, tax in enumerate(reordered_taxes, start=1):
+		old_idx = old_idx_map[id(tax)]
+		old_to_new_idx[old_idx] = new_idx
+		tax.idx = new_idx
+
+	# Étape 5 : Mettre à jour les row_id pour les taxes dépendantes
+	for tax in reordered_taxes:
+		if hasattr(tax, "row_id") and tax.row_id in old_to_new_idx:
+			tax.row_id = old_to_new_idx[tax.row_id]
+
+	# Étape 6 : Réassigner la liste finale à doc.taxes
+	doc.taxes = reordered_taxes
 
 
 def create_update_ecopart_without_vat_taxes(doc, item_wise_tax_detail_before_tva, taxes_map, used_ecopart_accounts):
@@ -63,8 +89,9 @@ def create_update_ecopart_without_vat_taxes(doc, item_wise_tax_detail_before_tva
 		delete_ecopart_taxes(doc, ecopart_account)
 		if ecopart_account in item_wise_tax_detail_before_tva:
 			item_tax_wise = item_wise_tax_detail_before_tva[ecopart_account]
-			total_tax = taxes_map[None][ecopart_account]
-			create_update_ecotax(doc, ecopart_account, None, item_tax_wise, total_tax)
+			if taxes_map is not None and None in taxes_map:
+				total_tax = taxes_map[None][ecopart_account]
+				create_update_ecotax(doc, ecopart_account, None, item_tax_wise, total_tax)
 
 
 def find_accounts_to_update_delete(doc, used_vat_accounts):
@@ -102,13 +129,12 @@ def create_ecopart_taxes_map(doc):
 				vat_account,
 				used_ecopart_accounts
 			)
-
-		create_item_and_tax_maps_without_ecopart(
-			doc_item,
-			item_map,
-			vat_account,
-		)
-
+		else :
+			create_item_and_tax_maps_without_ecopart(
+				doc_item,
+				item_map,
+				vat_account,
+			)
 	(
 		item_wise_tax_detail_before_tva,
 		item_wise_tax_detail_standard_tva,
@@ -234,11 +260,12 @@ def build_item_wise_taxes_map(item_map, taxes_itemised_map, taxes_map, used_ecop
 					tax_rate,
 					tax_itemised[item_key] * tax_rate / 100
 				]
-		for item_key in item_map[vat_account].keys():
-			item_wise_tax_detail_standard_tva[vat_account][item_key] = [
-				tax_rate,
-				item_map[vat_account][item_key] * tax_rate / 100
-			]
+		if vat_account in item_map:
+			for item_key in item_map[vat_account].keys():
+				item_wise_tax_detail_standard_tva[vat_account][item_key] = [
+					tax_rate,
+					item_map[vat_account][item_key] * tax_rate / 100
+				]
 
 	return item_wise_tax_detail_before_tva, item_wise_tax_detail_standard_tva, item_wise_tax_detail_with_tva
 
@@ -330,7 +357,7 @@ def create_update_vat_taxes(doc, item_wise_tax_detail_standard_tva, vat_account)
 def create_update_ecotax(doc, ecopart_account, ecopart_tax, item_tax_wise, total_tax):
 	# Update existing tax rows if found
 	if ecopart_tax:
-		ecopart_tax.tax_amount = total_tax
+		ecopart_tax.tax_amount += total_tax
 		ecopart_tax.item_wise_tax_detail = json.dumps(item_tax_wise)
 		ecopart_tax.dont_recompute_tax = True
 	else:
@@ -440,7 +467,7 @@ def update_itemised_tax_data(doc):
 		# If not then look up in item_wise_tax_detail
 		if item_tax_rate and hasattr(item_tax_rate, "items"):
 			for tax, tax_rate_detail in item_tax_rate.items():
-				tax_rate += tax_rate_detail
+				tax_rate += tax_rate_detail if tax_rate_detail else 0
 
 		elif row.item_code and valid_itemised_tax.get(row.item_code):
 			item_specific_rates = [
