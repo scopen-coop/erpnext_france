@@ -357,7 +357,7 @@ def create_update_vat_taxes(doc, item_wise_tax_detail_standard_tva, vat_account)
 def create_update_ecotax(doc, ecopart_account, ecopart_tax, item_tax_wise, total_tax):
 	# Update existing tax rows if found
 	if ecopart_tax:
-		ecopart_tax.tax_amount += total_tax
+		ecopart_tax.tax_amount = total_tax
 		ecopart_tax.item_wise_tax_detail = json.dumps(item_tax_wise)
 		ecopart_tax.dont_recompute_tax = True
 	else:
