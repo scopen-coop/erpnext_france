@@ -23,11 +23,8 @@ def update_ecopart_taxes_for_item(doc):
 		used_vat_accounts
 	) = create_ecopart_taxes_map(doc)
 
-	account_to_delete = find_accounts_to_update_delete(doc, used_vat_accounts)
 	# Remove not used Taxes
-	for vat_account in account_to_delete:
-		if vat_account:
-			delete_ecopart_taxes(doc, vat_account)
+	delete_taxes(doc)
 
 	for vat_account in used_vat_accounts:
 		if vat_account:
@@ -86,23 +83,11 @@ def reorder_tax(doc):
 
 def create_update_ecopart_without_vat_taxes(doc, item_wise_tax_detail_before_tva, taxes_map, used_ecopart_accounts):
 	for ecopart_account in used_ecopart_accounts:
-		delete_ecopart_taxes(doc, ecopart_account)
 		if ecopart_account in item_wise_tax_detail_before_tva:
 			item_tax_wise = item_wise_tax_detail_before_tva[ecopart_account]
 			if taxes_map is not None and None in taxes_map:
 				total_tax = taxes_map[None][ecopart_account]
 				create_update_ecotax(doc, ecopart_account, None, item_tax_wise, total_tax)
-
-
-def find_accounts_to_update_delete(doc, used_vat_accounts):
-	accounts_vat = []
-	for tax in doc.taxes:
-		if tax.charge_type == 'On Net Total':
-			accounts_vat.append(tax.account_head)
-			continue
-
-	account_to_delete = list(set(accounts_vat) - set(used_vat_accounts))
-	return account_to_delete
 
 
 def create_ecopart_taxes_map(doc):
@@ -129,12 +114,12 @@ def create_ecopart_taxes_map(doc):
 				vat_account,
 				used_ecopart_accounts
 			)
-		else :
-			create_item_and_tax_maps_without_ecopart(
-				doc_item,
-				item_map,
-				vat_account,
-			)
+		create_item_and_tax_maps_without_ecopart(
+			doc_item,
+			item_map,
+			vat_account,
+		)
+
 	(
 		item_wise_tax_detail_before_tva,
 		item_wise_tax_detail_standard_tva,
@@ -190,11 +175,10 @@ def create_item_and_tax_maps_with_ecopart(
 	used_ecopart_accounts
 ):
 	for ecopart in item.eco_part:
-		if (
-			vat_account not in taxes_map
-			or ecopart.sell_account not in taxes_map[vat_account]
-		):
+		if vat_account not in taxes_map:
 			taxes_map[vat_account] = {}
+
+		if ecopart.sell_account not in taxes_map[vat_account]:
 			taxes_map[vat_account][ecopart.sell_account] = 0
 
 		if vat_account not in taxes_itemised_map:
@@ -278,7 +262,6 @@ def create_update_ecopart_with_vat_taxes(
 		used_ecopart_accounts,
 		vat_account
 ):
-
 	for ecopart_account in used_ecopart_accounts:
 		if ecopart_account not in taxes_map[vat_account]:
 			continue
@@ -292,11 +275,15 @@ def create_update_ecopart_with_vat_taxes(
 		for tax in doc.taxes:
 			if (
 					tax.charge_type == 'Actual'
-					and tax.description == _('Eco Part')
 					and tax.account_head == ecopart_account
+					and tax.description == ecopart_account
 			):
 				ecopart_tax = tax
-			elif tax.charge_type == 'On Previous Row Amount' and tax.account_head == vat_account:
+			elif (
+					tax.charge_type == 'On Previous Row Amount'
+					and tax.account_head == vat_account
+					and tax.description == _('Eco Part VAT: {0}').format(str(ecopart_account))
+			):
 				ecopart_vat_tax = tax
 
 		if ecopart_account in item_wise_tax_detail_before_tva:
@@ -313,6 +300,7 @@ def create_update_ecopart_with_vat_taxes(
 			create_update_vat_on_ecotax(
 				doc,
 				ecopart_tax.idx,
+				ecopart_account,
 				ecopart_vat_tax,
 				total_tax,
 				item_tax_wise,
@@ -357,14 +345,24 @@ def create_update_vat_taxes(doc, item_wise_tax_detail_standard_tva, vat_account)
 def create_update_ecotax(doc, ecopart_account, ecopart_tax, item_tax_wise, total_tax):
 	# Update existing tax rows if found
 	if ecopart_tax:
-		ecopart_tax.tax_amount = total_tax
-		ecopart_tax.item_wise_tax_detail = json.dumps(item_tax_wise)
+		# Load existing item_wise_tax_detail
+		existing_tax_detail = json.loads(ecopart_tax.item_wise_tax_detail) if ecopart_tax.item_wise_tax_detail else {}
+
+		# Update with new values
+		for key, value in item_tax_wise.items():
+			if key in existing_tax_detail:
+				existing_tax_detail[key] += value
+			else:
+				existing_tax_detail[key] = value
+
+		ecopart_tax.tax_amount += total_tax
+		ecopart_tax.item_wise_tax_detail = json.dumps(existing_tax_detail)
 		ecopart_tax.dont_recompute_tax = True
 	else:
 		ecopart_tax = frappe.get_doc({
 			'doctype': 'Sales Taxes and Charges',
 			'charge_type': 'Actual',
-			'description': _('Eco Part'),
+			'description': ecopart_account,
 			'account_head': ecopart_account,
 			'tax_amount': total_tax,
 			'parent': doc.name,
@@ -379,6 +377,7 @@ def create_update_ecotax(doc, ecopart_account, ecopart_tax, item_tax_wise, total
 def create_update_vat_on_ecotax(
 		doc,
 		ecopart_tax_idx,
+		ecopart_account,
 		ecopart_vat_tax,
 		total_tax,
 		item_tax_wise,
@@ -387,14 +386,24 @@ def create_update_vat_on_ecotax(
 	tax_rate = frappe.get_value('Account', vat_account, 'tax_rate') or 0
 
 	if ecopart_vat_tax:
+		# Load existing item_wise_tax_detail
+		existing_tax_detail = json.loads(ecopart_vat_tax.item_wise_tax_detail) if ecopart_vat_tax.item_wise_tax_detail else {}
+
+		# Update with new values
+		for key, value in item_tax_wise.items():
+			if key in existing_tax_detail:
+				existing_tax_detail[key] += value
+			else:
+				existing_tax_detail[key] = value
+
 		ecopart_vat_tax.tax_amount = total_tax * tax_rate / 100
-		ecopart_vat_tax.item_wise_tax_detail = json.dumps(item_tax_wise)
+		ecopart_vat_tax.item_wise_tax_detail = json.dumps(existing_tax_detail)
 		ecopart_vat_tax.row_id = ecopart_tax_idx
 	else:
 		ecopart_vat_tax = frappe.get_doc({
 			'doctype': 'Sales Taxes and Charges',
 			'charge_type': 'On Previous Row Amount',
-			'description': _('Eco Part VAT: {0}'.format(str(tax_rate))),
+			'description': _('Eco Part VAT: {0}').format(str(ecopart_account)),
 			'account_head': vat_account,
 			'tax_amount': total_tax * tax_rate / 100,
 			'row_id': ecopart_tax_idx,
@@ -407,15 +416,10 @@ def create_update_vat_on_ecotax(
 		doc.append("taxes", ecopart_vat_tax)
 
 
-def delete_ecopart_taxes(doc, vat_account):
-	tax_rate = frappe.get_value('Account', vat_account, 'tax_rate')
+def delete_taxes(doc):
 	to_remove = []
 	for taxe in doc.taxes:
-		if (
-			taxe.account_head == vat_account
-			or taxe.description in [_('Eco Part'), _('Eco Part VAT: {0}'.format(str(tax_rate)))]
-		):
-			to_remove.append(taxe)
+		to_remove.append(taxe)
 
 	# Ensure the removal actually happens
 	for taxe in to_remove:
