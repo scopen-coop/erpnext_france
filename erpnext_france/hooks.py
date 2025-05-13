@@ -34,6 +34,7 @@ fixtures = [
 					"Company-capital",
 					"Company-type_export_fec",
 					"Company-column_break_898956",
+					"Company-default_payment_terms_template_before_invoice",
 					"Customer-check_vat_id",
 					"Customer-code_naf",
 					"Customer-incoterm",
