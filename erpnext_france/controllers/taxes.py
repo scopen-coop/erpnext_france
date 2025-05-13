@@ -47,8 +47,6 @@ def update_ecopart_taxes_for_item(doc):
 
 	for i, tax in enumerate(doc.taxes, start=1):
 		tax.idx = i
-		frappe.msgprint(str(tax.as_dict()))
-		frappe.msgprint(str(tax.item_wise_tax_detail))
 
 	reorder_tax(doc)
 
@@ -310,7 +308,6 @@ def create_update_ecopart_with_vat_taxes(
 				and ecopart_account in item_wise_tax_detail_with_tva[vat_account]
 		):
 			item_tax_wise = item_wise_tax_detail_with_tva[vat_account][ecopart_account]
-
 			create_update_vat_on_ecotax(
 				doc,
 				ecopart_tax.idx,
@@ -343,12 +340,11 @@ def create_update_vat_taxes(doc, item_wise_tax_detail_standard_tva, vat_account)
 		tax_amount += value[1]
 
 	# Update with new values
-	for key, value in item_tax_wise.items():
-		value = value[1]
+	new_item_tax_wise = {key: value[1] for key, value in item_tax_wise.items()}
 
 	if vat_tax:
 		vat_tax.tax_amount = tax_amount
-		vat_tax.item_wise_tax_detail = json.dumps(item_tax_wise)
+		vat_tax.item_wise_tax_detail = json.dumps(new_item_tax_wise)
 		vat_tax.dont_recompute_tax = True
 		vat_tax.save()
 	else:
@@ -361,7 +357,7 @@ def create_update_vat_taxes(doc, item_wise_tax_detail_standard_tva, vat_account)
 			'parenttype': doc.doctype,
 			'tax_amount': tax_amount,
 			'rate': tax_rate,
-			'item_wise_tax_detail': json.dumps(item_tax_wise),
+			'item_wise_tax_detail': json.dumps(new_item_tax_wise),
 			'dont_recompute_tax': True,
 		})
 		vat_tax.insert()
