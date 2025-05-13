@@ -23,7 +23,7 @@ def update_ecopart_taxes_for_item(doc):
 		used_vat_accounts
 	) = create_ecopart_taxes_map(doc)
 
-	# Remove not used Taxes
+	# Remove all Taxes
 	delete_taxes(doc)
 
 	for vat_account in used_vat_accounts:
@@ -47,6 +47,8 @@ def update_ecopart_taxes_for_item(doc):
 
 	for i, tax in enumerate(doc.taxes, start=1):
 		tax.idx = i
+		frappe.msgprint(str(tax.as_dict()))
+		frappe.msgprint(str(tax.item_wise_tax_detail))
 
 	reorder_tax(doc)
 
@@ -340,10 +342,15 @@ def create_update_vat_taxes(doc, item_wise_tax_detail_standard_tva, vat_account)
 		tax_rate = value[0]
 		tax_amount += value[1]
 
+	# Update with new values
+	for key, value in item_tax_wise.items():
+		value = value[1]
+
 	if vat_tax:
 		vat_tax.tax_amount = tax_amount
 		vat_tax.item_wise_tax_detail = json.dumps(item_tax_wise)
 		vat_tax.dont_recompute_tax = True
+		vat_tax.save()
 	else:
 		vat_tax = frappe.get_doc({
 			'doctype': 'Sales Taxes and Charges',
@@ -357,8 +364,8 @@ def create_update_vat_taxes(doc, item_wise_tax_detail_standard_tva, vat_account)
 			'item_wise_tax_detail': json.dumps(item_tax_wise),
 			'dont_recompute_tax': True,
 		})
+		vat_tax.insert()
 		doc.append("taxes", vat_tax)
-
 
 def create_update_ecotax(doc, vat_account, ecopart_account, ecopart_tax, item_tax_wise, total_tax):
 	# Update existing tax rows if found
@@ -407,7 +414,6 @@ def create_update_vat_on_ecotax(
 	if ecopart_vat_tax:
 		# Load existing item_wise_tax_detail
 		existing_tax_detail = json.loads(ecopart_vat_tax.item_wise_tax_detail) if ecopart_vat_tax.item_wise_tax_detail else {}
-
 		# Update with new values
 		for key, value in item_tax_wise.items():
 			if key in existing_tax_detail:
