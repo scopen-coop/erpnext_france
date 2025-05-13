@@ -55,11 +55,12 @@ def update_ecopart_taxes_for_item(doc):
 
 def reorder_tax(doc):
 	# Étape 1 : Séparer les taxes selon leur type
-	regular_taxes = [tax for tax in doc.taxes if tax.charge_type == "Actual"]
+	regular_taxes = [tax for tax in doc.taxes if tax.charge_type == "Actual" and not tax.ecotax]
+	ecopart_taxes = [tax for tax in doc.taxes if tax.charge_type == "Actual" and tax.ecotax]
 	dependent_taxes = [tax for tax in doc.taxes if tax.charge_type not in ["Actual"]]
 
 	# Étape 2 : Réorganiser les taxes dans le bon ordre
-	reordered_taxes = regular_taxes + dependent_taxes
+	reordered_taxes = regular_taxes + ecopart_taxes + dependent_taxes
 
 	# Étape 3 : Mémoriser les anciens idx avant modification
 	old_idx_map = {id(tax): tax.idx for tax in reordered_taxes}
@@ -384,6 +385,7 @@ def create_update_ecotax(doc, vat_account, ecopart_account, ecopart_tax, item_ta
 		ecopart_tax = frappe.get_doc({
 			'doctype': 'Sales Taxes and Charges',
 			'charge_type': 'Actual',
+			'ecotax': True,
 			'description': ecopart_account + "\n" + str(vat_account),
 			'account_head': ecopart_account,
 			'tax_amount': total_tax,
