@@ -46,6 +46,21 @@ def get_down_payment(doc):
 
     return doc
 
+@frappe.whitelist()
+def get_down_payment_item_default(item_code):
+    item = frappe.get_doc('Item', item_code)
+
+    if not item or len(item.item_defaults) == 0:
+        frappe.throw(_('Item {0} does not has default settings'.format(item_code)))
+
+    for item_default in item.item_defaults:
+        if item_default.company != frappe.defaults.get_user_default("Company"):
+            continue
+
+        if item_default.income_account:
+            return item_default.income_account
+
+    frappe.throw(_('Missing Default Income Account On Item {0}'.format(item_code)))
 
 def get_advance_entries(doc):
     party_type = "Customer"
@@ -174,13 +189,20 @@ def update_against_document_in_jv(doc):
                     "Company", doc.company, "exchange_gain_loss_account"
                 ),
                 "exchange_gain_loss": flt(d.get("exchange_gain_loss")),
+                "difference_posting_date": d.get("difference_posting_date"),
             }
         )
         lst.append(args)
     if lst:
         from erpnext.accounts.utils import reconcile_against_document
 
-        reconcile_against_document(lst)
+        # pass dimension values to utility method
+        active_dimensions = get_dimensions()[0]
+        for x in lst:
+            for dim in active_dimensions:
+                if self.get(dim.fieldname):
+                    x.update({dim.fieldname: self.get(dim.fieldname)})
+        reconcile_against_document(lst, active_dimensions=active_dimensions)
 
 
 def set_total_advance_paid(doc):
@@ -401,5 +423,7 @@ def get_advance_payment_entries(
             .orderby(pe.posting_date)
             .run(as_dict=True)
         )
+
+
 
     return list(payment_entries_against_order)

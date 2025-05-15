@@ -43,8 +43,14 @@ class SalesInvoiceDownPayment(SalesInvoice):
             )
 
         self.check_prev_docstatus()
+
+        if self.is_return and not self.update_billed_amount_in_sales_order:
+            # NOTE status updating bypassed for is_return
+            self.status_updater = []
+
         self.update_status_updater_args()
         self.update_prevdoc_status()
+
         self.update_billing_status_in_dn()
         self.clear_unallocated_mode_of_payments()
 
@@ -59,6 +65,7 @@ class SalesInvoiceDownPayment(SalesInvoice):
 
         if self.update_stock == 1:
             self.repost_future_sle_and_gle()
+
 
         self.update_billing_status_for_zero_amount_refdoc("Delivery Note")
         self.update_billing_status_for_zero_amount_refdoc("Sales Order")

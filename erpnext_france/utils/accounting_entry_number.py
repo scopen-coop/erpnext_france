@@ -35,7 +35,6 @@ def add_accounting_entry_number(gl_entry, action):
 	#                     update_modified=False)
 	gl_entry.accounting_entry_number = accounting_entry_number
 	gl_entry.accounting_journal = get_accounting_journal(gl_entry)
-
 	gl_entry.save()
 
 

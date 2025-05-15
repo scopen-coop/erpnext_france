@@ -536,3 +536,25 @@ Décalage par défaut,Quart par défaut
 Shift Schedule,Planification des quarts
 Shift Schedule Assignment,Affect. plan. des quarts
 Shift Assignment Tool,Affect. planning des quarts en masse
+Payment Term Before Invoice, Terme de paiement avant facture,
+Payment Terms Before Invoice, Termes de paiements avant facture,
+Template Payment Terms Before Invoice, Modèle de termes de paiement avant facture,
+Date Computed Based On, Date caculée à partir de,
+Document Date, Date du document,
+Payment Terms Template Detail Before Invoice, Détail du modèle de conditions de paiement avant facture,
+Default Payment Terms Template Before Invoice, Modèle de termes de paiement par défaut avant facture,
+Payment Terms Template Before Invoice, Modèle de termes de paiement avant facture,
+Payment Schedule Before Invoice, Calendrier de paiement avant facture,
+Cannot Delete term {0} because its on a payment, Vous ne pouvez pas supprimer le terme de paiement {0} car celui çi a déjà été payé,
+Cannot Modify term {0} because its on a payment, Vous ne pouvez pas modifier le terme de paiement {0} car celui çi a déjà été payé,
+Eco Part, Eco Participation,
+Buy Account, Code Comptable Achat,
+Sell Account, Code Comptable Vente
+Item EcoTax, Ecotaxe sur l'article,
+Cannot Update EcoPart because there is no conversion factor between units, Le nouveau montant de l’Eco participation (onglet Taxe) ne peux être calculé car les conversions d’unités ne sont pas disponibles,
+Eco Part VAT: {0}, Eco Part TVA: {0},
+Eco Part {0}%:, Eco Participation {0}%,
+Sales Order Number, Numéro de la commande client,
+Unit Price, Prix Unitaire,
+Item {0} does not has default settings, Les paramètres par défaut de l'article {0} n'ont pas été remplis,
+Missing Default Income Account On Item {0}, Il manque le Compte de produit (vente) par défaut dans les paramètre par défaut de l'article {0},

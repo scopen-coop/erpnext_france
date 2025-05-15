@@ -1,17 +1,6 @@
 # Copyright (c) 2023, Scopen and contributors
 # For license information, please see license.txt
 
-import erpnext
-from erpnext.accounts.doctype.account.chart_of_accounts.chart_of_accounts import get_chart
-
-import erpnext_france
-from erpnext_france.overrides.chart_of_accounts import get_charts_for_fr
-
-erpnext.accounts.doctype.account.chart_of_accounts.chart_of_accounts.get_chart = (
-	erpnext_france.overrides.chart_of_accounts.get_charts_for_fr
-)
-
-
 app_name = "erpnext_france"
 app_title = "ERPNext France"
 app_publisher = "Scopen"
@@ -21,7 +10,6 @@ app_color = "#318CE7"
 app_email = "contact@scopen.fr"
 app_license = "GNU General Public License"
 source_link = "https://github.com/scopen-coop/erpnext_france"
-
 fixtures = [
 	{
 		"dt": "Custom Field",
@@ -51,11 +39,13 @@ fixtures = [
 					"Customer-legal_form",
 					"Customer-siret",
 					"Customer-siren",
+					"Customer-default_payment_terms_template_before_invoice",
 					"GL Entry-accounting_entry_number",
 					"GL Entry-accounting_journal",
 					"GL Entry-export_date",
 					"Item-down_payment_percentage",
 					"Item-is_down_payment_item",
+					"Item-eco_part",
 					"Mode of Payment Account-discount_supplier_account",
 					"Mode of Payment Account-journal_label",
 					"Party Account-advance_account",
@@ -85,6 +75,11 @@ fixtures = [
 					"Supplier-siret",
 					"Supplier-siren",
 					"Party Account-subledger_account",
+					"Payment Term-payment_terms_before_invoice",
+					"Payment Term-date_computed_based_on",
+					"Payment Terms Template-template_payment_terms_before_invoice",
+					"Payment Terms Template-payment_terms_before_invoice",
+					"Purchase Invoice Item-supplier_part_no",
 				),
 			],
 		],
@@ -125,6 +120,32 @@ fixtures = [
 					"Item Price-uom-in_list_view",
 					"Item Price-valid_from-in_list_view",
 					"Item Price-valid_upto-in_list_view",
+					"Payment Term-due_date_based_on-depends_on",
+					"Payment Term-section_break_8-depends_on",
+					"Payment Term-credit_days-depends_on",
+					"Payment Term-main-field_order",
+					"Payment Terms Template-terms-depends_on",
+					"Payment Terms Template-terms-mandatory_depends_on",
+					"Payment Terms Template-terms-reqd",
+					"Payment Terms Template Detail-payment_term-link_filters",
+					"Payment Schedule-payment_term-allow_on_submit",
+					"Payment Schedule-description-allow_on_submit",
+					"Payment Schedule-due_date-allow_on_submit",
+					"Payment Schedule-payment_amount-allow_on_submit",
+					"Payment Schedule-invoice_portion-allow_on_submit",
+					"Sales Order-payment_schedule-label",
+					"Sales Order-payment_schedule-allow_on_submit",
+					"Sales Order-payment_terms_template-label",
+					"Quotation-payment_schedule-label",
+					"Quotation-payment_terms_template-label",
+					"Purchase Order Item-supplier_part_no-print_hide",
+					"Purchase Order Item-supplier_part_no-hidden",
+					"Purchase Order Item-supplier_part_no-read_only",
+					"Request for Quotation Item-supplier_part_no-hidden",
+					"Request for Quotation Item-supplier_part_no-read_only",
+					"Supplier Quotation Item-supplier_part_no-print_hide",
+					"Supplier Quotation Item-supplier_part_no-hidden",
+					"Supplier Quotation Item-supplier_part_no-read_only",
 				),
 			]
 		],
@@ -149,12 +170,8 @@ fixtures = [
 			]
 		],
 	},
-	{
-		"dt": "Payment Terms Template",
-		"filters": [["name", "in", "Règlement à 30 jours"]],
-	},
-	{"dt": "Payment Term", "filters": [["name", "in", "Règlement à 30 jours"]]},
 	{"dt": "Letter Head", "filters": [["name", "in", "France Letter Head"]]},
+	{"dt": "Variant Field", "filters": [["field_name", "in", "eco_part"]]},
 	{
 		"dt": "Bank Account Type",
 		"filters": [
@@ -171,6 +188,7 @@ fixtures = [
 	},
 ]
 
+
 # fixtures = ["Custom Field"]
 
 # Includes in <head>
@@ -179,6 +197,7 @@ fixtures = [
 # include js, css files in header of desk.html
 # app_include_css = "/assets/erpnext_france/css/erpnext_france.css"
 # app_include_js = "/assets/erpnext_france/js/erpnext_france.js"
+app_include_js = ["erpnext_france.bundle.js"]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/erpnext_france/css/erpnext_france.css"
@@ -198,7 +217,9 @@ doctype_js = {
 	"Sales Order": ["public/js/sales_order.js"],
 	"Purchase Invoice": ["public/js/purchase_invoice.js"],
 	"Sales Invoice": ["public/js/sales_invoice.js"],
+	"Quotation": ["public/js/quotation.js"],
 	"Company": ["public/js/company.js"],
+	"Item": ["public/js/item.js"],
 }
 
 doctype_list_js = {
@@ -235,11 +256,13 @@ doctype_list_js = {
 # before_install = "erpnext_france.install.before_install"
 # after_install = "erpnext_france.install.after_install"
 after_install = "erpnext_france.install.after_install"
+after_sync = "erpnext_france.setup.make_payment_terms_fixtures"
 setup_wizard_complete = "erpnext_france.setup.setup_wizard_complete"
 after_migrate = [
 	"erpnext_france.migrate.move_subledger_account_by_company",
 	"erpnext_france.install.after_install",
 	"erpnext_france.setup.setup_migrate",
+	"erpnext_france.setup.make_payment_terms_fixtures",
 ]
 
 # setup_wizard_complete = "erpnext_france.install.after_wizard"
@@ -275,13 +298,28 @@ after_migrate = [
 
 doc_events = {
 	"Purchase Invoice": {
-		"on_submit": "erpnext_france.erpnext_france.purchase_invoice.purchase_invoice.correct_gl_entry_supplier_discount"
+		"on_submit": "erpnext_france.erpnext_france.purchase_invoice.purchase_invoice.correct_gl_entry_supplier_discount",
+		"before_save": "erpnext_france.controllers.supplier_item_no.before_save",
+	},
+	"Purchase Order": {
+		"before_save": "erpnext_france.controllers.supplier_item_no.before_save",
+	},
+	"Supplier Quotation": {
+		"before_save": "erpnext_france.controllers.supplier_item_no.before_save",
+	},
+	"Request for Quotation": {
+		"before_save": "erpnext_france.controllers.supplier_item_no.before_save_request_for_quotation",
 	},
 	"Sales Invoice": {
 		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
 		"on_submit": [
 			"erpnext_france.utils.transaction_log.create_transaction_log",
 		],
+		"before_save": "erpnext_france.controllers.taxes.before_save",
+	},
+	"Sales Order": {
+		"before_update_after_submit": "erpnext_france.controllers.sales_order.verify_sales_orders_terms",
+		"before_save": "erpnext_france.controllers.taxes.before_save",
 	},
 	"Payment Entry": {
 		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
@@ -293,6 +331,9 @@ doc_events = {
 	"Payment Ledger Entry": {"on_update": "erpnext_france.controllers.ple_down_payment.on_update"},
 	"Journal Entry": {"validate": "erpnext_france.controllers.journal_entry_down_payment.validate"},
 	"Company": {"after_insert": "erpnext_france.setup.setup_company_default"},
+	"Item": {"on_update": "erpnext_france.controllers.item.on_update"},
+	"Item Price": {"on_update": "erpnext_france.controllers.item_price.before_save"},
+	"Quotation": {"before_save": "erpnext_france.controllers.taxes.before_save"},
 	"System Settings": {
 		# "on_update": 'erpnext_france.install.after_wizard'
 	},
@@ -328,8 +369,12 @@ doc_events = {
 # ------------------------------
 #
 override_whitelisted_methods = {
-	"erpnext.accounts.doctype.account.chart_of_accounts.chart_of_accounts.get_charts_for_country": "erpnext_france.overrides.chart_of_accounts.get_charts_for_fr",
 	"erpnext.stock.get_item_details.get_item_details": "erpnext_france.controllers.get_item_details_down_payment.get_item_details_down_payment",
+	"erpnext.controllers.accounts_controller.get_payment_term_details": "erpnext_france.controllers.party.get_payment_term_details",
+	"erpnext.accounts.party.get_party_details": "erpnext_france.controllers.party.get_party_details",
+	"erpnext.selling.doctype.sales_order.sales_order.make_sales_invoice": "erpnext_france.controllers.sales_order.make_sales_invoice_with_payment_terms",
+	"erpnext.accounts.doctype.account.chart_of_accounts.chart_of_accounts.get_charts_for_country": "erpnext_france.overrides.chart_of_accounts.get_charts_for_country_fr",
+	"erpnext.accounts.doctype.account.chart_of_accounts.chart_of_accounts.get_chart": "erpnext_france.overrides.chart_of_accounts.get_charts_fr",
 }
 
 
@@ -349,6 +394,22 @@ regional_overrides = {
 override_doctype_class = {
 	"Payment Entry": "erpnext_france.erpnext_france.overrides.doctype.payment_entry_down_payment.PaymentEntryDownPayment",
 	"Sales Invoice": "erpnext_france.erpnext_france.overrides.doctype.sales_invoice_down_payment.SalesInvoiceDownPayment",
+	"Payment Terms Template": "erpnext_france.erpnext_france.overrides.doctype.payment_terms_template.PaymentTermsTemplateWithTermsBeforeInvoice",
+}
+
+override_doctype_dashboards = {
+	# "Payment Term": "erpnext_france.dashboard.payment_term.get_dashboard_data.get_dashboard_data",
 }
 
 export_python_type_annotations = True
+
+# extend_bootinfo = [
+# 	"erpnext_france.startup.boot.boot_session",
+# ]
+
+jinja = {
+	"methods": [
+		"erpnext_france.utils.jinja_methods.build_ecopart_table",
+		"erpnext_france.utils.jinja_methods.get_ecopart_table",
+	],
+}
