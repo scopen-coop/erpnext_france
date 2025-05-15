@@ -5,7 +5,8 @@ erpnext.TransactionController.prototype.payment_terms_template = async function(
   }
 
   me = this
-  if(doc.payment_terms_template && ['Quotation', 'Sales Order'].includes(doctype)) {
+
+  if(['Quotation', 'Sales Order'].includes(doctype) && doc.payment_terms_template) {
     get_payment_terms_before_invoice(
       me,
       doctype,
@@ -42,8 +43,6 @@ erpnext.TransactionController.prototype.payment_terms_template = async function(
         }
       });
     }
-  } else {
-    me.frm.transaction_controller.payment_terms_template();
   }
 }
 
