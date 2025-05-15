@@ -1,2660 +1,3058 @@
+
 {
-  "country_code": "fr",
-  "name": "France - Plan Comptable General 2025 avec code",
-  "tree": {
-    "Comptes de Capitaux": {
-      "root_type": "Equity",
-      "Capital et Réserves": {
-        "account_number": "10",
-        "Capital": {
-          "account_number": "101",
-          "Capital souscrit - non appelé": {
-            "account_number": "1011"
-          },
-          "Capital souscrit - appelé, non versé": {
-            "account_number": "1012"
-          },
-          "Capital souscrit - appelé, versé": {
-            "Capital non amorti": {
-              "account_number": "10131"
-            },
-            "Capital amorti": {
-              "account_number": "10132"
-            },
-            "account_number": "1013"
-          },
-          "Capital souscrit soumis à des réglementations particulières": {
-            "account_number": "1018"
-          }
-        },
-        "Fonds fiduciaires": {
-          "account_number": "102"
-        },
-        "Primes liées au capital": {
-          "Primes d'émission": {
-            "account_number": "1041"
-          },
-          "Primes de fusion": {
-            "account_number": "1042"
-          },
-          "Primes d'apport": {
-            "account_number": "1043"
-          },
-          "Primes de conversion d'obligations en actions": {
-            "account_number": "1044"
-          },
-          "Bons de souscription d'actions": {
-            "account_number": "1045"
-          },
-          "account_number": "104"
-        },
-        "Ecarts de réévaluation": {
-          "Réserve spéciale de réévaluation": {
-            "account_number": "1051"
-          },
-          "Ecart de réévaluation libre": {
-            "account_number": "1052"
-          },
-          "Réserve de réévaluation": {
-            "account_number": "1053"
-          },
-          "account_number": "105"
-        },
-        "Réserves": {
-          "Réserve légale": {
-            "account_number": "1061"
-          },
-          "Réserves indisponibles": {
-            "account_number": "1062"
-          },
-          "Réserves statutaires ou contractuelles": {
-            "account_number": "1063"
-          },
-          "Réserves réglementées": {
-            "account_number": "1064"
-          },
-          "Autres réserves": {
-            "account_number": "1068"
-          },
-          "account_number": "106"
-        },
-        "Ecarts d'équivalence": {
-          "account_number": "107"
-        },
-        "Compte de l'exploitant": {
-          "account_number": "108"
-        },
-        "Actionnaires: Capital souscrit - non appelé": {
-          "account_number": "109"
-        }
-      },
-      "Report à Nouveau": {
-        "Report à nouveau (solde créditeur)": {
-          "account_number": "110"
-        },
-        "Report à nouveau (solde débiteur)": {
-          "account_number": "119"
-        },
-        "account_number": "11"
-      },
-      "Résultat de l'Exercice": {
-        "Résultat de l'exercice (bénéfice)": {
-          "account_number": "120"
-        },
-        "Résultat de l'exercice (perte)": {
-          "account_number": "129"
-        },
-        "account_number": "12"
-      },
-      "Subventions d'Investissement": {
-        "Subventions d'équipement Octroyées": {
-          "account_number": "131"
-        },
-        "Subventions d'investissement inscrites au compte de résultat": {
-          "account_number": "139"
-        },
-        "account_number": "13"
-      },
-      "Provisions Réglementées": {
-        "Provisions réglementées pour hausse des prix": {
-          "account_number": "143"
-        },
-        "Amortissements dérogatoires": {
-          "account_number": "145"
-        },
-        "Autres provisions réglementées": {
-          "account_number": "148"
-        },
-        "account_number": "14"
-      },
-      "Provisions": {
-        "Provisions pour risques": {
-          "Provisions pour litiges": {
-            "account_number": "1511"
-          },
-          "Provisions pour garanties données aux clients": {
-            "account_number": "1512"
-          },
-          "Provisions pour amendes et pénalités": {
-            "account_number": "1514"
-          },
-          "Provisions pour pertes de change": {
-            "account_number": "1515"
-          },
-          "Provisions pour pertes sur contrats": {
-            "account_number": "1516"
-          },
-          "Autres provisions pour risques": {
-            "account_number": "1518"
-          },
-          "account_number": "151"
-        },
-        "Provisions pour charges": {
-          "Provisions pour pensions et obligations similaires": {
-            "account_number": "1521"
-          },
-          "Provisions pour restructurations": {
-            "account_number": "1522"
-          },
-          "Provisions pour impôts": {
-            "account_number": "1523"
-          },
-          "Provisions pour renouvellement des immobilisations (entreprises concessionnaires)": {
-            "account_number": "1524"
-          },
-          "Provisions pour gros entretiens ou grandes révisions": {
-            "account_number": "1525"
-          },
-          "Autres provisions pour remises en etat": {
-            "account_number": "1526"
-          },
-          "Autres provisions pour charges": {
-            "account_number": "1527"
-          },
-          "account_number": "152"
-        },
-        "account_number": "15"
-      },
-      "Emprunts et Dettes Assimilées": {
-        "Emprunts obligataires convertibles": {
-          "Intérêts courus sur emprunts obligataires convertibles": {
-            "account_number": "1618"
-          },
-          "account_number": "161"
-        },
-        "Obligations représentatives de passifs nets remis en fiducie": {
-          "account_number": "162"
-        },
-        "Autres emprunts obligataires": {
-          "Intérêts courus sur autres emprunts obligataires": {
-            "account_number": "1638"
-          },
-          "account_number": "163"
-        },
-        "Emprunts auprès des établissements de crédit": {
-          "Intérêts courus sur emprunts auprès des établissements de crédit": {
-            "account_number": "1648"
-          },
-          "account_number": "164"
-        },
-        "Dépôts et cautionnements reçus": {
-          "Dépôts": {
-            "account_number": "1651"
-          },
-          "Cautionnements": {
-            "account_number": "1655"
-          },
-          "Intérêts courus sur dépôts et cautionnements reçus": {
-            "account_number": "1658"
-          },
-          "account_number": "165"
-        },
-        "Participation des salariés aux résultats": {
-          "Comptes bloqués": {
-            "account_number": "1661"
-          },
-          "Fonds de participation": {
-            "account_number": "1662"
-          },
-          "Intérêts courus sur participation des salariés aux résultats": {
-            "account_number": "1668"
-          },
-          "account_number": "166"
-        },
-        "Emprunts et dettes assortis de conditions particulières": {
-          "Emissions de titres participatifs": {
-            "Intérêts courus sur titres participatifs": {
-              "account_number": "16718"
-            },
-            "account_number": "1671"
-          },
-          "Avances conditionnées de l'Etat": {
-            "Intérêts courus sur avances conditionnés": {
-              "account_number": "16748"
-            },
-            "account_number": "1674"
-          },
-          "Emprunts participatifs": {
-            "Intérêts courus sur emprunts participatifs": {
-              "account_number": "16758"
-            },
-            "account_number": "1675"
-          },
-          "account_number": "167"
-        },
-        "Autres emprunts et dettes assimilées": {
-          "Autres emprunts": {
-            "account_number": "1681"
-          },
-          "Rentes viagères capitalisées": {
-            "account_number": "1685"
-          },
-          "Autres dettes": {
-            "account_number": "1687"
-          },
-          "Intérêts courus sur autres emprunts et dettes assimilées": {
-            "account_number": "1688"
-          },
-          "account_number": "168"
-        },
-        "Primes de remboursement des obligations": {
-          "account_number": "169"
-        },
-        "account_number": "16"
-      },
-      "Dettes Rattachées à des Participations": {
-        "Dettes rattachées à des participations (groupe)": {
-          "account_number": "171"
-        },
-        "Dettes rattachées à des participations (hors groupe)": {
-          "account_number": "174"
-        },
-        "Dettes rattachées à des socitétés en participations": {
-          "account_number": "178"
-        },
-        "account_number": "17"
-      },
-      "Comptes de liaison des établisssements et sociétés en participation": {
-        "Comptes de liaison des établissements": {
-          "account_number": "181"
-        },
-        "Biens et prestations de services échangés entre établissements (charges)": {
-          "account_number": "186"
-        },
-        "Biens et prestations de services échangés entre établissements (produits)": {
-          "account_number": "187"
-        },
-        "Comptes de liaison des sociétés en participation": {
-          "account_number": "188"
-        },
-        "account_number": "18"
-      },
-      "account_number": "1"
-    },
-    "Comptes d'Immobilisations": {
-      "root_type": "Asset",
-      "Immobilisations incorporelles": {
-        "Frais établissement": {
-          "Frais de constitution": {
-            "account_number": "2011"
-          },
-          "Frais de premier établissement": {
-            "Frais de prospection": {
-              "account_number": "20121"
-            },
-            "Frais de publicité": {
-              "account_number": "20122"
-            },
-            "account_number": "2012"
-          },
-          "Frais d'augmentation de capital et d'opérations diverses (fusions, scissions, transformations)": {
-            "account_number": "2013"
-          },
-          "account_number": "201"
-        },
-        "Frais de développement": {
-          "account_number": "203"
-        },
-        "Concessions et droits similaires, brevets, licences, marques, procédés, solutions informatiques, droits et valeurs similaires": {
-          "account_number": "205"
-        },
-        "Droit au bail": {
-          "account_number": "206"
-        },
-        "Fonds commercial": {
-          "account_number": "207"
-        },
-        "Autres immobilisations incorporelles": {
-          "Mali de fusion sur actifs incorporels": {
-            "account_number": "2081"
-          },
-          "account_number": "208"
-        },
-        "account_number": "20"
-      },
-      "Immobilisations corporelles": {
-        "account_type": "Fixed Asset",
-        "Terrains": {
-          "account_type": "Fixed Asset",
-          "Terrains nus": {
-            "account_type": "Fixed Asset",
-            "account_number": "2111"
-          },
-          "Terrains aménagés": {
-            "account_type": "Fixed Asset",
-            "account_number": "2112"
-          },
-          "Sous-sols et sur-sols": {
-            "account_type": "Fixed Asset",
-            "account_number": "2113"
-          },
-          "Terrains de carrières (tréfonds)": {
-            "account_type": "Fixed Asset",
-            "account_number": "2114"
-          },
-          "Terrains bâtis": {
-            "account_type": "Fixed Asset",
-            "account_number": "2115"
-          },
-          "account_number": "211"
-        },
-        "Agencements et aménagements de terrains (même ventilation que celle du compte 211)": {
-          "account_type": "Fixed Asset",
-          "account_number": "212"
-        },
-        "Constructions": {
-          "account_type": "Fixed Asset",
-          "Bâtiments": {
-            "account_type": "Fixed Asset",
-            "account_number": "2131"
-          },
-          "Installations générales, agencements, aménagements des constructions": {
-            "account_type": "Fixed Asset",
-            "account_number": "2135"
-          },
-          "Ouvrages d'infrastructure": {
-            "account_type": "Fixed Asset",
-            "account_number": "2138"
-          },
-          "account_number": "213"
-        },
-        "Constructions sur sol d'autrui (même ventilation que celle du compte 213)": {
-          "account_type": "Fixed Asset",
-          "account_number": "214"
-        },
-        "Installations techniques, matériel et outillage industriels": {
-          "account_type": "Fixed Asset",
-          "Installations complexes spécialisées": {
-            "account_type": "Fixed Asset",
-            "Installations complexes spécialisées - sur sol propre": {
-              "account_type": "Fixed Asset",
-              "account_number": "21511"
-            },
-            "Installations complexes spécialisées - sur sol d'autrui": {
-              "account_type": "Fixed Asset",
-              "account_number": "21514"
-            },
-            "account_number": "2151"
-          },
-          "Installations à caractère spécifique": {
-            "account_type": "Fixed Asset",
-            "Installations à caractère spécifique - sur sol propre": {
-              "account_type": "Fixed Asset",
-              "account_number": "21531"
-            },
-            "Installations à caractère spécifique - sur sol d'autrui": {
-              "account_type": "Fixed Asset",
-              "account_number": "21534"
-            },
-            "account_number": "2153"
-          },
-          "Matériel industriel": {
-            "account_type": "Fixed Asset",
-            "account_number": "2154"
-          },
-          "Outillage industriel": {
-            "account_type": "Fixed Asset",
-            "account_number": "2155"
-          },
-          "Agencements et aménagements du matériel et outillage industriel": {
-            "account_type": "Fixed Asset",
-            "account_number": "2157"
-          },
-          "account_number": "215"
-        },
-        "Autres immobilisations corporelles": {
-          "account_type": "Fixed Asset",
-          "Installations générales, agencements, aménagements divers": {
-            "account_type": "Fixed Asset",
-            "account_number": "2181"
-          },
-          "Matériel de transport": {
-            "account_type": "Fixed Asset",
-            "account_number": "2182"
-          },
-          "Matériel de bureau et matériel informatique": {
-            "account_type": "Fixed Asset",
-            "account_number": "2183"
-          },
-          "Mobilier": {
-            "account_type": "Fixed Asset",
-            "account_number": "2184"
-          },
-          "Cheptel": {
-            "account_type": "Fixed Asset",
-            "account_number": "2185"
-          },
-          "Emballages récupérables": {
-            "account_type": "Fixed Asset",
-            "account_number": "2186"
-          },
-          "Mali de fusion sur actifs corporels": {
-            "account_number": "2187"
-          },
-          "account_number": "218"
-        },
-        "account_number": "21"
-      },
-      "Immobilisations mises en concession": {
-        "Droits du concédant": {
-          "account_number": "229"
-        },
-        "account_number": "22"
-      },
-      "Immobilisations en cours, avances et acomptes": {
-        "Immobilisations corporelles en cours": {
-          "account_number": "231"
-        },
-        "Immobilisations incorporelles en cours": {
-          "account_number": "232"
-        },
-        "Avances et acomptes versés sur commandes d'immobilisations incorporelles": {
-          "account_number": "237"
-        },
-        "Avances et acomptes versés sur commandes d'immobilisations corporelles": {
-          "account_number": "238"
-        },
-        "account_number": "23"
-      },
-      "Participations et créances rattachées à des participations": {
-        "Titres de participation": {
-          "Actions": {
-            "account_number": "2611"
-          },
-          "Autres titres": {
-            "account_number": "2618"
-          },
-          "account_number": "261"
-        },
-        "Titres évalués par équivalence": {
-          "account_number": "262"
-        },
-        "Autres formes de participation": {
-          "Droit représentatifs d'actifs nets remis en fiducie": {
-            "account_number": "2661"
-          },
-          "account_number": "266"
-        },
-        "Créances rattachées à des participations": {
-          "Créances rattachées à des participations (groupe)": {
-            "account_number": "2671"
-          },
-          "Créances rattachées à des participations (hors groupe)": {
-            "account_number": "2674"
-          },
-          "Versements représentatifs d'apports non capitalisés (appel de fonds)": {
-            "account_number": "2675"
-          },
-          "Avances consolidables": {
-            "account_number": "2676"
-          },
-          "Autres créances rattachées à des participations": {
-            "account_number": "2677"
-          },
-          "Intérêts courus": {
-            "account_number": "2678"
-          },
-          "account_number": "267"
-        },
-        "Créances rattachées à des sociétés en participation": {
-          "Principal": {
-            "account_number": "2681"
-          },
-          "Intérêts courus": {
-            "account_number": "2688"
-          },
-          "account_number": "268"
-        },
-        "Versements restant à effectuer sur titres de participation non libérés": {
-          "account_number": "269"
-        },
-        "account_number": "26"
-      },
-      "Autres immobilisations financières": {
-        "Titres immobilisés autres que les titres immobilisés de l'activité de portefeuille (droit de propriété)": {
-          "Actions": {
-            "account_number": "2711"
-          },
-          "Autres titres": {
-            "account_number": "2718"
-          },
-          "account_number": "271"
-        },
-        "Titres immobilisés (droit de créance)": {
-          "Obligations": {
-            "account_number": "2721"
-          },
-          "Bons": {
-            "account_number": "2722"
-          },
-          "account_number": "272"
-        },
-        "Titres immobilisés de l'activité de portefeuille": {
-          "account_number": "273"
-        },
-        "Prêts": {
-          "Prêts participatifs": {
-            "account_number": "2741"
-          },
-          "Prêts aux associés": {
-            "account_number": "2742"
-          },
-          "Prêts au personnel": {
-            "account_number": "2743"
-          },
-          "Autres prêts": {
-            "account_number": "2748"
-          },
-          "account_number": "274"
-        },
-        "Dépôts et cautionnements versés": {
-          "Dépôts": {
-            "account_number": "2751"
-          },
-          "Cautionnements": {
-            "account_number": "2755"
-          },
-          "account_number": "275"
-        },
-        "Autres créances immobilisées": {
-          "Créances diverses": {
-            "account_number": "2761"
-          },
-          "Intérêts courus": {
-            "Intérêts courus sur titres immobilisés (droit de créance)": {
-              "account_number": "27682"
-            },
-            "Intérêts courus sur prêts": {
-              "account_number": "27684"
-            },
-            "Intérêts courus sur dépôts et cautionnements": {
-              "account_number": "27685"
-            },
-            "Intérêts courus sur créances diverses": {
-              "account_number": "27688"
-            },
-            "account_number": "2768"
-          },
-          "account_number": "276"
-        },
-        "(Actions propres ou parts propres)": {
-          "Actions propres ou parts propres": {
-            "account_number": "2771"
-          },
-          "Actions propres ou parts propres en voie d'annulation": {
-            "account_number": "2772"
-          },
-          "account_number": "277"
-        },
-        "Mali de fusion sur actifs financiers": {
-          "account_number": "278"
-        },
-        "Versements restant à effectuer sur titres immobilisés non libérés": {
-          "account_number": "279"
-        },
-        "account_number": "27"
-      },
-      "Amortissements des immobilisations": {
-        "account_type": "Accumulated Depreciation",
-        "Amortissements des immobilisations incorporelles et des frais d'établissement (même ventilation que celle du compte 20)": {
-          "account_type": "Accumulated Depreciation",
-          "Frais d'établissement (même ventilation que celle du compte 212)": {
-            "account_type": "Accumulated Depreciation",
-            "account_number": "2801"
-          },
-          "Frais de développement": {
-            "account_type": "Accumulated Depreciation",
-            "account_number": "2803"
-          },
-          "Concessions et droits similaires, brevets, licences, solutions informatiques, droits et valeurs similaires": {
-            "account_type": "Accumulated Depreciation",
-            "account_number": "2805"
-          },
-          "Droit au bail": {
-            "account_type": "Accumulated Depreciation",
-            "account_number": "2806"
-          },
-          "Fonds commercial": {
-            "account_type": "Accumulated Depreciation",
-            "account_number": "2807"
-          },
-          "Autres immobilisations incorporelles": {
-            "account_number": "2808"
-          },
-          "account_number": "280"
-        },
-        "Amortissements des immobilisations corporelles (même ventilation que celle du compte 21)": {
-          "account_type": "Accumulated Depreciation",
-          "Agencements, aménagements de terrains (même ventilation que celle du compte 212)": {
-            "account_type": "Accumulated Depreciation",
-            "account_number": "2812"
-          },
-          "Constructions (même ventilation que celle du compte 213)": {
-            "account_type": "Accumulated Depreciation",
-            "account_number": "2813"
-          },
-          "Constructions sur sol d'autrui (même ventilation que celle du compte du 214)": {
-            "account_type": "Accumulated Depreciation",
-            "account_number": "2814"
-          },
-          "Installations techniques, matériel et outillage industriels (même ventilation que celle du compte 218)": {
-            "account_type": "Accumulated Depreciation",
-            "account_number": "2815"
-          },
-          "Autres immobilisations corporelles (même ventilation que celle du compte 218)": {
-            "account_type": "Accumulated Depreciation",
-            "Mali de fusion sur actifs corporels": {
-              "account_type": "Accumulated Depreciation",
-              "account_number": "28187"
-            },
-            "account_number": "2818"
-          },
-          "account_number": "281"
-        },
-        "Amortissements des immobilisations mises en concession": {
-          "account_number": "282"
-        },
-        "account_number": "28"
-      },
-      "Dépréciations des immobilisations": {
-        "Dépréciations des immobilisations incorporelles": {
-          "Frais d'établissement": {
-            "account_number": "2901"
-          },
-          "Frais de développement": {
-            "account_number": "2903"
-          },
-          "Marques,  procédés, droits et valeurs similaires": {
-            "account_number": "2905"
-          },
-          "Droit au bail": {
-            "account_number": "2906"
-          },
-          "Fonds commercial": {
-            "account_number": "2907"
-          },
-          "Autres immobilisations incorporelles": {
-            "Dépréciation du mali de fusion sur actifs incorporels": {
-              "account_number": "29081"
-            },
-            "account_number": "2908"
-          },
-          "account_number": "290"
-        },
-        "Dépréciations des immobilisations corporelles": {
-          "Terrains (autres que terrains de gisement)": {
-            "Dépréciation du mali de fusion sur actifs corporels": {
-              "account_number": "29187"
-            },
-            "account_number": "2911"
-          },
-          "account_number": "291"
-        },
-        "Dépréciations des immobilisations mises en concession": {
-          "account_number": "292"
-        },
-        "Dépréciations des immobilisations en cours": {
-          "Immobilisations corporelles en cours": {
-            "account_number": "2931"
-          },
-          "Immobilisations incorporelles en cours": {
-            "account_number": "2932"
-          },
-          "account_number": "293"
-        },
-        "Dépréciations des participations et créances rattachées à des participations": {
-          "Titres de participation": {
-            "account_number": "2961"
-          },
-          "Titres évalués par équivalence": {
-            "account_number": "2962"
-          },
-          "Autres formes de participation": {
-            "account_number": "2966"
-          },
-          "Créances rattachées à des participations (même ventilation que celle du compte 267)": {
-            "account_number": "2967"
-          },
-          "Créances rattachées à des sociétés en participation (même ventilation que celle du compte 268)": {
-            "account_number": "2968"
-          },
-          "account_number": "296"
-        },
-        "Dépréciations des autres immobilisations financières": {
-          "Titres immobilisés autres que les titres immobilisés de l'activité de portefeuille - droit de propriété": {
-            "account_number": "2971"
-          },
-          "Titres immobilisés - (droit de créance)": {
-            "account_number": "2972"
-          },
-          " Titres immobilisés de l'activité de portefuille": {
-            "account_number": "2973"
-          },
-          "Prêts": {
-            "account_number": "2974"
-          },
-          "Dépôts et cautionnements versés": {
-            "account_number": "2975"
-          },
-          "Autres créances immobilisées": {
-            "account_number": "2976"
-          },
-          "account_number": "297"
-        },
-        "account_number": "29"
-      },
-      "account_number": "2"
-    },
-    "Comptes de Stocks et En-Cours": {
-      "root_type": "Asset",
-      "Matières premières (et fournitures)": {
-        "account_number": "31"
-      },
-      "Autres approvisionnements": {
-        "Matères consommables": {
-          "account_number": "321"
-        },
-        "Fournitures consommables": {
-          "Combustibles": {
-            "account_number": "3221"
-          },
-          "Produits d'entretien": {
-            "account_number": "3222"
-          },
-          "Fournitures d'atelier et d'usine": {
-            "account_number": "3223"
-          },
-          "Fournitures de magasin": {
-            "account_number": "3224"
-          },
-          "Fournitures de bureau": {
-            "account_number": "3225"
-          },
-          "account_number": "322"
-        },
-        "Emballages": {
-          "Emballages perdus": {
-            "account_number": "3261"
-          },
-          "Emballages récupérables non identifiables": {
-            "account_number": "3265"
-          },
-          "Emballages à usage mixte": {
-            "account_number": "3267"
-          },
-          "account_number": "326"
-        },
-        "account_number": "32"
-      },
-      "En-cours de production de biens": {
-        "Produits en cours": {
-          "account_number": "331"
-        },
-        "Travaux en cours": {
-          "account_number": "335"
-        },
-        "account_number": "33"
-      },
-      "En-cours de production de services": {
-        "Etudes en cours": {
-          "account_number": "341"
-        },
-        "Prestations de services en cours": {
-          "account_number": "345"
-        },
-        "account_number": "34"
-      },
-      "Stocks de produits": {
-        "account_type": "Stock",
-        "Produits intermédiaires": {
-          "account_type": "Stock",
-          "account_number": "351"
-        },
-        "Produits finis": {
-          "account_type": "Stock",
-          "account_number": "355"
-        },
-        "Produits résiduels (ou matières de récupération)": {
-          "account_type": "Stock",
-          "Déchets": {
-            "account_type": "Stock",
-            "is_group": 1,
-            "account_number": "3581"
-          },
-          "Rebuts": {
-            "account_type": "Stock",
-            "is_group": 1,
-            "account_number": "3585"
-          },
-          "Matières de récupération": {
-            "account_type": "Stock",
-            "is_group": 1,
-            "account_number": "3586"
-          },
-          "account_number": "358"
-        },
-        "account_number": "35"
-      },
-      "(Compte à ouvrir, le cas échéant, sous l'intitulé `stocks provenant d'immobilisations`)": {
-        "account_number": "36"
-      },
-      "Stocks de marchandises": {
-        "account_number": "37"
-      },
-      "Le compte 38 peut être utilisé pour comptabiliser les tocks en voie d'acheminement, mis en dépôt ou donnés en consignation)": {
-        "account_type": "Stock",
-        "account_number": "38"
-      },
-      "Dépréciations des stocks et en-cours": {
-        "Dépréciations des matières premières (et fournitures)": {
-          "account_number": "391"
-        },
-        "Dépréciations des autres approvisionnements": {
-          "account_number": "392"
-        },
-        "Dépréciations des en-cours de production de biens": {
-          "account_number": "393"
-        },
-        "Dépréciations des en-cours de production de services": {
-          "account_number": "394"
-        },
-        "Dépréciations des stocks de produits": {
-          "account_number": "395"
-        },
-        "Dépréciations des stocks de marchandises": {
-          "account_number": "397"
-        },
-        "account_number": "39"
-      },
-      "account_number": "3"
-    },
-    "4-Comptes de Tiers (ACTIF)": {
-      "root_type": "Asset",
-      "40-Fournisseurs et Comptes Rattachés (ACTIF)": {
-        "Fournisseurs débiteurs": {
-          "Fournisseurs - Avances et acomptes versés sur commandes": {
-            "account_number": "4091"
-          },
-          "Fournisseurs - Créances pour emballages et matériel à rendre": {
-            "account_number": "4096"
-          },
-          "Fournisseurs - Autres avoirs": {
-            "Fournisseurs d'exploitation": {
-              "account_number": "40971"
-            },
-            "Fournisseurs d'immobilisation": {
-              "account_number": "40974"
-            },
-            "account_number": "4097"
-          },
-          "Rabais, remises, ristournes à obtenir et autres avoirs non encore reçus": {
-            "account_number": "4098"
-          },
-          "account_number": "409"
-        }
-      },
-      "41-Clients et comptes rattachés (ACTIF)": {
-        "account_type": "Receivable",
-        "Clients": {
-          "account_type": "Receivable",
-          "Clients - Ventes de biens ou de prestations de services": {
-            "account_type": "Receivable",
-            "account_number": "4111"
-          },
-          "Clients - Retenues de garantie": {
-            "account_type": "Receivable",
-            "account_number": "4117"
-          },
-          "account_number": "411"
-        },
-        "Clients - Effets à recevoir": {
-          "account_type": "Receivable",
-          "account_number": "413"
-        },
-        "Clients douteux ou litigieux": {
-          "account_type": "Receivable",
-          "account_number": "416"
-        },
-        "Clients - Produits non encore facturés": {
-          "account_type": "Receivable",
-          "Clients - Factures à établir": {
-            "account_type": "Receivable",
-            "account_number": "4181"
-          },
-          "Clients - Intérêts courus": {
-            "account_type": "Receivable",
-            "account_number": "4188"
-          },
-          "account_number": "418"
-        }
-      },
-      "42-Personnel et comptes rattachés (ACTIF)": {
-        "Personnel - Avances et acomptes et autres comptes débiteurs": {
-          "account_type": "Payable",
-          "account_number": "425"
-        }
-      },
-      "43-Sécurité sociale et autres organismes sociaux (ACTIF)": {
-        "Sécurité sociale": {
-          "account_number": "431"
-        },
-        "Autres organismes sociaux": {
-          "account_number": "437"
-        },
-        "Organismes sociaux - Produits à recevoir": {
-          "account_number": "439"
-        }
-      },
-      "44-Etat et autres collectivités publiques (ACTIF)": {
-        "Etat - Subventions et aides à recevoir": {
-          "account_number": "441"
-        },
-        "Etat - Taxes sur le chiffre d'affaires (ACTIF)": {
-          "TVA due intracommunautaire": {
-            "account_number": "4452"
-          },
-          "Taxes sur le chiffre d'affaires déductibles": {
-            "TVA sur immobilisations": {
-              "account_number": "44562"
-            },
-            "TVA transférée par d'autres entreprises": {
-              "account_number": "44563"
-            },
-            "TVA sur autres biens et services": {
-              "tax_rate": 20,
-              "account_number": "44566"
-            },
-            "Crédit de TVA à reporter": {
-              "account_number": "44567"
-            },
-            "Taxes assimilées à la TVA": {
-              "account_number": "44568"
-            },
-            "account_number": "4456"
-          },
-          "4458-Taxes sur le chiffre d'affaires à régulariser ou en attente (ACTIF)": {
-            "Acomptes - Régime simplifié d'imposition": {
-              "account_number": "44581"
-            },
-            "Acomptes - Régime du forfait": {
-              "account_number": "44582"
-            },
-            "Remboursement de taxes sur le chiffre d'affaires demandé": {
-              "account_number": "44583"
-            },
-            "Taxes sur le chiffre d'affaires sur factures non parvenues": {
-              "account_number": "44586"
-            }
-          }
-        },
-        "Etat - Charges à payer et produits à recevoir": {
-          "Etat - Charges à payer": {
-            "Charges fiscales sur congés à payer": {
-              "account_number": "44811"
-            },
-            "Charges à payer": {
-              "account_number": "44812"
-            },
-            "account_number": "4481"
-          },
-          "Etat - Produits à recevoir": {
-            "account_number": "4482"
-          },
-          "Charges à payer": {
-            "account_number": "4486"
-          },
-          "Produits à recevoir": {
-            "account_number": "4487"
-          },
-          "account_number": "448"
-        }
-      },
-      "45-Groupe et associés (ACTIF)": {
-        "Associés - Opérations sur le capital (ACTIF)": {
-          "Associés - Comptes d'apport en société": {
-            "Apports en nature": {
-              "account_number": "45611"
-            },
-            "Apports en numéraire": {
-              "account_number": "45615"
-            },
-            "account_number": "4561"
-          },
-          "Apporteurs - Capital appelé, non versé": {
-            "Actionnaires - Capital souscrit et appelé, non versé": {
-              "account_number": "45621"
-            },
-            "Associés - Capital appelé, non versé": {
-              "account_number": "45625"
-            },
-            "account_number": "4562"
-          },
-          "Associés - Versements reçus sur augmentation de capital": {
-            "account_number": "4563"
-          },
-          "Associés - Versements anticipés": {
-            "account_number": "4564"
-          },
-          "Actionnaires défaillants": {
-            "account_number": "4566"
-          },
-          "Associés - Capital à rembourser": {
-            "account_number": "4567"
-          },
-          "account_number": "456"
-        }
-      },
-      "46-Débiteurs divers et créditeurs divers (ACTIF)": {
-        "Créances sur cessions d'immobilisations": {
-          "account_number": "462"
-        },
-        "Dettes sur acquisitions de valeurs mobilières de placement": {
-          "account_number": "465"
-        },
-        "Créances sur cessions de valeurs mobilières de placement": {
-          "account_number": "465"
-        },
-        "Divers comptes débiteurs et produits à recevoir ": {
-          "account_number": "467"
-        },
-        "Divers comptes créditeurs et charges à payer": {
-          "account_number": "468"
-        }
-      },
-      "47-Comptes transitoires ou d'attente (ACTIF)": {
-        "Comptes d'attente (ACTIF)": {
-          "account_type": "Temporary",
-          "account_number": "471"
-        },
-        "Différences de conversion (ACTIF)": {
-          "Diminution des créances": {
-            "account_number": "4761"
-          },
-          "Augmentation des dettes": {
-            "account_number": "4762"
-          },
-          "Différences compensées par couverture de change": {
-            "account_number": "4768"
-          },
-          "account_number": "476"
-        },
-        "Autres comptes transitoires (ACTIF)": {
-          "Mali de fusion sur actif circulant": {
-            "account_number": "4781"
-          }
-        }
-      },
-      "48-Comptes de régularisation (ACTIF)": {
-        "Frais d'émission des emprunts": {
-          "account_number": "481"
-        },
-        "Charges constatées d'avance": {
-          "account_number": "486"
-        },
-        "488-Comptes de répartition périodique des charges et des produits (ACTIF)": {
-          "Charges": {
-            "account_number": "4886"
-          }
-        }
-      },
-      "49-Dépréciation des comptes de tiers (ACTIF)": {
-        "Dépréciations des comptes clients": {
-          "account_number": "491"
-        },
-        "Dépréciations des comptes du groupe et des associés": {
-          "Comptes du groupe": {
-            "account_number": "4951"
-          },
-          "Comptes courants des associés": {
-            "account_number": "4955"
-          },
-          "Opérations faites en commun et en GIE": {
-            "account_number": "4958"
-          },
-          "account_number": "495"
-        },
-        "Dépréciations des comptes de débiteurs divers": {
-          "Créances sur cessions d'immobilisations": {
-            "account_number": "4962"
-          },
-          "Créances sur cessions de valeurs mobilières de placement": {
-            "account_number": "4965"
-          },
-          "Autres comptes débiteurs": {
-            "account_number": "4967"
-          },
-          "account_number": "496"
-        }
-      }
-    },
-    "4-Comptes de Tiers (PASSIF)": {
-      "root_type": "Liability",
-      "40-Fournisseurs et Comptes Rattachés (PASSIF)": {
-        "account_type": "Payable",
-        "Fournisseurs": {
-          "account_type": "Payable",
-          "Fournisseurs - Achats de biens ou de prestations de services": {
-            "account_type": "Payable",
-            "account_number": "4011"
-          },
-          "Fournisseurs - Retenues de garantie": {
-            "account_type": "Payable",
-            "account_number": "4017"
-          },
-          "account_number": "401"
-        },
-        "Fournisseurs - Effets à payer": {
-          "account_type": "Payable",
-          "account_number": "403"
-        },
-        "Fournisseurs d'immobilisations": {
-          "account_type": "Payable",
-          "Fournisseurs - Achats d'immobilisations": {
-            "account_type": "Payable",
-            "account_number": "4041"
-          },
-          "Fournisseurs d'immobilisations - Retenues de garantie": {
-            "account_type": "Payable",
-            "account_number": "4047"
-          },
-          "account_number": "404"
-        },
-        "Fournisseurs d'immobilisations - Effets à payer": {
-          "account_type": "Payable",
-          "account_number": "405"
-        },
-        "Fournisseurs - Factures non parvenues": {
-          "account_type": "Stock Received But Not Billed",
-          "Fournisseurs": {
-            "account_type": "Stock Received But Not Billed",
-            "account_number": "4081"
-          },
-          "Fournisseurs d'immobilisations": {
-            "account_type": "Stock Received But Not Billed",
-            "account_number": "4084"
-          },
-          "Fournisseurs - Intérêts courus": {
-            "account_type": "Stock Received But Not Billed",
-            "account_number": "4088"
-          },
-          "account_number": "408"
-        }
-      },
-      "41-Clients et comptes rattachés (PASSIF)": {
-        "Clients créditeurs": {
-          "Clients - Avances et acomptes reçus sur commandes": {
-            "account_number": "4191",
-            "account_type": "Income Account"
-          },
-          "Clients - Dettes pour emballages et matériels consignés": {
-            "account_number": "4196"
-          },
-          "Clients - Autres avoirs": {
-            "account_number": "4197"
-          },
-          "Rabais, remises, ristournes à accorder et autres avoirs à établir": {
-            "account_number": "4198"
-          },
-          "account_number": "419"
-        }
-      },
-      "42-Personnel et comptes rattachés (PASSIF)": {
-        "Personnel - Rémunérations dues": {
-          "account_number": "421"
-        },
-        "Comité social économique": {
-          "account_number": "422"
-        },
-        "Participation des salariés aux résultats": {
-          "Réserve spéciale": {
-            "account_number": "4246"
-          },
-          "Comptes courants": {
-            "account_number": "4248"
-          },
-          "account_number": "424"
-        },
-        "Personnel - Dépôts": {
-          "account_number": "426"
-        },
-        "Personnel - Oppositions": {
-          "account_number": "427"
-        },
-        "Personnel - Charges à payer": {
-          "Dettes provisionnées pour congés à payer": {
-            "account_number": "4282"
-          },
-          "Dettes provisionnées pour participation des salariés aux résultats": {
-            "account_number": "4284"
-          },
-          "Autres charges à payer": {
-            "account_number": "4286"
-          },
-          "account_number": "428"
-        }
-      },
-      "43-Sécurité sociale et autres organismes sociaux (PASSIF)": {
-        "438-Organismes sociaux - Charges à payer": {
-          "Charges sociales sur congés à payer": {
-            "account_number": "4382"
-          },
-          "Autres charges à payer": {
-            "account_number": "4386"
-          },
-          "account_number": "438"
-        }
-      },
-      "44-Etat et autres collectivités publiques (PASSIF)": {
-        "Etat - Impôts et taxes recouvrables sur des tiers": {
-          "account_number": "442"
-        },
-        "Etat - Impôts sur les bénéfices": {
-          "account_number": "444"
-        },
-        "Etat - Taxes sur le chiffre d'affaires (PASSIF)": {
-          "Taxes sur le chiffre d'affaires à décaisser": {
-            "TVA à décaisser": {
-              "account_number": "44551"
-            },
-            "Taxes assimilées à la TVA": {
-              "account_number": "44558"
-            },
-            "account_number": "4455"
-          },
-          "Taxes sur le chiffre d'affaires collectées par l'entreprise": {
-            "TVA collectée": {
-              "account_type": "Tax",
-              "is_group": 1,
-              "account_number": "44571"
-            },
-            "Taxes assimilées à la TVA": {
-              "account_number": "44578"
-            },
-            "account_number": "4457"
-          },
-          "4458-Taxes sur le chiffre d'affaires à régulariser ou en attente (PASSIF)": {
-            "TVA récupérée  d'avance": {
-              "account_number": "44584"
-            },
-            "Taxes sur le chiffre d'affaires sur factures à établir": {
-              "account_number": "44587"
-            }
-          }
-        },
-        "Obligations cautionnées": {
-          "account_number": "446"
-        },
-        "Autres impôts, taxes et versements assimilés": {
-          "account_number": "447"
-        },
-        "Quotas d'émission à acquérir": {
-          "account_number": "449"
-        }
-      },
-      "45-Groupe et associés (PASSIF)": {
-        "Groupe (PASSIF)": {
-          "account_number": "451"
-        },
-        "Associés - Comptes courants (PASSIF)": {
-          "Principal (PASSIF)": {
-            "account_number": "4551"
-          },
-          "Intérêts courus (PASSIF)": {
-            "account_number": "4558"
-          },
-          "account_number": "455"
-        },
-        "Associés - Opérations sur le capital (PASSIF)": {
-          "456-Associés - Comptes d'apport en société": {
-            "Apports en nature": {
-              "account_number": "45611"
-            },
-            "Apports en numéraire": {
-              "account_number": "45615"
-            },
-            "account_number": "4561"
-          },
-          "Associés - Versements reçus sur augmentation de capital": {
-            "account_number": "4563"
-          },
-          "Associés - Versements anticipés": {
-            "account_number": "4564"
-          },
-          "Actionnaires défaillants": {
-            "account_number": "4566"
-          },
-          "Associés - Capital à rembourser": {
-            "account_number": "4567"
-          }
-        },
-        "Associés - Dividendes à payer": {
-          "account_number": "457"
-        },
-        "Associés - Opérations faites en commun et en GIE": {
-          "Opérations courantes": {
-            "account_number": "4581"
-          },
-          "Intérêts courus": {
-            "account_number": "4588"
-          },
-          "account_number": "458"
-        }
-      },
-      "46-Débiteurs divers et créditeurs divers (PASSIF)": {
-        "Dettes sur acquisitions de valeurs mobilières de placement": {
-          "account_number": "464"
-        }
-      },
-      "47-Comptes transitoires ou d'attente (PASSIF)": {
-        "471-Comptes d'attente (PASSIF)": {
-          "account_type": "Temporary"
-        },
-        "Différences de conversion (PASSIF)": {
-          "Augmentation des créances": {
-            "account_number": "4771"
-          },
-          "Diminution des dettes": {
-            "account_number": "4772"
-          },
-          "Différences compensées par couverture de change": {
-            "account_number": "4778"
-          },
-          "account_number": "477"
-        },
-        "478-Autres comptes transitoires (PASSIF)": {
-          "Différences d'évaluation sur instruments de trésorerie (PASSIF)": {
-            "account_number": "4787"
-          }
-        }
-      },
-      "48-Comptes de régularisation (PASSIF)": {
-        "Produits constatés d'avance": {
-          "account_number": "487"
-        },
-        "448-Comptes de répartition périodique des charges et des produits (PASSIF)": {
-          "Produits": {
-            "account_number": "4887"
-          }
-        }
-      }
-    },
-    "Comptes Financiers": {
-      "root_type": "Asset",
-      "Valeurs mobilières de placement": {
-        "Actions propres": {
-          "Actions destinées à être attribuées aux employés et affectées à des plans déterminés": {
-            "account_number": "5021"
-          },
-          "Actions disponibles pour être attribuées aux employés ou pour la régularisation des cours de bourse": {
-            "account_number": "5022"
-          },
-          "account_number": "502"
-        },
-        "Actions": {
-          "Titres cotés": {
-            "account_number": "5031"
-          },
-          "Titres non cotés": {
-            "account_number": "5035"
-          },
-          "account_number": "503"
-        },
-        "Autres titres conférant un droit de propriété": {
-          "account_number": "504"
-        },
-        "Obligations et bons émis par la société et rachetés par elle": {
-          "account_number": "505"
-        },
-        "Obligations": {
-          "Titres cotés": {
-            "account_number": "5061"
-          },
-          "Titres non cotés": {
-            "account_number": "5065"
-          },
-          "account_number": "506"
-        },
-        "Bons du Trésor et bons de caisse à court terme": {
-          "account_number": "507"
-        },
-        "Autres valeurs mobilières de placement et autres créances assimilées": {
-          "Autres valeurs mobilières": {
-            "account_number": "5081"
-          },
-          "Bons de souscription": {
-            "account_number": "5082"
-          },
-          "Intérêts courus sur obligations, bons et valeurs assimilées": {
-            "account_number": "5088"
-          },
-          "account_number": "508"
-        },
-        "Versements restant à effectuer sur valeurs mobilières de placement non libérées": {
-          "account_number": "509"
-        },
-        "account_number": "50"
-      },
-      "Banques, établissements financiers et assimilés": {
-        "Valeurs à l'encaissement": {
-          "Coupons échus à l'encaissement": {
-            "account_number": "5111"
-          },
-          "Chèques à encaisser": {
-            "account_number": "5112"
-          },
-          "Effets à l'encaissement": {
-            "account_number": "5113"
-          },
-          "Effets à l'escompte": {
-            "account_number": "5114"
-          },
-          "account_number": "511"
-        },
-        "Banques": {
-          "account_type": "Bank",
-          "Comptes en monnaie nationale": {
-            "account_type": "Bank",
-            "account_number": "5121"
-          },
-          "Comptes en devises": {
-            "account_type": "Bank",
-            "account_number": "5124"
-          },
-          "account_number": "512"
-        },
-        "Autres organismes financiers": {
-          "account_number": "517"
-        },
-        "Intérêts courus": {
-          "Intérêts courus à payer": {
-            "account_number": "5181"
-          },
-          "Intérêts courus à recevoir": {
-            "account_number": "5188"
-          },
-          "account_number": "518"
-        },
-        "Concours bancaires courants": {
-          "Crédit de mobilisation des créances commerciales (CMCC)": {
-            "account_number": "5191"
-          },
-          "Mobilisation de créances nées à l'étranger": {
-            "account_number": "5193"
-          },
-          "Intérêts courus sur concours bancaires courants": {
-            "account_number": "5198"
-          },
-          "account_number": "519"
-        },
-        "account_number": "51"
-      },
-      "Instruments de trésorerie": {
-        "is_group": 1,
-        "account_number": "52"
-      },
-      "Caisse": {
-        "account_type": "Cash",
-        "account_number": "53"
-      },
-      "Régies d'avance et accréditifs": {
-        "is_group": 1,
-        "account_number": "54"
-      },
-      "Virements internes": {
-        "is_group": 1,
-        "account_number": "58"
-      },
-      "Dépréciations des comptes financiers": {
-        "Dépréciations des valeurs mobilières de placement": {
-          "Actions": {
-            "account_number": "5903"
-          },
-          "Autres titres conférant un droit de propriété": {
-            "account_number": "5904"
-          },
-          "Obligations": {
-            "account_number": "5906"
-          },
-          "Autres valeurs mobilières de placement et créances assimilées": {
-            "account_number": "5908"
-          },
-          "account_number": "590"
-        },
-        "account_number": "59"
-      },
-      "account_number": "5"
-    },
-    "Comptes de Charges": {
-      "root_type": "Expense",
-      "Achats (sauf 603)": {
-        "Achats stockés - Matières premières (et fournitures)": {
-          "account_type": "Cost of Goods Sold",
-          "account_number": "601"
-        },
-        "Achats stockés - Autres approvisionnements": {
-          "account_type": "Cost of Goods Sold",
-          "Matières consommables": {
-            "account_number": "6021"
-          },
-          "Fournitures consommables": {
-            "account_type": "Cost of Goods Sold",
-            "Combustibles": {
-              "account_type": "Cost of Goods Sold",
-              "account_number": "60221"
-            },
-            "Produits d'entretien": {
-              "account_type": "Cost of Goods Sold",
-              "account_number": "60222"
-            },
-            "Fournitures d'atelier et d'usine": {
-              "account_type": "Cost of Goods Sold",
-              "account_number": "60223"
-            },
-            "Fournitures de magasin": {
-              "account_type": "Cost of Goods Sold",
-              "account_number": "60224"
-            },
-            "Fournitures de bureau": {
-              "account_type": "Cost of Goods Sold",
-              "account_number": "60225"
-            },
-            "account_number": "6022"
-          },
-          "Emballages": {
-            "account_type": "Cost of Goods Sold",
-            "Emballages perdus": {
-              "account_type": "Cost of Goods Sold",
-              "account_number": "60261"
-            },
-            "Malis sur emballage": {
-              "account_type": "Cost of Goods Sold",
-              "account_number": "60262"
-            },
-            "Emballages récupérables non identifiables": {
-              "account_type": "Cost of Goods Sold",
-              "account_number": "60265"
-            },
-            "Emballages à usage mixte": {
-              "account_type": "Cost of Goods Sold",
-              "account_number": "60267"
-            },
-            "account_number": "6026"
-          },
-          "account_number": "602"
-        },
-        "Variations des stocks (approvisionnements et marchandises)": {
-          "account_type": "Stock Adjustment",
-          "Variation des stocks de matières premières (et fournitures)": {
-            "account_type": "Stock Adjustment",
-            "account_number": "6031"
-          },
-          "Variation des stocks des autres approvisionnements": {
-            "account_type": "Stock Adjustment",
-            "account_number": "6032"
-          },
-          "Variation des stocks de marchandises": {
-            "account_type": "Stock Adjustment",
-            "account_number": "6037"
-          },
-          "account_number": "603"
-        },
-        "Achats d'études et prestations de service": {
-          "account_type": "Cost of Goods Sold",
-          "account_number": "604"
-        },
-        "Achats de matériel, équipements et travaux": {
-          "account_type": "Cost of Goods Sold",
-          "account_number": "605"
-        },
-        "Achats non stockés de matières et founitures": {
-          "account_type": "Cost of Goods Sold",
-          "Fournitures non stockables (eau, énergie...)": {
-            "account_type": "Cost of Goods Sold",
-            "account_number": "6061"
-          },
-          "Fournitures d'entretien et de petit équipement": {
-            "account_type": "Cost of Goods Sold",
-            "account_number": "6063"
-          },
-          "Fournitures administratives": {
-            "account_type": "Cost of Goods Sold",
-            "account_number": "6064"
-          },
-          "Autres matières et fournitures": {
-            "account_type": "Cost of Goods Sold",
-            "account_number": "6068"
-          },
-          "account_number": "606"
-        },
-        "Achats de marchandises": {
-          "account_type": "Cost of Goods Sold",
-          "account_number": "607"
-        },
-        "(Compte réservé, le cas échéant, à la recapitulation des Frais accessoires incorporés aux achats)": {
-          "account_type": "Expenses Included In Valuation",
-          "account_number": "608"
-        },
-        "Rabais, remises et ristournes obtenus sur achats": {
-          "Rabais, remises et ristournes obtenus sur achats - de matières premières (et fournitures)": {
-            "account_number": "6091"
-          },
-          "Rabais, remises et ristournes obtenus sur achats - d'autres approvisionnements stockés": {
-            "account_number": "6092"
-          },
-          "Rabais, remises et ristournes obtenus sur achats - d'études et prestations de services": {
-            "account_number": "6094"
-          },
-          "Rabais, remises et ristournes obtenus sur achats - de matériel, équipements et travaux": {
-            "account_number": "6095"
-          },
-          "Rabais, remises et ristournes obtenus sur achats - d'approvisionnements non stockés": {
-            "account_number": "6096"
-          },
-          "Rabais, remises et ristournes obtenus sur achats - de marchandises": {
-            "account_number": "6097"
-          },
-          "Rabais, remises et ristournes non affectés": {
-            "account_number": "6098"
-          },
-          "account_number": "609"
-        },
-        "account_number": "60"
-      },
-      "Services extérieurs": {
-        "Sous-traitance générale": {
-          "account_number": "611"
-        },
-        "Redevances de crédit-bail": {
-          "Crédit-bail mobilier": {
-            "account_number": "6122"
-          },
-          "Crédit-bail immobilier": {
-            "account_number": "6125"
-          },
-          "account_number": "612"
-        },
-        "Locations": {
-          "Locations immobilières": {
-            "account_number": "6132"
-          },
-          "Locations mobilières": {
-            "account_number": "6135"
-          },
-          "account_number": "613"
-        },
-        "Charges locatives et de copropriété": {
-          "account_number": "614"
-        },
-        "Entretiens et réparations": {
-          "Entretiens et réparations - sur biens immobiliers": {
-            "account_number": "6152"
-          },
-          "Entretiens et réparations - sur biens mobiliers": {
-            "account_number": "6155"
-          },
-          "Maintenance": {
-            "account_number": "6156"
-          },
-          "account_number": "615"
-        },
-        "Primes d'assurance": {
-          "Multirisques": {
-            "account_number": "6161"
-          },
-          "Assurance obligatoire dommage construction": {
-            "account_number": "6162"
-          },
-          "Assurance-transport": {
-            "Assurance-transport - sur achats": {
-              "account_number": "61636"
-            },
-            "Assurance-transport - sur ventes": {
-              "account_number": "61637"
-            },
-            "Assurance-transport - sur autres biens": {
-              "account_number": "61638"
-            },
-            "account_number": "6163"
-          },
-          "Risques d'exploitation": {
-            "account_number": "6164"
-          },
-          "Insolvabilité clients": {
-            "account_number": "6165"
-          },
-          "account_number": "616"
-        },
-        "Etudes et recherches": {
-          "account_number": "617"
-        },
-        "Divers": {
-          "Documentation générale": {
-            "account_number": "6181"
-          },
-          "Documentation technique": {
-            "account_number": "6183"
-          },
-          "Frais de colloques, séminaires, conférences": {
-            "account_number": "6185"
-          },
-          "account_number": "618"
-        },
-        "Rabais, remises et ristournes obtenus sur services extérieurs": {
-          "account_number": "619"
-        },
-        "account_number": "61"
-      },
-      "Autres services extérieurs": {
-        "Personnel extérieur à l'entreprise": {
-          "Personnel intérimaire": {
-            "account_number": "6211"
-          },
-          "Personnel détaché ou prêté à l'entreprise": {
-            "account_number": "6214"
-          },
-          "account_number": "621"
-        },
-        "Rémunérations d'intermédiaires et honoraires": {
-          "Commissions et courtages sur achats": {
-            "account_number": "6221"
-          },
-          "Commissions et courtages sur ventes": {
-            "account_number": "6222"
-          },
-          "Rémunérations des transitaires": {
-            "account_number": "6224"
-          },
-          "Rémunérations d'affacturage": {
-            "account_number": "6225"
-          },
-          "Honoraires": {
-            "account_number": "6226"
-          },
-          "Frais d'actes et de contentieux": {
-            "account_number": "6227"
-          },
-          "Divers": {
-            "account_number": "6228"
-          },
-          "account_number": "622"
-        },
-        "Publicité, publications, relations publiques": {
-          "Annonces et insertions": {
-            "account_number": "6231"
-          },
-          "Echantillons": {
-            "account_number": "6232"
-          },
-          "Foires et expositions": {
-            "account_number": "6233"
-          },
-          "Cadeaux à la clientèle": {
-            "account_number": "6234"
-          },
-          "Primes": {
-            "account_number": "6235"
-          },
-          "Catalogues et imprimés": {
-            "account_number": "6236"
-          },
-          "Publications": {
-            "account_number": "6237"
-          },
-          "Divers (pourboires, dons courants...)": {
-            "account_number": "6238"
-          },
-          "account_number": "623"
-        },
-        "Transports de biens et transports collectifs du personnel": {
-          "Transports sur achats": {
-            "account_number": "6241"
-          },
-          "Transports sur ventes": {
-            "account_type": "Chargeable",
-            "account_number": "6242"
-          },
-          "Transports entre établissements ou chantiers": {
-            "account_number": "6243"
-          },
-          "Transports administratifs": {
-            "account_number": "6244"
-          },
-          "Transports collectifs du personnel": {
-            "account_number": "6247"
-          },
-          "Divers": {
-            "account_number": "6248"
-          },
-          "account_number": "624"
-        },
-        "Déplacements, missions et réceptions": {
-          "Voyages et déplacements": {
-            "account_number": "6251"
-          },
-          "Frais de déménagement": {
-            "account_number": "6255"
-          },
-          "Missions": {
-            "account_number": "6256"
-          },
-          "Réceptions": {
-            "account_number": "6257"
-          },
-          "account_number": "625"
-        },
-        "Frais postaux et de télécommunications": {
-          "account_number": "626"
-        },
-        "Services bancaires et assimilés": {
-          "Frais sur titres (achat, vente, garde)": {
-            "account_number": "6271"
-          },
-          "Commissions et frais sur émission d'emprunts": {
-            "account_number": "6272"
-          },
-          "Frais sur effets": {
-            "account_number": "6275"
-          },
-          "Location de coffres": {
-            "account_number": "6276"
-          },
-          "Autres frais et commissions sur prestations de services": {
-            "account_number": "6278"
-          },
-          "account_number": "627"
-        },
-        "Divers": {
-          "Concours divers (cotisations...)": {
-            "account_number": "6281"
-          },
-          "Frais de recrutement de personnel": {
-            "account_number": "6284"
-          },
-          "account_number": "628"
-        },
-        "Rabais, remises et ristournes obtenus sur autres services extérieurs": {
-          "account_number": "629"
-        },
-        "account_number": "62"
-      },
-      "Impôts, taxes et versements assimilés": {
-        "Impôts, taxes et versements assimilés sur rémunérations (administrations des impôts)": {
-          "Taxes sur les salaires": {
-            "account_number": "6311"
-          },
-          "Cotisation pour défaut d'investissement obligatoire dans la construction": {
-            "account_number": "6314"
-          },
-          "Autres": {
-            "account_number": "6318"
-          },
-          "account_number": "631"
-        },
-        "Impôts, taxes et versements assimilés sur rémunérations (autres organismes)": {
-          "Versement de transport": {
-            "account_number": "6331"
-          },
-          "Allocations logement": {
-            "account_number": "6332"
-          },
-          "Participation des employeurs à la formation professionnelle continue": {
-            "account_number": "6333"
-          },
-          "Participation des employeurs à l'effort de construction": {
-            "account_number": "6334"
-          },
-          "Versements libératoires ouvrant droit à l'éxonération de la taxe d'apprentissage": {
-            "account_number": "6335"
-          },
-          "Autres": {
-            "account_number": "6338"
-          },
-          "account_number": "633"
-        },
-        "Autres impôts, taxes et versements assimilés (administrations des impôts)": {
-          "Impôts directs (sauf impôts sur les bénéfices)": {
-            "Contribution économique territoriale": {
-              "account_number": "63511"
-            },
-            "Taxes foncières": {
-              "account_number": "63512"
-            },
-            "Autres impôts locaux": {
-              "account_number": "63513"
-            },
-            "Taxe sur les véhicules des sociétés": {
-              "account_number": "63514"
-            },
-            "account_number": "6351"
-          },
-          "Taxes sur le chiffre d'affaires non récupérables": {
-            "account_number": "6352"
-          },
-          "Impôts indirects": {
-            "account_number": "6353"
-          },
-          "Droits d'enregistrement et de timbre": {
-            "Droits de mutation": {
-              "account_number": "63541"
-            },
-            "account_number": "6354"
-          },
-          "Autres droits": {
-            "account_number": "6358"
-          },
-          "account_number": "635"
-        },
-        "Autres impôts, taxes et versements assimilés (autres organismes)": {
-          "Contribution sociale de solidarité à la charge des sociétés": {
-            "account_number": "6371"
-          },
-          "Taxes perçues par les organismes publics internationaux": {
-            "account_number": "6372"
-          },
-          "Impôts et taxes exigibles à l'étranger": {
-            "account_number": "6374"
-          },
-          "Taxes diverses": {
-            "account_number": "6378"
-          },
-          "account_number": "637"
-        },
-        "Rappels d'impôts (autres qu'impôts sur les bénéfices)": {
-          "account_number": "638"
-        },
-        "account_number": "63"
-      },
-      "Charges de personnel": {
-        "Rémunérations du personnel": {
-          "Salaires, appointements": {
-            "account_number": "6411"
-          },
-          "Congés payés": {
-            "account_number": "6412"
-          },
-          "Primes et gratifications": {
-            "account_number": "6413"
-          },
-          "Indemnités et avantages divers": {
-            "account_number": "6414"
-          },
-          "Supplément familial": {
-            "account_number": "6415"
-          },
-          "account_number": "641"
-        },
-        "Rémunération du travail de l'exploitant": {
-          "account_number": "644"
-        },
-        "Cotisations de sécurité sociale et de prévoyance": {
-          "Cotisations à l'URSSAF": {
-            "account_number": "6451"
-          },
-          "Cotisations aux mutuelles": {
-            "account_number": "6452"
-          },
-          "Cotisations aux caisses de retraites": {
-            "account_number": "6453"
-          },
-          "Cotisations aux ASSEDIC": {
-            "account_number": "6454"
-          },
-          "account_number": "645"
-        },
-        "Cotisations sociales personnelles de l'exploitant": {
-          "account_number": "646"
-        },
-        "Autres cotisations sociales": {
-          "is_group": 1,
-          "account_number": "647"
-        },
-        "Autres charges de personnel": {
-          "account_number": "648"
-        },
-        "Remboursements de charges de personnel (si remboursement de personnel)": {
-          "account_number": "649"
-        },
-        "account_number": "64"
-      },
-      "Autres charges de gestion courante": {
-        "Redevances pour concessions, brevets, licences, marques, procédés, solutions informatiques, droits et valeurs similaires": {
-          "Redevances pour concessions, brevets, licences, marques, procédés, solutions informatiques": {
-            "account_number": "6511"
-          },
-          "Droits d'auteur et de reproduction": {
-            "account_number": "6516"
-          },
-          "Autres droits et valeurs similaires": {
-            "account_number": "6518"
-          },
-          "account_number": "651"
-        },
-        "Rémunérations de l'activité des administrateurs et des gérants": {
-          "account_number": "653"
-        },
-        "Pertes sur créances irrécouvrables": {
-          "Créances de l'exercice": {
-            "account_number": "6541"
-          },
-          "Créances des exercices antérieurs": {
-            "account_number": "6544"
-          },
-          "account_number": "654"
-        },
-        "Quotes-parts de résultat sur opérations faites en commun": {
-          "Quote-part de bénéfice transférée (comptabilité du gérant)": {
-            "account_number": "6551"
-          },
-          "Quote-part de perte supportée (comptabilité des associés non gérants)": {
-            "account_number": "6555"
-          },
-          "account_number": "655"
-        },
-        "Pertes de change sur créances et dettes commerciales": {
-          "account_number": "656"
-        },
-        "Valeurs comptables des immobilisations incorporelles et corporelles cédées": {
-          "account_number": "657"
-        },
-        "Pénalités et autres charges": {
-          "Pénalités sur marchés (et dédits payés sur achats et ventes)": {
-            "account_number": "6581"
-          },
-          "Pénalités, amendes fiscales et pénales": {
-            "account_number": "6582"
-          },
-          "Malis provenant de clauses d'indexation": {
-            "account_number": "6583"
-          },
-          "Lots": {
-            "account_number": "6584"
-          },
-          "Opérations de constitution ou liquidation de fiducies": {
-            "account_number": "6588"
-          },
-          "account_number": "658"
-        },
-        "account_number": "65"
-      },
-      "Charges financières": {
-        "Charges d'intérêts": {
-          "Intérêts des emprunts et dettes": {
-            "Intérêts des emprunts et dettes - des emprunts et dettes assimilées": {
-              "account_number": "66116"
-            },
-            "Intérêts des emprunts et dettes - des dettes rattachées à des participations": {
-              "account_number": "66117"
-            },
-            "account_number": "6611"
-          },
-          "Charges de la fiducie, résultat de la période": {
-            "account_number": "6612"
-          },
-          "Intérêts des comptes courants et des dépôts créditeurs": {
-            "account_number": "6615"
-          },
-          "Intérêts bancaires et sur opérations de financement (escompte...)": {
-            "account_number": "6616"
-          },
-          "Intérêts des obligations cautionnées": {
-            "account_number": "6617"
-          },
-          "Intérêts des autres dettes": {
-            "Intérêts des autres dettes - des dettes commerciales": {
-              "account_number": "66181"
-            },
-            "Intérêts des autres dettes - des dettes diverses": {
-              "account_number": "66188"
-            },
-            "account_number": "6618"
-          },
-          "account_number": "661"
-        },
-        "Pertes sur créances liées à des participations": {
-          "account_number": "664"
-        },
-        "Escomptes accordés": {
-          "account_number": "665"
-        },
-        "Pertes de change financières": {
-          "account_type": "Round Off",
-          "account_number": "666"
-        },
-        "Charges sur cession d'éléments financiers": {
-          "Valeur comptable des immobilisations financières cédées": {
-            "account_number": "6671"
-          },
-          "Charges nettes sur cessions de titres immobilisés de l'activité de portefeuille": {
-            "account_number": "6672"
-          },
-          "Charges nettes sur cessions de valeurs mobilières de placement": {
-            "account_number": "6673"
-          },
-          "Charges nettes sur cessions de jetons": {
-            "account_number": "6674"
-          },
-          "account_number": "667"
-        },
-        "Autres charges financières": {
-          "Mali provenant du rachat par l'entité d'actions et obligations émises par elle-même.": {
-            "account_number": "6683"
-          },
-          "account_number": "668"
-        },
-        "account_number": "66"
-      },
-      "Charges exceptionnelles": {
-        "(Compte à la disposition des entités pour enregistrer, en cours d'exercice, les charges sur exercices antérieurs)": {
-          "account_number": "672"
-        },
-        "Autres charges exceptionnelles": {
-          "account_number": "678"
-        },
-        "account_number": "67"
-      },
-      "Dotations aux amortissements, dépréciations et provisions": {
-        "account_type": "Depreciation",
-        "Dotations aux amortissements, dépréciations et provisions - Charges d'exploitation": {
-          "account_type": "Depreciation",
-          "Dotations aux amortissements sur immobilisations incorporelles et corporelles": {
-            "account_type": "Depreciation",
-            "Immobilisations incorporelles et frais d'établissement": {
-              "account_type": "Depreciation",
-              "account_number": "68111"
-            },
-            "Immobilisations corporelles": {
-              "account_type": "Depreciation",
-              "account_number": "68112"
-            },
-            "account_number": "6811"
-          },
-          "Dotations aux provisions d'exploitation": {
-            "account_type": "Depreciation",
-            "account_number": "6815"
-          },
-          "Dotations aux dépréciations des immobilisations incorporelles et corporelles": {
-            "account_type": "Depreciation",
-            "Immobilisations incorporelles": {
-              "account_type": "Depreciation",
-              "account_number": "68161"
-            },
-            "Immobilisations corporelles": {
-              "account_type": "Depreciation",
-              "account_number": "68162"
-            },
-            "account_number": "6816"
-          },
-          "Dotations pour dépréciations des actifs circulants": {
-            "account_type": "Depreciation",
-            "Stocks et en-cours": {
-              "account_type": "Depreciation",
-              "account_number": "68173"
-            },
-            "Créances": {
-              "account_type": "Depreciation",
-              "account_number": "68174"
-            },
-            "account_number": "6817"
-          },
-          "account_number": "681"
-        },
-        "Dotations aux amortissements, dépréciations et provisions - Charges financières": {
-          "account_type": "Depreciation",
-          "Dotations aux amortissements des primes de remboursement des obligations": {
-            "account_type": "Depreciation",
-            "account_number": "6861"
-          },
-          "Dotations aux amortissements des frais d'émissions des emprunts": {
-            "account_type": "Depreciation",
-            "account_number": "6862"
-          },
-          "Dotations aux provisions financières": {
-            "account_type": "Depreciation",
-            "account_number": "6865"
-          },
-          "Dotations aux dépréciations des éléments financiers": {
-            "account_type": "Depreciation",
-            "Immobilisations financières": {
-              "account_type": "Depreciation",
-              "account_number": "68662"
-            },
-            "Valeurs mobilières de placement": {
-              "account_type": "Depreciation",
-              "account_number": "68665"
-            },
-            "account_number": "6866"
-          },
-          "account_number": "686"
-        },
-        "Dotations aux amortissements, dépréciations et provisions - Charges exceptionnelles": {
-          "account_type": "Depreciation",
-          "Dotations aux amortissements exceptionnels des immobilisations": {
-            "account_type": "Depreciation",
-            "account_number": "6871"
-          },
-          "Dotations aux provisions réglementées (immobilisations)": {
-            "account_type": "Depreciation",
-            "Amortissements dérogatoires": {
-              "account_type": "Depreciation",
-              "account_number": "68725"
-            },
-            "account_number": "6872"
-          },
-          "Dotations aux provisions réglementées (stocks)": {
-            "account_type": "Depreciation",
-            "account_number": "6873"
-          },
-          "Dotations aux autres provisions réglementées": {
-            "account_type": "Depreciation",
-            "account_number": "6874"
-          },
-          "Dotations aux provisions exceptionnelles": {
-            "account_type": "Depreciation",
-            "account_number": "6875"
-          },
-          "Dotations aux dépréciations exceptionnelles": {
-            "account_type": "Depreciation",
-            "account_number": "6876"
-          },
-          "account_number": "687"
-        },
-        "account_number": "68"
-      },
-      "Participation des salariés, impôts sur les bénéfices et assimilés": {
-        "Participation des salariés aux résultats": {
-          "account_number": "691"
-        },
-        "Impôts sur les bénéfices": {
-          "Impôts dus en France": {
-            "account_number": "6951"
-          },
-          "Contribution additionnelle à l'impôt sur les bénéfices": {
-            "account_number": "6952"
-          },
-          "Impôts dus à l'étranger": {
-            "account_number": "6954"
-          },
-          "account_number": "695"
-        },
-        "Suppléments d'impôts sur les sociétés, liés aux distributions": {
-          "account_number": "696"
-        },
-        "Intégration fiscale": {
-          "Intégration fiscale - Charges": {
-            "account_number": "6981"
-          },
-          "Intégration fiscale - Produits": {
-            "account_number": "6989"
-          },
-          "account_number": "698"
-        },
-        "Produits - Report en arrière des déficits": {
-          "account_number": "699"
-        },
-        "account_number": "69"
-      },
-      "account_number": "6"
-    },
-    "Comptes de Produits": {
-      "root_type": "Income",
-      "Ventes de produits fabriqués, prestations de services, marchandises": {
-        "Ventes de produits finis": {
-          "account_number": "701"
-        },
-        "Ventes de produits intermédiaires": {
-          "account_number": "702"
-        },
-        "Ventes de produits résiduels": {
-          "account_number": "703"
-        },
-        "Travaux": {
-          "account_number": "704"
-        },
-        "Etudes": {
-          "account_number": "705"
-        },
-        "Prestations de services": {
-          "account_number": "706"
-        },
-        "Ventes de marchandises": {
-          "account_number": "707"
-        },
-        "Produits des activités annexes": {
-          "Produits des services exploités dans l'intérêt du personnel": {
-            "account_number": "7081"
-          },
-          "Commissions et courtages": {
-            "account_number": "7082"
-          },
-          "Locations diverses": {
-            "account_number": "7083"
-          },
-          "Mise à disposition de personnel facturée": {
-            "account_number": "7084"
-          },
-          "Ports et frais accessoires facturés": {
-            "account_number": "7085"
-          },
-          "Bonis sur reprises d'emballages consignés": {
-            "account_number": "7086"
-          },
-          "Bonifications obtenues des clients et primes sur ventes": {
-            "account_number": "7087"
-          },
-          "Autres produits d'activités annexes (cessions d'approvisionnements...)": {
-            "account_number": "7088"
-          },
-          "account_number": "708"
-        },
-        "Rabais, remises et ristournes accordés": {
-          "Rabais, remises et ristournes accordés par l'entreprise - sur ventes de produits finis": {
-            "account_number": "7091"
-          },
-          "Rabais, remises et ristournes accordés par l'entreprise - sur ventes de produits intermédiaires": {
-            "account_number": "7092"
-          },
-          "Rabais, remises et ristournes accordés par l'entreprise - sur travaux": {
-            "account_number": "7094"
-          },
-          "Rabais, remises et ristournes accordés par l'entreprise - sur études": {
-            "account_number": "7095"
-          },
-          "Rabais, remises et ristournes accordés par l'entreprise - sur prestations de services": {
-            "account_number": "7096"
-          },
-          "Rabais, remises et ristournes accordés par l'entreprise - sur ventes de marchandises": {
-            "account_number": "7097"
-          },
-          "Rabais, remises et ristournes accordés par l'entreprise - sur produits des activités annexes": {
-            "account_number": "7098"
-          },
-          "account_number": "709"
-        },
-        "account_number": "70"
-      },
-      "Production stockée (ou déstockage)": {
-        "Variation des stocks (en-cours de production, produits)": {
-          "Variation des en-cours de production de biens": {
-            "Produits en cours": {
-              "account_number": "71331"
-            },
-            "Travaux en cours": {
-              "account_number": "71335"
-            },
-            "account_number": "7133"
-          },
-          "Variation des en-cours de production de services": {
-            "Etudes en cours": {
-              "account_number": "71341"
-            },
-            "Prestations de services en cours": {
-              "account_number": "71345"
-            },
-            "account_number": "7134"
-          },
-          "Variation des stocks de produits": {
-            "Produits intermédiaires": {
-              "account_number": "71351"
-            },
-            "Produits finis": {
-              "account_number": "71355"
-            },
-            "Produits résiduels": {
-              "account_number": "71358"
-            },
-            "account_number": "7135"
-          },
-          "account_number": "713"
-        },
-        "account_number": "71"
-      },
-      "Production immobilisée": {
-        "Immobilisations incorporelles": {
-          "account_number": "721"
-        },
-        "Immobilisations corporelles": {
-          "account_number": "722"
-        },
-        "account_number": "72"
-      },
-      "Subventions": {
-        "Subventions d'exploitation": {
-          "account_number": "741"
-        },
-        "Subventions d'équilibre": {
-          "account_number": "742"
-        },
-        "Quote-part des subventions d'investissement virées au résultat de l'exercice": {
-          "account_number": "747"
-        },
-        "account_number": "74"
-      },
-      "Autres produits de gestion courante": {
-        "Redevances pour concessions, brevets, licences, marques, procédés, solutions informatiques, droits et valeurs similaires": {
-          "Redevances pour concessions, brevets, licences, marques, procédés, solutions informatiques": {
-            "account_number": "7511"
-          },
-          "Droits d'auteur et de reproduction": {
-            "account_number": "7516"
-          },
-          "Autres droits et valeurs similaires": {
-            "account_number": "7518"
-          },
-          "account_number": "751"
-        },
-        "Revenus des immeubles non affectés aux activités professionnelles": {
-          "account_number": "752"
-        },
-        "Rémunérations d'administrateurs, gérants...": {
-          "account_number": "753"
-        },
-        "Ristournes perçues des coopératives (provenant des excédents)": {
-          "account_number": "754"
-        },
-        "Quotes-parts de résultats sur opérations faites en commun": {
-          "Quote-part de perte transférée (comptabilité du gérant)": {
-            "account_number": "7551"
-          },
-          "Quote-part de bénéfice attribué (comptabilité des associés non gérants)": {
-            "account_number": "7555"
-          },
-          "account_number": "755"
-        },
-        "Gains de change sur créances et dettes commerciales": {
-          "account_number": "756"
-        },
-        "Produits de cessions d'immobilisations incorpoprelles et corporelles": {
-          "account_number": "757"
-        },
-        "Indemnités et autres produits": {
-          "Dédits et pénalités perçus sur achats et vente": {
-            "account_number": "7581"
-          },
-          "Libéralités reçues": {
-            "account_number": "7582"
-          },
-          "Rentrées sur créances amorties": {
-            "account_number": "7583"
-          },
-          "Dégrèvements d’impôts autres qu’impôts sur les bénéfices": {
-            "account_number": "7584"
-          },
-          "account_number": "758"
-        },
-        "account_number": "75"
-      },
-      "Produits financiers": {
-        "Produits de participations": {
-          "Revenus des titres de participation": {
-            "account_number": "7611"
-          },
-          "Produits de la fiducie, résultat de la période": {
-            "account_number": "7612"
-          },
-          "Revenus sur autres formes de participation": {
-            "account_number": "7616"
-          },
-          "Revenus des créances rattachées à des participations": {
-            "account_number": "7617"
-          },
-          "account_number": "761"
-        },
-        "Produits des autres immobilisations financières": {
-          "Revenus des titres immobilisés": {
-            "account_number": "7621"
-          },
-          "Revenus des prêts": {
-            "account_number": "7626"
-          },
-          "Revenus des créances immobilisées": {
-            "account_number": "7627"
-          },
-          "account_number": "762"
-        },
-        "Revenus des autres créances": {
-          "Revenus des créances commerciales": {
-            "account_number": "7631"
-          },
-          "Revenus des créances diverses": {
-            "account_number": "7638"
-          },
-          "account_number": "763"
-        },
-        "Revenus des valeurs mobilières de placement": {
-          "account_number": "764"
-        },
-        "Escomptes obtenus": {
-          "account_number": "765"
-        },
-        "Gains de change financières": {
-          "account_type": "Round Off",
-          "account_number": "766"
-        },
-        "Produits sur cessions d'éléments financiers": {
-          "Produits sur cessions d'immobilisations financières": {
-            "account_number": "7671"
-          },
-          "Produits sur cessions de titres immobilisés de l'activité de portefeuille": {
-            "account_number": "7672"
-          },
-          "Produits sur cessions de valeurs mobilières de placements": {
-            "account_number": "7673"
-          },
-          "Produits nets sur cessions de jetons": {
-            "account_number": "7674"
-          },
-          "account_number": "767"
-        },
-        "Autres produits financiers": {
-          "Bonis provenant du rachat par l'entreprise d'actions et d'obligations émises par elle-même": {
-            "account_number": "7683"
-          },
-          "account_number": "768"
-        },
-        "account_number": "76"
-      },
-      "Produits exceptionnels": {
-        "(Compte à la disposition des entités pour enregistrer, en cours d'exercice, les Produits sur exercices antérieurs)": {
-          "account_number": "772"
-        },
-        "Autres produits exceptionnels": {
-          "account_number": "778"
-        },
-        "account_number": "77"
-      },
-      "Reprises sur amortissements, dépréciations et provisions": {
-        "Reprises sur amortissements, dépréciations et provisions (à inscrire dans les produits d'exploitation)": {
-          "Reprises sur amortissements des immobilisations incorporelles et corporelles": {
-            "Immobilisations incorporelles": {
-              "account_number": "78111"
-            },
-            "Immobilisations corporelles": {
-              "account_number": "78112"
-            },
-            "account_number": "7811"
-          },
-          "Reprises sur provisions d'exploitation": {
-            "account_number": "7815"
-          },
-          "Reprises sur dépréciations des immobilisations corporelles et incorporelles": {
-            "Immobilisations incorporelles": {
-              "account_number": "78161"
-            },
-            "Immobilisations corporelles": {
-              "account_number": "78162"
-            },
-            "account_number": "7816"
-          },
-          "Reprises sur dépréciations des actifs circulants": {
-            "Stocks et en-cours": {
-              "account_number": "78173"
-            },
-            "Créances": {
-              "account_number": "78174"
-            },
-            "account_number": "7817"
-          },
-          "account_number": "781"
-        },
-        "Reprises sur dépréciations et provisions (à inscrire dans les produits financiers)": {
-          "Reprises sur provisions financières": {
-            "account_number": "7865"
-          },
-          "Reprises sur dépréciations des éléments financiers": {
-            "Immobilisations financières": {
-              "account_number": "78662"
-            },
-            "Valeurs mobilières de placement": {
-              "account_number": "78665"
-            },
-            "account_number": "7866"
-          },
-          "account_number": "786"
-        },
-        "Reprises sur dépréciations et provisions (à inscrire dans les produits exceptionnels)": {
-          "Reprises sur provisions réglementées (immobilisations)": {
-            "Amortissements dérogatoires": {
-              "account_number": "78725"
-            },
-            "account_number": "7872"
-          },
-          "Reprises sur provisions réglementées (stocks)": {
-            "account_number": "7873"
-          },
-          "Reprises sur autres provisions réglementées": {
-            "account_number": "7874"
-          },
-          "Reprises sur provisions exceptionnelles": {
-            "account_number": "7875"
-          },
-          "Reprises sur dépréciations exceptionnelles": {
-            "account_number": "7876"
-          },
-          "account_number": "787"
-        },
-        "account_number": "78"
-      },
-      "account_number": "7"
-    }
-  }
+	"county_code": "fr",
+	"name": "France - Plan Comptable General 2025 avec code",
+	"tree": {
+		"1-Comptes de capitaux": {
+			"root_type": "Equity",
+			"10-Capital et r\u00e9serves": {
+				"101-Capital": {
+					"1011-Capital individuel initial (au ..\/..\/..\/)": {
+						"account_number": "1011"
+					},
+					"1012-Variations capital individuel initial": {
+						"account_number": "1012"
+					},
+					"1013-Capital souscrit - non appel\u00e9": {
+						"account_number": "1013"
+					},
+					"1014-Capital souscrit - appel\u00e9, vers\u00e9": {
+						"account_number": "1014"
+					},
+					"1015-Capital souscrit - appel\u00e9, non vers\u00e9": {
+						"10151-Capital non amorti": {
+							"account_number": "10151"
+						},
+						"10152-Capital amorti": {
+							"account_number": "10152"
+						}
+					},
+					"1018-Capital souscrit soumis \u00e0 des r\u00e9glementations particuli\u00e8res": {
+						"account_number": "1018"
+					}
+				},
+				"104-Primes li\u00e9es au capital social": {
+					"1041-Primes d'\u00e9mission": {
+						"account_number": "1041"
+					},
+					"1042-Primes de fusion": {
+						"account_number": "1042"
+					},
+					"1043-Primes d'apport": {
+						"account_number": "1043"
+					},
+					"1044-Primes de conversion d'obligations en actions": {
+						"account_number": "1044"
+					},
+					"1045-Bons de souscription d'actions": {
+						"account_number": "1045"
+					}
+				},
+				"105-Ecarts de r\u00e9\u00e9valuation": {
+					"1051-R\u00e9serve sp\u00e9ciale de r\u00e9\u00e9valuation": {
+						"account_number": "1051"
+					},
+					"1052-Ecart de r\u00e9\u00e9valuation libre": {
+						"account_number": "1052"
+					},
+					"1053-R\u00e9serve de r\u00e9\u00e9valuation": {
+						"account_number": "1053"
+					},
+					"1055-Ecarts de r\u00e9\u00e9valuation (autres op\u00e9rations l\u00e9gales)": {
+						"account_number": "1055"
+					},
+					"1057-Autres \u00e9carts de r\u00e9\u00e9valuation en France": {
+						"account_number": "1057"
+					},
+					"1058-Autres \u00e9carts de r\u00e9\u00e9valuation \u00e0 l'Etranger": {
+						"account_number": "1058"
+					}
+				},
+				"106-R\u00e9serves": {
+					"1061-R\u00e9serve l\u00e9gale": {
+						"10611-R\u00e9serve l\u00e9gale proprement dite": {
+							"account_number": "10611"
+						},
+						"10612-Plus-values nettes \u00e0 long terme": {
+							"account_number": "10612"
+						}
+					},
+					"1062-R\u00e9serves indisponibles": {
+						"account_number": "1062"
+					},
+					"1063-R\u00e9serves statutaires ou contractuelles": {
+						"account_number": "1063"
+					},
+					"1064-R\u00e9serves r\u00e9glement\u00e9es": {
+						"10641-Plus-values nettes \u00e0 long terme": {
+							"account_number": "10641"
+						},
+						"10643-R\u00e9serves cons\u00e9cutives \u00e0 l'octroi de subventions d'investissement": {
+							"account_number": "10643"
+						},
+						"10648-Autres r\u00e9serves r\u00e9glement\u00e9es": {
+							"account_number": "10648"
+						}
+					},
+					"1068-Autres r\u00e9serves": {
+						"10681-R\u00e9serve de propre assureur": {
+							"account_number": "10681"
+						},
+						"10688-R\u00e9serves diverses": {
+							"account_number": "10688"
+						}
+					}
+				},
+				"107-Ecart d'\u00e9quivalence": {
+					"account_number": "107"
+				},
+				"108-Compte de l'exploitant": {
+					"account_number": "108"
+				},
+				"109-Actionnaires et associ\u00e9s : Capital souscrit - non appel\u00e9": {
+					"1091-Actionnaires : Capital souscrit - non appel\u00e9": {
+						"account_number": "1091"
+					},
+					"1092-Associ\u00e9s : Capital souscrit - non appel\u00e9": {
+						"account_number": "1092"
+					}
+				}
+			},
+			"11-Report \u00e0 nouveau (solde cr\u00e9diteur ou d\u00e9biteur)": {
+				"110-Report \u00e0 nouveau (solde cr\u00e9diteur)": {
+					"account_number": "110"
+				},
+				"119-Report \u00e0 nouveau (solde d\u00e9biteur)": {
+					"account_number": "119"
+				}
+			},
+			"12-R\u00e9sultat de l'exercice (b\u00e9n\u00e9fice ou perte)": {
+				"120-R\u00e9sultat de l'exercice (b\u00e9n\u00e9fice)": {
+					"account_number": "120"
+				},
+				"129-R\u00e9sultat de l'exercice (perte)": {
+					"account_number": "129"
+				}
+			},
+			"13-Subventions d'investissement": {
+				"131-Subventions d'\u00e9quipement": {
+					"1311-Etat": {
+						"account_number": "1311"
+					},
+					"1312-R\u00e9gions": {
+						"account_number": "1312"
+					},
+					"1313-D\u00e9partements": {
+						"account_number": "1313"
+					},
+					"1314-Communes": {
+						"account_number": "1314"
+					},
+					"1315-Collectivit\u00e9s publiques": {
+						"account_number": "1315"
+					},
+					"1316-Entreprises publiques": {
+						"account_number": "1316"
+					},
+					"1317-Entreprises et organismes priv\u00e9s": {
+						"account_number": "1317"
+					},
+					"1318-Autres": {
+						"account_number": "1318"
+					}
+				},
+				"138-Autres subventions d'investissement": {
+					"account_number": "138"
+				},
+				"139-Subventions d'investissement inscrites au compte de r\u00e9sultat": {
+					"1391-Subventions d'\u00e9quipement inscrites au compte de r\u00e9sultat": {
+						"13911-Etat": {
+							"account_number": "13911"
+						},
+						"13912-R\u00e9gions": {
+							"account_number": "13912"
+						},
+						"13913-D\u00e9partements": {
+							"account_number": "13913"
+						},
+						"13914-Communes": {
+							"account_number": "13914"
+						},
+						"13915-Collectivit\u00e9s publiques": {
+							"account_number": "13915"
+						},
+						"13916-Entreprises publiques": {
+							"account_number": "13916"
+						},
+						"13917-Entreprises et organismes priv\u00e9s": {
+							"account_number": "13917"
+						},
+						"13918-Autres": {
+							"account_number": "13918"
+						}
+					},
+					"1398-Autres subventions d'investissement inscrites au compte de r\u00e9sultat": {
+						"account_number": "1398"
+					}
+				}
+			},
+			"14-Provisions r\u00e9glement\u00e9es": {
+				"142-Provisions r\u00e9glement\u00e9es relatives aux immobilisations": {
+					"1424-Provisions pour investissement (participation des salari\u00e9s)": {
+						"account_number": "1424"
+					}
+				},
+				"143-Provisions r\u00e9glement\u00e9es relatives aux stocks": {
+					"1431-Hausse des prix": {
+						"account_number": "1431"
+					},
+					"1432-Fluctuation des cours": {
+						"account_number": "1432"
+					}
+				},
+				"144-Provisions r\u00e9glement\u00e9es relatives aux autres \u00e9l\u00e9ments de l'actif": {
+					"account_number": "144"
+				},
+				"145-Amortissements d\u00e9rogatoires": {
+					"account_number": "145"
+				},
+				"146-Provision sp\u00e9ciale de r\u00e9\u00e9valuation": {
+					"account_number": "146"
+				},
+				"147-Plus-values r\u00e9investies": {
+					"account_number": "147"
+				},
+				"148-Autres provisions r\u00e9glement\u00e9es": {
+					"account_number": "148"
+				}
+			},
+			"15-Provisions": {
+				"151-Provisions pour risques": {
+					"1511-Provisions pour litiges": {
+						"account_number": "1511"
+					},
+					"1512-Provisions pour garanties donn\u00e9es aux clients": {
+						"account_number": "1512"
+					},
+					"1513-Provisions pour pertes sur march\u00e9s \u00e0 terme": {
+						"account_number": "1513"
+					},
+					"1514-Provisions pour amendes et p\u00e9nalit\u00e9s": {
+						"account_number": "1514"
+					},
+					"1515-Provisions pour pertes de change": {
+						"account_number": "1515"
+					},
+					"1516-Provisions pour pertes sur contrats": {
+						"account_number": "1516"
+					},
+					"1518-Autres provisions pour risques": {
+						"account_number": "1518"
+					}
+				},
+				"153-Provisions pour pensions et obligations similaires": {
+					"account_number": "153"
+				},
+				"154-Provisions pour restructurations": {
+					"account_number": "154"
+				},
+				"155-Provisions pour imp\u00f4ts": {
+					"account_number": "155"
+				},
+				"156-Provisions pour renouvellement des immobilisations": {
+					"account_number": "156"
+				},
+				"157-Provisions pour charges \u00e0 r\u00e9partir sur plusieurs exercices": {
+					"1572-Provisions pour gros entretien ou grandes r\u00e9visions": {
+						"account_number": "1572"
+					}
+				},
+				"158-Autres provisions pour charges": {
+					"1581-Provisions pour remises en \u00e9tat": {
+						"account_number": "1581"
+					}
+				}
+			},
+			"16-Emprunts et dettes assimil\u00e9es": {
+				"161-Emprunts obligataires convertibles": {
+					"account_number": "161"
+				},
+				"163-Autres emprunts obligataires": {
+					"account_number": "163"
+				},
+				"164-Emprunts aupr\u00e8s des \u00e9tablissements de cr\u00e9dit": {
+					"1641-Emprunts fonciers": {
+						"account_number": "1641"
+					},
+					"1642-Autres emprunts \u00e0 moyen et long terme": {
+						"account_number": "1642"
+					},
+					"1643-Emprunts \u00e0 court terme": {
+						"account_number": "1643"
+					}
+				},
+				"165-D\u00e9p\u00f4ts et cautionnements re\u00e7us": {
+					"1651-D\u00e9p\u00f4ts": {
+						"account_number": "1651"
+					},
+					"1655-Cautionnements": {
+						"account_number": "1655"
+					}
+				},
+				"166-Participation des salari\u00e9s aux r\u00e9sultats": {
+					"1661-Comptes bloqu\u00e9s": {
+						"account_number": "1661"
+					},
+					"1662-Fonds de participation": {
+						"account_number": "1662"
+					}
+				},
+				"167-Emprunts et dettes assortis de conditions particuli\u00e8res": {
+					"1671-Emissions de titres participatifs": {
+						"account_number": "1671"
+					},
+					"1674-Avances conditionn\u00e9es": {
+						"account_number": "1674"
+					},
+					"1675-Emprunts participatifs": {
+						"account_number": "1675"
+					}
+				},
+				"168-Autres emprunts et dettes assimil\u00e9es": {
+					"1681-Autres emprunts": {
+						"account_number": "1681"
+					},
+					"1685-Rentes viag\u00e8res capitalis\u00e9es": {
+						"account_number": "1685"
+					},
+					"1687-Autres dettes": {
+						"account_number": "1687"
+					},
+					"1688-Int\u00e9r\u00eats courus": {
+						"16881-sur emprunts obligataires convertibles": {
+							"account_number": "16881"
+						},
+						"16883-sur autres emprunts obligataires": {
+							"account_number": "16883"
+						},
+						"16884-sur emprunts aupr\u00e8s des \u00e9tablissements de cr\u00e9dit": {
+							"168841-Int\u00e9r\u00eats courus sur emprunts fonciers": {
+								"account_number": "168841"
+							},
+							"168842-Int\u00e9r\u00eats courus sur autres emprunts MLT": {
+								"account_number": "168842"
+							},
+							"168843-Int\u00e9r\u00eats courus sur emprunts court terme": {
+								"account_number": "168843"
+							}
+						},
+						"16885-sur d\u00e9p\u00f4ts et cautionnements re\u00e7us": {
+							"account_number": "16885"
+						},
+						"16886-sur participation des salari\u00e9s aux r\u00e9sultats": {
+							"account_number": "16886"
+						},
+						"16887-sur emprunts et dettes assortis de conditions particuli\u00e8res": {
+							"account_number": "16887"
+						},
+						"16888-sur autres emprunts et dettes assimil\u00e9es": {
+							"account_number": "16888"
+						}
+					}
+				},
+				"169-Primes de remboursement des obligations": {
+					"account_number": "169"
+				}
+			},
+			"17-Dettes rattach\u00e9es \u00e0 des participations": {
+				"171-Dettes rattach\u00e9es \u00e0 des participations (groupe)": {
+					"1711-Principal": {
+						"account_number": "1711"
+					},
+					"1712-Int\u00e9r\u00eats courus": {
+						"account_number": "1712"
+					}
+				},
+				"172-Dettes rattach\u00e9es \u00e0 des participations \u00e0 des organismes professionnels agricoles (autres que les \u00e9tablissements de cr\u00e9dit)": {
+					"1721-Principal": {
+						"account_number": "1721"
+					},
+					"1728-Int\u00e9r\u00eats courus": {
+						"account_number": "1728"
+					}
+				},
+				"174-Dettes rattach\u00e9es \u00e0 des participations (hors groupe)": {
+					"1741-Principal": {
+						"account_number": "1741"
+					},
+					"1748-Int\u00e9r\u00eats courus": {
+						"account_number": "1748"
+					}
+				},
+				"178-Dettes rattach\u00e9es \u00e0 des soci\u00e9t\u00e9s en participation": {
+					"1781-Principal": {
+						"account_number": "1781"
+					},
+					"1788-Int\u00e9r\u00eats courus": {
+						"account_number": "1788"
+					}
+				}
+			},
+			"18-Comptes de liaison des \u00e9tablissements et soci\u00e9t\u00e9s en participation": {
+				"181-Comptes de liaison des \u00e9tablissements": {
+					"account_number": "181"
+				},
+				"186-Biens et prestations de services \u00e9chang\u00e9s entre \u00e9tablissements (charges)": {
+					"account_number": "186"
+				},
+				"187-Biens et prestations de services \u00e9chang\u00e9s entre \u00e9tablissements (produits)": {
+					"account_number": "187"
+				},
+				"188-Comptes de liaison des soci\u00e9t\u00e9s en participation": {
+					"account_number": "188"
+				}
+			}
+		},
+		"2-Comptes d'immobilisations": {
+			"root_type": "Asset",
+			"20-Immobilisations incorporelles": {
+				"201-Frais d'\u00e9tablissement": {
+					"2011-Frais de constitution": {
+						"account_number": "2011"
+					},
+					"2012-Frais de premier \u00e9tablissement": {
+						"20121-Frais de prospection": {
+							"account_number": "20121"
+						},
+						"20122-Frais de publicit\u00e9": {
+							"account_number": "20122"
+						}
+					},
+					"2013-Frais d'augmentation de capital et d'op\u00e9rations diverses (fusions, scissions, transformations)": {
+						"account_number": "2013"
+					}
+				},
+				"203-Frais de recherche et de d\u00e9veloppement": {
+					"account_number": "203"
+				},
+				"205-Concessions et droits similaires, brevets, licences, marques, proc\u00e9d\u00e9s, logiciels, droits et valeurs similaires": {
+					"account_number": "205"
+				},
+				"206-Droit au bail": {
+					"account_number": "206"
+				},
+				"207-Fonds rural et commercial": {
+					"2071-Fonds agricole": {
+						"account_number": "2071"
+					},
+					"2072-Fonds commercial": {
+						"account_number": "2072"
+					}
+				},
+				"208-Autres immobilisations incorporelles": {
+					"2082-Usufruit temporaire": {
+						"account_number": "2082"
+					}
+				}
+			},
+			"21-Immobilisations corporelles": {
+				"211-Terrains": {
+					"2111-Terrains nus": {
+						"21111-Terrains nus exploit\u00e9s en faire valoir direct": {
+							"account_number": "21111"
+						},
+						"21112-Autres terrains nus": {
+							"account_number": "21112"
+						}
+					},
+					"2112-Terrains am\u00e9nag\u00e9s": {
+						"account_number": "2112"
+					},
+					"2113-Sous-sols et sur-sols": {
+						"account_number": "2113"
+					},
+					"2114-Terrains de gisement": {
+						"21141-Carri\u00e8res": {
+							"account_number": "21141"
+						}
+					},
+					"2115-Terrains b\u00e2tis": {
+						"21151-affect\u00e9s \u00e0 la production agricole": {
+							"account_number": "21151"
+						},
+						"21155-affect\u00e9s \u00e0 une autre activit\u00e9 professionnelle": {
+							"account_number": "21155"
+						},
+						"21158-affect\u00e9s \u00e0 des op\u00e9rations non professionnelles": {
+							"account_number": "21158"
+						}
+					},
+					"2116-Compte d'ordre sur immobilisations (art. 6 du d\u00e9cret 78.737 du 11-07-1978)": {
+						"account_number": "2116"
+					}
+				},
+				"212-Agencements et am\u00e9nagements de terrains": {
+					"account_number": "212"
+				},
+				"213-Constructions sur sol propre": {
+					"2131-B\u00e2timents": {
+						"21311-affect\u00e9s \u00e0 la production agricole": {
+							"account_number": "21311"
+						},
+						"21315-affect\u00e9s \u00e0 une autre activit\u00e9 professionnelle": {
+							"account_number": "21315"
+						},
+						"21318-affect\u00e9s \u00e0 des op\u00e9rations non professionnelles": {
+							"account_number": "21318"
+						}
+					},
+					"2135-Installations g\u00e9n\u00e9rales - agencements - am\u00e9nagements des constructions": {
+						"21351-affect\u00e9s \u00e0 la production agricole": {
+							"account_number": "21351"
+						},
+						"21355-affect\u00e9s \u00e0 une autre activit\u00e9 professionnelle": {
+							"account_number": "21355"
+						},
+						"21358-affect\u00e9s \u00e0 des op\u00e9rations non professionnelles": {
+							"account_number": "21358"
+						}
+					},
+					"2138-Ouvrages d'infrastructure": {
+						"account_number": "2138"
+					}
+				},
+				"214-Constructions sur sol d'autrui": {
+					"2141-B\u00e2timents": {
+						"21411-affect\u00e9s \u00e0 la production agricole": {
+							"account_number": "21411"
+						},
+						"21415-affect\u00e9s \u00e0 une autre activit\u00e9 professionnelle": {
+							"account_number": "21415"
+						},
+						"21418-affect\u00e9s \u00e0 des op\u00e9rations non professionnelles": {
+							"account_number": "21418"
+						}
+					},
+					"2145-Installations g\u00e9n\u00e9rales - agencements - am\u00e9nagements des constructions": {
+						"21451-affect\u00e9s \u00e0 la production agricole": {
+							"account_number": "21451"
+						},
+						"21455-affect\u00e9s \u00e0 une autre activit\u00e9 professionnelle": {
+							"account_number": "21455"
+						},
+						"21458-affect\u00e9s \u00e0 des op\u00e9rations non professionnelles": {
+							"account_number": "21458"
+						}
+					},
+					"2148-Ouvrages d'infrastructure": {
+						"account_number": "2148"
+					}
+				},
+				"215-Installations techniques, mat\u00e9riels et outillage": {
+					"2151-Installations techniques sur sol propre": {
+						"account_number": "2151"
+					},
+					"2153-Installations techniques sur sol d'autrui": {
+						"account_number": "2153"
+					},
+					"2154-Mat\u00e9riel": {
+						"account_number": "2154"
+					},
+					"2155-Outillage": {
+						"account_number": "2155"
+					},
+					"2157-Agencements et am\u00e9nagements du mat\u00e9riel et outillage industriels": {
+						"account_number": "2157"
+					}
+				},
+				"217-Am\u00e9liorations du fonds": {
+					"account_number": "217"
+				},
+				"218-Autres immobilisations corporelles (hors biens vivants)": {
+					"2181-Installations g\u00e9n\u00e9rales, agencements, am\u00e9nagements divers": {
+						"account_number": "2181"
+					},
+					"2182-Mat\u00e9riel de transport": {
+						"account_number": "2182"
+					},
+					"2183-Mat\u00e9riel de bureau et mat\u00e9riel informatique": {
+						"account_number": "2183"
+					},
+					"2184-Mobilier": {
+						"account_number": "2184"
+					},
+					"2186-Emballages r\u00e9cup\u00e9rables": {
+						"account_number": "2186"
+					},
+					"2188-Autres": {
+						"account_number": "2188"
+					}
+				}
+			},
+			"22-Immobilisations mises en concession": {
+				"account_number": "22"
+			},
+			"23-Immobilisations en cours": {
+				"231-Immobilisations corporelles en cours (hors biens vivants)": {
+					"2311-Terrains (en cours)": {
+						"account_number": "2311"
+					},
+					"2312-Agencements et am\u00e9nagements de terrains (en cours)": {
+						"account_number": "2312"
+					},
+					"2313-Constructions sur sol propre (en cours)": {
+						"account_number": "2313"
+					},
+					"2314-Constructions sur sol d'autrui (en cours)": {
+						"account_number": "2314"
+					},
+					"2315-Installations techniques, mat\u00e9riel et outillage (en cours)": {
+						"account_number": "2315"
+					},
+					"2318-Autres immobilisations corporelles - hors biens vivants (en cours)": {
+						"account_number": "2318"
+					}
+				},
+				"232-Immobilisations incorporelles en cours": {
+					"account_number": "232"
+				},
+				"234-Immobilisations corporelles en cours (biens vivants)": {
+					"2341-Animaux reproducteurs (jeunes de renouvellement)": {
+						"account_number": "2341"
+					},
+					"2343-Animaux de services (en cours)": {
+						"account_number": "2343"
+					},
+					"2346-Plantations p\u00e9rennes (en cours)": {
+						"account_number": "2346"
+					},
+					"2347-Autres v\u00e9g\u00e9taux immobilis\u00e9s (en cours)": {
+						"account_number": "2347"
+					}
+				},
+				"237-Avances et acomptes vers\u00e9s sur immobilisations incorporelles": {
+					"account_number": "237"
+				},
+				"238-Avances et acomptes vers\u00e9s sur commandes d'immobilisations corporelles": {
+					"2381-Immobilisations corporelles (hors biens vivants)": {
+						"account_number": "2381"
+					},
+					"2384-Immobilisations corporelles (biens vivants)": {
+						"account_number": "2384"
+					}
+				}
+			},
+			"24-Immobilisations en cours (biens vivants)": {
+				"241-Animaux reproducteurs (adultes)": {
+					"account_number": "241"
+				},
+				"242-Animaux reproducteurs (jeunes de renouvellement)": {
+					"account_number": "242"
+				},
+				"243-Animaux de services": {
+					"account_number": "243"
+				},
+				"246-Plantations p\u00e9rennes": {
+					"2461-Plantations p\u00e9rennes sur sol propre": {
+						"account_number": "2461"
+					},
+					"2465-Plantations p\u00e9rennes sur sol d'autrui": {
+						"account_number": "2465"
+					},
+					"2467-Am\u00e9nagements des plantations p\u00e9rennes": {
+						"account_number": "2467"
+					}
+				},
+				"247-Autres v\u00e9g\u00e9taux immobilis\u00e9s": {
+					"2471-Autres v\u00e9g\u00e9taux immobilis\u00e9s sur sol propre": {
+						"account_number": "2471"
+					},
+					"2475-Autres v\u00e9g\u00e9taux immobilis\u00e9s sur sol d'autrui": {
+						"account_number": "2475"
+					},
+					"2477-Am\u00e9nagements des autres v\u00e9g\u00e9taux immobilis\u00e9s": {
+						"account_number": "2477"
+					}
+				}
+			},
+			"25-Entreprises li\u00e9es - parts et cr\u00e9ances": {
+				"account_number": "25"
+			},
+			"26-Participations et cr\u00e9ances rattach\u00e9es \u00e0 des participations": {
+				"261-Titres de participation": {
+					"2611-Actions": {
+						"account_number": "2611"
+					},
+					"2618-Autres titres": {
+						"account_number": "2618"
+					}
+				},
+				"262-Participations \u00e0 des organismes professionnels agricoles": {
+					"2621-Soci\u00e9t\u00e9s coop\u00e9ratives agricoles (sauf CUMA)": {
+						"account_number": "2621"
+					},
+					"2622-CUMA": {
+						"account_number": "2622"
+					},
+					"2624-SICA": {
+						"account_number": "2624"
+					},
+					"2628-Autres": {
+						"account_number": "2628"
+					}
+				},
+				"266-Autres formes de participation": {
+					"account_number": "266"
+				},
+				"267-Cr\u00e9ances rattach\u00e9es \u00e0 des participations": {
+					"2671-Cr\u00e9ances rattach\u00e9es \u00e0 des participations (groupe)": {
+						"account_number": "2671"
+					},
+					"2672-Cr\u00e9ances rattach\u00e9es \u00e0 des participations \u00e0 des organismes professionnels agricoles": {
+						"26721-Soci\u00e9t\u00e9s coop\u00e9ratives agricoles (sauf CUMA)": {
+							"account_number": "26721"
+						},
+						"26722-CUMA": {
+							"account_number": "26722"
+						},
+						"26724-SICA": {
+							"account_number": "26724"
+						},
+						"26728-Autres": {
+							"account_number": "26728"
+						}
+					},
+					"2674-Cr\u00e9ances rattach\u00e9es \u00e0 d'autres participations": {
+						"account_number": "2674"
+					},
+					"2675-Versements repr\u00e9sentatifs d'apports non capitalis\u00e9s (appel de fonds)": {
+						"account_number": "2675"
+					},
+					"2676-Avances consolidables": {
+						"account_number": "2676"
+					},
+					"2678-Int\u00e9r\u00eats courus": {
+						"account_number": "2678"
+					}
+				},
+				"268-Cr\u00e9ances rattach\u00e9es \u00e0 des soci\u00e9t\u00e9s en participation": {
+					"2681-Principal": {
+						"account_number": "2681"
+					},
+					"2688-Int\u00e9r\u00eats courus": {
+						"account_number": "2688"
+					}
+				},
+				"269-Versements restant \u00e0 effectuer sur titres de participation non lib\u00e9r\u00e9s": {
+					"2691-sur titres de participation": {
+						"account_number": "2691"
+					},
+					"2692-sur participations \u00e0 des organismes professionnels agricoles": {
+						"account_number": "2692"
+					},
+					"2696-sur autres formes de participation": {
+						"account_number": "2696"
+					}
+				}
+			},
+			"27-Autres immobilisations financi\u00e8res": {
+				"271-Titres immobilis\u00e9s (droit de propri\u00e9t\u00e9)": {
+					"2711-Actions": {
+						"account_number": "2711"
+					},
+					"2715-Parts dans les \u00e9tablissements de cr\u00e9dit": {
+						"account_number": "2715"
+					},
+					"2718-Autres titres": {
+						"account_number": "2718"
+					}
+				},
+				"272-Titres immobilis\u00e9s (droit de cr\u00e9ance)": {
+					"2721-Obligations": {
+						"account_number": "2721"
+					},
+					"2722-Bons": {
+						"account_number": "2722"
+					},
+					"2723-Certificats de fonds de d\u00e9veloppement coop\u00e9ratifs": {
+						"account_number": "2723"
+					}
+				},
+				"273-Titres immobilis\u00e9s de l'activit\u00e9 de portefeuille": {
+					"account_number": "273"
+				},
+				"274-Pr\u00eats": {
+					"2741-Pr\u00eats participatifs": {
+						"account_number": "2741"
+					},
+					"2742-Pr\u00eats aux associ\u00e9s": {
+						"account_number": "2742"
+					},
+					"2743-Pr\u00eats au personnel": {
+						"account_number": "2743"
+					},
+					"2748-Autres pr\u00eats": {
+						"account_number": "2748"
+					}
+				},
+				"275-D\u00e9p\u00f4ts et cautionnements vers\u00e9s": {
+					"2751-D\u00e9p\u00f4ts": {
+						"account_number": "2751"
+					},
+					"2755-Cautionnements": {
+						"account_number": "2755"
+					}
+				},
+				"276-Autres cr\u00e9ances immobilis\u00e9es": {
+					"2761-Cr\u00e9ances diverses": {
+						"account_number": "2761"
+					},
+					"2768-Int\u00e9r\u00eats courus": {
+						"27682-sur titres immobilis\u00e9s (droit de cr\u00e9ance)": {
+							"account_number": "27682"
+						},
+						"27684-sur pr\u00eats": {
+							"account_number": "27684"
+						},
+						"27685-sur d\u00e9p\u00f4ts et cautionnements vers\u00e9s": {
+							"account_number": "27685"
+						},
+						"27688-sur cr\u00e9ances diverses": {
+							"account_number": "27688"
+						}
+					}
+				},
+				"277-Actions propres ou parts propres": {
+					"account_number": "277"
+				},
+				"279-Versements restant \u00e0 effectuer sur titres immobilis\u00e9s non lib\u00e9r\u00e9s": {
+					"account_number": "279"
+				}
+			},
+			"28-Amortissements des immobilisations": {
+				"280-Amortissements des immobilisations incorporelles": {
+					"2801-Frais d'\u00e9tablissement": {
+						"account_number": "2801"
+					},
+					"2803-Frais de recherche et de d\u00e9veloppement": {
+						"account_number": "2803"
+					},
+					"2805-Concessions et droits similaires, brevets, licences, logiciels, droits et valeurs similaires": {
+						"account_number": "2805"
+					},
+					"2807-Fonds commercial": {
+						"account_number": "2807"
+					},
+					"2808-Autres immobilisations incorporelles": {
+						"28082-Usufruit temporaire": {
+							"account_number": "28082"
+						}
+					}
+				},
+				"281-Amortissements des immobilisations corporelles (hors biens vivants)": {
+					"2811-Terrains de gisement": {
+						"account_number": "2811"
+					},
+					"2812-Agencements, am\u00e9nagements de terrains amortissables": {
+						"account_number": "2812"
+					},
+					"2813-Constructions sur sol propre": {
+						"account_number": "2813"
+					},
+					"2814-Constructions sur sol d'autrui": {
+						"account_number": "2814"
+					},
+					"2815-Installations, mat\u00e9riel et outillage": {
+						"account_number": "2815"
+					},
+					"2818-Autres immobilisations corporelles (hors biens vivants)": {
+						"account_number": "2818"
+					}
+				},
+				"282-Amortissement des immobilisations mises en concession": {
+					"account_number": "282"
+				},
+				"284-Amortissement des immobilisations corporelles (biens vivants)": {
+					"2841-Animaux reproducteurs (adultes)": {
+						"account_number": "2841"
+					},
+					"2843-Animaux de service": {
+						"account_number": "2843"
+					},
+					"2846-Plantation p\u00e9rennes": {
+						"account_number": "2846"
+					},
+					"2847-Autres v\u00e9g\u00e9taux immobilis\u00e9s": {
+						"account_number": "2847"
+					}
+				}
+			},
+			"29-D\u00e9pr\u00e9ciations des immobilisations": {
+				"290-D\u00e9pr\u00e9ciations des immobilisations incorporelles": {
+					"2905-Marques, proc\u00e9d\u00e9s, droits et valeurs similaires": {
+						"account_number": "2905"
+					},
+					"2906-Droit au bail": {
+						"account_number": "2906"
+					},
+					"2907-Fonds rural et commercial": {
+						"account_number": "2907"
+					},
+					"2908-Autres immobilisations incorporelles": {
+						"account_number": "2908"
+					}
+				},
+				"291-D\u00e9pr\u00e9ciations des immobilisations corporelles (hors biens vivants)": {
+					"2911-Terrains": {
+						"account_number": "2911"
+					},
+					"2912-Agencements et am\u00e9nagements de terrains": {
+						"account_number": "2912"
+					},
+					"2913-Constructions sur sol propre": {
+						"account_number": "2913"
+					},
+					"2914-Constructions sur sol d'autrui": {
+						"account_number": "2914"
+					},
+					"2915-Installations techniques, mat\u00e9riel et outillage": {
+						"account_number": "2915"
+					},
+					"2917-Am\u00e9liorations du fonds": {
+						"account_number": "2917"
+					},
+					"2918-Autres immobilisations corporelles (hors biens vivants)": {
+						"account_number": "2918"
+					}
+				},
+				"292-D\u00e9pr\u00e9ciations des immobilisations mises en concession": {
+					"account_number": "292"
+				},
+				"293-D\u00e9pr\u00e9ciations des immobilisations en cours": {
+					"2931-Immobilisations corporelles en cours (hors biens vivants)": {
+						"account_number": "2931"
+					},
+					"2932-Immobilisations incorporelles en cours": {
+						"account_number": "2932"
+					},
+					"2934-Immobilisations corporelles en cours (biens vivants)": {
+						"account_number": "2934"
+					}
+				},
+				"294-Autres immobilisations corporelles (biens vivants)": {
+					"2941-Animaux reproducteurs (adultes)": {
+						"account_number": "2941"
+					},
+					"2942-Animaux reproducteurs (jeunes de renouvellement)": {
+						"account_number": "2942"
+					},
+					"2943-Animaux de service": {
+						"account_number": "2943"
+					},
+					"2946-Plantation p\u00e9rennes": {
+						"account_number": "2946"
+					},
+					"2947-Autres v\u00e9g\u00e9taux immobilis\u00e9s": {
+						"account_number": "2947"
+					}
+				},
+				"296-D\u00e9pr\u00e9ciations des participations et cr\u00e9ances rattach\u00e9es \u00e0 des participations": {
+					"2961-Titres de participation": {
+						"account_number": "2961"
+					},
+					"2962-Participations \u00e0 des organismes professionnels agricoles": {
+						"account_number": "2962"
+					},
+					"2966-Autres formes de participation": {
+						"account_number": "2966"
+					},
+					"2967-Cr\u00e9ances rattach\u00e9es \u00e0 des participations": {
+						"account_number": "2967"
+					},
+					"2968-Cr\u00e9ances rattach\u00e9es \u00e0 des soci\u00e9t\u00e9s en participation": {
+						"account_number": "2968"
+					}
+				},
+				"297-D\u00e9pr\u00e9ciations des autres immobilisations financi\u00e8res": {
+					"2971-Titres immobilis\u00e9s - droit de propri\u00e9t\u00e9": {
+						"account_number": "2971"
+					},
+					"2972-Titres immobilis\u00e9s - droit de cr\u00e9ances": {
+						"account_number": "2972"
+					},
+					"2973-Titres immobilis\u00e9s de l'activit\u00e9 de portefeuille": {
+						"account_number": "2973"
+					},
+					"2974-Pr\u00eats": {
+						"account_number": "2974"
+					},
+					"2975-D\u00e9p\u00f4ts et cautionnements vers\u00e9s": {
+						"account_number": "2975"
+					},
+					"2976-Autres cr\u00e9ances immobilis\u00e9es": {
+						"account_number": "2976"
+					}
+				}
+			}
+		},
+		"3-Comptes de stocks et en-cours": {
+			"root_type": "Asset",
+			"30-Stocks et en-cours": {
+				"301-Approvisionnements": {
+					"3011-Engrais et amendements": {
+						"account_number": "3011"
+					},
+					"3012-Semences et plants": {
+						"account_number": "3012"
+					},
+					"3013-Produits de d\u00e9fense des v\u00e9g\u00e9taux": {
+						"account_number": "3013"
+					},
+					"3014-Aliments du b\u00e9tail": {
+						"account_number": "3014"
+					},
+					"3015-Produits de d\u00e9fense des animaux": {
+						"account_number": "3015"
+					},
+					"3016-Produits de reproduction animale": {
+						"account_number": "3016"
+					},
+					"3017-Emballages": {
+						"30171-Emballages perdus": {
+							"account_number": "30171"
+						},
+						"30175-Emballages r\u00e9cup\u00e9rables non identifiables": {
+							"account_number": "30175"
+						},
+						"30177-Emballages \u00e0 usage mixte": {
+							"account_number": "30177"
+						}
+					},
+					"3018-Combustibles": {
+						"account_number": "3018"
+					}
+				},
+				"302-Autres approvisionnements": {
+					"3021-Carburants et lubrifiants": {
+						"account_number": "3021"
+					},
+					"3022-Produits d'entretien": {
+						"account_number": "3022"
+					},
+					"3023-Fournitures d'atelier et de magasin": {
+						"account_number": "3023"
+					},
+					"3024-Fournitures de bureau": {
+						"account_number": "3024"
+					},
+					"3025-Denr\u00e9es et fournitures pour le personnel": {
+						"account_number": "3025"
+					},
+					"3026-Mat\u00e9riaux divers": {
+						"account_number": "3026"
+					},
+					"3027-Autres fournitures consommables": {
+						"account_number": "3027"
+					},
+					"3028-Mati\u00e8res premi\u00e8res": {
+						"account_number": "3028"
+					}
+				},
+				"307-Marchandises": {
+					"account_number": "307"
+				}
+			},
+			"31-Animaux (cycle long)": {
+				"311-Stocks d'animaux (cycle long)": {
+					"account_number": "311"
+				}
+			},
+			"32-Animaux (cycle court)": {
+				"321-Stocks d'animaux (cycle court)": {
+					"account_number": "321"
+				}
+			},
+			"33-V\u00e9g\u00e9taux en terre (cycle long)": {
+				"331-Avances aux cultures (cycle long)": {
+					"3311-Engrais et amendements en terre": {
+						"account_number": "3311"
+					},
+					"3312-Semences et plants en terre": {
+						"account_number": "3312"
+					},
+					"3313-Produit de d\u00e9fense des v\u00e9g\u00e9taux en terre": {
+						"account_number": "3313"
+					},
+					"3314-Autres approvisionnements en terre": {
+						"account_number": "3314"
+					},
+					"3315-Fa\u00e7ons culturales": {
+						"account_number": "3315"
+					},
+					"3318-Autres": {
+						"account_number": "3318"
+					}
+				}
+			},
+			"34-V\u00e9g\u00e9taux en terre (cycle court)": {
+				"341-Avances aux cultures (cycle court)": {
+					"3411-Engrais et amendements en terre": {
+						"account_number": "3411"
+					},
+					"3412-Semences et plants en terre": {
+						"account_number": "3412"
+					},
+					"3413-Produit de d\u00e9fense des v\u00e9g\u00e9taux en terre": {
+						"account_number": "3413"
+					},
+					"3414-Autres approvisionnements en terre": {
+						"account_number": "3414"
+					},
+					"3415-Fa\u00e7ons culturales": {
+						"account_number": "3415"
+					},
+					"3418-Autres": {
+						"account_number": "3418"
+					}
+				},
+				"348-Autres v\u00e9g\u00e9taux en terre (cycle court)": {
+					"account_number": "348"
+				}
+			},
+			"35-En-cours de production de biens et services (cycle long)": {
+				"355-Biens (cycle long)": {
+					"account_number": "355"
+				},
+				"356-Autres biens (cycle long)": {
+					"account_number": "356"
+				},
+				"357-Travaux \u00e0 fa\u00e7on (cycle long)": {
+					"account_number": "357"
+				},
+				"358-Autres services (cycle long)": {
+					"account_number": "358"
+				}
+			},
+			"36-En-cours de production de biens et services (cycle court)": {
+				"361-Biens (cycle court) - Produits v\u00e9g\u00e9taux": {
+					"account_number": "361"
+				},
+				"362-Biens (cycle court) - Produits animaux": {
+					"account_number": "362"
+				},
+				"363-Biens (cycle court) - Vins": {
+					"account_number": "363"
+				},
+				"364-Biens (cycle court) - Alcools": {
+					"account_number": "364"
+				},
+				"365-Biens (cycle court) - Autres produits transform\u00e9s": {
+					"account_number": "365"
+				},
+				"366-Autres biens (activit\u00e9s annexes)": {
+					"account_number": "366"
+				},
+				"367-Travaux \u00e0 fa\u00e7on (cycle court)": {
+					"account_number": "367"
+				},
+				"368-Autres services (cycle court)": {
+					"account_number": "368"
+				}
+			},
+			"37-Stocks de Produits": {
+				"371-Produits interm\u00e9diaires v\u00e9g\u00e9taux": {
+					"account_number": "371"
+				},
+				"372-Produits interm\u00e9diaires animaux": {
+					"account_number": "372"
+				},
+				"373-Produits interm\u00e9diaires transform\u00e9s": {
+					"account_number": "373"
+				},
+				"374-Produits finis v\u00e9g\u00e9taux": {
+					"account_number": "374"
+				},
+				"375-Produits finis animaux": {
+					"account_number": "375"
+				},
+				"376-Produits finis transform\u00e9s": {
+					"account_number": "376"
+				},
+				"377-Produits r\u00e9siduels": {
+					"account_number": "377"
+				},
+				"378-Produits (activit\u00e9s annexes)": {
+					"account_number": "378"
+				}
+			},
+			"38-Inventaire permanent": {
+				"account_number": "38"
+			},
+			"39-D\u00e9pr\u00e9ciations des stocks et en-cours": {
+				"390-D\u00e9pr\u00e9ciations des approvisionnements et marchandises": {
+					"account_number": "390"
+				},
+				"391-D\u00e9pr\u00e9ciations des animaux (cycle long)": {
+					"account_number": "391"
+				},
+				"392-D\u00e9pr\u00e9ciations des animaux (cycle court)": {
+					"account_number": "392"
+				},
+				"393-D\u00e9pr\u00e9ciations des v\u00e9g\u00e9taux en terre (cycle long)": {
+					"account_number": "393"
+				},
+				"394-D\u00e9pr\u00e9ciations des v\u00e9g\u00e9taux en terre (cycle court)": {
+					"account_number": "394"
+				},
+				"395-D\u00e9pr\u00e9ciations des en-cours de production de biens et services (cycle long)": {
+					"account_number": "395"
+				},
+				"396-D\u00e9pr\u00e9ciations des en-cours de production de biens et services (cycle court)": {
+					"account_number": "396"
+				},
+				"397-D\u00e9pr\u00e9ciations des produits": {
+					"account_number": "397"
+				}
+			}
+		},
+		"4-Comptes de tiers (ACTIF)": {
+			"root_type": "Asset",
+			"40-Fournisseurs et comptes rattach\u00e9s (ACTIF)": {
+				"409-Fournisseurs d\u00e9biteurs": {
+					"4091-Fournisseurs - Avances et acomptes vers\u00e9s sur commandes": {
+						"account_number": "4091"
+					},
+					"4096-Fournisseurs - Cr\u00e9ances pour emballages et mat\u00e9riel \u00e0 rendre": {
+						"account_number": "4096"
+					},
+					"4097-Fournisseurs - Autres avoirs": {
+						"40971-Fournisseurs d'exploitation": {
+							"account_number": "40971"
+						},
+						"40974-Fournisseurs d'immobilisations": {
+							"account_number": "40974"
+						}
+					},
+					"4098-Rabais, remises, ristournes \u00e0 obtenir et autres avoirs non encore re\u00e7us": {
+						"account_number": "4098"
+					}
+				}
+			},
+			"41-Clients et comptes rattach\u00e9s (ACTIF)": {
+				"411-Clients": {
+					"4111-Clients - Ventes de biens ou de prestations de services": {
+						"account_number": "4111"
+					},
+					"4117-Clients - Retenues de garantie": {
+						"account_number": "4117"
+					}
+				},
+				"413-Clients - Effets \u00e0 recevoir": {
+					"account_number": "413"
+				},
+				"416-Clients douteux ou litigieux": {
+					"account_number": "416"
+				},
+				"418-Clients - Produits non encore factur\u00e9s": {
+					"4181-Clients - Factures \u00e0 \u00e9tablir": {
+						"account_number": "4181"
+					},
+					"4188-Clients - Int\u00e9r\u00eats courus": {
+						"account_number": "4188"
+					}
+				}
+			},
+			"42-Personnel et comptes rattach\u00e9s (ACTIF)": {
+				"425-Personnel - Avances et acomptes": {
+					"account_number": "425"
+				}
+			},
+			"43-Mutualit\u00e9 Sociale Agricole et autres organismes sociaux (ACTIF)": {
+				"431-Mutualit\u00e9 Sociale Agricole": {
+					"account_number": "431"
+				},
+				"437-Autres organismes sociaux": {
+					"account_number": "437"
+				},
+				"438-Organismes sociaux - Charges \u00e0 payer et produits \u00e0 recevoir": {
+					"4387-Produits \u00e0 recevoir": {
+						"account_number": "4387"
+					}
+				}
+			},
+			"44-Etat et autres collectivit\u00e9s publiques (ACTIF)": {
+				"441-Etat - Subventions \u00e0 recevoir": {
+					"4411-Subventions d'investissement": {
+						"account_number": "4411"
+					},
+					"4417-Subventions d'exploitation": {
+						"account_number": "4417"
+					},
+					"4418-Subventions d'\u00e9quilibre": {
+						"account_number": "4418"
+					},
+					"4419-Avances sur subventions": {
+						"account_number": "4419"
+					}
+				},
+				"443-Op\u00e9rations particuli\u00e8res avec l'Etat, les collectivit\u00e9s publiques, les organismes internationaux": {
+					"account_number": "443"
+				},
+				"445-Etat - Taxes sur le chiffre d'affaires": {
+					"4452-TVA due intracommunautaire": {
+						"account_number": "4452"
+					},
+					"4456-Taxes sur le chiffre d'affaires d\u00e9ductibles": {
+						"44562-TVA sur immobilisations": {
+							"account_number": "44562"
+						},
+						"44563-TVA transf\u00e9r\u00e9e par d'autres entreprises": {
+							"account_number": "44563"
+						},
+						"44566-TVA sur autres biens et services": {
+							"445662-TVA sur intracommunautaire sur biens et services": {
+								"account_number": "445662"
+							}
+						},
+						"44567-Cr\u00e9dit de TVA \u00e0 reporter": {
+							"account_number": "44567"
+						},
+						"44568-Taxes assimil\u00e9es \u00e0 la TVA": {
+							"account_number": "44568"
+						}
+					},
+					"4458-Taxes sur le chiffre d'affaires \u00e0 r\u00e9gulariser ou en attente": {
+						"44581-Acomptes - R\u00e9gime simplifi\u00e9 d'imposition": {
+							"account_number": "44581"
+						},
+						"44582-Acomptes - R\u00e9gime du forfait": {
+							"account_number": "44582"
+						},
+						"44583-Remboursement de taxes sur le chiffre d'affaires demand\u00e9": {
+							"account_number": "44583"
+						},
+						"44586-Taxes sur le chiffre d'affaires sur factures non parvenues": {
+							"account_number": "44586"
+						}
+					}
+				},
+				"448-Etat - Charges \u00e0 payer et produits \u00e0 recevoir": {
+					"4482-Charges fiscales sur cong\u00e9s \u00e0 payer": {
+						"account_number": "4482"
+					},
+					"4486-Autres charges \u00e0 payer": {
+						"account_number": "4486"
+					},
+					"4487-Produits \u00e0 recevoir": {
+						"account_number": "4487"
+					}
+				}
+			},
+			"45-Groupe, communaut\u00e9s d'exploitation et associ\u00e9s (ACTIF)": {
+				"456-Associ\u00e9s - Op\u00e9rations sur le capital": {
+					"4562-Apporteurs - Capital appel\u00e9, non vers\u00e9": {
+						"45621-Actionnaires - Capital souscrit et appel\u00e9, non vers\u00e9": {
+							"account_number": "45621"
+						},
+						"45625-Associ\u00e9s - Capital appel\u00e9, non vers\u00e9": {
+							"account_number": "45625"
+						}
+					}
+				}
+			},
+			"46-D\u00e9biteurs divers et cr\u00e9diteurs divers (ACTIF)": {
+				"462-Cr\u00e9ances sur cessions d'immobilisations": {
+					"account_number": "462"
+				},
+				"465-Cr\u00e9ances sur cessions de valeurs mobili\u00e8res de placement": {
+					"account_number": "465"
+				},
+				"467-Autres comptes d\u00e9biteurs ou cr\u00e9diteurs": {
+					"account_number": "467"
+				},
+				"468-Divers - Charges \u00e0 payer et produits \u00e0 recevoir": {
+					"4687-Produits \u00e0 recevoir": {
+						"account_number": "4687"
+					}
+				}
+			},
+			"47-Comptes transitoires ou d'attente (ACTIF)": {
+				"471-Comptes d'attente": {
+					"account_number": "471"
+				},
+				"476-Diff\u00e9rence de conversion - Actif": {
+					"4761-Diminution des cr\u00e9ances": {
+						"account_number": "4761"
+					},
+					"4762-Augmentation des dettes": {
+						"account_number": "4762"
+					},
+					"4768-Diff\u00e9rences compens\u00e9es par couverture de change": {
+						"account_number": "4768"
+					}
+				},
+				"478-Autres comptes transitoires": {
+					"account_number": "478"
+				}
+			},
+			"48-Comptes de r\u00e9gularisation (ACTIF)": {
+				"481-Charges \u00e0 r\u00e9partir sur plusieurs exercices": {
+					"4816-Frais d'\u00e9mission des emprunts": {
+						"account_number": "4816"
+					}
+				},
+				"486-Charges constat\u00e9es d'avance": {
+					"account_number": "486"
+				},
+				"488-Comptes de r\u00e9partition p\u00e9riodique des charges et des produits": {
+					"4886-Charges": {
+						"account_number": "4886"
+					}
+				}
+			},
+			"49-D\u00e9pr\u00e9ciations des comptes de tiers (ACTIF)": {
+				"495-D\u00e9pr\u00e9ciations des comptes du groupe, des communaut\u00e9s d'exploitation et des associ\u00e9s": {
+					"4951-Comptes du groupe": {
+						"account_number": "4951"
+					},
+					"4955-Comptes courants des associ\u00e9s": {
+						"account_number": "4955"
+					},
+					"4958-Op\u00e9rations faites en commun et en GIE": {
+						"account_number": "4958"
+					}
+				},
+				"496-D\u00e9pr\u00e9ciations des comptes de d\u00e9biteurs divers": {
+					"4962-Cr\u00e9ances sur cessions d'immobilisations": {
+						"account_number": "4962"
+					},
+					"4965-Cr\u00e9ances sur cessions de valeurs mobili\u00e8res de placement": {
+						"account_number": "4965"
+					},
+					"4967-Autres comptes d\u00e9biteurs": {
+						"account_number": "4967"
+					}
+				}
+			}
+		},
+		"4-Comptes de tiers (PASSIF)": {
+			"root_type": "Liability",
+			"40-Fournisseurs et comptes rattach\u00e9s (PASSIF)": {
+				"401-Fournisseurs d'exploitation": {
+					"4011-Fournisseurs - Achats de biens et de prestations de services": {
+						"account_number": "4011"
+					},
+					"4017-Fournisseurs - Retenues de garantie": {
+						"account_number": "4017"
+					}
+				},
+				"403-Fournisseurs - Effets \u00e0 payer": {
+					"account_number": "403"
+				},
+				"404-Fournisseurs d'immobilisations": {
+					"4041-Fournisseurs - Achats d'immobilisations": {
+						"account_number": "4041"
+					},
+					"4047-Fournisseurs d'immobilisations - Retenues de garantie": {
+						"account_number": "4047"
+					}
+				},
+				"405-Fournisseurs d'immobilisations - Effets \u00e0 payer": {
+					"account_number": "405"
+				},
+				"408-Fournisseurs - Factures non parvenues": {
+					"4081-Fournisseurs d'exploitation": {
+						"account_number": "4081"
+					},
+					"4084-Fournisseurs d'immobilisations": {
+						"account_number": "4084"
+					},
+					"4088-Fournisseurs - Int\u00e9r\u00eats courus": {
+						"account_number": "4088"
+					}
+				}
+			},
+			"41-Clients et comptes rattach\u00e9s (PASSIF)": {
+				"419-Clients cr\u00e9diteurs": {
+					"4191-Clients - Avances et acomptes re\u00e7us sur commandes": {
+						"account_number": "4191"
+					},
+					"4196-Clients - Dettes sur emballages et mat\u00e9riels consign\u00e9s": {
+						"account_number": "4196"
+					},
+					"4197-Clients - Autres avoirs": {
+						"account_number": "4197"
+					},
+					"4198-Rabais, remises, ristournes \u00e0 accorder et autres avoirs \u00e0 \u00e9tablir": {
+						"account_number": "4198"
+					}
+				}
+			},
+			"42-Personnel et comptes rattach\u00e9s (PASSIF)": {
+				"421-Personnel - R\u00e9mun\u00e9rations dues": {
+					"account_number": "421"
+				},
+				"422-Comit\u00e9s d'entreprises, d'\u00e9tablissement": {
+					"account_number": "422"
+				},
+				"424-Participation des salari\u00e9s aux r\u00e9sultats": {
+					"4246-R\u00e9serve sp\u00e9ciale (art. L. 442-2 du Code du travail)": {
+						"account_number": "4246"
+					},
+					"4248-Comptes courants": {
+						"account_number": "4248"
+					}
+				},
+				"426-Personnel - D\u00e9p\u00f4ts": {
+					"account_number": "426"
+				},
+				"427-Personnel - Oppositions": {
+					"account_number": "427"
+				},
+				"428-Personnel - Charges \u00e0 payer et produits \u00e0 recevoir": {
+					"4282-Dettes provisionn\u00e9es pour cong\u00e9s \u00e0 payer": {
+						"account_number": "4282"
+					},
+					"4284-Dettes provisionn\u00e9es pour participation des salari\u00e9s aux r\u00e9sultats": {
+						"account_number": "4284"
+					},
+					"4286-Autres charges \u00e0 payer": {
+						"account_number": "4286"
+					},
+					"4287-Produits \u00e0 recevoir": {
+						"account_number": "4287"
+					}
+				}
+			},
+			"43-Mutualit\u00e9 Sociale Agricole et autres organismes sociaux (PASSIF)": {
+				"438-Organismes sociaux - Charges \u00e0 payer et produits \u00e0 recevoir": {
+					"4382-Charges sociales sur cong\u00e9s \u00e0 payer": {
+						"account_number": "4382"
+					},
+					"4386-Autres charges \u00e0 payer": {
+						"account_number": "4386"
+					}
+				}
+			},
+			"44-Etat et autres collectivit\u00e9s publiques (PASSIF)": {
+				"442-Etat - Imp\u00f4ts et taxes recouvrables sur des tiers": {
+					"4424-Obligataires": {
+						"account_number": "4424"
+					},
+					"4425-Associ\u00e9s": {
+						"account_number": "4425"
+					}
+				},
+				"444-Etat - Imp\u00f4ts sur les b\u00e9n\u00e9fices": {
+					"account_number": "444"
+				},
+				"445-Etat - Taxes sur le chiffre d'affaires": {
+					"4455-Taxes sur le chiffre d'affaires \u00e0 d\u00e9caisser": {
+						"44551-TVA \u00e0 d\u00e9caisser": {
+							"account_number": "44551"
+						},
+						"44558-Taxes assimil\u00e9es \u00e0 la TVA": {
+							"account_number": "44558"
+						}
+					},
+					"4457-Taxes sur le chiffre d'affaires collect\u00e9es par l'entreprise": {
+						"44571-TVA collect\u00e9e": {
+							"account_number": "44571"
+						},
+						"44578-Taxes assimil\u00e9es \u00e0 la TVA": {
+							"account_number": "44578"
+						}
+					},
+					"4458-Taxes sur le chiffre d'affaires \u00e0 r\u00e9gulariser ou en attente": {
+						"44584-TVA r\u00e9cup\u00e9r\u00e9e d'avance": {
+							"account_number": "44584"
+						},
+						"44587-Taxes sur le chiffre d'affaires sur factures \u00e0 \u00e9tablir": {
+							"account_number": "44587"
+						}
+					}
+				},
+				"446-Obligations cautionn\u00e9es": {
+					"account_number": "446"
+				},
+				"447-Autres imp\u00f4ts, taxes et versements assimil\u00e9s": {
+					"account_number": "447"
+				}
+			},
+			"45-Groupe, communaut\u00e9s d'exploitation et associ\u00e9s (PASSIF)": {
+				"451-Groupe": {
+					"account_number": "451"
+				},
+				"455-Associ\u00e9s - Comptes courants": {
+					"4551-Associ\u00e9s - Comptes courants (principal)": {
+						"account_number": "4551"
+					},
+					"4558-Associ\u00e9s - Comptes courants (int\u00e9r\u00eats courus)": {
+						"account_number": "4558"
+					}
+				},
+				"456-Associ\u00e9s - Op\u00e9rations sur le capital": {
+					"4561-Associ\u00e9s - Comptes d'apport en soci\u00e9t\u00e9": {
+						"45611-Apports en nature": {
+							"account_number": "45611"
+						},
+						"45615-Apports en num\u00e9raire": {
+							"account_number": "45615"
+						}
+					},
+					"4563-Associ\u00e9s - Versements re\u00e7us sur augmentation de capital": {
+						"account_number": "4563"
+					},
+					"4564-Associ\u00e9s - Versements anticip\u00e9s": {
+						"account_number": "4564"
+					},
+					"4566-Associ\u00e9s d\u00e9faillants": {
+						"account_number": "4566"
+					},
+					"4567-Associ\u00e9s - Capital \u00e0 rembourser": {
+						"account_number": "4567"
+					}
+				},
+				"457-Associ\u00e9s - Dividendes \u00e0 payer": {
+					"account_number": "457"
+				},
+				"458-Associ\u00e9s - Op\u00e9rations faites en commun et en GIE": {
+					"4581-Op\u00e9rations courantes": {
+						"account_number": "4581"
+					},
+					"4588-Int\u00e9r\u00eats courus": {
+						"account_number": "4588"
+					}
+				}
+			},
+			"46-D\u00e9biteurs divers et cr\u00e9diteurs divers (PASSIF)": {
+				"464-Dettes sur acquisitions de valeurs mobili\u00e8res de placement": {
+					"account_number": "464"
+				},
+				"467-Autres comptes d\u00e9biteurs ou cr\u00e9diteurs": {
+					"account_number": "467"
+				},
+				"468-Divers - Charges \u00e0 payer et produits \u00e0 recevoir": {
+					"4686-Charges \u00e0 payer": {
+						"account_number": "4686"
+					}
+				}
+			},
+			"47-Comptes transitoires ou d'attente (PASSIF)": {
+				"471-Comptes d'attente": {
+					"account_number": "471"
+				},
+				"477-Diff\u00e9rences de conversion - Passif": {
+					"4771-Augmentation des cr\u00e9ances": {
+						"account_number": "4771"
+					},
+					"4772-Diminution des dettes": {
+						"account_number": "4772"
+					},
+					"4778-Diff\u00e9rences compens\u00e9es par couverture de change": {
+						"account_number": "4778"
+					}
+				},
+				"478-Autres comptes transitoires": {
+					"account_number": "478"
+				}
+			},
+			"48-Comptes de r\u00e9gularisation (PASSIF)": {
+				"487-Produits constat\u00e9s d'avance": {
+					"account_number": "487"
+				},
+				"488-Comptes de r\u00e9partition p\u00e9riodique des charges et des produits": {
+					"4887-Produits": {
+						"account_number": "4887"
+					}
+				}
+			},
+			"49-D\u00e9pr\u00e9ciations des comptes de tiers (PASSIF)": {
+				"account_number": "49"
+			}
+		},
+		"5-Comptes financiers": {
+			"root_type": "Asset",
+			"50-Valeurs mobili\u00e8res de placement": {
+				"501-Parts dans des entreprises li\u00e9es": {
+					"account_number": "501"
+				},
+				"502-Actions propres": {
+					"account_number": "502"
+				},
+				"503-Actions": {
+					"5031-Titres cot\u00e9s": {
+						"account_number": "5031"
+					},
+					"5035-Titres non cot\u00e9s": {
+						"account_number": "5035"
+					}
+				},
+				"504-Autres titres conf\u00e9rant un droit de propri\u00e9t\u00e9": {
+					"account_number": "504"
+				},
+				"505-Obligations et bons \u00e9mis par la soci\u00e9t\u00e9 et rachet\u00e9s par elle": {
+					"account_number": "505"
+				},
+				"506-Obligations": {
+					"5061-Titres cot\u00e9s": {
+						"account_number": "5061"
+					},
+					"5065-Titres non cot\u00e9s": {
+						"account_number": "5065"
+					}
+				},
+				"507-Bons du Tr\u00e9sor et bons de caisse \u00e0 court terme": {
+					"account_number": "507"
+				},
+				"508-Autres valeurs mobili\u00e8res de placement et autres cr\u00e9ances assimil\u00e9es": {
+					"5081-Autres valeurs mobili\u00e8res": {
+						"account_number": "5081"
+					},
+					"5082-Bons de souscription": {
+						"account_number": "5082"
+					},
+					"5088-Int\u00e9r\u00eats courus sur obligations, bons et valeurs assimil\u00e9s": {
+						"account_number": "5088"
+					}
+				},
+				"509-Versements restant \u00e0 effectuer sur valeurs mobili\u00e8res de placement non lib\u00e9r\u00e9es": {
+					"account_number": "509"
+				}
+			},
+			"51-Banques, \u00e9tablissements financiers et assimil\u00e9s": {
+				"511-Valeurs \u00e0 l'encaissement": {
+					"5111-Coupons \u00e9chus \u00e0 l'encaissement": {
+						"account_number": "5111"
+					},
+					"5112-Ch\u00e8ques \u00e0 encaisser": {
+						"account_number": "5112"
+					},
+					"5113-Effets \u00e0 l'encaissement": {
+						"account_number": "5113"
+					},
+					"5114-Effets \u00e0 l'escompte": {
+						"account_number": "5114"
+					}
+				},
+				"512-Banques": {
+					"account_number": "512"
+				},
+				"514-Ch\u00e8ques postaux": {
+					"account_number": "514"
+				},
+				"515-Caisses du Tr\u00e9sor et des \u00e9tablissements publics": {
+					"account_number": "515"
+				},
+				"516-Soci\u00e9t\u00e9s de Bourse": {
+					"account_number": "516"
+				},
+				"517-Autres organismes financiers": {
+					"account_number": "517"
+				},
+				"518-Int\u00e9r\u00eats courus": {
+					"5181-Int\u00e9r\u00eats courus \u00e0 payer": {
+						"account_number": "5181"
+					},
+					"5188-Int\u00e9r\u00eats courus \u00e0 recevoir": {
+						"account_number": "5188"
+					}
+				},
+				"519-Concours bancaires courants": {
+					"5191-Cr\u00e9dit bancaires de campagne": {
+						"account_number": "5191"
+					},
+					"5193-Mobilisation de cr\u00e9ances n\u00e9es \u00e0 l'\u00e9tranger": {
+						"account_number": "5193"
+					},
+					"5197-Cr\u00e9dits de mobilisation de cr\u00e9ances": {
+						"account_number": "5197"
+					},
+					"5198-Int\u00e9r\u00eats courus sur concours bancaires courants": {
+						"account_number": "5198"
+					}
+				}
+			},
+			"52-Instruments de tr\u00e9sorerie": {
+				"account_number": "52"
+			},
+			"53-Caisse": {
+				"account_number": "53"
+			},
+			"54-R\u00e9gies d'avance et accr\u00e9ditifs": {
+				"account_number": "54"
+			},
+			"58-Virements internes": {
+				"account_number": "58"
+			},
+			"59-D\u00e9pr\u00e9ciations des comptes financiers": {
+				"590-D\u00e9pr\u00e9ciations des valeurs mobili\u00e8res de placement": {
+					"5903-Actions": {
+						"account_number": "5903"
+					},
+					"5904-Autres titres conf\u00e9rant un droit de propri\u00e9t\u00e9": {
+						"account_number": "5904"
+					},
+					"5906-Obligations": {
+						"account_number": "5906"
+					},
+					"5908-Autres valeurs mobili\u00e8res de placement et cr\u00e9ances assimil\u00e9es": {
+						"account_number": "5908"
+					}
+				}
+			}
+		},
+		"6-Comptes de charges": {
+			"root_type": "Expense",
+			"60-Achats (sauf 603)": {
+				"601-Achats stock\u00e9s - approvisionnements": {
+					"6011-Engrais et amendements": {
+						"account_number": "6011"
+					},
+					"6012-Semences et plants": {
+						"account_number": "6012"
+					},
+					"6013-Produits de d\u00e9fense des v\u00e9g\u00e9taux": {
+						"account_number": "6013"
+					},
+					"6014-Aliments du b\u00e9tail": {
+						"account_number": "6014"
+					},
+					"6015-Produits de d\u00e9fense des animaux": {
+						"account_number": "6015"
+					},
+					"6016-Produits de reproduction animale": {
+						"account_number": "6016"
+					},
+					"6017-Emballages": {
+						"60171-Emballages perdus": {
+							"account_number": "60171"
+						},
+						"60172-Emballages r\u00e9cup\u00e9rables non identifiables": {
+							"account_number": "60172"
+						},
+						"60173-Emballages \u00e0 usage mixte": {
+							"account_number": "60173"
+						}
+					},
+					"6018-Combustibles": {
+						"account_number": "6018"
+					}
+				},
+				"602-Achats stock\u00e9s - Autres approvisionnements": {
+					"6021-Carburants et lubrifiants": {
+						"account_number": "6021"
+					},
+					"6022-Produits d'entretien": {
+						"account_number": "6022"
+					},
+					"6023-Fournitures d'atelier et de magasin": {
+						"account_number": "6023"
+					},
+					"6024-Fournitures de bureau": {
+						"account_number": "6024"
+					},
+					"6025-Denr\u00e9es et fournitures pour le personnel": {
+						"account_number": "6025"
+					},
+					"6026-Mat\u00e9riaux divers": {
+						"account_number": "6026"
+					},
+					"6027-Autres fournitures consommables": {
+						"account_number": "6027"
+					},
+					"6028-Mati\u00e8res premi\u00e8res": {
+						"account_number": "6028"
+					}
+				},
+				"603-Variations des stocks (approvisionnements et marchandises)": {
+					"6031-Variation des stocks d'approvisionnements": {
+						"account_number": "6031"
+					},
+					"6032-Variation des stocks d'autres approvisionnements": {
+						"account_number": "6032"
+					},
+					"6037-Variation des stocks de marchandises": {
+						"account_number": "6037"
+					}
+				},
+				"604-Achats d'animaux": {
+					"6041-Animaux reproducteurs (adultes)": {
+						"account_number": "6041"
+					},
+					"6042-Animaux reproducteurs (jeunes de renouvellement)": {
+						"account_number": "6042"
+					},
+					"6045-Autres animaux": {
+						"account_number": "6045"
+					}
+				},
+				"605-Achats de travaux et services incorpor\u00e9s aux produits": {
+					"6051-Achats de travaux et services incorpor\u00e9s pour productions v\u00e9g\u00e9tales": {
+						"account_number": "6051"
+					},
+					"6054-Achats de travaux et services incorpor\u00e9s pour productions animales": {
+						"account_number": "6054"
+					},
+					"6058-Autres achats de travaux et services": {
+						"account_number": "6058"
+					}
+				},
+				"606-Achats non stock\u00e9s et fournitures": {
+					"6061-Eau": {
+						"account_number": "6061"
+					},
+					"6062-Gaz": {
+						"account_number": "6062"
+					},
+					"6063-Electricit\u00e9s": {
+						"account_number": "6063"
+					},
+					"6064-Carburants et lubrifiants": {
+						"account_number": "6064"
+					},
+					"6065-Eau d'irrigation": {
+						"account_number": "6065"
+					},
+					"6066-Fournitures d'entretien et de petit \u00e9quipement": {
+						"account_number": "6066"
+					},
+					"6067-Fournitures pour productions immobilis\u00e9es": {
+						"account_number": "6067"
+					},
+					"6068-Autres fournitures non stock\u00e9s": {
+						"account_number": "6068"
+					}
+				},
+				"607-Achats de marchandises": {
+					"account_number": "607"
+				},
+				"608-Frais accessoires sur achats": {
+					"account_number": "608"
+				},
+				"609-Rabais, remises et ristournes obtenus sur achats": {
+					"6091-RRR sur achats d'autres approvisionnements": {
+						"account_number": "6091"
+					},
+					"6092-RRR sur achats d'approvisionnements": {
+						"account_number": "6092"
+					},
+					"6094-RRR sur achats d'animaux": {
+						"account_number": "6094"
+					},
+					"6095-RRR sur achats de travaux et services incorpor\u00e9s aux produits": {
+						"account_number": "6095"
+					},
+					"6096-RRR sur achats de fournitures non stock\u00e9s": {
+						"account_number": "6096"
+					},
+					"6097-RRR sur achats de marchandises": {
+						"account_number": "6097"
+					},
+					"6098-Rabais, remises et ristournes non affect\u00e9s": {
+						"account_number": "6098"
+					}
+				}
+			},
+			"61-Services ext\u00e9rieurs": {
+				"611-Sous-traitance g\u00e9n\u00e9rale": {
+					"account_number": "611"
+				},
+				"612-Redevances de cr\u00e9dit-bail": {
+					"6122-Redevances de cr\u00e9dit-bail mobilier": {
+						"account_number": "6122"
+					},
+					"6125-Redevances de cr\u00e9dit-bail immobilier": {
+						"account_number": "6125"
+					}
+				},
+				"613-Locations": {
+					"6131-Fermages et loyers du foncier": {
+						"account_number": "6131"
+					},
+					"6132-Locations de mat\u00e9riel": {
+						"account_number": "6132"
+					},
+					"6134-Locations d'animaux": {
+						"account_number": "6134"
+					},
+					"6136-Malis sur emballages": {
+						"account_number": "6136"
+					},
+					"6138-Autres locations": {
+						"account_number": "6138"
+					}
+				},
+				"614-Charges locatives et de copropri\u00e9t\u00e9": {
+					"6141-Charges locatives du foncier": {
+						"account_number": "6141"
+					},
+					"6142-Charges locatives du mat\u00e9riel": {
+						"account_number": "6142"
+					},
+					"6144-Charges locatives des animaux": {
+						"account_number": "6144"
+					},
+					"6148-Autres charges locatives et de copropri\u00e9t\u00e9": {
+						"account_number": "6148"
+					}
+				},
+				"615-Entretien et r\u00e9parations": {
+					"6151-Terrains": {
+						"account_number": "6151"
+					},
+					"6152-Agencements et am\u00e9nagements de terrains": {
+						"account_number": "6152"
+					},
+					"6153-Constructions (sur sol propre)": {
+						"account_number": "6153"
+					},
+					"6154-Constructions (sur sol d'autrui)": {
+						"account_number": "6154"
+					},
+					"6155-Installations techniques, mat\u00e9riel et outillage": {
+						"account_number": "6155"
+					},
+					"6156-Plantations p\u00e9rennes": {
+						"account_number": "6156"
+					},
+					"6157-Autres v\u00e9g\u00e9taux immobilis\u00e9s": {
+						"account_number": "6157"
+					},
+					"6158-Autres immobilisations corporelles (hors biens vivants)": {
+						"account_number": "6158"
+					}
+				},
+				"616-Primes d'assurances": {
+					"6161-Multirisques": {
+						"account_number": "6161"
+					},
+					"6162-Assurance obligatoire dommage construction": {
+						"account_number": "6162"
+					},
+					"6163-Assurance - transport (sur achats)": {
+						"account_number": "6163"
+					},
+					"6164-Assurance - transport (sur ventes)": {
+						"account_number": "6164"
+					},
+					"6165-Assurance - transport (sur autres biens)": {
+						"account_number": "6165"
+					},
+					"6166-Risques d'exploitation": {
+						"account_number": "6166"
+					},
+					"6167-Insolvabilit\u00e9 clients": {
+						"account_number": "6167"
+					},
+					"6168-Autres": {
+						"account_number": "6168"
+					}
+				},
+				"617-Etudes et recherches": {
+					"account_number": "617"
+				},
+				"618-Divers": {
+					"6181-Documentation g\u00e9n\u00e9rale": {
+						"account_number": "6181"
+					},
+					"6183-Documentation technique": {
+						"account_number": "6183"
+					},
+					"6185-Frais de colloques, s\u00e9minaires, conf\u00e9rences": {
+						"account_number": "6185"
+					}
+				},
+				"619-Rabais, remises et ristournes obtenus sur services ext\u00e9rieurs": {
+					"account_number": "619"
+				}
+			},
+			"62-Autres services ext\u00e9rieurs": {
+				"621-Personnel ext\u00e9rieur \u00e0 l'entreprise": {
+					"6211-Personnel int\u00e9rimaire": {
+						"account_number": "6211"
+					},
+					"6214-Personnel d\u00e9tach\u00e9 ou pr\u00eat\u00e9 \u00e0 l'entreprise": {
+						"account_number": "6214"
+					}
+				},
+				"622-R\u00e9mun\u00e9rations d'interm\u00e9diaires et honoraires": {
+					"6221-Commissions et courtages sur achats": {
+						"account_number": "6221"
+					},
+					"6222-Commissions et courtages sur ventes": {
+						"account_number": "6222"
+					},
+					"6223-R\u00e9mun\u00e9rations des transitaires": {
+						"account_number": "6223"
+					},
+					"6224-R\u00e9mun\u00e9rations d'affacturage": {
+						"account_number": "6224"
+					},
+					"6225-Honoraires v\u00e9t\u00e9rinaires": {
+						"account_number": "6225"
+					},
+					"6226-Autres honoraires": {
+						"account_number": "6226"
+					},
+					"6227-Frais d'actes et de contentieux": {
+						"account_number": "6227"
+					},
+					"6228-Divers": {
+						"account_number": "6228"
+					}
+				},
+				"623-Publicit\u00e9, publications, relations publiques": {
+					"6231-Annonces et insertions": {
+						"account_number": "6231"
+					},
+					"6232-Echantillons": {
+						"account_number": "6232"
+					},
+					"6233-Emplacements foires et expositions": {
+						"account_number": "6233"
+					},
+					"6234-Cadeaux \u00e0 la client\u00e8le": {
+						"account_number": "6234"
+					},
+					"6235-Primes": {
+						"account_number": "6235"
+					},
+					"6236-Catalogues et imprim\u00e9s": {
+						"account_number": "6236"
+					},
+					"6237-Publications": {
+						"account_number": "6237"
+					},
+					"6238-Divers (pourboire, dons courants, etc)": {
+						"account_number": "6238"
+					}
+				},
+				"624-Transports de biens et transports collectifs du personnel": {
+					"6241-Transports sur achats": {
+						"account_number": "6241"
+					},
+					"6242-Transports sur ventes": {
+						"account_number": "6242"
+					},
+					"6243-Transports entre \u00e9tablissements ou chantiers": {
+						"account_number": "6243"
+					},
+					"6244-Transports administratifs": {
+						"account_number": "6244"
+					},
+					"6247-Transports collectifs du personnel": {
+						"account_number": "6247"
+					},
+					"6248-Autres transports": {
+						"account_number": "6248"
+					}
+				},
+				"625-D\u00e9placements, missions et r\u00e9ceptions": {
+					"6251-Voyages et d\u00e9placements": {
+						"account_number": "6251"
+					},
+					"6255-Frais de d\u00e9m\u00e9nagement": {
+						"account_number": "6255"
+					},
+					"6256-Missions": {
+						"account_number": "6256"
+					},
+					"6257-R\u00e9ceptions": {
+						"account_number": "6257"
+					}
+				},
+				"626-Frais postaux et de t\u00e9l\u00e9communications": {
+					"account_number": "626"
+				},
+				"627-Services bancaires et assimil\u00e9s": {
+					"6271-Frais sur titres (achat, vente, garde)": {
+						"account_number": "6271"
+					},
+					"6272-Commissions et frais sur \u00e9mission d'emprunts": {
+						"account_number": "6272"
+					},
+					"6275-Frais sur effets (commissions d'endos\u2026)": {
+						"account_number": "6275"
+					},
+					"6276-Location de coffres": {
+						"account_number": "6276"
+					},
+					"6278-Autres frais et commissions sur prestations de services": {
+						"account_number": "6278"
+					}
+				},
+				"628-Divers": {
+					"6281-Cotisations professionnelles (productions animales)": {
+						"account_number": "6281"
+					},
+					"6284-Cotisations professionnelles (productions v\u00e9g\u00e9tales)": {
+						"account_number": "6284"
+					},
+					"6286-Autres cotisations professionnelles": {
+						"account_number": "6286"
+					},
+					"6287-Frais de recrutement de personnel": {
+						"account_number": "6287"
+					},
+					"6288-Autres services ext\u00e9rieurs divers": {
+						"account_number": "6288"
+					}
+				},
+				"629-Rabais, remises et ristournes obtenus sur autres services ext\u00e9rieurs": {
+					"account_number": "629"
+				}
+			},
+			"63-Imp\u00f4ts, taxes et versements assimil\u00e9s": {
+				"631-Imp\u00f4ts, taxes et versements assimil\u00e9s sur r\u00e9mun\u00e9rations (administrations des imp\u00f4ts)": {
+					"6311-Taxe sur les salaires": {
+						"account_number": "6311"
+					},
+					"6312-Taxe d'apprentissage": {
+						"account_number": "6312"
+					},
+					"6313-Participation des employeurs \u00e0 la formation professionnelle continue": {
+						"account_number": "6313"
+					},
+					"6314-Cotisation pour d\u00e9faut d'investissement obligatoire dans la construction": {
+						"account_number": "6314"
+					},
+					"6318-Autres": {
+						"account_number": "6318"
+					}
+				},
+				"633-Imp\u00f4ts, taxes et versements assimil\u00e9s sur r\u00e9mun\u00e9rations (autres organismes)": {
+					"6331-Versement de transport": {
+						"account_number": "6331"
+					},
+					"6332-Allocations logement": {
+						"account_number": "6332"
+					},
+					"6333-Participation des employeurs \u00e0 la formation professionnelle continue": {
+						"account_number": "6333"
+					},
+					"6334-Participation des employeurs \u00e0 l'effort de construction": {
+						"account_number": "6334"
+					},
+					"6335-Versements lib\u00e9ratoires ouvrant droit \u00e0 l'exon\u00e9ration de la taxe d'apprentissage": {
+						"account_number": "6335"
+					},
+					"6338-Autres": {
+						"account_number": "6338"
+					}
+				},
+				"634-Taxes sp\u00e9cifiques sur les produits de l'exploitation": {
+					"6341-Taxes sp\u00e9cifiques sur les produits v\u00e9g\u00e9taux": {
+						"account_number": "6341"
+					},
+					"6342-Taxes sp\u00e9cifiques sur les produits animaux": {
+						"account_number": "6342"
+					},
+					"6343-Taxes sp\u00e9cifiques sur les produits transform\u00e9s": {
+						"account_number": "6343"
+					},
+					"6344-Taxes sp\u00e9cifiques sur les animaux": {
+						"account_number": "6344"
+					},
+					"6345-P\u00e9nalit\u00e9s sur productions": {
+						"account_number": "6345"
+					},
+					"6348-Taxes sp\u00e9cifiques sur autres produits": {
+						"account_number": "6348"
+					}
+				},
+				"635-Autres imp\u00f4ts, taxes et versements assimil\u00e9s (administrations des imp\u00f4ts)": {
+					"6351-Taxe professionnelle": {
+						"account_number": "6351"
+					},
+					"6352-Taxes fonci\u00e8res": {
+						"account_number": "6352"
+					},
+					"6353-Autres imp\u00f4ts locaux": {
+						"account_number": "6353"
+					},
+					"6354-Autres imp\u00f4ts directs (sauf imp\u00f4ts sur les soci\u00e9t\u00e9s)": {
+						"account_number": "6354"
+					},
+					"6355-Taxe sur le chiffre d'affaires non r\u00e9cup\u00e9rables": {
+						"account_number": "6355"
+					},
+					"6356-Imp\u00f4ts indirects": {
+						"account_number": "6356"
+					},
+					"6357-Droits d'enregistrement et de timbre": {
+						"account_number": "6357"
+					},
+					"6358-Autres droits": {
+						"account_number": "6358"
+					}
+				},
+				"637-Autres imp\u00f4ts, taxes et versements assimil\u00e9s (autres organismes)": {
+					"6371-Contribution sociale de solidarit\u00e9 \u00e0 la charge des soci\u00e9t\u00e9s": {
+						"account_number": "6371"
+					},
+					"6372-Taxes per\u00e7ues par les organismes publics internationaux": {
+						"account_number": "6372"
+					},
+					"6374-Imp\u00f4ts et taxes exigibles \u00e0 l'\u00e9tranger": {
+						"account_number": "6374"
+					},
+					"6378-Taxes diverses": {
+						"account_number": "6378"
+					}
+				}
+			},
+			"64-Charges de personnel": {
+				"641-R\u00e9mun\u00e9rations du personnel": {
+					"6411-Salaires (personnel salari\u00e9)": {
+						"64111-Personnel permanent ou r\u00e9gulier": {
+							"account_number": "64111"
+						},
+						"64115-Personnel temporaire ou occasionnel": {
+							"account_number": "64115"
+						}
+					},
+					"6412-R\u00e9mun\u00e9rations (associ\u00e9s d'exploitation)": {
+						"account_number": "6412"
+					},
+					"6413-R\u00e9mun\u00e9rations (administrateurs, g\u00e9rants, associ\u00e9s)": {
+						"account_number": "6413"
+					},
+					"6415-Cong\u00e9s pay\u00e9s": {
+						"account_number": "6415"
+					},
+					"6416-Primes et gratifications": {
+						"account_number": "6416"
+					},
+					"6417-Indemnit\u00e9s et avantages en esp\u00e8ces divers": {
+						"account_number": "6417"
+					},
+					"6418-Avantages en nature": {
+						"account_number": "6418"
+					}
+				},
+				"644-R\u00e9mun\u00e9ration du travail de l'exploitant": {
+					"account_number": "644"
+				},
+				"645-Charges de s\u00e9curit\u00e9 sociale et de pr\u00e9voyance": {
+					"6451-Cotisations \u00e0 la Mutualit\u00e9 Sociale Agricole": {
+						"account_number": "6451"
+					},
+					"6452-Cotisations aux mutuelles": {
+						"account_number": "6452"
+					},
+					"6453-Cotisations aux caisses de retraites": {
+						"account_number": "6453"
+					},
+					"6454-Cotisations aux caisses de ch\u00f4mages": {
+						"account_number": "6454"
+					},
+					"6458-Cotisations aux autres organismes sociaux": {
+						"account_number": "6458"
+					}
+				},
+				"646-Cotisations sociales personnelles de l'exploitant": {
+					"account_number": "646"
+				},
+				"647-Autres charges sociales": {
+					"6472-Versements aux comit\u00e9s d'entreprise et d'\u00e9tablissement": {
+						"account_number": "6472"
+					},
+					"6474-Versements aux autres \u0153uvres sociales": {
+						"account_number": "6474"
+					},
+					"6475-M\u00e9decine du travail, pharmacie": {
+						"account_number": "6475"
+					},
+					"6478-Autres charges sociales diverses": {
+						"account_number": "6478"
+					}
+				},
+				"648-Autres charges de personnel": {
+					"account_number": "648"
+				}
+			},
+			"65-Autres charges de gestion courante": {
+				"651-Redevances pour concessions, brevets, licences, marques, proc\u00e9d\u00e9s, logiciels, droits et valeurs similaires": {
+					"account_number": "651"
+				},
+				"653-Jetons de pr\u00e9sence": {
+					"account_number": "653"
+				},
+				"654-Pertes sur cr\u00e9ances irr\u00e9couvrables": {
+					"6541-Cr\u00e9ances de l'exercice": {
+						"account_number": "6541"
+					},
+					"6544-Cr\u00e9ances des exercices ant\u00e9rieurs": {
+						"account_number": "6544"
+					}
+				},
+				"655-Quotes-parts de r\u00e9sultat sur op\u00e9rations faites en commun": {
+					"6551-Quote-part de b\u00e9n\u00e9fice transf\u00e9r\u00e9e (comptabilit\u00e9 du g\u00e9rant)": {
+						"account_number": "6551"
+					},
+					"6555-Quote-part de perte support\u00e9e (comptabilit\u00e9 des associ\u00e9s non g\u00e9rants)": {
+						"account_number": "6555"
+					}
+				},
+				"656-Valeurs comptables des \u00e9l\u00e9ments d'actif c\u00e9d\u00e9s (cessions courantes)": {
+					"6561-Animaux reproducteurs adultes": {
+						"account_number": "6561"
+					},
+					"6562-Animaux reproducteurs (jeunes de renouvellement)": {
+						"account_number": "6562"
+					}
+				},
+				"658-Charges diverses de gestion courante": {
+					"account_number": "658"
+				}
+			},
+			"66-Charges financi\u00e8res": {
+				"661-Charges d'int\u00e9r\u00eats": {
+					"6611-Int\u00e9r\u00eats des emprunts fonciers": {
+						"account_number": "6611"
+					},
+					"6612-Int\u00e9r\u00eats des autres emprunts \u00e0 moyen et long terme": {
+						"account_number": "6612"
+					},
+					"6613-Int\u00e9r\u00eats des emprunts \u00e0 court terme": {
+						"account_number": "6613"
+					},
+					"6614-Int\u00e9r\u00eats des cr\u00e9dits bancaires de campagne": {
+						"account_number": "6614"
+					},
+					"6615-Int\u00e9r\u00eats des dettes rattach\u00e9es \u00e0 des participations \u00e0 des organismes professionnels agricoles (autres que les \u00e9tablissements de cr\u00e9dit)": {
+						"account_number": "6615"
+					},
+					"6616-Int\u00e9r\u00eats des dettes rattach\u00e9es \u00e0 d'autres participations": {
+						"account_number": "6616"
+					},
+					"6617-Int\u00e9r\u00eats du cr\u00e9dit fournisseur": {
+						"account_number": "6617"
+					},
+					"6618-Autres charges d'int\u00e9r\u00eat": {
+						"66181-Autres int\u00e9r\u00eats bancaires": {
+							"account_number": "66181"
+						},
+						"66182-Int\u00e9r\u00eats des comptes courants et d\u00e9p\u00f4ts cr\u00e9diteurs": {
+							"account_number": "66182"
+						},
+						"66183-Int\u00e9r\u00eats des obligations cautionn\u00e9es": {
+							"account_number": "66183"
+						},
+						"66188-Int\u00e9r\u00eats des autres dettes": {
+							"account_number": "66188"
+						}
+					}
+				},
+				"664-Pertes sur cr\u00e9ances li\u00e9es \u00e0 des participations": {
+					"account_number": "664"
+				},
+				"665-Escomptes accord\u00e9s": {
+					"account_number": "665"
+				},
+				"666-Pertes de change": {
+					"account_number": "666"
+				},
+				"667-Charges nettes sur cessions de valeurs mobili\u00e8res de placement": {
+					"account_number": "667"
+				},
+				"668-Autres charges financi\u00e8res": {
+					"account_number": "668"
+				}
+			},
+			"67-Charges exceptionnelles": {
+				"671-Charges exceptionnelles sur op\u00e9rations de gestion": {
+					"6711-P\u00e9nalit\u00e9s sur march\u00e9s (et d\u00e9dits pay\u00e9s sur achats et ventes)": {
+						"account_number": "6711"
+					},
+					"6712-P\u00e9nalit\u00e9s, amendes fiscales et p\u00e9nales": {
+						"account_number": "6712"
+					},
+					"6713-Dons, lib\u00e9ralit\u00e9s": {
+						"account_number": "6713"
+					},
+					"6714-Cr\u00e9ances devenues irr\u00e9couvrables dans l'exercice": {
+						"account_number": "6714"
+					},
+					"6715-Subventions accord\u00e9es": {
+						"account_number": "6715"
+					},
+					"6717-Rappel d'imp\u00f4ts (autres qu'imp\u00f4ts sur les b\u00e9n\u00e9fices)": {
+						"account_number": "6717"
+					},
+					"6718-Autres charges exceptionnelles sur op\u00e9rations de gestion": {
+						"account_number": "6718"
+					}
+				},
+				"672-Charges sur exercices ant\u00e9rieurs": {
+					"account_number": "672"
+				},
+				"673-Charges exeptionnelles relatives aux p\u00e9nalit\u00e9s statutaires": {
+					"6731-Indemnit\u00e9s compensatrices": {
+						"account_number": "6731"
+					},
+					"6733-P\u00e9nalit\u00e9s subies en tant qu'associ\u00e9 d\u00e9faillant": {
+						"account_number": "6733"
+					},
+					"6735-Frais de poursuite": {
+						"account_number": "6735"
+					}
+				},
+				"675-Valeurs comptables des \u00e9l\u00e9ments d'actif c\u00e9d\u00e9s": {
+					"6751-Immobilisations incorporelles": {
+						"account_number": "6751"
+					},
+					"6752-Immobilisations corporelles (hors biens vivants)": {
+						"account_number": "6752"
+					},
+					"6754-Immobilisations corporelles (biens vivants)": {
+						"account_number": "6754"
+					},
+					"6756-Immobilisations financi\u00e8res": {
+						"account_number": "6756"
+					}
+				},
+				"678-Autres charges exceptionnelles": {
+					"6781-Malis provenant de clauses d'indexation": {
+						"account_number": "6781"
+					},
+					"6782-Lots": {
+						"account_number": "6782"
+					},
+					"6783-Malis provenant du rachat par l'entreprise d'actions et obligations \u00e9mises par elle-m\u00eame": {
+						"account_number": "6783"
+					},
+					"6788-Charges exceptionnelles diverses": {
+						"account_number": "6788"
+					}
+				}
+			},
+			"68-Dotations aux amortissements, aux d\u00e9pr\u00e9ciations et aux provisions": {
+				"681-Dotations aux amortissements, aux d\u00e9pr\u00e9ciations et aux provisions - Charges d'exploitation": {
+					"6811-Dotations aux amortissements sur immobilisations incorporelles et corporelles": {
+						"68111-Immobilisations incorporelles": {
+							"account_number": "68111"
+						},
+						"68112-Immobilisations corporelles (hors biens vivants)": {
+							"account_number": "68112"
+						},
+						"68114-Immobilisations corporelles (biens vivants)": {
+							"account_number": "68114"
+						}
+					},
+					"6812-Dotations aux amortissements des charges d'exploitation \u00e0 r\u00e9partir": {
+						"account_number": "6812"
+					},
+					"6815-Dotations aux provisions d'exploitation": {
+						"account_number": "6815"
+					},
+					"6816-Dotations pour d\u00e9pr\u00e9ciations des immobilisations incorporelles et corporelles": {
+						"68161-Immobilisations incorporelles": {
+							"account_number": "68161"
+						},
+						"68162-Immobilisations corporelles (hors biens vivants)": {
+							"account_number": "68162"
+						},
+						"68164-Immobilisations corporelles (biens vivants)": {
+							"account_number": "68164"
+						}
+					},
+					"6817-Dotations pour d\u00e9pr\u00e9ciations des actifs circulants": {
+						"68173-Stocks et en-cours": {
+							"account_number": "68173"
+						},
+						"68174-Cr\u00e9ances": {
+							"account_number": "68174"
+						}
+					}
+				},
+				"686-Dotations aux amortissements, aux d\u00e9pr\u00e9ciations et aux provisions - Charges financi\u00e8res": {
+					"6861-Dotations aux amortissements des primes de remboursement des obligations": {
+						"account_number": "6861"
+					},
+					"6865-Dotations aux provisions financi\u00e8res": {
+						"account_number": "6865"
+					},
+					"6866-Dotations pour d\u00e9pr\u00e9ciations des \u00e9l\u00e9ments financiers": {
+						"68662-Immobilisations financi\u00e8res": {
+							"account_number": "68662"
+						},
+						"68665-Valeurs mobili\u00e8res de placement": {
+							"account_number": "68665"
+						}
+					},
+					"6868-Autres dotations": {
+						"account_number": "6868"
+					}
+				},
+				"687-Dotations aux amortissements, aux d\u00e9pr\u00e9ciations et aux provisions - Charges exceptionnelles": {
+					"6871-Dotations aux amortissements exceptionnels des immobilisations": {
+						"account_number": "6871"
+					},
+					"6872-Dotations aux provisions r\u00e9glement\u00e9es (immobilisations)": {
+						"68725-Amortissements d\u00e9rogatoires": {
+							"account_number": "68725"
+						}
+					},
+					"6873-Dotations aux provisions r\u00e9glement\u00e9es (stocks)": {
+						"account_number": "6873"
+					},
+					"6874-Dotations aux autres provisions r\u00e9glement\u00e9es": {
+						"account_number": "6874"
+					},
+					"6875-Dotations aux provisions exceptionnelles": {
+						"account_number": "6875"
+					},
+					"6876-Dotations pour d\u00e9pr\u00e9ciations exceptionnelles": {
+						"account_number": "6876"
+					}
+				}
+			},
+			"69-Participation des salari\u00e9s - Imp\u00f4ts sur les b\u00e9n\u00e9fices et assimil\u00e9s": {
+				"691-Participation des salari\u00e9s aux r\u00e9sultats": {
+					"account_number": "691"
+				},
+				"695-Imp\u00f4ts sur les b\u00e9n\u00e9fices": {
+					"6951-Imp\u00f4ts dus en France": {
+						"account_number": "6951"
+					},
+					"6954-Imp\u00f4ts dus \u00e0 l'\u00e9tranger": {
+						"account_number": "6954"
+					}
+				},
+				"697-Imposition forfaitaire annuelle des soci\u00e9t\u00e9s": {
+					"account_number": "697"
+				},
+				"698-Int\u00e9gration fiscale": {
+					"6981-Int\u00e9gration fiscale - Charges": {
+						"account_number": "6981"
+					},
+					"6982-Int\u00e9gration fiscale - Produits": {
+						"account_number": "6982"
+					}
+				},
+				"699-Produits - Reports en arri\u00e8re des d\u00e9ficits": {
+					"account_number": "699"
+				}
+			}
+		},
+		"7-Comptes de produits": {
+			"root_type": "Income",
+			"70-Ventes": {
+				"701-Ventes de produits v\u00e9g\u00e9taux": {
+					"account_number": "701"
+				},
+				"702-Ventes de produits animaux": {
+					"account_number": "702"
+				},
+				"703-Ventes de produits transform\u00e9s": {
+					"account_number": "703"
+				},
+				"704-Ventes d'animaux": {
+					"7041-Animaux reproducteurs (adultes)": {
+						"account_number": "7041"
+					},
+					"7042-Animaux reproducteurs (jeunes de renouvellement)": {
+						"account_number": "7042"
+					},
+					"7045-Autres animaux": {
+						"account_number": "7045"
+					}
+				},
+				"705-Ventes de produits r\u00e9siduels": {
+					"account_number": "705"
+				},
+				"706-Travaux \u00e0 fa\u00e7on": {
+					"account_number": "706"
+				},
+				"707-Ventes de marchandises": {
+					"account_number": "707"
+				},
+				"708-Produits des activit\u00e9s annexes": {
+					"7081-Produits des services exploit\u00e9s dans l'int\u00e9r\u00eat du personnel": {
+						"account_number": "7081"
+					},
+					"7082-Commissions et courtages": {
+						"account_number": "7082"
+					},
+					"7083-Locations diverses": {
+						"account_number": "7083"
+					},
+					"7084-Prestations de services \u00e0 caract\u00e8re accessoire": {
+						"account_number": "7084"
+					},
+					"7085-Ports et frais accessoires factur\u00e9s": {
+						"account_number": "7085"
+					},
+					"7086-Bonis sur reprises d'emballages consign\u00e9s": {
+						"account_number": "7086"
+					},
+					"7087-Bonifications obtenues des clients et primes sur ventes": {
+						"account_number": "7087"
+					},
+					"7088-Autres produits d'activit\u00e9s annexes": {
+						"account_number": "7088"
+					}
+				},
+				"709-Rabais, remises et ristournes accord\u00e9s par l'entreprise": {
+					"7091-RRR sur ventes de produits v\u00e9g\u00e9taux": {
+						"account_number": "7091"
+					},
+					"7092-RRR sur ventes de produits animaux": {
+						"account_number": "7092"
+					},
+					"7093-RRR sur ventes de produits transform\u00e9s": {
+						"account_number": "7093"
+					},
+					"7094-RRR sur ventes d'animaux": {
+						"account_number": "7094"
+					},
+					"7095-RRR sur ventes de produits r\u00e9siduels": {
+						"account_number": "7095"
+					},
+					"7096-RRR sur travaux \u00e0 fa\u00e7on": {
+						"account_number": "7096"
+					},
+					"7097-RRR sur ventes de marchandises": {
+						"account_number": "7097"
+					},
+					"7098-RRR sur produits des activit\u00e9s annexes": {
+						"account_number": "7098"
+					}
+				}
+			},
+			"71-Variation d'inventaire (biens vivants, en-cours de production de biens et services, produits)": {
+				"712-Variation d'inventaire : animaux reproducteurs immobilis\u00e9s": {
+					"7121-Animaux reproducteurs (adultes)": {
+						"account_number": "7121"
+					},
+					"7122-Animaux reproducteurs (jeunes de renouvellement)": {
+						"account_number": "7122"
+					}
+				},
+				"713-Variation d'inventaire : biens vivants non immobilis\u00e9s, en-cours de production de biens et services, produits": {
+					"7131-Animaux (cycle long)": {
+						"account_number": "7131"
+					},
+					"7132-Animaux (cycle court)": {
+						"account_number": "7132"
+					},
+					"7133-V\u00e9g\u00e9taux en terre (cycle long)": {
+						"account_number": "7133"
+					},
+					"7134-V\u00e9g\u00e9taux en terre (cycle court)": {
+						"account_number": "7134"
+					},
+					"7135-En-cours de production de biens et services (cycle long)": {
+						"account_number": "7135"
+					},
+					"7136-En-cours de production de biens et services (cycle court)": {
+						"account_number": "7136"
+					},
+					"7137-Produits": {
+						"account_number": "7137"
+					}
+				}
+			},
+			"72-Production immobilis\u00e9e et autoconsomm\u00e9e": {
+				"721-Production immobilis\u00e9e - Immobilisations incorporelles": {
+					"account_number": "721"
+				},
+				"722-Production immobilis\u00e9e - Immobilisations corporelles (hors biens vivants)": {
+					"account_number": "722"
+				},
+				"724-Production immobilis\u00e9e - Immobilisations corporelles (biens vivants)": {
+					"account_number": "724"
+				},
+				"726-Production autoconsomm\u00e9e": {
+					"account_number": "726"
+				}
+			},
+			"74-Indemnit\u00e9s et Subventions d'exploitation": {
+				"741-Remboursement forfaitaire de TVA": {
+					"account_number": "741"
+				},
+				"742-Indemnit\u00e9s d'assurance (exploitation)": {
+					"account_number": "742"
+				},
+				"743-Indemnit\u00e9s du Fond national de garantie des calamit\u00e9s agricoles": {
+					"account_number": "743"
+				},
+				"744-Autres indemnit\u00e9s d'exploitation": {
+					"account_number": "744"
+				},
+				"745-Subventions d'exploitation": {
+					"7451-Subventions aux produits v\u00e9g\u00e9taux": {
+						"account_number": "7451"
+					},
+					"7452-Subventions aux structures (et jach\u00e8res)": {
+						"account_number": "7452"
+					},
+					"7453-Subventions au revenu": {
+						"account_number": "7453"
+					},
+					"7454-Subventions aux animaux": {
+						"account_number": "7454"
+					},
+					"7458-Autres subventions d'exploitation": {
+						"account_number": "7458"
+					}
+				}
+			},
+			"75-Autres produits de gestion courante": {
+				"751-Redevances pour concessions, brevets, licences, marques, proc\u00e9d\u00e9s, logiciels, droits et valeurs similaires": {
+					"account_number": "751"
+				},
+				"752-Revenus des immeubles non affect\u00e9s \u00e0 des activit\u00e9s professionnelles": {
+					"account_number": "752"
+				},
+				"753-Jetons de pr\u00e9sence, r\u00e9mun\u00e9rations et indemnit\u00e9s d'administrateurs, etc": {
+					"account_number": "753"
+				},
+				"754-Ristournes per\u00e7ues des coop\u00e9ratives agricoles (provenant des exc\u00e9dents)": {
+					"account_number": "754"
+				},
+				"755-Quote-parts de r\u00e9sultat sur op\u00e9rations faites en commun": {
+					"7551-Quote-part de perte transf\u00e9r\u00e9e (comptabilit\u00e9 du g\u00e9rant)": {
+						"account_number": "7551"
+					},
+					"7555-Quote-part de b\u00e9n\u00e9fice attribu\u00e9e (comptabilit\u00e9 des associ\u00e9s non - g\u00e9rants)": {
+						"account_number": "7555"
+					}
+				},
+				"756-Produits des cessions courantes d'\u00e9l\u00e9ments d'actif": {
+					"7561-Animaux reproducteurs adultes": {
+						"account_number": "7561"
+					},
+					"7562-Animaux reproducteurs (jeunes de renouvellement)": {
+						"account_number": "7562"
+					}
+				},
+				"758-Produits divers de gestion courante": {
+					"account_number": "758"
+				}
+			},
+			"76-Produits financiers": {
+				"761-Produits de participations": {
+					"7611-Revenus des titres de participation": {
+						"account_number": "7611"
+					},
+					"7612-Revenus des participations \u00e0 des organismes professionnels agricoles": {
+						"account_number": "7612"
+					},
+					"7616-Revenus sur autres formes de participation": {
+						"account_number": "7616"
+					},
+					"7617-Revenus des cr\u00e9ances rattach\u00e9es \u00e0 des participations": {
+						"account_number": "7617"
+					}
+				},
+				"762-Produits des autres immobilisations financi\u00e8res": {
+					"7621-Revenus des titres immobilis\u00e9s": {
+						"account_number": "7621"
+					},
+					"7626-Revenus des pr\u00eats": {
+						"account_number": "7626"
+					},
+					"7627-Revenus des cr\u00e9ances immobilis\u00e9es": {
+						"account_number": "7627"
+					}
+				},
+				"763-Revenus des autres cr\u00e9ances": {
+					"7631-Revenus des cr\u00e9ances commerciales": {
+						"account_number": "7631"
+					},
+					"7638-Revenus des cr\u00e9ances diverses": {
+						"account_number": "7638"
+					}
+				},
+				"764-Revenus des valeurs mobili\u00e8res de placement": {
+					"account_number": "764"
+				},
+				"765-Escomptes obtenus": {
+					"account_number": "765"
+				},
+				"766-Gains de change": {
+					"account_number": "766"
+				},
+				"767-Produits nets sur cessions de valeurs mobili\u00e8res de placement": {
+					"account_number": "767"
+				},
+				"768-Autres produits financiers": {
+					"account_number": "768"
+				}
+			},
+			"77-Produits exceptionnels": {
+				"771-Produits exceptionnels sur op\u00e9rations de gestion": {
+					"7711-D\u00e9dits et p\u00e9nalit\u00e9s per\u00e7us sur achats et sur ventes": {
+						"account_number": "7711"
+					},
+					"7713-Lib\u00e9ralit\u00e9s re\u00e7ues": {
+						"account_number": "7713"
+					},
+					"7714-Rentr\u00e9es sur cr\u00e9ances amorties": {
+						"account_number": "7714"
+					},
+					"7715-Subventions d'\u00e9quilibre": {
+						"account_number": "7715"
+					},
+					"7717-D\u00e9gr\u00e8vements d'imp\u00f4ts (autres qu'imp\u00f4ts sur les b\u00e9n\u00e9fices)": {
+						"account_number": "7717"
+					},
+					"7718-Autres produits exceptionnels sur op\u00e9rations de gestion": {
+						"account_number": "7718"
+					}
+				},
+				"772-Produits sur exercices ant\u00e9rieurs": {
+					"account_number": "772"
+				},
+				"775-Produits des cessions d'\u00e9l\u00e9ments d'actif": {
+					"7751-Immobilisations incorporelles": {
+						"account_number": "7751"
+					},
+					"7752-Immobilisations corporelles (hors biens vivants)": {
+						"account_number": "7752"
+					},
+					"7754-Immobilisations corporelles (biens vivants)": {
+						"account_number": "7754"
+					},
+					"7756-Immobilisations financi\u00e8res": {
+						"account_number": "7756"
+					}
+				},
+				"777-Quote-part des subventions d'investissement vir\u00e9e au r\u00e9sultat de l'exercice": {
+					"account_number": "777"
+				},
+				"778-Autres produits exceptionnels": {
+					"7781-Bonis provenant de clauses d'indexation": {
+						"account_number": "7781"
+					},
+					"7782-Lots": {
+						"account_number": "7782"
+					},
+					"7783-Bonis provenant du rachat par l'entreprise de titres \u00e9mis par elle - m\u00eame": {
+						"account_number": "7783"
+					},
+					"7788-Produits exceptionnels divers": {
+						"account_number": "7788"
+					}
+				}
+			},
+			"78-Reprises sur amortissements, d\u00e9pr\u00e9ciations et provisions": {
+				"781-Reprises sur amortissements, d\u00e9pr\u00e9ciations et provisions (\u00e0 inscrire dans les produits d'exploitation)": {
+					"7811-Reprises sur amortissements des immobilisations incorporelles et corporelles": {
+						"78111-Immobilisations incorporelles": {
+							"account_number": "78111"
+						},
+						"78112-Immobilisations corporelles (hors biens vivants)": {
+							"account_number": "78112"
+						},
+						"78114-Immobilisations corporelles (biens vivants)": {
+							"account_number": "78114"
+						}
+					},
+					"7815-Reprises sur provisions d'exploitation": {
+						"account_number": "7815"
+					},
+					"7816-Reprises sur d\u00e9pr\u00e9ciations des immobilisations incorporelles et corporelles": {
+						"78161-Immobilisations incorporelles": {
+							"account_number": "78161"
+						},
+						"78162-Immobilisations corporelles (hors biens vivants)": {
+							"account_number": "78162"
+						},
+						"78164-Immobilisations corporelles (biens vivants)": {
+							"account_number": "78164"
+						}
+					},
+					"7817-Reprises sur d\u00e9pr\u00e9ciations des actifs circulants": {
+						"78173-Stocks et en-cours": {
+							"account_number": "78173"
+						},
+						"78174-Cr\u00e9ances": {
+							"account_number": "78174"
+						}
+					}
+				},
+				"786-Reprises sur d\u00e9pr\u00e9ciations et sur provisions (\u00e0 inscrire dans les produits financiers)": {
+					"7865-Reprises sur provisions financi\u00e8res": {
+						"account_number": "7865"
+					},
+					"7866-Reprises sur d\u00e9pr\u00e9ciations des \u00e9l\u00e9ments financiers": {
+						"78662-Immobilisations financi\u00e8res": {
+							"account_number": "78662"
+						},
+						"78665-Valeurs mobili\u00e8res de placements": {
+							"account_number": "78665"
+						}
+					}
+				},
+				"787-Reprises sur d\u00e9pr\u00e9ciations et sur provisions (\u00e0 inscrire dans les produits exceptionnels)": {
+					"7872-Reprises sur provisions r\u00e9glement\u00e9es (immobilisations)": {
+						"78725-Amortissements d\u00e9rogatoires": {
+							"account_number": "78725"
+						},
+						"78726-Provision sp\u00e9ciale de r\u00e9\u00e9valuation": {
+							"account_number": "78726"
+						},
+						"78727-Plus-values r\u00e9investies": {
+							"account_number": "78727"
+						}
+					},
+					"7873-Reprises sur provisions r\u00e9glement\u00e9es (stocks)": {
+						"account_number": "7873"
+					},
+					"7874-Reprises sur autres provisions r\u00e9glement\u00e9es": {
+						"account_number": "7874"
+					},
+					"7875-Reprises sur provisions exceptionnelles": {
+						"account_number": "7875"
+					},
+					"7876-Reprises sur d\u00e9pr\u00e9ciations exceptionnelles": {
+						"account_number": "7876"
+					}
+				}
+			},
+			"79-Transferts de charges": {
+				"791-Transferts de charges d'exploitation": {
+					"account_number": "791"
+				},
+				"796-Transferts de charges financi\u00e8res": {
+					"account_number": "796"
+				},
+				"797-Transferts de charges exceptionnelles": {
+					"account_number": "797"
+				}
+			}
+		},
+		"8-Comptes de contributions volontaires en nature": {
+			"root_type": null,
+			"86-Emploi des contributions volontaires en nature": {
+				"860-Secours en nature": {
+					"account_number": "860"
+				},
+				"861-Mise \u00e0 disposition gratuite de biens": {
+					"account_number": "861"
+				},
+				"862-Prestations": {
+					"account_number": "862"
+				},
+				"864-Personnel b\u00e9n\u00e9vole": {
+					"account_number": "864"
+				}
+			},
+			"87-Contributions volontaires en nature": {
+				"870-Dons en nature": {
+					"account_number": "870"
+				},
+				"871-Prestations en nature": {
+					"account_number": "871"
+				},
+				"875-B\u00e9n\u00e9volat": {
+					"account_number": "875"
+				}
+			}
+		}
+	}
 }
