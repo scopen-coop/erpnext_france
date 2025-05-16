@@ -82,6 +82,7 @@ def get_chart_fr(chart_template, existing_company=None):
 
 @frappe.whitelist()
 def build_tree_from_json(chart_template, chart_data=None, from_coa_importer=False):
+
 	"""get chart template from its folder and parse the json to be rendered as tree"""
 	chart = chart_data or get_chart_fr(chart_template)
 
