@@ -19,7 +19,23 @@ For ERPNext France users this file can be generated using this report called Le 
 
 - Manage Deposit Invoice (Facture d'acompte) that is a real invoice with a % of total paiement that need to be deducted as payment after
 
-- Export for CIEL and Sage Accountancy journal for Sales and Buying only 
+- Export for CIEL and Sage Accountancy journal for Sales and Buying only
+
+- EcoTax management
+
+- Easier Customer and Supplier creation with (API Sinene)[https://api.gouv.fr/les-api/sirene_v3]
+
+- Easier Item Taxe Template creation
+
+- Header and Footer for document "Francisé"
+
+- Cannot delete invoices
+
+- Payment terms before invoice (example 30% deposit invoice, 70% delivery)
+
+- Codes NAF/APE (for customer and supplier)
+
+- Compny type from INSEE (for customer and supplier)
 
 
 ### Installation
