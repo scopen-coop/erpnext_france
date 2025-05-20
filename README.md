@@ -15,7 +15,7 @@ Since 2014, a legal requirement makes it mandatory for companies operating in Fr
 
 For ERPNext France users this file can be generated using this report called Le Fichier des Écritures Comptables FEC.
 
-- Check VAT customer and supplier code from [Europpean VIES](https://europa.eu/youreurope/business/taxation/vat/check-vat-number-vies/index_fr.htm)
+- Check VAT customer and supplier code from [European VIES](https://europa.eu/youreurope/business/taxation/vat/check-vat-number-vies/index_fr.htm)
 
 - Manage Deposit Invoice (Facture d'acompte) that is a real invoice with a % of total paiement that need to be deducted as payment after
 
