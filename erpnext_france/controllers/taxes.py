@@ -276,7 +276,7 @@ def create_update_ecopart_with_vat_taxes(
 		ecopart_vat_tax = None
 
 		for tax in doc.taxes:
-			if tax.ecotax:
+			if tax.ecotax and tax.description == ecopart_account + "\n" + str(vat_account):
 				ecopart_tax = tax
 			elif (
 					tax.charge_type == 'On Previous Row Amount'
@@ -336,14 +336,10 @@ def create_update_vat_taxes(doc, item_wise_tax_detail_standard_tva, vat_account)
 		tax_rate = value[0]
 		tax_amount += value[1]
 
-	# Update with new values
-	new_item_tax_wise = {key: value[1] for key, value in item_tax_wise.items()}
-
 	if vat_tax:
 		vat_tax.tax_amount = tax_amount
-		vat_tax.item_wise_tax_detail = json.dumps(new_item_tax_wise)
+		vat_tax.item_wise_tax_detail = json.dumps(item_tax_wise)
 		vat_tax.dont_recompute_tax = True
-		vat_tax.save()
 	else:
 		vat_tax = frappe.get_doc({
 			'doctype': 'Sales Taxes and Charges',
@@ -354,10 +350,9 @@ def create_update_vat_taxes(doc, item_wise_tax_detail_standard_tva, vat_account)
 			'parenttype': doc.doctype,
 			'tax_amount': tax_amount,
 			'rate': tax_rate,
-			'item_wise_tax_detail': json.dumps(new_item_tax_wise),
+			'item_wise_tax_detail': json.dumps(item_tax_wise),
 			'dont_recompute_tax': True,
 		})
-		vat_tax.insert()
 		doc.append("taxes", vat_tax)
 
 def create_update_ecotax(doc, vat_account, ecopart_account, ecopart_tax, item_tax_wise, total_tax):
@@ -404,16 +399,16 @@ def create_update_vat_on_ecotax(
 		vat_account
 ):
 	tax_rate = frappe.get_value('Account', vat_account, 'tax_rate') or 0
-	item_tax_wise = {item_code: item_tax_wise[item_code][1] for item_code in item_tax_wise}
+	item_tax_wise = {item_code: item_tax_wise[item_code] for item_code in item_tax_wise}
 	if ecopart_vat_tax:
 		# Load existing item_wise_tax_detail
 		existing_tax_detail = json.loads(ecopart_vat_tax.item_wise_tax_detail) if ecopart_vat_tax.item_wise_tax_detail else {}
 		# Update with new values
 		for key, value in item_tax_wise.items():
 			if key in existing_tax_detail:
-				existing_tax_detail[key] += value
+				existing_tax_detail[key] += value[0] or 0
 			else:
-				existing_tax_detail[key] = value
+				existing_tax_detail[key] = value[0] or 0
 
 		ecopart_vat_tax.tax_amount = total_tax * tax_rate / 100
 		ecopart_vat_tax.item_wise_tax_detail = json.dumps(existing_tax_detail)
