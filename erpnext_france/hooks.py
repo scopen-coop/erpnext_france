@@ -33,6 +33,7 @@ fixtures = [
 					"Company-capital",
 					"Company-type_export_fec",
 					"Company-column_break_898956",
+					"Company-default_payment_terms_template_before_invoice",
 					"Customer-check_vat_id",
 					"Customer-code_naf",
 					"Customer-incoterm",
@@ -383,7 +384,8 @@ override_whitelisted_methods = {
 # Regional Overrides
 regional_overrides = {
 	"France": {
-		# "erpnext.controllers.taxes_and_totals.update_itemised_tax_data": "erpnext_france.regional.france.taxes.update_itemised_tax_data",
+		# "erpnext.controllers.taxes_and_totals.update_itemised_tax_data": "erpnext_france.controllers.taxes.update_itemised_tax_data",
+		# "erpnext.controllers.taxes_and_totals.get_itemised_tax_breakup_data": "erpnext_france.controllers.taxes.get_itemised_tax_breakup_data",
 		# "erpnext.controllers.taxes_and_totals.get_itemised_tax": "erpnext_france.regional.france.taxes.get_itemised_tax", #Not regionnalized
 		# "erpnext.accounts.controllers.accounts_controller.update_against_document_in_jv": "erpnext_france.controllers.accounts_controller.update_against_document_in_jv", #Not regionnalized
 	},
