@@ -75,12 +75,12 @@ def setup_company_default(company, action):
 
 def default_accounts_mapping(accounts):
 	account_map = {
-		"default_cash_account": 5311,
+		"default_cash_account": 53,
 		"default_receivable_account": 4111,
 		"default_payable_account": 4011,
 		"asset_received_but_not_billed": 4084,
-		"default_expense_account": 6011,
-		"default_income_account": 7011,
+		"default_expense_account": 607,
+		"default_income_account": 707,
 	}
 
 	return {
