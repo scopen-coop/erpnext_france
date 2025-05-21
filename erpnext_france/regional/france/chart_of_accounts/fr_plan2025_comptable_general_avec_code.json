@@ -2548,7 +2548,7 @@
 					"Int\u00e9r\u00eats des cr\u00e9dits bancaires de campagne": {
 						"account_number": "6614"
 					},
-					"Int\u00e9r\u00eats des dettes rattach\u00e9es \u00e0 des participations \u00e0 des organismes professionnels agricoles (autres que les \u00e9tablissements de cr\u00e9dit)": {
+					"Int\u00e9r\u00eats des dettes rattach\u00e9es \u00e0 des participations \u00e0 des organismes professionnels agricoles": {
 						"account_number": "6615"
 					},
 					"Int\u00e9r\u00eats des dettes rattach\u00e9es \u00e0 d'autres participations": {
@@ -3182,34 +3182,6 @@
 				},
 				"Transferts de charges exceptionnelles": {
 					"account_number": "797"
-				}
-			}
-		},
-		"8-Comptes de contributions volontaires en nature": {
-			"root_type": null,
-			"86-Emploi des contributions volontaires en nature": {
-				"Secours en nature": {
-					"account_number": "860"
-				},
-				"Mise \u00e0 disposition gratuite de biens": {
-					"account_number": "861"
-				},
-				"Prestations": {
-					"account_number": "862"
-				},
-				"Personnel b\u00e9n\u00e9vole": {
-					"account_number": "864"
-				}
-			},
-			"87-Contributions volontaires en nature": {
-				"Dons en nature": {
-					"account_number": "870"
-				},
-				"Prestations en nature": {
-					"account_number": "871"
-				},
-				"B\u00e9n\u00e9volat": {
-					"account_number": "875"
 				}
 			}
 		}
