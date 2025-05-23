@@ -33,20 +33,28 @@ def make_payment_terms_fixtures():
 			if not payment_terms_template:
 				make_records(payment_terms_template_fixture)
 			else:
-				# return repr(payment_terms_template)
-				# print(repr(payment_terms_template))
+				# deduplite previews import on setup....
 				payment_terms_template = frappe.get_doc(
 					"Payment Terms Template", payment_terms_template_fixture.get("name")
 				)
 				existing_terms = []
 				deduplicate_terms = []
-				for payment_terms_before_invoice in payment_terms_template.get(
-					"payment_terms_before_invoice"
-				):
-					if payment_terms_before_invoice.payment_term not in existing_terms:
-						existing_terms.append(payment_terms_before_invoice.payment_term)
-						deduplicate_terms.append(payment_terms_before_invoice)
-				payment_terms_template.payment_terms_before_invoice = deduplicate_terms
+				if payment_terms_template.template_payment_terms_before_invoice == 1:
+					for payment_terms_before_invoice in payment_terms_template.get(
+						"payment_terms_before_invoice"
+					):
+						if payment_terms_before_invoice.payment_term not in existing_terms:
+							existing_terms.append(payment_terms_before_invoice.payment_term)
+							deduplicate_terms.append(payment_terms_before_invoice)
+					payment_terms_template.payment_terms_before_invoice = deduplicate_terms
+					pass
+				else:
+					for payment_terms in payment_terms_template.get("terms"):
+						if payment_terms.payment_term not in existing_terms:
+							existing_terms.append(payment_terms.payment_term)
+							deduplicate_terms.append(payment_terms)
+					payment_terms_template.terms = deduplicate_terms
+
 				payment_terms_template.save()
 
 
