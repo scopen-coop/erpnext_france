@@ -33,7 +33,6 @@ def make_payment_terms_fixtures():
 			if not payment_terms_template:
 				make_records(payment_terms_template_fixture)
 			else:
-				pass
 				# return repr(payment_terms_template)
 				# print(repr(payment_terms_template))
 				payment_terms_template = frappe.get_doc(
