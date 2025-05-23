@@ -44,6 +44,24 @@ frappe.ui.form.on("Company", {
         },
         __("Manage")
       );
+      frm.add_custom_button(
+        __("ERPNext France - test"),
+        function () {
+          frm.call({
+            method: "erpnext_france.setup.make_payment_terms_fixtures",
+            args: { doc: frm.doc },
+            freeze: true,
+            callback: function () {
+              frappe.msgprint(
+                __(
+                  "Default tax templates for sales, purchase and items are created."
+                )
+              );
+            },
+          });
+        },
+        __("Manage")
+      );
     }
   },
 });

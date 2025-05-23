@@ -11,6 +11,7 @@ from frappe.exceptions import DoesNotExistError
 from frappe.utils import cint
 
 
+@frappe.whitelist(allow_guest=False)
 def make_payment_terms_fixtures():
 	base_path = frappe.get_app_path("erpnext_france", "data")
 	payment_term_fixtures = os.path.join(base_path, "payment_term.json")
@@ -35,13 +36,19 @@ def make_payment_terms_fixtures():
 				pass
 				# return repr(payment_terms_template)
 				# print(repr(payment_terms_template))
-				# payment_terms_template = frappe.get_doc("Payment Terms Template",payment_terms_template_fixture.get('name'))
-				# existing_terms = []
-				# for payment_terms_before_invoice in payment_terms_template.get('payment_terms_before_invoice'):
-				#     if not payment_terms_before_invoice.payment_term in existing_terms:
-				#         existing_terms.append(payment_terms_before_invoice.payment_term)
-				# payment_terms_template.payment_terms_before_invoice = existing_terms
-				# payment_terms_template.save()
+				payment_terms_template = frappe.get_doc(
+					"Payment Terms Template", payment_terms_template_fixture.get("name")
+				)
+				existing_terms = []
+				deduplicate_terms = []
+				for payment_terms_before_invoice in payment_terms_template.get(
+					"payment_terms_before_invoice"
+				):
+					if payment_terms_before_invoice.payment_term not in existing_terms:
+						existing_terms.append(payment_terms_before_invoice.payment_term)
+						deduplicate_terms.append(payment_terms_before_invoice)
+				payment_terms_template.payment_terms_before_invoice = deduplicate_terms
+				payment_terms_template.save()
 
 
 def setup_wizard_complete(args, action=None):
