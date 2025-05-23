@@ -5,7 +5,7 @@ import frappe
 from frappe import _, scrub
 import erpnext
 from erpnext import get_company_currency
-from frappe.utils import cint, flt, getdate, add_days
+from frappe.utils import cint, flt, getdate, add_days, nowdate
 from erpnext.controllers.accounts_controller import get_discount_date
 from erpnext.selling.doctype.quotation.quotation import make_sales_order
 
@@ -209,7 +209,7 @@ def _get_party_details(
 
 	if cint(fetch_payment_terms_template):
 		party_details["payment_terms_template"] = get_payment_terms_template(
-			party.name, party_type, company
+			party.name, party_type, doctype, company
 		)
 
 	if not party_details.get("currency"):
@@ -262,18 +262,26 @@ def set_account_and_due_date(
 	return out
 
 
-def get_payment_terms_template(party_name, party_type, company=None):
+def get_payment_terms_template(party_name, party_type, doctype, company=None):
 	if party_type not in ("Customer", "Supplier"):
 		return
 
 	if party_type == "Customer":
+		if doctype in ('Quotation', 'Sales Order'):
+			payment_terms_template_field = "default_payment_terms_template_before_invoice"
+		else:
+			payment_terms_template_field = 'payment_terms'
 		customer = frappe.get_cached_value(
 			"Customer",
 			party_name,
-			fieldname=["default_payment_terms_template_before_invoice", "customer_group"],
+			fieldname=[payment_terms_template_field, "customer_group"],
 			as_dict=1
 		)
-		template = customer.default_payment_terms_template_before_invoice
+		if doctype in ('Quotation', 'Sales Order'):
+			template = customer.default_payment_terms_template_before_invoice
+		else:
+			template = customer.payment_terms
+
 		# payment_terms_before_invoice on customer group
 		if not template and customer.customer_group:
 			template = frappe.get_cached_value("Customer Group", customer.customer_group, "payment_terms")
@@ -290,6 +298,23 @@ def get_payment_terms_template(party_name, party_type, company=None):
 
 	return template
 
+
+@frappe.whitelist()
+def make_quotation_with_payment_terms(source_name, target_doc=None):
+	from erpnext.selling.doctype.customer.customer import make_quotation
+
+	target_doc  = make_quotation(source_name, target_doc=None)
+	customer = frappe.get_cached_doc('Customer', source_name)
+	target_doc.payment_terms_template = customer.default_payment_terms_template_before_invoice
+
+	payment_schedule = get_payment_terms_before_invoice(
+		doctype=target_doc.doctype,
+		posting_date=nowdate(),
+		payment_terms_template=target_doc.payment_terms_template
+	)
+
+	target_doc.set('payment_schedule', payment_schedule)
+	return target_doc
 
 @frappe.whitelist()
 def get_payment_terms_before_invoice(
