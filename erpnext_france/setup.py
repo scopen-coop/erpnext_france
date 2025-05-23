@@ -22,7 +22,26 @@ def make_payment_terms_fixtures():
 
 	with open(payment_terms_template_fixtures) as json_file:
 		docs = json.load(json_file)
-		make_records(docs)
+		for payment_terms_template_fixture in docs:
+			payment_terms_template = frappe.db.get_all(
+				"Payment Terms Template",
+				filters={
+					"template_name": payment_terms_template_fixture.get("template_name"),
+				},
+			)
+			if not payment_terms_template:
+				make_records(payment_terms_template_fixture)
+			else:
+				pass
+				# return repr(payment_terms_template)
+				# print(repr(payment_terms_template))
+				# payment_terms_template = frappe.get_doc("Payment Terms Template",payment_terms_template_fixture.get('name'))
+				# existing_terms = []
+				# for payment_terms_before_invoice in payment_terms_template.get('payment_terms_before_invoice'):
+				#     if not payment_terms_before_invoice.payment_term in existing_terms:
+				#         existing_terms.append(payment_terms_before_invoice.payment_term)
+				# payment_terms_template.payment_terms_before_invoice = existing_terms
+				# payment_terms_template.save()
 
 
 def setup_wizard_complete(args, action=None):
@@ -47,8 +66,10 @@ def setup_company_default(company, action):
 		return
 
 	if not frappe.db.sql(
-		"""select name from tabAccount
-            where company=%s and docstatus<2 limit 1""",
+		"""select name
+           from tabAccount
+           where company = %s
+             and docstatus < 2 limit 1""",
 		company.company_name,
 	):
 		company.name = company.company_name
