@@ -51,10 +51,18 @@ fixtures = [
 					"Mode of Payment Account-discount_supplier_account",
 					"Mode of Payment Account-journal_label",
 					"Party Account-advance_account",
+					"Party Account-subledger_account",
 					"Payment Entry-down_payment",
 					"Payment Entry-accounting_journal",
 					"Payment Entry-subscription",
+					"Payment Term-payment_terms_before_invoice",
+					"Payment Term-date_computed_based_on",
+					"Payment Terms Template-template_payment_terms_before_invoice",
+					"Payment Terms Template-payment_terms_before_invoice",
+					"Purchase Invoice Item-supplier_part_no",
 					"Purchase Invoice-accounting_export_date",
+					"Purchase Taxes and Charges-ecotax",
+					"Purchase Taxes and Charges-ecotax_tva_linked",
 					"Sales Invoice-accounting_export_date",
 					"Sales Invoice-accounting_journal",
 					"Sales Invoice-down_payment_section",
@@ -78,12 +86,7 @@ fixtures = [
 					"Supplier-legal_form",
 					"Supplier-siret",
 					"Supplier-siren",
-					"Party Account-subledger_account",
-					"Payment Term-payment_terms_before_invoice",
-					"Payment Term-date_computed_based_on",
-					"Payment Terms Template-template_payment_terms_before_invoice",
-					"Payment Terms Template-payment_terms_before_invoice",
-					"Purchase Invoice Item-supplier_part_no",
+
 				),
 			],
 		],
@@ -305,10 +308,16 @@ after_migrate = [
 doc_events = {
 	"Purchase Invoice": {
 		"on_submit": "erpnext_france.erpnext_france.purchase_invoice.purchase_invoice.correct_gl_entry_supplier_discount",
-		"before_save": "erpnext_france.controllers.supplier_item_no.before_save",
+		"before_save": [
+			"erpnext_france.controllers.supplier_item_no.before_save",
+			"erpnext_france.controllers.taxes.before_save",
+		]
 	},
 	"Purchase Order": {
-		"before_save": "erpnext_france.controllers.supplier_item_no.before_save",
+		"before_save": [
+			"erpnext_france.controllers.supplier_item_no.before_save",
+			"erpnext_france.controllers.taxes.before_save",
+		]
 	},
 	"Supplier Quotation": {
 		"before_save": "erpnext_france.controllers.supplier_item_no.before_save",
