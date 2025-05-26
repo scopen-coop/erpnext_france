@@ -31,7 +31,9 @@ def make_payment_terms_fixtures():
 				},
 			)
 			if not payment_terms_template:
-				make_records(payment_terms_template_fixture)
+				doc = frappe.get_doc(payment_terms_template_fixture)
+				doc.insert()
+				# make_records()
 			else:
 				# deduplite previews import on setup....
 				payment_terms_template = frappe.get_doc(
