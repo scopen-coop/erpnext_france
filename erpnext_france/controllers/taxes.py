@@ -101,6 +101,12 @@ def create_update_ecopart_without_vat_taxes(doc, item_wise_tax_detail_before_tva
 			continue
 
 		item_tax_wise = item_wise_tax_detail_before_tva[None][ecopart_account]
+		item_code_2_keep = []
+		for item_code in item_tax_wise:
+			if item_code in item_wise_tax_detail_before_tva[None][ecopart_account].keys():
+				item_code_2_keep.append(item_code)
+
+		item_tax_wise = {item_code : [0, item_tax_wise[item_code]] for item_code in item_code_2_keep}
 		if taxes_map is not None and None in taxes_map:
 			total_tax = taxes_map[None][ecopart_account]
 			create_update_ecotax(doc, None, ecopart_account, None, item_tax_wise, total_tax, is_sales_doc)
@@ -117,24 +123,38 @@ def create_ecopart_taxes_map(doc, is_sales_doc):
 		item = frappe.get_doc('Item', doc_item.item_code)
 
 		vat_accounts = init_taxes_map_and_vat_account(doc, doc_item, item, taxes_map, is_sales_doc)
-		for vat_account in vat_accounts:
-			if vat_account not in used_vat_accounts:
-				used_vat_accounts.append(vat_account)
+		if len(vat_accounts) > 0:
+			for vat_account in vat_accounts:
+				if vat_account not in used_vat_accounts:
+					used_vat_accounts.append(vat_account)
 
-			if len(item.eco_part):
-				create_item_and_tax_maps_with_ecopart(
+				if len(item.eco_part):
+					create_item_and_tax_maps_with_ecopart(
+						doc_item,
+						item,
+						taxes_itemised_map,
+						taxes_map,
+						vat_account,
+						used_ecopart_accounts,
+						is_sales_doc
+					)
+				create_item_and_tax_maps_without_ecopart(
 					doc_item,
-					item,
-					taxes_itemised_map,
-					taxes_map,
+					item_map,
 					vat_account,
-					used_ecopart_accounts,
-					is_sales_doc
 				)
-			create_item_and_tax_maps_without_ecopart(
+		elif len(item.eco_part):
+			if None not in used_vat_accounts:
+				used_vat_accounts.append(None)
+
+			create_item_and_tax_maps_with_ecopart(
 				doc_item,
-				item_map,
-				vat_account,
+				item,
+				taxes_itemised_map,
+				taxes_map,
+				None,
+				used_ecopart_accounts,
+				is_sales_doc
 			)
 
 	(
@@ -476,7 +496,7 @@ def create_update_ecotax(doc, vat_account, ecopart_account, ecopart_tax, item_ta
 			'doctype': 'Sales Taxes and Charges' if is_sales_doc else 'Purchase Taxes and Charges',
 			'charge_type': 'Actual',
 			'ecotax': True,
-			'description': ecopart_account + "\n" + str(vat_account),
+			'description': ecopart_account + ("\n" + str(vat_account) if vat_account else ''),
 			'account_head': ecopart_account,
 			'tax_amount': total_tax,
 			'tax_rate': 0,
@@ -698,8 +718,6 @@ def get_itemised_tax(taxes, with_tax_account=False):
 				)
 
 				if with_tax_account:
-					itemised_tax[item_code][
-						tax.description
-					].tax_account = tax.account_head
+					itemised_tax[item_code][tax.description].tax_account = tax.account_head
 
 	return itemised_tax
