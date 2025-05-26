@@ -128,7 +128,8 @@ def create_ecopart_taxes_map(doc, is_sales_doc):
 					taxes_itemised_map,
 					taxes_map,
 					vat_account,
-					used_ecopart_accounts
+					used_ecopart_accounts,
+					is_sales_doc
 				)
 			create_item_and_tax_maps_without_ecopart(
 				doc_item,
@@ -191,29 +192,32 @@ def create_item_and_tax_maps_with_ecopart(
 	taxes_itemised_map,
 	taxes_map,
 	vat_account,
-	used_ecopart_accounts
+	used_ecopart_accounts,
+	is_sales_doc
 ):
 	for ecopart in item.eco_part:
 		if vat_account not in taxes_map:
 			taxes_map[vat_account] = {}
 
-		if ecopart.sell_account not in taxes_map[vat_account]:
-			taxes_map[vat_account][ecopart.sell_account] = 0
+		ecopart_account = ecopart.sell_account if is_sales_doc else ecopart.buy_account
+
+		if ecopart_account not in taxes_map[vat_account]:
+			taxes_map[vat_account][ecopart_account] = 0
 
 		if vat_account not in taxes_itemised_map:
 			taxes_itemised_map[vat_account] = {}
 
-		if ecopart.sell_account not in taxes_itemised_map[vat_account]:
-			taxes_itemised_map[vat_account][ecopart.sell_account] = {}
+		if ecopart_account not in taxes_itemised_map[vat_account]:
+			taxes_itemised_map[vat_account][ecopart_account] = {}
 
-		if doc_item.item_code not in taxes_itemised_map[vat_account][ecopart.sell_account]:
-			taxes_itemised_map[vat_account][ecopart.sell_account][doc_item.item_code] = 0
+		if doc_item.item_code not in taxes_itemised_map[vat_account][ecopart_account]:
+			taxes_itemised_map[vat_account][ecopart_account][doc_item.item_code] = 0
 
-		taxes_map[vat_account][ecopart.sell_account] += ecopart.amount * doc_item.qty
-		taxes_itemised_map[vat_account][ecopart.sell_account][doc_item.item_code] += ecopart.amount * doc_item.qty
+		taxes_map[vat_account][ecopart_account] += ecopart.amount * doc_item.qty
+		taxes_itemised_map[vat_account][ecopart_account][doc_item.item_code] += ecopart.amount * doc_item.qty
 
-		if ecopart.sell_account not in used_ecopart_accounts:
-			used_ecopart_accounts.append(ecopart.sell_account)
+		if ecopart_account not in used_ecopart_accounts:
+			used_ecopart_accounts.append(ecopart_account)
 
 def create_item_and_tax_maps_without_ecopart(
 	doc_item,
