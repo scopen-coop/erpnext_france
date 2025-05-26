@@ -31,7 +31,7 @@ def make_payment_terms_fixtures():
 				},
 			)
 			if not payment_terms_template:
-				make_records(payment_terms_template_fixture)
+				make_records([payment_terms_template_fixture])
 			else:
 				# deduplite previews import on setup....
 				payment_terms_template = frappe.get_doc(
@@ -59,10 +59,6 @@ def make_payment_terms_fixtures():
 
 
 def setup_wizard_complete(args, action=None):
-	add_bank_account(args)
-	set_4191_account_type(args)
-	set_6241_account_type(args)
-	set_4084_account_type(args)
 	set_default_stock_settings()
 	set_default_system_settings()
 	set_default_print_settings()
@@ -110,128 +106,21 @@ def setup_company_default(company, action):
 
 def default_accounts_mapping(accounts):
 	account_map = {
+		"default_bank_account": 512,
 		"default_cash_account": 53,
 		"default_receivable_account": 4111,
 		"default_payable_account": 4011,
 		"asset_received_but_not_billed": 4084,
-		"default_expense_account": 607,
-		"default_income_account": 707,
+		"default_expense_account": 6071,
+		"default_income_account": 7071,
+		"default_deferred_revenue_account": 487,
+		"default_deferred_expense_account": 486,
 	}
 
 	return {
 		x: ([y.name for y in accounts if cint(y.account_number) == account_map[x]] or [""])[0]
 		for x in account_map
 	}
-
-
-def add_bank_account(args):
-	try:
-		account = frappe.get_last_doc(
-			"Account",
-			filters={
-				"disabled": 0,
-				"is_group": 0,
-				"company": args.get("company_name"),
-				"account_number": 5121,
-			},
-		)
-	except DoesNotExistError:
-		frappe.msgprint(
-			_(
-				"ERPNext France - Company accounting auto setup cannot be done with chart of account without code"
-			)
-		)
-		return
-
-	if not account:
-		return
-
-	frappe.db.set_value(
-		"Company",
-		args.get("company_name"),
-		"default_bank_account",
-		account.name,
-		update_modified=False,
-	)
-
-
-def set_4191_account_type(args):
-	try:
-		account = frappe.get_last_doc(
-			"Account",
-			filters={
-				"disabled": 0,
-				"is_group": 0,
-				"company": args.get("company_name"),
-				"account_number": 4191,
-			},
-		)
-	except DoesNotExistError:
-		frappe.msgprint(
-			_(
-				"ERPNext France - Company accounting auto setup cannot be done with chart of account without code"
-			)
-		)
-		return
-
-	if not account:
-		return
-
-	account.account_type = "Payable"
-	account.save()
-
-
-def set_6241_account_type(args):
-	try:
-		account = frappe.get_last_doc(
-			"Account",
-			filters={
-				"disabled": 0,
-				"is_group": 0,
-				"company": args.get("company_name"),
-				"account_number": 6241,
-			},
-		)
-	except DoesNotExistError:
-		frappe.msgprint(
-			_(
-				"ERPNext France - Company accounting auto setup cannot be done with chart of account without code"
-			)
-		)
-		return
-
-	if not account:
-		return
-
-	account.account_type = "Chargeable"
-	account.save()
-
-
-def set_4084_account_type(args):
-	try:
-		account = frappe.get_last_doc(
-			"Account",
-			filters={
-				"disabled": 0,
-				"is_group": 0,
-				"company": args.get("company_name"),
-				"account_number": 4084,
-			},
-		)
-	except DoesNotExistError:
-		frappe.msgprint(
-			_(
-				"ERPNext France - Company accounting auto setup cannot be done with chart of account without code"
-			)
-		)
-		return
-
-	if not account:
-		return
-
-	account.account_type = "Asset Received But Not Billed"
-	account.save()
-
 
 def set_default_source_letter_head():
 	letter_head = frappe.get_last_doc(

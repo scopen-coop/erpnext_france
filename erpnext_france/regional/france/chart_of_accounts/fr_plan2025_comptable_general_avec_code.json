@@ -1382,7 +1382,31 @@
 				},
 				"445-Etat - Taxes sur le chiffre d'affaires": {
 					"TVA due intracommunautaire": {
-						"account_number": "4452"
+						"account_number": "4452",
+						"account_type": "Tax",
+						"tax_rate": -20
+					},
+					"44551-TVA à décaisser": {
+						"TVA 20% Déductible": {
+							"account_number": "445511",
+							"account_type": "Tax",
+							"tax_rate": 20
+						},
+						"TVA 10% Déductible": {
+							"account_number": "445512",
+							"account_type": "Tax",
+							"tax_rate": 10
+						},
+						"TVA 5.5% Déductible": {
+							"account_number": "445513",
+							"account_type": "Tax",
+							"tax_rate": 5.5
+						},
+						"TVA 2.1% Déductible": {
+							"account_number": "445514",
+							"account_type": "Tax",
+							"tax_rate": 2.1
+						}
 					},
 					"4456-Taxes sur le chiffre d'affaires d\u00e9ductibles": {
 						"TVA sur immobilisations": {
@@ -1393,7 +1417,9 @@
 						},
 						"44566-TVA sur autres biens et services": {
 							"TVA sur intracommunautaire sur biens et services": {
-								"account_number": "445662"
+								"account_number": "445662",
+								"account_type": "Tax",
+								"tax_rate": 20
 							}
 						},
 						"Cr\u00e9dit de TVA \u00e0 reporter": {
@@ -1555,7 +1581,7 @@
 						"account_number": "4081"
 					},
 					"Fournisseurs d'immobilisations": {
-                   		"account_type": "Stock Received But Not Billed",
+						"account_type": "Asset Received But Not Billed",
 						"account_number": "4084"
 					},
 					"Fournisseurs - Int\u00e9r\u00eats courus": {
@@ -1568,7 +1594,7 @@
 				"419-Clients cr\u00e9diteurs": {
 					"Clients - Avances et acomptes re\u00e7us sur commandes": {
 						"account_number": "4191",
-                        "account_type": "Income Account"
+						"account_type": "Payable"
 					},
 					"Clients - Dettes sur emballages et mat\u00e9riels consign\u00e9s": {
 						"account_number": "4196"
@@ -1649,9 +1675,28 @@
 						}
 					},
 					"4457-Taxes sur le chiffre d'affaires collect\u00e9es par l'entreprise": {
-						"TVA collect\u00e9e": {
+						"44571-TVA collect\u00e9e": {
                             "account_type": "Tax",
-							"account_number": "44571"
+							"TVA 20% Collectée": {
+								"account_type": "Tax",
+								"account_number": "4457101",
+								"tax_rate": 20
+							},
+							"TVA 10% Collectée": {
+								"account_type": "Tax",
+								"account_number": "4457102",
+								"tax_rate": 10
+							},
+							"TVA 5.5% Collectée": {
+								"account_type": "Tax",
+								"account_number": "4457103",
+								"tax_rate": 5.5
+							},
+							"TVA 2.1% Collectée": {
+								"account_type": "Tax",
+								"account_number": "4457104",
+								"tax_rate": 2.1
+							}
 						},
 						"Taxes assimil\u00e9es \u00e0 la TVA": {
 							"account_number": "44578"
@@ -2049,9 +2094,16 @@
 						"account_number": "6068"
 					}
 				},
-				"Achats de marchandises": {
+				"607-Achats de marchandises": {
                     "account_type": "Cost of Goods Sold",
-					"account_number": "607"
+					"Marchandises": {
+						"account_type": "Cost of Goods Sold",
+						"account_number": "6071"
+					},
+					"Éco-contribution": {
+						"account_type": "Expense Account",
+						"account_number": "6079"
+					}
 				},
 				"Frais accessoires sur achats": {
 					"account_number": "608"
@@ -2256,7 +2308,8 @@
 				},
 				"624-Transports de biens et transports collectifs du personnel": {
 					"Transports sur achats": {
-						"account_number": "6241"
+						"account_number": "6241",
+						"account_type": "Chargeable"
 					},
 					"Transports sur ventes": {
                         "account_type": "Chargeable",
@@ -2824,8 +2877,14 @@
 				"Travaux \u00e0 fa\u00e7on": {
 					"account_number": "706"
 				},
-				"Ventes de marchandises": {
-					"account_number": "707"
+				"707-Ventes de marchandises": {
+					"Marchandises": {
+						"account_number": "7071"
+					},
+					"Éco-participation": {
+						"account_type": "Income Account",
+						"account_number": "7079"
+					}
 				},
 				"708-Produits des activit\u00e9s annexes": {
 					"Produits des services exploit\u00e9s dans l'int\u00e9r\u00eat du personnel": {

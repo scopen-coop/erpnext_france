@@ -177,6 +177,38 @@
  },
  {
   "default_value": null,
+  "doc_type": "Payment Term",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocType",
+  "field_name": null,
+  "is_system_generated": 0,
+  "modified": "2025-03-17 16:39:27.394627",
+  "module": null,
+  "name": "Payment Term-main-field_order",
+  "property": "field_order",
+  "property_type": "Data",
+  "row_name": null,
+  "value": "[\"payment_term_name\", \"invoice_portion\", \"mode_of_payment\", \"payment_terms_before_invoice\", \"column_break_3\", \"due_date_based_on\", \"date_computed_based_on\", \"credit_days\", \"credit_months\", \"section_break_8\", \"discount_type\", \"discount\", \"column_break_11\", \"discount_validity_based_on\", \"discount_validity\", \"section_break_6\", \"description\"]"
+ },
+ {
+  "default_value": null,
+  "doc_type": "Payment Term",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocField",
+  "field_name": "credit_days",
+  "is_system_generated": 0,
+  "modified": "2025-03-26 10:32:31.639612",
+  "module": null,
+  "name": "Payment Term-credit_days-depends_on",
+  "property": "depends_on",
+  "property_type": "Data",
+  "row_name": null,
+  "value": "eval:(!doc.payment_terms_before_invoice && in_list(['Day(s) after invoice date', 'Day(s) after the end of the invoice month'], doc.due_date_based_on)) || (doc.payment_terms_before_invoice && doc.date_computed_based_on == 'Delivery Date');"
+ },
+ {
+  "default_value": null,
   "doc_type": "Item Price",
   "docstatus": 0,
   "doctype": "Property Setter",
@@ -830,5 +862,21 @@
   "property_type": "Data",
   "row_name": null,
   "value": "Payment Schedule Before Invoice"
+ },
+ {
+  "default_value": null,
+  "doc_type": "Payment Term",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocField",
+  "field_name": "credit_months",
+  "is_system_generated": 0,
+  "modified": "2025-05-26 14:19:25.293598",
+  "module": null,
+  "name": "Payment Term-credit_months-depends_on",
+  "property": "depends_on",
+  "property_type": "Data",
+  "row_name": null,
+  "value": "eval:!doc.payment_terms_before_invoice && doc.due_date_based_on=='Month(s) after the end of the invoice month'"
  }
 ]
