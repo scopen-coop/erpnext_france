@@ -42,6 +42,7 @@ fixtures = [
 					"Customer-siret",
 					"Customer-siren",
 					"Customer-default_payment_terms_template_before_invoice",
+					"Customer Group-custom_default_payment_terms_template_before_invoice",
 					"GL Entry-accounting_entry_number",
 					"GL Entry-accounting_journal",
 					"GL Entry-export_date",
@@ -98,6 +99,8 @@ fixtures = [
 					"Period Closing Voucher-main-autoname",
 					"Period Closing Voucher-main-naming_rule",
 					"Customer-tax_id-allow_in_quick_entry",
+					"Customer-payment_terms-fetch_if_empty",
+					"Customer-payment_terms-fetch_from",
 					"Sales Invoice-is_return-depends_on",
 					"Sales Invoice Advance-allocated_amount-depends_on",
 					"Sales Invoice Item-sales_order-read_only_depends_on",
@@ -191,7 +194,6 @@ fixtures = [
 ]
 
 
-
 # fixtures = ["Custom Field"]
 
 # Includes in <head>
@@ -265,7 +267,7 @@ after_migrate = [
 	"erpnext_france.migrate.move_subledger_account_by_company",
 	"erpnext_france.install.after_install",
 	"erpnext_france.setup.setup_migrate",
-	"erpnext_france.setup.make_payment_terms_fixtures"
+	"erpnext_france.setup.make_payment_terms_fixtures",
 ]
 
 # setup_wizard_complete = "erpnext_france.install.after_wizard"
@@ -318,11 +320,11 @@ doc_events = {
 		"on_submit": [
 			"erpnext_france.utils.transaction_log.create_transaction_log",
 		],
-		"before_save": "erpnext_france.controllers.taxes.before_save"
+		"before_save": "erpnext_france.controllers.taxes.before_save",
 	},
 	"Sales Order": {
 		"before_update_after_submit": "erpnext_france.controllers.sales_order.verify_sales_orders_terms",
-		"before_save": "erpnext_france.controllers.taxes.before_save"
+		"before_save": "erpnext_france.controllers.taxes.before_save",
 	},
 	"Payment Entry": {
 		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
