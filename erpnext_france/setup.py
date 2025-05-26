@@ -31,9 +31,7 @@ def make_payment_terms_fixtures():
 				},
 			)
 			if not payment_terms_template:
-				doc = frappe.get_doc(payment_terms_template_fixture)
-				doc.insert()
-				# make_records()
+				make_records([payment_terms_template_fixture])
 			else:
 				# deduplite previews import on setup....
 				payment_terms_template = frappe.get_doc(
@@ -41,7 +39,7 @@ def make_payment_terms_fixtures():
 				)
 				existing_terms = []
 				deduplicate_terms = []
-				if payment_terms_template.template_payment_terms_before_invoice == 1:
+				if payment_terms_template.get("template_payment_terms_before_invoice") == 1:
 					for payment_terms_before_invoice in payment_terms_template.get(
 						"payment_terms_before_invoice"
 					):
