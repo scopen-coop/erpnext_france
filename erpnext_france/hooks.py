@@ -68,6 +68,8 @@ fixtures = [
 					"Sales Invoice Item-tax_rate",
 					"Sales Invoice Item-tax_amount",
 					"Sales Invoice Item-total_amount",
+					"Sales Taxes and Charges-ecotax",
+					"Sales Taxes and Charges-ecotax_tva_linked",
 					"Subscription-customer",
 					"Subscription-total",
 					"Subscription-recurrence_period",
