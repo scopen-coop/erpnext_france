@@ -58,8 +58,14 @@ def update_ecopart_taxes_for_item(doc):
 
 	reorder_tax(doc)
 
+	taxes_rate = [tax.rate for tax in doc.taxes]
+
 	from erpnext.controllers.taxes_and_totals import calculate_taxes_and_totals
 	calculate_taxes_and_totals(doc)
+
+	# Because tax.rate is set to None in tax and totals if tax.charge_type is Actual
+	for i, tax in enumerate(doc.taxes):
+		tax.rate = taxes_rate[i]
 
 def reorder_tax(doc):
 	# Étape 1 : Séparer les taxes selon leur type
