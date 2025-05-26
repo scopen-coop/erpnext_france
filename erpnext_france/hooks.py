@@ -224,6 +224,7 @@ app_include_js = ["erpnext_france.bundle.js"]
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 doctype_js = {
 	"Customer": ["public/js/party.js", "public/js/party_check_vat.js"],
+	"Customer Group": ["public/js/customer_group.js"],
 	"Supplier": ["public/js/party.js", "public/js/party_check_vat.js"],
 	"Sales Order": ["public/js/sales_order.js"],
 	"Purchase Invoice": ["public/js/purchase_invoice.js"],
