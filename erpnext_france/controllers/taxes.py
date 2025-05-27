@@ -2,7 +2,7 @@ import json
 import frappe
 from frappe import _
 from frappe.utils import parse_json, flt, round_based_on_smallest_currency_fraction
-from erpnext.stock.get_item_details import get_uom_conv_factor
+from erpnext.stock.get_item_details import get_conversion_factor
 from erpnext.controllers.taxes_and_totals import get_itemised_taxable_amount
 
 def before_save(doc, method):
@@ -233,8 +233,11 @@ def create_item_and_tax_maps_with_ecopart(
 		if doc_item.item_code not in taxes_itemised_map[vat_account][ecopart_account]:
 			taxes_itemised_map[vat_account][ecopart_account][doc_item.item_code] = 0
 
-		taxes_map[vat_account][ecopart_account] += ecopart.amount * doc_item.qty
-		taxes_itemised_map[vat_account][ecopart_account][doc_item.item_code] += ecopart.amount * doc_item.qty
+		conversion_factor_obj = get_conversion_factor(doc_item.item_code, doc_item.uom)
+		conversion_factor = conversion_factor_obj.get('conversion_factor') if not None else 1
+
+		taxes_map[vat_account][ecopart_account] += ecopart.amount * doc_item.qty / conversion_factor
+		taxes_itemised_map[vat_account][ecopart_account][doc_item.item_code] += ecopart.amount * doc_item.qty / conversion_factor
 
 		if ecopart_account not in used_ecopart_accounts:
 			used_ecopart_accounts.append(ecopart_account)
