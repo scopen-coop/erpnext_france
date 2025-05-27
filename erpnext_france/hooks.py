@@ -42,6 +42,8 @@ fixtures = [
 					"Customer-siret",
 					"Customer-siren",
 					"Customer-default_payment_terms_template_before_invoice",
+					"Customer Group-default_payment_terms_template_before_invoice",
+					"Customer Group-tax_category",
 					"GL Entry-accounting_entry_number",
 					"GL Entry-accounting_journal",
 					"GL Entry-export_date",
@@ -86,7 +88,8 @@ fixtures = [
 					"Supplier-legal_form",
 					"Supplier-siret",
 					"Supplier-siren",
-
+					"Supplier Group-tax_category",
+					"Purchase Invoice Item-supplier_part_no",
 				),
 			],
 		],
@@ -103,6 +106,10 @@ fixtures = [
 					"Period Closing Voucher-main-autoname",
 					"Period Closing Voucher-main-naming_rule",
 					"Customer-tax_id-allow_in_quick_entry",
+					"Customer-payment_terms-fetch_if_empty",
+					"Customer-payment_terms-fetch_from",
+					"Customer-tax_category-fetch_if_empty",
+					"Customer-tax_category-fetch_from",
 					"Sales Invoice-is_return-depends_on",
 					"Sales Invoice Advance-allocated_amount-depends_on",
 					"Sales Invoice Item-sales_order-read_only_depends_on",
@@ -151,6 +158,8 @@ fixtures = [
 					"Purchase Order Item-supplier_part_no-read_only",
 					"Request for Quotation Item-supplier_part_no-hidden",
 					"Request for Quotation Item-supplier_part_no-read_only",
+					"Supplier-tax_category-fetch_if_empty",
+					"Supplier-tax_category-fetch_from",
 					"Supplier Quotation Item-supplier_part_no-print_hide",
 					"Supplier Quotation Item-supplier_part_no-hidden",
 					"Supplier Quotation Item-supplier_part_no-read_only",
@@ -197,7 +206,6 @@ fixtures = [
 ]
 
 
-
 # fixtures = ["Custom Field"]
 
 # Includes in <head>
@@ -222,6 +230,7 @@ app_include_js = ["erpnext_france.bundle.js"]
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 doctype_js = {
 	"Customer": ["public/js/party.js", "public/js/party_check_vat.js"],
+	"Customer Group": ["public/js/customer_group.js"],
 	"Supplier": ["public/js/party.js", "public/js/party_check_vat.js"],
 	"Sales Order": ["public/js/sales_order.js"],
 	"Purchase Invoice": ["public/js/purchase_invoice.js"],
@@ -311,7 +320,7 @@ doc_events = {
 		"before_save": [
 			"erpnext_france.controllers.supplier_item_no.before_save",
 			"erpnext_france.controllers.taxes.before_save",
-		]
+		],
 	},
 	"Purchase Order": {
 		"before_save": [
