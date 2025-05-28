@@ -571,3 +571,5 @@ From Prospect,Depuis le Prospect
 No contacts added yet.,Pas de contact existant
 Mention if non-standard Receivable account,Précisez les si ce n'est pas les comptes standard
 Customer Portal Users,Utilisateur du portail
+Create User Permission,Ne voir que ses propres informations
+This will restrict user access to other employee records,Cela empêche l'utilisateur d'accéder aux informations des autres employés
