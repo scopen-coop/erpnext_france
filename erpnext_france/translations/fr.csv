@@ -560,3 +560,14 @@ Unit Price, Prix Unitaire,
 Item {0} does not has default settings, Les paramètres par défaut de l'article {0} n'ont pas été remplis,
 Missing Default Income Account On Item {0}, Il manque le Compte de produit (vente) par défaut dans les paramètre par défaut de l'article {0},
 Subcontracting BOM,Nomenclature en sous-traitance,
+Leaves,Congés
+Left,Parti,Employee
+Leave Control Panel,Assistant de politique de congés en masse
+Attendance,Absences et Présences
+Shift Tools,Outils des gest. des quarts
+Save Filter,Sauv. filtre
+Filter By,Filtrer avec
+From Prospect,Depuis le Prospect
+No contacts added yet.,Pas de contact existant
+Mention if non-standard Receivable account,Précisez les si ce n'est pas les comptes standard
+Customer Portal Users,Utilisateur du portail
