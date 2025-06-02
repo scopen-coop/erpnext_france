@@ -486,7 +486,8 @@ Deferred Accounting,Comptabilité différée,
 "Cannot find Deposit Item, may be missing Item with checkbox Is Down Payment","Aucun article utilisable pour une facture d'acompte, vérifiez si il existe un article avec Article d'acompte coché"
 "Cannot find Deposit Item, may be missing Default Accountancy table","Aucun article utilisable pour une facture d'acompte, vérifiez si il existe un article avec Article d'acompte coché et qu'il y a une bien une ligne dans Comptabilité"
 "Cannot find Deposit Item, may be missing Default Accountancy table with Income Account","Aucun article utilisable pour une facture d'acompte, vérifiez si il existe un article avec Article d'acompte coché et qu'il y a une bien une ligne dans Comptabilité avec un code comptable pour Compte de produit (vente) par défaut"
-Left,Gauche,
+Left,Gauche,alignment
+Right,Droite,alignment
 Discount Amount,Remise en montant
 Named Place,Lieu Incoterm
 ERPNext France - Create Tax Template,ERPNext France - Créer les modéles de taxes
@@ -559,3 +560,22 @@ Unit Price, Prix Unitaire,
 Item {0} does not has default settings, Les paramètres par défaut de l'article {0} n'ont pas été remplis,
 Missing Default Income Account On Item {0}, Il manque le Compte de produit (vente) par défaut dans les paramètre par défaut de l'article {0},
 Subcontracting BOM,Nomenclature en sous-traitance,
+Leaves,Congés
+Left,Parti,Employee
+Leave Control Panel,Assistant de politique de congés en masse
+Attendance,Absences et Présences
+Shift Tools,Outils des gest. des quarts
+Save Filter,Sauv. filtre
+Filter By,Filtrer avec
+From Prospect,Depuis le Prospect
+No contacts added yet.,Pas de contact existant
+Mention if non-standard Receivable account,Précisez les si ce n'est pas les comptes standard
+Customer Portal Users,Utilisateur du portail
+Create User Permission,Ne voir que ses propres informations
+This will restrict user access to other employee records,Cela empêche l'utilisateur d'accéder aux informations des autres employés
+Series,Masque de numérotation,Quotation
+Series,Masque de numérotation,Sales Order
+Series,Masque de numérotation,Sales Invoice
+Series,Masque de numérotation,Puchases Invoice
+Series,Masque de numérotation,Puchases Order
+Series,Masque de numérotation,Work Order
