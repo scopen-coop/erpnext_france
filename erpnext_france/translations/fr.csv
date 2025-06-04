@@ -579,4 +579,7 @@ Series,Masque de numérotation,Sales Invoice
 Series,Masque de numérotation,Purchase Invoice
 Series,Masque de numérotation,Purchase Order
 Series,Masque de numérotation,Work Order
+Series,Masque de numérotation,Material Request
+Series,Masque de numérotation,BOM
 Putaway Rule,Règle de routage d'entrée en stock
+
