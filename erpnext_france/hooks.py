@@ -134,6 +134,7 @@ fixtures = [
 					"Item Price-uom-in_list_view",
 					"Item Price-valid_from-in_list_view",
 					"Item Price-valid_upto-in_list_view",
+					"Item-grant_commission-default",
 					"Payment Term-due_date_based_on-depends_on",
 					"Payment Term-section_break_8-depends_on",
 					"Payment Term-credit_days-depends_on",
