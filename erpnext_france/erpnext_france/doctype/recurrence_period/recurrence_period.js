@@ -5,7 +5,7 @@ frappe.ui.form.on("Recurrence Period", {
 	setup(frm) {
 		frm.set_query("billing_interval", () => {
 			return {
-				filters: {"name": ["in", ["Day", "Week", "Month", "Year"]]}
+				filters: {"name": ["in", [__("Day"), __("Week"), __("Month"), __("Year")]]}
 			};
 		});
 	},
