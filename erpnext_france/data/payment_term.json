@@ -147,8 +147,8 @@
   "invoice_portion": 100.0,
   "mode_of_payment": null,
   "modified": "2024-01-18 11:25:42.632616",
-  "name": "Règlement à 30 jours",
-  "payment_term_name": "Règlement à 30 jours",
+  "name": "30 jours",
+  "payment_term_name": "30 jours",
   "payment_terms_before_invoice": 0
  }
 ]

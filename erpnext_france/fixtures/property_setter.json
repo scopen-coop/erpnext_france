@@ -1,6 +1,22 @@
 [
  {
   "default_value": null,
+  "doc_type": "Item",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocField",
+  "field_name": "grant_commission",
+  "is_system_generated": 0,
+  "modified": "2025-06-06 09:38:29.204298",
+  "module": null,
+  "name": "Item-grant_commission-default",
+  "property": "default",
+  "property_type": "Text",
+  "row_name": null,
+  "value": "0"
+ },
+ {
+  "default_value": null,
   "doc_type": "Customer",
   "docstatus": 0,
   "doctype": "Property Setter",
