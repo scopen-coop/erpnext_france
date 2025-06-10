@@ -116,16 +116,12 @@ def get_ecopart_tax_map(doc):
 		if tax.tax_amount == 0:
 			continue
 
-		if tax.charge_type == 'On Net Total':
-			continue
-
-		account = frappe.get_doc("Account", tax.account_head)
-		if tax.charge_type == 'Actual':
+		if tax.ecotax:
 			if str(tax.idx) not in tax_map:
 				tax_map[str(tax.idx)] = {
 					'ht': 0,
 					'tva': 0,
-					"description": tax.description,
+					"description": _('Ecopart Tax'),
 				}
 			tax_map[str(tax.idx)]["ht"] = tax.tax_amount
 		elif tax.charge_type == 'On Previous Row Amount' and tax.row_id:
