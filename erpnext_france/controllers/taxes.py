@@ -312,6 +312,9 @@ def create_update_ecopart_with_vat_taxes(
 		is_sales_doc
 ):
 	for ecopart_account in used_ecopart_accounts:
+		if not ecopart_account:
+			continue
+
 		if ecopart_account not in taxes_map[vat_account]:
 			continue
 
@@ -396,9 +399,11 @@ def create_update_vat_taxes(doc, item_wise_tax_detail_standard_tva, vat_account,
 		vat_tax.item_wise_tax_detail = json.dumps(item_tax_wise)
 		vat_tax.dont_recompute_tax = True
 	else:
+		company = frappe.get_cached_doc('Company', doc.company)
 		vat_tax = frappe.get_doc({
 			'doctype': 'Sales Taxes and Charges' if is_sales_doc else 'Purchase Taxes and Charges',
 			'charge_type': 'Actual',
+			'cost_center': company.cost_center,
 			'description': str(vat_account),
 			'account_head': vat_account,
 			'parent': doc.name,
@@ -495,9 +500,11 @@ def create_update_ecotax(doc, vat_account, ecopart_account, ecopart_tax, item_ta
 		ecopart_tax.item_wise_tax_detail = json.dumps(existing_tax_detail)
 		ecopart_tax.dont_recompute_tax = True
 	else:
+		company = frappe.get_cached_doc('Company', doc.company)
 		ecopart_tax = frappe.get_doc({
 			'doctype': 'Sales Taxes and Charges' if is_sales_doc else 'Purchase Taxes and Charges',
 			'charge_type': 'Actual',
+			'cost_center': company.cost_center,
 			'ecotax': True,
 			'description': ecopart_account + ("\n" + str(vat_account) if vat_account else ''),
 			'account_head': ecopart_account,
@@ -542,9 +549,11 @@ def create_update_vat_on_ecotax(
 		ecopart_vat_tax.item_wise_tax_detail = json.dumps(existing_tax_detail)
 		ecopart_vat_tax.row_id = ecopart_tax_idx
 	else:
+		company = frappe.get_cached_doc('Company', doc.company)
 		ecopart_vat_tax = frappe.get_doc({
 			'doctype': 'Sales Taxes and Charges' if is_sales_doc else 'Purchase Taxes and Charges',
 			'charge_type': 'On Previous Row Amount',
+			'cost_center': company.cost_center,
 			'description': _('Eco Part VAT: {0}').format(str(ecopart_account) + "\n" + str(vat_account)),
 			'account_head': vat_account,
 			'tax_amount': 0,
