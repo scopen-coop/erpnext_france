@@ -43,7 +43,6 @@ def update_ecopart_taxes_for_item(doc):
 				is_sales_doc
 			)
 			create_update_vat_taxes(doc, item_wise_tax_detail_standard_tva, vat_account, is_sales_doc)
-			create_update_autoliquidation_taxes(doc, item_wise_tax_detail_standard_tva, vat_account, is_sales_doc)
 		else:
 			create_update_ecopart_without_vat_taxes(
 				doc,
@@ -53,8 +52,9 @@ def update_ecopart_taxes_for_item(doc):
 				is_sales_doc
 			)
 
-	for i, tax in enumerate(doc.taxes, start=1):
-		tax.idx = i
+	for vat_account in used_vat_accounts:
+		if vat_account:
+			create_update_autoliquidation_taxes(doc, item_wise_tax_detail_standard_tva, vat_account, is_sales_doc)
 
 	reorder_tax(doc)
 
@@ -75,7 +75,6 @@ def reorder_tax(doc):
 
 	# Étape 2 : Réorganiser les taxes dans le bon ordre
 	reordered_taxes = regular_taxes + ecopart_taxes + dependent_taxes
-
 	# Étape 3 : Mémoriser les anciens idx avant modification
 	old_idx_map = {id(tax): tax.idx for tax in reordered_taxes}
 
