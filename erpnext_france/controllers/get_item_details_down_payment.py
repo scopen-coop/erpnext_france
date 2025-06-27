@@ -1,13 +1,14 @@
-import frappe
-from frappe import _, get_hooks
-from erpnext.stock.get_item_details import get_item_details 
 import json
+
+import frappe
+from erpnext.stock.get_item_details import get_item_details
+from frappe import _, get_hooks
 
 
 @frappe.whitelist()
 def get_item_details_down_payment(args, doc=None, for_validate=False, overwrite_warehouse=True):
-	# find if others apps declare this override_whitelisted_methods
-	# then get result form other hook with this one
+	# find if other apps declare these override_whitelisted_methods
+	# then get results from other hooks with this one
 	hooks = get_hooks("override_whitelisted_methods", {}).get(
 		"erpnext.stock.get_item_details.get_item_details", []
 	)
