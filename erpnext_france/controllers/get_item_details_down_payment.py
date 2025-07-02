@@ -14,10 +14,14 @@ def get_item_details_down_payment(args, doc=None, for_validate=False, overwrite_
 	)
 	if hooks:
 		current_method = __name__ + "." + get_item_details_down_payment.__name__
-		current_hook_pos = hooks.index(current_method)
-		if current_hook_pos > 0:
-			method = frappe.get_attr(hooks[current_hook_pos - 1])
-			out = method(args, doc, for_validate, overwrite_warehouse)
+		if current_method in hooks:
+			current_hook_pos = hooks.index(current_method)
+			if current_hook_pos > 0:
+				method = frappe.get_attr(hooks[current_hook_pos - 1])
+				out = method(args, doc, for_validate, overwrite_warehouse)
+			else:
+				# standard feature
+				out = get_item_details(args, doc, for_validate, overwrite_warehouse)
 		else:
 			# standard feature
 			out = get_item_details(args, doc, for_validate, overwrite_warehouse)
