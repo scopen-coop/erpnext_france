@@ -159,6 +159,7 @@ fixtures = [
 					"Purchase Order Item-supplier_part_no-read_only",
 					"Request for Quotation Item-supplier_part_no-hidden",
 					"Request for Quotation Item-supplier_part_no-read_only",
+					"Stock Entry Type-main-translated_doctype",
 					"Supplier-tax_category-fetch_if_empty",
 					"Supplier-tax_category-fetch_from",
 					"Supplier Quotation Item-supplier_part_no-print_hide",
