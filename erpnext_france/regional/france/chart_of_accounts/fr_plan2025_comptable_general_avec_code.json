@@ -2037,27 +2037,11 @@
 						"account_number": "6037"
 					}
 				},
-				"604-Achats d'animaux": {
-					"Animaux reproducteurs (adultes)": {
-						"account_number": "6041"
-					},
-					"Animaux reproducteurs (jeunes de renouvellement)": {
-						"account_number": "6042"
-					},
-					"Autres animaux": {
-						"account_number": "6045"
-					}
+				"Achats d'\u00e9tudes et prestations de services": {
+					"account_number": "604"
 				},
-				"605-Achats de travaux et services incorpor\u00e9s aux produits": {
-					"Achats de travaux et services incorpor\u00e9s pour productions v\u00e9g\u00e9tales": {
-						"account_number": "6051"
-					},
-					"Achats de travaux et services incorpor\u00e9s pour productions animales": {
-						"account_number": "6054"
-					},
-					"Autres achats de travaux et services": {
-						"account_number": "6058"
-					}
+				"605-Achats de mat\u00e9sriel, \u00e9quipements et travaux": {
+					"account_number": "605"
 				},
 				"606-Achats non stock\u00e9s et fournitures": {
                     "account_type": "Cost of Goods Sold",
