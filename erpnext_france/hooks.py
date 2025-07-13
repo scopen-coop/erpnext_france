@@ -20,7 +20,6 @@ fixtures = [
 				"in",
 				(
 					"Accounts Settings-invoice_and_billing_tab",
-					"Account-pdf_description",
 					"Bank Account-swift_number",
 					"Bank Transaction-category",
 					"Bank Transaction-credit",

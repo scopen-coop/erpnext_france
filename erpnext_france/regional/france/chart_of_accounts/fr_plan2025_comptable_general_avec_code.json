@@ -925,26 +925,22 @@
 						"TVA 20% Déductible": {
 							"account_number": "445620",
 							"account_type": "Tax",
-							"tax_rate": 20,
-							"pdf_description": "TVA 20%"
+							"tax_rate": 20
 						},
 						"TVA 10% Déductible": {
 							"account_number": "445610",
 							"account_type": "Tax",
-							"tax_rate": 10,
-							"pdf_description": "TVA 10%"
+							"tax_rate": 10
 						},
 						"TVA 5.5% Déductible": {
 							"account_number": "445655",
 							"account_type": "Tax",
-							"tax_rate": 5.5,
-							"pdf_description": "TVA 5.5%"
+							"tax_rate": 5.5
 						},
 						"TVA 2.1% Déductible": {
 							"account_number": "445621",
 							"account_type": "Tax",
-							"tax_rate": 2.1,
-							"pdf_description": "TVA 2.1%"
+							"tax_rate": 2.1
 						}
 					},
 					"4458-Taxes sur le chiffre d'affaires \u00e0 r\u00e9gulariser ou en attente": {
@@ -1171,26 +1167,22 @@
 							"TVA 20% Collectée": {
 								"account_type": "Tax",
 								"account_number": "445720",
-								"tax_rate": 20,
-								"pdf_description": "TVA 20%"
+								"tax_rate": 20
 							},
 							"TVA 10% Collectée": {
 								"account_type": "Tax",
 								"account_number": "445710",
-								"tax_rate": 10,
-								"pdf_description": "TVA 10%"
+								"tax_rate": 10
 							},
 							"TVA 5.5% Collectée": {
 								"account_type": "Tax",
 								"account_number": "445755",
-								"tax_rate": 5.5,
-								"pdf_description": "TVA 5.5%"
+								"tax_rate": 5.5
 							},
 							"TVA 2.1% Collectée": {
 								"account_type": "Tax",
 								"account_number": "445721",
-								"tax_rate": 2.1,
-								"pdf_description": "TVA 2.1%"
+								"tax_rate": 2.1
 							}
 						},
 						"Taxes assimil\u00e9es \u00e0 la TVA": {

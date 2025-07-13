@@ -737,7 +737,8 @@ def get_itemised_tax(taxes, with_tax_account=False):
 
 def get_taxe_description(account):
 	account = frappe.get_cached_doc("Account", account)
-	taxe_description = str(account)
-	if account.get("pdf_description"):
-		taxe_description = account.get("pdf_description")
+	if account.get("tax_rate"):
+		taxe_description = _("VAT {0}%").format(account.get("tax_rate"))
+	else:
+		taxe_description = account.get("account_name")
 	return taxe_description
