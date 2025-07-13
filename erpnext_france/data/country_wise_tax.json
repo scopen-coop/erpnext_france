@@ -18,7 +18,7 @@
 							{
 								"account_head": {
 									"account_name": "TVA 20% Collectée",
-									"account_number": "4457020",
+									"account_number": "445720",
 									"root_type": "Liability",
 									"tax_rate": 20.0
 								},
@@ -34,7 +34,7 @@
 							{
 								"account_head": {
 									"account_name": "TVA 10% Collectée",
-									"account_number": "4457010",
+									"account_number": "445710",
 									"root_type": "Liability",
 									"tax_rate": 10.0
 								},
@@ -50,7 +50,7 @@
 							{
 								"account_head": {
 									"account_name": "TVA 5.5% Collectée",
-									"account_number": "4457055",
+									"account_number": "445755",
 									"root_type": "Liability",
 									"tax_rate": 5.5
 								},
@@ -66,7 +66,7 @@
 							{
 								"account_head": {
 									"account_name": "TVA 2.1% Collectée",
-									"account_number": "4457021",
+									"account_number": "445721",
 									"root_type": "Liability",
 									"tax_rate": 2.10
 								},
@@ -84,7 +84,7 @@
 							{
 								"account_head": {
 									"account_name": "TVA 20% Déductible",
-									"account_number": "4456020",
+									"account_number": "445620",
 									"root_type": "Asset",
 									"tax_rate": 20.0
 								},
@@ -100,7 +100,7 @@
 							{
 								"account_head": {
 									"account_name": "TVA 10% Déductible",
-									"account_number": "4456010",
+									"account_number": "445610",
 									"root_type": "Asset",
 									"tax_rate": 10.0
 								},
@@ -116,7 +116,7 @@
 							{
 								"account_head": {
 									"account_name": "TVA 5.5% Déductible",
-									"account_number": "4456055",
+									"account_number": "445655",
 									"root_type": "Asset",
 									"tax_rate": 5.5
 								},
@@ -132,7 +132,7 @@
 							{
 								"account_head": {
 									"account_name": "TVA 2.1% Déductible",
-									"account_number": "4456021",
+									"account_number": "445621",
 									"root_type": "Asset",
 									"tax_rate": 2.1
 								},
@@ -177,7 +177,7 @@
 							{
 								"tax_type": {
 									"account_name": "TVA 20% Déductible",
-									"account_number": "4456020",
+									"account_number": "445620",
 									"root_type": "Asset",
 									"tax_rate": 20.0
 								},
@@ -192,7 +192,7 @@
 							{
 								"tax_type": {
 									"account_name": "TVA 10% Déductible",
-									"account_number": "4456010",
+									"account_number": "445610",
 									"root_type": "Asset",
 									"tax_rate": 10.0
 								},
@@ -207,7 +207,7 @@
 							{
 								"tax_type": {
 									"account_name": "TVA 5.5% Déductible",
-									"account_number": "4456055",
+									"account_number": "445655",
 									"root_type": "Asset",
 									"tax_rate": 5.5
 								},
@@ -222,7 +222,7 @@
 							{
 								"tax_type": {
 									"account_name": "TVA 2.1% Déductible",
-									"account_number": "4456021",
+									"account_number": "445621",
 									"root_type": "Asset",
 									"tax_rate": 2.1
 								},
@@ -237,7 +237,7 @@
 							{
 								"tax_type": {
 									"account_name": "TVA 20% Collectée",
-									"account_number": "4457020",
+									"account_number": "445720",
 									"root_type": "Liability",
 									"tax_rate": 20.0
 								},
@@ -252,7 +252,7 @@
 							{
 								"tax_type": {
 									"account_name": "TVA 10% Collectée",
-									"account_number": "4457010",
+									"account_number": "445710",
 									"root_type": "Liability",
 									"tax_rate": 10.0
 								},
@@ -267,7 +267,7 @@
 							{
 								"tax_type": {
 									"account_name": "TVA 5.5% Collectée",
-									"account_number": "4457055",
+									"account_number": "445755",
 									"root_type": "Liability",
 									"tax_rate": 5.5
 								},
@@ -282,7 +282,7 @@
 							{
 								"tax_type": {
 									"account_name": "TVA 2.1% Collectée",
-									"account_number": "4457021",
+									"account_number": "445721",
 									"root_type": "Liability",
 									"tax_rate": 2.1
 								},
