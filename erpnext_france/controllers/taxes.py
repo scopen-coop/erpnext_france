@@ -382,10 +382,10 @@ def create_update_vat_taxes(doc, item_wise_tax_detail_standard_tva, vat_account,
 	tax_amount = 0
 	tax_rate = 0
 	# Update with new values
-	values = list(item_tax_wise.items().values())
-	for value in values:
-		tax_rate = value[0]
-		tax_amount += value[1]
+	for item_code_vat_rate_amount in item_tax_wise.items():
+		vat_rate_amount = item_code_vat_rate_amount[1]
+		tax_rate = vat_rate_amount[0]
+		tax_amount += vat_rate_amount[1]
 
 	if vat_tax:
 		vat_tax.tax_amount = tax_amount
@@ -639,8 +639,8 @@ def update_itemised_tax_data(doc):
 		# First check if tax rate is present
 		# If not then look up in item_wise_tax_detail
 		if item_tax_rate and hasattr(item_tax_rate, "items"):
-			tax_rate_details = list(i.item_tax_rate for i in item_tax_rate.items())
-			for tax_rate_detail in tax_rate_details:
+			for tax_tax_rate_detail in item_tax_rate.items():
+				tax_rate_detail = tax_tax_rate_detail[1]
 				tax_rate += tax_rate_detail if tax_rate_detail else 0
 
 		elif row.item_code and valid_itemised_tax.get(row.item_code):
