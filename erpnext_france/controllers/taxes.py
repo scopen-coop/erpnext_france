@@ -505,6 +505,8 @@ def create_update_ecotax(
 		company = frappe.get_cached_doc("Company", doc.company)
 
 		taxe_description = get_taxe_description(ecopart_account)
+		if vat_account:
+			taxe_description += " (" + get_taxe_description(vat_account) + ")"
 
 		ecopart_tax = frappe.get_doc(
 			{
