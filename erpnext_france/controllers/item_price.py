@@ -6,6 +6,12 @@ def before_save(doc, method):
 		doc.before_save()
 		return
 
+	parameters = frappe.get_doc("ERPNext France Settings")
+
+	if not parameters.update_item_supplier_part_no:
+		doc.before_save()
+		return
+
 	supplier_part_no = frappe.db.get_value(
 		"Item Supplier", {"parent": doc.item_code, "supplier": doc.supplier}, "supplier_part_no"
 	)

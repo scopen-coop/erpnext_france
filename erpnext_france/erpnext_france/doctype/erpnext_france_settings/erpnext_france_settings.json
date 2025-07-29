@@ -5,7 +5,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "deposit_print_heading",
+  "update_item_supplier_part_no",
   "api_url",
   "api_token"
  ],
@@ -19,11 +19,18 @@
    "fieldname": "api_token",
    "fieldtype": "Data",
    "label": "API Token"
+  },
+  {
+   "default": "0",
+   "fieldname": "update_item_supplier_part_no",
+   "fieldtype": "Check",
+   "label": "Update Item Supplier Part No"
   }
  ],
+ "grid_page_length": 50,
  "issingle": 1,
  "links": [],
- "modified": "2023-11-03 14:28:53.382758",
+ "modified": "2025-07-28 17:30:01.661300",
  "modified_by": "Administrator",
  "module": "ERPNext France",
  "name": "ERPNext France Settings",
@@ -40,33 +47,16 @@
    "write": 1
   },
   {
-   "create": 0,
-   "delete": 0,
-   "email": 0,
-   "export": 0,
-   "import": 0,
-   "print": 0,
    "read": 1,
-   "report": 0,
-   "role": "Sales Manager",
-   "share": 0,
-   "write": 0
+   "role": "Sales Manager"
   },
   {
-   "create": 0,
-   "delete": 0,
-   "email": 0,
-   "export": 0,
-   "import": 0,
-   "print": 0,
    "read": 1,
-   "report": 0,
-   "role": "Purchase Manager",
-   "share": 0,
-   "write": 0
+   "role": "Purchase Manager"
   }
  ],
  "quick_entry": 1,
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
