@@ -590,16 +590,16 @@ Update Item Supplier Part No, Mettre à jour la reférence fournisseur de l'arti
 VAT {0}%,TVA {0}%
 Against Blanket Order,Depuis une Commande avec limites
 Get Finished Goods for Manufacture,Obtenir les produits à fabriquer,Production Plan
-Assembly Items,Article à fabriquer,Production Plan
+Assembly Items,Articles à fabriquer
 Consolidate Sub Assembly Items,Agréger les sous ensembles,Production Plan
 Sub Assembly Warehouse,Entrepot les sous enembles,Production Plan
-"When a parent warehouse is chosen, the system conducts stock checks against the associated child warehouses","Lorsqu'un entrepot parent est choisi, les entrepots fils seront également pris en compte dans le calcul du besoin",Production Plan
+"When a parent warehouse is chosen, the system conducts stock checks against the associated child warehouses","Lorsqu'un entrepot parent est choisi, les entrepots fils seront également pris en compte dans le calcul du besoin"
 Skip Available Sub Assembly Items,Le calcul ne prendra pas les sous enemble disponible en stock,Production Plan
-"If this checkbox is enabled, then the system won’t run the MRP for the available sub-assembly items.","Si cette case est cochée, le calcul du besion du besoin ne prendra pas en compte les sous ensemble déja en stock",Production Plan
+"If this checkbox is enabled, then the system won’t run the MRP for the available sub-assembly items.","Si cette case est cochée, le calcul du besion du besoin ne prendra pas en compte les sous ensemble déja en stock"
 Consider Minimum Order Qty,Proposer dans le calcul du besoin la quantité minimum d'achat (Onglet Achat de l'article),Production Plan
 Include Safety Stock in Required Qty Calculation,Inclure dans la calcul du besion le stock de sécurité (Onglet Achat de l'article),Production Plan
 Ignore Available Stock,Ingorer le stock existant,Production Plan
-"If enabled, the system will create material requests even if the stock exists in the 'Raw Materials Warehouse'.","Si cette case est cochée, le calcul créera des demande de matériels même si le stock est actuellement disponible",Production Plan
+"If enabled, the system will create material requests even if the stock exists in the 'Raw Materials Warehouse'.","Si cette case est cochée, le calcul créera des demande de matériels même si le stock est actuellement disponible"
 Raw Materials Warehouse,Entrepot source des matiéres premiéres (composants),Production Plan
 Get Raw Materials for Purchase,Calculer les matiéres premiéres à acheter,Production Plan
 Get Raw Materials for Transfer,Calculer les matiéres premiéres transférer,Production Plan
