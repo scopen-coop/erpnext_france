@@ -591,6 +591,8 @@ VAT {0}%,TVA {0}%
 Against Blanket Order,Depuis une Commande avec limites
 Reset to default,Réinitialiser
 Delete All,Tous supprimer
+In House,Sur place
+Manufacturing Type,Type de production,Production Plan Sub Assembly Item
 Get Finished Goods for Manufacture,Obtenir les produits à fabriquer,Production Plan
 Assembly Items,Articles à fabriquer
 Consolidate Sub Assembly Items,Agréger les sous ensembles,Production Plan
