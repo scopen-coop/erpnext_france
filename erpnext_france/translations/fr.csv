@@ -593,6 +593,7 @@ Get Finished Goods for Manufacture,Obtenir les produits à fabriquer,Production 
 Assembly Items,Articles à fabriquer
 Consolidate Sub Assembly Items,Agréger les sous ensembles,Production Plan
 Sub Assembly Warehouse,Entrepot les sous enembles,Production Plan
+Get Sub Assembly Items,Obtenir les sous ensembles,Production Plan
 "When a parent warehouse is chosen, the system conducts stock checks against the associated child warehouses","Lorsqu'un entrepot parent est choisi, les entrepots fils seront également pris en compte dans le calcul du besoin"
 Skip Available Sub Assembly Items,Le calcul ne prendra pas les sous enemble disponible en stock,Production Plan
 "If this checkbox is enabled, then the system won’t run the MRP for the available sub-assembly items.","Si cette case est cochée, le calcul du besion du besoin ne prendra pas en compte les sous ensemble déja en stock"
