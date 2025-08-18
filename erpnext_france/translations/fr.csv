@@ -612,4 +612,5 @@ Download Required Materials,Télécharger CSV,Production Plan
 From Delivery Date,Date de livraison (début),Production Plan
 To Delivery Date,Date de livraison (fin),Production Plan
 Sales Order Status,Statut de la commande client,Production Plan
+Reset to default,Réinitialiser
 
