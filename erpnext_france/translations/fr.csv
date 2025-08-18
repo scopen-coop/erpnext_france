@@ -601,7 +601,7 @@ Consider Minimum Order Qty,Proposer dans le calcul du besoin la quantité minimu
 Include Safety Stock in Required Qty Calculation,Inclure dans la calcul du besion le stock de sécurité (Onglet Achat de l'article),Production Plan
 Ignore Available Stock,Ingorer le stock existant,Production Plan
 "If enabled, the system will create material requests even if the stock exists in the 'Raw Materials Warehouse'.","Si cette case est cochée, le calcul créera des demande de matériels même si le stock est actuellement disponible"
-Raw Materials Warehouse,Entrepot source des matiéres premiéres (composants),Production Plan
+Raw Materials Warehouse,Entrepot cible des matiéres premiéres (composants),Production Plan
 Get Raw Materials for Purchase,Calculer les matiéres premiéres à acheter,Production Plan
 Get Raw Materials for Transfer,Calculer les matiéres premiéres transférer,Production Plan
 Plan to Request Qty,Qté. calc. pour le besoin,Material Request Plan Item
