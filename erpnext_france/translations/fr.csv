@@ -605,7 +605,7 @@ Raw Materials Warehouse,Entrepot source des matiéres premiéres (composants),Pr
 Get Raw Materials for Purchase,Calculer les matiéres premiéres à acheter,Production Plan
 Get Raw Materials for Transfer,Calculer les matiéres premiéres transférer,Production Plan
 Plan to Request Qty,Qté. calc. pour le besoin,Material Request Plan Item
-Qty As Per BOM,Qté. par nomeclature,Material Request Plan Item
+Qty As Per BOM,Qté. par nomenclature,Material Request Plan Item
 Qty In Stock,Qté. en stock,Material Request Plan Item
 Preview Required Materials,Télécharger la liste des composants necessaire,Production Plan
 Download Required Materials,Télécharger CSV,Production Plan
