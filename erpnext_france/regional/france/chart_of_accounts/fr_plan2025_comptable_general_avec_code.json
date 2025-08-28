@@ -876,17 +876,6 @@
 					"account_number": "425"
 				}
 			},
-			"43-S\u00e9curit\u00e9 sociale et autres organismes sociaux (ACTIF)": {
-				"S\u00e9curit\u00e9 sociale": {
-					"account_number": "431"
-				},
-				"Autres organismes sociaux": {
-					"account_number": "437"
-				},
-				"Organismes sociaux - Charges \u00e0 payer": {
-					"account_number": "438"
-				}
-			},
 			"44-\u00c9tat et autres collectivit\u00e9s publiques (ACTIF)": {
 				"\u00c9tat - Subventions et aides \u00e0 recevoir": {
 					"account_number": "441"
@@ -1139,6 +1128,12 @@
 				}
 			},
 			"43-S\u00e9curit\u00e9 sociale et autres organismes sociaux (PASSIF)": {
+				"S\u00e9curit\u00e9 sociale": {
+					"account_number": "431"
+				},
+				"Autres organismes sociaux": {
+					"account_number": "437"
+				},
 				"438-Organismes sociaux - Charges \u00e0 payer": {
 					"Charges sociales sur cong\u00e9s \u00e0 payer": {
 						"account_number": "4382"
