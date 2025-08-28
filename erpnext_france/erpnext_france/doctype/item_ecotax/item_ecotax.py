@@ -20,6 +20,6 @@ class ItemEcoTax(Document):
 		parentfield: DF.Data
 		parenttype: DF.Data
 		sell_account: DF.Link | None
-		tax_type: DF.Literal["DEEE", "PMCB"]
+		tax_type: DF.Literal["Eco-Participation", "PMCB"]
 	# end: auto-generated types
 	pass

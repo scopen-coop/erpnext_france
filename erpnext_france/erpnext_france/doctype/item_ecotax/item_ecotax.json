@@ -38,7 +38,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Tax Type",
-   "options": "DEEE\nPMCB"
+   "options": "Eco-Participation\nPMCB"
   }
  ],
  "grid_page_length": 50,
