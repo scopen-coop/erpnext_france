@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"pWPiOexDi2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Gestion France<br></span>\",\"col\":12}},{\"id\":\"oOJRdk4api\",\"type\":\"onboarding\",\"data\":{\"onboarding_name\":\"Gestion France\",\"col\":12}},{\"id\":\"MHUnBY7-Ya\",\"type\":\"card\",\"data\":{\"card_name\":\"Export comptable au format FEC\",\"col\":4}},{\"id\":\"LOI5EfXMnY\",\"type\":\"card\",\"data\":{\"card_name\":\"Param\u00e8tres\",\"col\":4}}]",
+ "content": "[{\"id\":\"pWPiOexDi2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Gestion France<br></span>\",\"col\":12}},{\"id\":\"MHUnBY7-Ya\",\"type\":\"card\",\"data\":{\"card_name\":\"Export comptable au format FEC\",\"col\":4}},{\"id\":\"LOI5EfXMnY\",\"type\":\"card\",\"data\":{\"card_name\":\"Param\u00e8tres\",\"col\":4}},{\"id\":\"J-dbaB8hql\",\"type\":\"card\",\"data\":{\"card_name\":\"Rapport\",\"col\":4}}]",
  "creation": "2024-09-21 12:07:59.981532",
  "custom_blocks": [],
  "docstatus": 0,
@@ -37,7 +37,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Param\u00e8tres",
-   "link_count": 5,
+   "link_count": 4,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -88,15 +88,24 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Journaux des transactions de vente",
-   "link_count": 0,
-   "link_to": "Transaction Log",
+   "label": "Rapport",
+   "link_count": 1,
    "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Jounal de validation transactions de vente",
+   "link_count": 0,
+   "link_to": "Transaction Log Report",
+   "link_type": "Report",
    "onboard": 0,
    "type": "Link"
   }
  ],
- "modified": "2025-08-29 15:54:43.734401",
+ "modified": "2025-08-29 18:54:26.321993",
  "modified_by": "Administrator",
  "module": "ERPNext France",
  "name": "Gestion France",
