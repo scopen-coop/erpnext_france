@@ -5,9 +5,13 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "section_item_managment_section",
   "update_item_supplier_part_no",
+  "section_sirene_section",
   "api_url",
-  "api_token"
+  "api_token",
+  "section_down_payment_section",
+  "tva_accounting_on_down_payment"
  ],
  "fields": [
   {
@@ -25,13 +29,34 @@
    "fieldname": "update_item_supplier_part_no",
    "fieldtype": "Check",
    "label": "Update Item Supplier Part No"
+  },
+  {
+   "fieldname": "section_item_managment_section",
+   "fieldtype": "Section Break",
+   "label": "Section Item Managment"
+  },
+  {
+   "fieldname": "section_sirene_section",
+   "fieldtype": "Section Break",
+   "label": "Section Sirene"
+  },
+  {
+   "fieldname": "section_down_payment_section",
+   "fieldtype": "Section Break",
+   "label": "Section Down Payment"
+  },
+  {
+   "default": "1",
+   "fieldname": "tva_accounting_on_down_payment",
+   "fieldtype": "Check",
+   "label": "TVA Accounting on down payment"
   }
  ],
  "grid_page_length": 50,
  "issingle": 1,
  "links": [],
- "modified": "2025-07-28 17:30:01.661300",
- "modified_by": "Administrator",
+ "modified": "2025-08-29 12:00:38.084121",
+ "modified_by": "simep-erpnext@scopen.fr",
  "module": "ERPNext France",
  "name": "ERPNext France Settings",
  "owner": "Administrator",

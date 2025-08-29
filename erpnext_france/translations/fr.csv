@@ -617,3 +617,13 @@ From Delivery Date,Date de livraison (début),Production Plan
 To Delivery Date,Date de livraison (fin),Production Plan
 Sales Order Status,Statut de la commande client,Production Plan
 Select Warehouses to get Stock for Materials Planning,Selectionner les entrepot source pour les matières premiéres (les entrepots fils seront inclus)
+ERPNext France - Create Down Payment Item, ERPNext France - Créer Article Acompte,
+Down Payment Item Successfully created, Article d'acompte à été correctement créé,
+Down Payment Item, Article d'acompte,
+Missing root Item group, Il manque le groupe d'article racine,
+Income Account,Compte de produit,
+Expense Account,Compte de charges,
+Section Item Managment, Section Gestion Article,
+Section Down Payment, Section Acompte,
+Section Sirene, Section SIRENE,
+TVA Accounting on down payment, Comptabilitation de la TVA sur les acomptes,

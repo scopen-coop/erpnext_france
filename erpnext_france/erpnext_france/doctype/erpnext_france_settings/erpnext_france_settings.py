@@ -17,6 +17,7 @@ class ERPNextFranceSettings(Document):
 
 		api_token: DF.Data | None
 		api_url: DF.Data | None
+		tva_accounting_on_down_payment: DF.Check
 		update_item_supplier_part_no: DF.Check
 	# end: auto-generated types
 	pass
