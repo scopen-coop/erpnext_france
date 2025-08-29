@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2023 SCOPEN
 # For license information, please see license.txt
 
 import frappe
+from erpnext import get_region
 from frappe import _
 
-from erpnext import get_region
 
 def check_deletion_permission(doc, method):
 	region = get_region(doc.company)
@@ -24,9 +23,11 @@ def create_transaction_log(doc, method):
 
 	data = str(doc.as_dict())
 
-	frappe.get_doc({
-		"doctype": "Transaction Log",
-		"reference_doctype": doc.doctype,
-		"document_name": doc.name,
-		"data": data
-	}).insert(ignore_permissions=True)
+	frappe.get_doc(
+		{
+			"doctype": "Transaction Log",
+			"reference_doctype": doc.doctype,
+			"document_name": doc.name,
+			"data": data,
+		}
+	).insert(ignore_permissions=True)

@@ -432,10 +432,6 @@ override_doctype_dashboards = {
 
 export_python_type_annotations = True
 
-# extend_bootinfo = [
-# 	"erpnext_france.startup.boot.boot_session",
-# ]
-
 jinja = {
 	"methods": [
 		"erpnext_france.utils.jinja_methods.build_ecopart_table",
