@@ -10,26 +10,12 @@ def move_subledger_account_by_company():
 	copy_subledger_account("Supplier")
 
 
-# def add_custom_roles_for_reports():
-# 	report_name = 'Fichier des Ecritures Comptables [FEC]'
-#
-# 	if not frappe.db.get_value('Custom Role', dict(report=report_name)):
-# 		frappe.get_doc(dict(
-# 			doctype='Custom Role',
-# 			report=report_name,
-# 			roles= [
-# 				dict(role='Accounts Manager')
-# 			]
-# 		)).insert()
-#
-
-
 def copy_subledger_account(doctype):
 	if not frappe.db.exists("Custom Field", doctype + "-subledger_account"):
 		return
 
-	for customer in list(frappe.get_all(doctype)):
-		doc = frappe.get_doc(doctype, customer.name)
+	for party in list(frappe.get_all(doctype)):
+		doc = frappe.get_doc(doctype, party.name)
 
 		if not doc.get("subledger_account"):
 			continue
