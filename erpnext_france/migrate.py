@@ -28,7 +28,7 @@ def copy_subledger_account(doctype):
 	if not frappe.db.exists("Custom Field", doctype + "-subledger_account"):
 		return
 
-	for customer in frappe.get_all(doctype):
+	for customer in list(frappe.get_all(doctype)):
 		doc = frappe.get_doc(doctype, customer.name)
 
 		if not doc.get("subledger_account"):
