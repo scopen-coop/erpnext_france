@@ -102,7 +102,10 @@ class SalesInvoiceDownPayment(SalesInvoice):
 	def validate(self):
 		super().validate()
 
-		if cint(self.is_down_payment_invoice) and len([x.sales_order for x in self.get("items")]) > 1:
+		if (
+			cint(self.is_down_payment_invoice)
+			and len(list(set([x.sales_order for x in self.get("items")]))) > 1
+		):
 			frappe.throw(_("Down payment invoices can only be made against a single sales order."))
 
 		self.validate_down_payment_advances()
@@ -314,8 +317,8 @@ class SalesInvoiceDownPayment(SalesInvoice):
 					item=item,
 				)
 
-				if self.is_down_payment_invoice:
-					gl_dict.update({"party_type": "Customer", "party": self.customer})
+				# if self.is_down_payment_invoice:
+				# 	gl_dict.update({"party_type": "Customer", "party": self.customer})
 
 				gl_entries.append(gl_dict)
 

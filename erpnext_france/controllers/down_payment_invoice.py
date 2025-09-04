@@ -24,6 +24,7 @@ def init_down_payment_invoice(order_name, values):
 			"contact_person": order.contact_person,
 			"project": order.project,
 			"transaction_date": frappe.utils.getdate(),
+			"is_down_payment_invoice": 1,
 		}
 	)
 
