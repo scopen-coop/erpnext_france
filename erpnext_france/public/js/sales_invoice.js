@@ -39,13 +39,14 @@ frappe.ui.form.on("Sales Invoice", {
         );
         return;
       }
+
       let down_payment_item = down_payment_items[0];
       let response = await frappe.call({
         method:
           "erpnext_france.controllers.accounts_controller.get_down_payment_item_default",
         args: {
           item_code: down_payment_item.item_code,
-        }
+        },
       });
 
       if (!response || !response.message) {
@@ -57,7 +58,7 @@ frappe.ui.form.on("Sales Invoice", {
         );
         return;
       }
-      let income_account = response.message
+      let income_account = response.message;
 
       if (income_account === null || income_account === "") {
         frm.set_value("is_down_payment_invoice", 0);
@@ -70,13 +71,17 @@ frappe.ui.form.on("Sales Invoice", {
       }
 
       down_payment_item.sales_order = so[0];
-      down_payment_item.rate = (parseFloat(total) * parseFloat(down_payment_item.down_payment_percentage)) / 100;
+      down_payment_item.rate =
+        (parseFloat(total) *
+          parseFloat(down_payment_item.down_payment_percentage)) /
+        100;
       down_payment_item.qty = 1;
       down_payment_item.amount = down_payment_item.rate;
       down_payment_item.uom = down_payment_item.stock_uom;
       down_payment_item.conversion_factor = 1;
       down_payment_item.income_account = income_account;
-      down_payment_item.down_payment_rate = down_payment_item.down_payment_percentage;
+      down_payment_item.down_payment_rate =
+        down_payment_item.down_payment_percentage;
 
       frm.add_child("items", down_payment_item);
       frm.refresh_field("items");
@@ -169,7 +174,7 @@ const calculate_down_payment = (line) => {
     frappe.db.get_value(
       "Sales Order",
       line.sales_order,
-      ["base_total", "total", 'grand_total'],
+      ["base_total", "total", "grand_total"],
       (r) => {
         frappe.model.set_value(
           line.doctype,
@@ -194,12 +199,11 @@ const calculate_down_payment = (line) => {
   }
 };
 
-
 frappe.ui.form.on("Sales Invoice", {
   customer: function (frm) {
-    frm.trigger('payment_terms_template');
+    frm.trigger("payment_terms_template");
   },
   due_date: function (frm) {
-    frm.trigger('payment_terms_template');
+    frm.trigger("payment_terms_template");
   },
 });

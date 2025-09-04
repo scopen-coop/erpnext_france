@@ -1,8 +1,9 @@
 import frappe
 from frappe import _
 from frappe.query_builder import DocType
-from erpnext_france.controllers.taxes import create_ecopart_taxes_map
+
 from erpnext_france.controllers.accounts_controller import get_down_payment_item_default
+from erpnext_france.controllers.taxes import create_ecopart_taxes_map
 
 
 @frappe.whitelist()
@@ -10,14 +11,14 @@ def init_down_payment_invoice(order_name, values):
 	if isinstance(values, str):
 		values = frappe.parse_json(values)
 
-	order = frappe.get_cached_doc('Sales Order', order_name)
+	order = frappe.get_cached_doc("Sales Order", order_name)
 
 	if not order.get("project") and "project" in values:
 		order.project = values["project"]
 
 	down_payment_invoice = frappe.get_cached_doc(
 		{
-			"doctype": 'Sales Invoice',
+			"doctype": "Sales Invoice",
 			"customer": order.customer,
 			"customer_name": order.customer,
 			"contact_person": order.contact_person,
@@ -26,8 +27,9 @@ def init_down_payment_invoice(order_name, values):
 		}
 	)
 
-	tva_accounting_on_down_payment = frappe.db.get_single_value('ERPNext France Settings',
-	                                                            'tva_accounting_on_down_payment')
+	tva_accounting_on_down_payment = frappe.db.get_single_value(
+		"ERPNext France Settings", "tva_accounting_on_down_payment"
+	)
 	if not tva_accounting_on_down_payment:
 		add_down_payment_without_tva(order, down_payment_invoice, values)
 	else:
@@ -41,7 +43,7 @@ def init_down_payment_invoice(order_name, values):
 
 def add_down_payment_without_tva(order, down_payment_invoice, values):
 	total = order.grand_total
-	down_payment_items = frappe.get_all("Item", filters={'is_down_payment_item': 1})
+	down_payment_items = frappe.get_all("Item", filters={"is_down_payment_item": 1})
 	if len(down_payment_items) == 0:
 		frappe.throw(_("Cannot find Deposit Item, may be missing Item with checkbox Is Down Payment"))
 		return
@@ -51,17 +53,15 @@ def add_down_payment_without_tva(order, down_payment_invoice, values):
 
 	if not income_account or income_account == "":
 		frappe.throw(
-			_(
-				"Cannot find Deposit Item, may be missing Default Accountancy table with Income Account"
-			)
+			_("Cannot find Deposit Item, may be missing Default Accountancy table with Income Account")
 		)
 		return
 
-	docitem = frappe.new_doc('Sales Invoice Item')
+	docitem = frappe.new_doc("Sales Invoice Item")
 	docitem.item_code = down_payment_item.name
 	docitem.sales_order = order.name
 
-	if values.down_payment_type == 'ByPercent':
+	if values.down_payment_type == "ByPercent":
 		if float(values.down_payment_value) > 0:
 			docitem.rate = float(total) * float(values.down_payment_value) / 100
 		else:
@@ -76,11 +76,11 @@ def add_down_payment_without_tva(order, down_payment_invoice, values):
 	docitem.income_account = income_account
 	docitem.down_payment_rate = down_payment_item.down_payment_percentage
 
-	down_payment_invoice.append('items', docitem)
+	down_payment_invoice.append("items", docitem)
 
 
 def add_down_payment_with_tva(order, down_payment_invoice, values):
-	down_payment_items = frappe.get_all("Item", filters={'is_down_payment_item': 1})
+	down_payment_items = frappe.get_all("Item", filters={"is_down_payment_item": 1})
 	if len(down_payment_items) == 0:
 		frappe.throw(_("Cannot find Deposit Item, may be missing Item with checkbox Is Down Payment"))
 		return
@@ -90,40 +90,46 @@ def add_down_payment_with_tva(order, down_payment_invoice, values):
 
 	if not income_account or income_account == "":
 		frappe.throw(
-			_(
-				"Cannot find Deposit Item, may be missing Default Accountancy table with Income Account"
-			)
+			_("Cannot find Deposit Item, may be missing Default Accountancy table with Income Account")
 		)
 		return
 
 	down_payments_item_map = []
 	for order_item in order.items:
-		item = frappe.get_cached_doc('Item', order_item.item_code)
+		item = frappe.get_cached_doc("Item", order_item.item_code)
 		get_item_tax_template(order, order_item, item, down_payments_item_map)
 
 	group_down_payments_item_map = {}
 	for down_payments_item_info in down_payments_item_map:
-		if down_payments_item_info.get('item_tax_template') not in group_down_payments_item_map.keys():
-			group_down_payments_item_map[down_payments_item_info.get('item_tax_template')] = 0
-		group_down_payments_item_map[down_payments_item_info.get('item_tax_template')] += down_payments_item_info.get('amount')
+		if down_payments_item_info.get("item_tax_template") not in group_down_payments_item_map.keys():
+			group_down_payments_item_map[down_payments_item_info.get("item_tax_template")] = 0
+		group_down_payments_item_map[
+			down_payments_item_info.get("item_tax_template")
+		] += down_payments_item_info.get("amount")
 
 	total = order.grand_total
 	new_discount_percent = None
-	if values.down_payment_type == 'ByAmount' and float(total) != 0:
+	if values.down_payment_type == "ByAmount" and float(total) != 0:
 		new_discount_percent = float(values.down_payment_value) / float(total)
 
 	for item_tax_template in group_down_payments_item_map.keys():
-		docitem = frappe.new_doc('Sales Invoice Item')
+		docitem = frappe.new_doc("Sales Invoice Item")
 		docitem.item_code = down_payment_item.name
 		docitem.sales_order = order.name
 
-		if values.down_payment_type == 'ByPercent':
+		if values.down_payment_type == "ByPercent":
 			if float(values.down_payment_value) > 0:
-				docitem.rate = float(group_down_payments_item_map[item_tax_template]) * float(
-					values.down_payment_value) / 100
+				docitem.rate = (
+					float(group_down_payments_item_map[item_tax_template])
+					* float(values.down_payment_value)
+					/ 100
+				)
 			else:
-				docitem.rate = float(group_down_payments_item_map[item_tax_template]) * float(
-					down_payment_item.down_payment_percentage) / 100
+				docitem.rate = (
+					float(group_down_payments_item_map[item_tax_template])
+					* float(down_payment_item.down_payment_percentage)
+					/ 100
+				)
 		else:
 			docitem.rate = float(group_down_payments_item_map[item_tax_template]) * new_discount_percent
 
@@ -134,7 +140,7 @@ def add_down_payment_with_tva(order, down_payment_invoice, values):
 		docitem.income_account = income_account
 		docitem.down_payment_rate = down_payment_item.down_payment_percentage
 		docitem.item_tax_template = item_tax_template
-		down_payment_invoice.append('items', docitem)
+		down_payment_invoice.append("items", docitem)
 
 
 def get_item_tax_template(order, order_item, item, down_payments_item_map):
@@ -154,12 +160,9 @@ def get_item_tax_template(order, order_item, item, down_payments_item_map):
 		item_tax_template = frappe.get_cached_doc("Item Tax Template", item.taxes[0].get("item_tax_template"))
 		item_tax_template_name = item_tax_template.name
 	else:
-		frappe.throw(_('Item Tax template cannot be defined'))
+		frappe.throw(_("Item Tax template cannot be defined"))
 
-	down_payments_item_map.append({
-		"item_tax_template": item_tax_template_name,
-		"amount": order_item.amount
-	})
+	down_payments_item_map.append({"item_tax_template": item_tax_template_name, "amount": order_item.amount})
 
 
 def find_item_tax_template(taxes_map):
@@ -177,6 +180,7 @@ def find_item_tax_template(taxes_map):
 
 	# Compte les taxes_map uniques par template
 	from collections import defaultdict
+
 	template_tax_counts = defaultdict(set)
 
 	for row in result:
@@ -192,7 +196,6 @@ def find_item_tax_template(taxes_map):
 	if len(matching_templates) > 0:
 		tax_template_name = matching_templates[0]
 	else:
-		frappe.throw(_('Missing Item Tax Template Corresponding to Sales Taxes and Charges Template'))
-
+		frappe.throw(_("Missing Item Tax Template Corresponding to Sales Taxes and Charges Template"))
 
 	return tax_template_name
