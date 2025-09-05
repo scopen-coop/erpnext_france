@@ -1,6 +1,7 @@
 import frappe
 from frappe import _
 from frappe.query_builder import DocType
+from frappe.utils import cint, flt
 
 from erpnext_france.controllers.accounts_controller import get_down_payment_item_default
 from erpnext_france.controllers.taxes import create_ecopart_taxes_map
@@ -200,3 +201,37 @@ def find_item_tax_template(taxes_map):
 		frappe.throw(_("Missing Item Tax Template Corresponding to Sales Taxes and Charges Template"))
 
 	return tax_template_name
+
+
+def set_paid_amount_of_linked_invoice(doc, method):
+	if doc.get("references")[0].get("reference_doctype") != "Sales Invoice":
+		return
+
+	sales_invoice = frappe.get_cached_doc("Sales Invoice", doc.get("references")[0].get("reference_name"))
+
+	if sales_invoice.get("is_down_payment_invoice") == 1:
+		return
+
+	paid_amount = 0.0
+	base_paid_amount = 0.0
+	for data in sales_invoice.payments:
+		data.base_amount = flt(
+			data.amount * sales_invoice.conversion_rate, sales_invoice.precision("base_paid_amount")
+		)
+		paid_amount += data.amount
+		base_paid_amount += data.base_amount
+
+	for advance in sales_invoice.get("advances"):
+		if advance.reference_type == "Payment Entry":
+			paid_amount += advance.advance_amount
+			base_paid_amount += advance.advance_amount
+
+	sales_invoice.outstanding_amount = flt(
+		sales_invoice.rounded_total - (paid_amount + doc.paid_amount),
+		sales_invoice.precision("outstanding_amount"),
+	)
+
+	if flt(sales_invoice.outstanding_amount) == 0:
+		sales_invoice.set_status(update=True)
+
+	sales_invoice.save(ignore_permissions=True)

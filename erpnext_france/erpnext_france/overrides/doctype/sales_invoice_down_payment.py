@@ -8,6 +8,7 @@ from erpnext.accounts.doctype.sales_invoice.sales_invoice import (
 	update_linked_doc,
 )
 from erpnext.accounts.general_ledger import merge_similar_entries
+from erpnext.accounts.party import get_party_account
 from erpnext.accounts.utils import get_account_currency
 from erpnext.assets.doctype.asset.depreciation import (
 	depreciate_asset,

@@ -111,6 +111,7 @@ fixtures = [
 					"Customer-tax_category-fetch_if_empty",
 					"Customer-tax_category-fetch_from",
 					"Sales Invoice-is_return-depends_on",
+					"Sales Invoice-outstanding_amount-allow_on_submit",
 					"Sales Invoice Advance-allocated_amount-depends_on",
 					"Sales Invoice Item-sales_order-read_only_depends_on",
 					"Item-is_fixed_asset-depends_on",
@@ -315,7 +316,6 @@ after_migrate = [
 # 		"on_trash": "method"
 # }
 # }
-
 doc_events = {
 	"Purchase Invoice": {
 		"on_submit": "erpnext_france.erpnext_france.purchase_invoice.purchase_invoice.correct_gl_entry_supplier_discount",
@@ -349,7 +349,10 @@ doc_events = {
 	},
 	"Payment Entry": {
 		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
-		"on_submit": "erpnext_france.utils.transaction_log.create_transaction_log",
+		"on_submit": [
+			"erpnext_france.utils.transaction_log.create_transaction_log",
+			"erpnext_france.controllers.down_payment_invoice.set_paid_amount_of_linked_invoice",
+		],
 	},
 	"GL Entry": {
 		"on_submit": "erpnext_france.utils.accounting_entry_number.add_accounting_entry_number",
@@ -364,6 +367,7 @@ doc_events = {
 		# "on_update": 'erpnext_france.install.after_wizard'
 	},
 }
+
 
 # Scheduled Tasks
 # ---------------

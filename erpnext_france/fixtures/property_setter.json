@@ -673,6 +673,22 @@
  },
  {
   "default_value": null,
+  "doc_type": "Sales Invoice",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocField",
+  "field_name": "outstanding_amount",
+  "is_system_generated": 0,
+  "modified": "2025-03-13 15:13:17.233108",
+  "module": "ERPNext France",
+  "name": "Sales Invoice-outstanding_amount-allow_on_submit",
+  "property": "allow_on_submit",
+  "property_type": "Check",
+  "row_name": null,
+  "value": "1"
+ },
+ {
+  "default_value": null,
   "doc_type": "Payment Schedule",
   "docstatus": 0,
   "doctype": "Property Setter",
