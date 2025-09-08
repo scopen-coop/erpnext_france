@@ -13,7 +13,7 @@ from erpnext_france.controllers.accounts_controller import set_total_advance_pai
 
 class PaymentEntryDownPayment(PaymentEntry):
 	def validate(self):
-		super(self).validate()
+		super().validate()
 		# self.set_advance_reference_for_down_payments() # DOKOS
 		self.check_if_down_payment()
 		self.update_unreconciled_amount()
