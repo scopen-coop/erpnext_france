@@ -22,10 +22,15 @@ def get_down_payment(doc):
 	"""Returns list of advances against Account, Party, Reference"""
 	doc = json.loads(doc)
 
+	if doc["docstatus"] != 0:
+		return
+
 	res = get_advance_entries(doc)
+	current_doc = frappe.get_cached_doc("Sales Invoice", doc["name"])
 
 	doc["advances"] = []
 	advance_allocated = 0
+	ref_sales_invoices = []
 	for d in res:
 		amount = doc["rounded_total"] or doc["grand_total"]
 
@@ -43,9 +48,27 @@ def get_down_payment(doc):
 			"ref_exchange_rate": flt(d.exchange_rate),  # exchange_rate of advance entry
 			"is_down_payment": d.get("down_payment"),
 		}
-
 		doc["advances"].append(advance_row)
 
+		payment_entry = frappe.get_cached_doc(d.reference_type, d.reference_name)
+		for ref in payment_entry.references:
+			ref_sales_invoices.append(ref.reference_name)
+
+	for sinv in ref_sales_invoices:
+		sales_invoice = frappe.get_cached_doc("Sales Invoice", sinv)
+		for sinv_item in sales_invoice.items:
+			new_sinv_item = frappe.new_doc("Sales Invoice Item")
+			new_sinv_item.item_code = sinv_item.item_code
+			new_sinv_item.rate = sinv_item.amount * -1
+			new_sinv_item.uom = sinv_item.uom
+			new_sinv_item.qty = 1
+			new_sinv_item.conversion_factor = 1
+			new_sinv_item.income_account = sinv_item.income_account
+			new_sinv_item.down_payment_rate = sinv_item.down_payment_rate
+			new_sinv_item.item_tax_template = sinv_item.item_tax_template
+			current_doc.append("items", new_sinv_item)
+
+	current_doc.save()
 	return doc
 
 
