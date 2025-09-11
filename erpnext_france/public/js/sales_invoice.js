@@ -123,32 +123,6 @@ frappe.ui.form.on("Sales Invoice", {
         args: {
           doc: frm.doc,
         },
-        callback: async function (r) {
-          if (r.message) {
-            frm.set_value("advances", []);
-
-            for (let row of r.message.advances) {
-              frm.add_child("advances", {
-                advance_amount: row.advance_amount,
-                allocated_amount: row.allocated_amount,
-                reference_type: row.reference_type,
-                reference_name: row.reference_name,
-                remarks: row.remarks,
-                reference_row: row.reference_row,
-                is_down_payment: row.is_down_payment,
-                exchange_gain_loss: row.exchange_gain_loss,
-                ref_exchange_rate: row.ref_exchange_rate,
-              });
-            }
-
-            frm.refresh_field("advances");
-
-            let outstanding_amount =
-              parseFloat(frm.doc.grand_total) -
-              parseFloat(frm.doc.total_advance);
-            await frm.cscript.calculate_taxes_and_totals(outstanding_amount);
-          }
-        },
       });
     }
   },

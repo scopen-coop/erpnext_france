@@ -25,30 +25,40 @@ def get_down_payment(doc):
 	if doc["docstatus"] != 0:
 		return
 
+	if not frappe.db.exists("Sales Invoice", doc["name"]):
+		frappe.msgprint(_("Please Save your doc before getting down payment"))
+		return
+
 	res = get_advance_entries(doc)
 	current_doc = frappe.get_cached_doc("Sales Invoice", doc["name"])
 
-	doc["advances"] = []
+	if len(current_doc.advances) > 0:
+		exclude_names = {adv.reference_name for adv in current_doc.advances}
+		res[:] = [d for d in res if d.reference_name not in exclude_names]
+
+	if len(res) == 0:
+		frappe.msgprint(_("Down Payment is already included in this document"))
+		return
+
 	advance_allocated = 0
 	ref_sales_invoices = []
 	for d in res:
-		amount = doc["rounded_total"] or doc["grand_total"]
+		amount = current_doc.rounded_total or current_doc.grand_total
 
 		allocated_amount = min(amount - advance_allocated, d.amount)
 		advance_allocated += flt(allocated_amount)
 
-		advance_row = {
-			"doctype": doc["doctype"] + " Advance",
-			"reference_type": d.reference_type,
-			"reference_name": d.reference_name,
-			"reference_row": d.reference_row,
-			"remarks": d.remarks,
-			"advance_amount": flt(d.amount),
-			"allocated_amount": allocated_amount,
-			"ref_exchange_rate": flt(d.exchange_rate),  # exchange_rate of advance entry
-			"is_down_payment": d.get("down_payment"),
-		}
-		doc["advances"].append(advance_row)
+		advance_row = frappe.new_doc(current_doc.doctype + " Advance")
+
+		advance_row.reference_type = d.reference_type
+		advance_row.reference_name = d.reference_name
+		advance_row.remarks = d.remarks
+		advance_row.advance_amount = flt(d.amount)
+		advance_row.allocated_amount = allocated_amount
+		advance_row.ref_exchange_rate = flt(d.exchange_rate)
+		advance_row.is_down_payment = d.get("down_payment")
+
+		current_doc.append("advances", advance_row)
 
 		payment_entry = frappe.get_cached_doc(d.reference_type, d.reference_name)
 		for ref in payment_entry.references:
