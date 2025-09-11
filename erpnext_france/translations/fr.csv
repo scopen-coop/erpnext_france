@@ -637,3 +637,5 @@ Missing Item Tax Template Corresponding to Sales Taxes and Charges Template, Il 
 Item Tax template cannot be defined, Le modèle de taxe d'article ne peut pas être retrouvé,
 Down payment invoices can only be made against a single sales order., Les factures d'acompte ne peuvent être établies que pour une seule commande client.,
 "Default tax templates for sales, purchase and items are created.","Les modèles de taxes d'article, de vente et d'achat ont été créée",
+Please Save your doc before getting down payment, Veuillez sauvegarder le document avant de récupérer les acomptes,
+Down Payment is already included in this document, Les acomptes on déjà été récupéré sur ce document.,
