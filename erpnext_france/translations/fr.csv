@@ -639,3 +639,4 @@ Down payment invoices can only be made against a single sales order., Les factur
 "Default tax templates for sales, purchase and items are created.","Les modèles de taxes d'article, de vente et d'achat ont été créée",
 Please Save your doc before getting down payment, Veuillez sauvegarder le document avant de récupérer les acomptes,
 Down Payment is already included in this document, Les acomptes on déjà été récupéré sur ce document.,
+Down Payment {0} {1} on Sales Order {2} {3} € HT, Acompte {0} {1} de la commande {2} {3} € HT,

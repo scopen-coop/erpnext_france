@@ -66,10 +66,28 @@ def add_down_payment_without_tva(order, down_payment_invoice, values):
 	if values.down_payment_type == "ByPercent":
 		if float(values.down_payment_value) > 0:
 			docitem.rate = float(total) * float(values.down_payment_value) / 100
+			docitem.description = _("Down Payment {0} {1} on Sales Order {2} {3} € HT").format(
+				str(values.down_payment_value),
+				"%",
+				str(order.name),
+				str(docitem.rate),
+			)
 		else:
 			docitem.rate = float(total) * float(down_payment_item.down_payment_percentage) / 100
+			docitem.description = _("Down Payment {0} {1} on Sales Order {2} {3} € HT").format(
+				str(down_payment_item.down_payment_percentage),
+				"%",
+				str(order.name),
+				str(docitem.rate),
+			)
 	else:
 		docitem.rate = float(values.down_payment_value) or 0
+		docitem.description = _("Down Payment {0} {1} on Sales Order {2} {3} € HT").format(
+			str(docitem.rate),
+			"€",
+			str(order.name),
+			str(docitem.rate),
+		)
 
 	docitem.qty = 1
 	docitem.amount = docitem.rate
@@ -77,6 +95,7 @@ def add_down_payment_without_tva(order, down_payment_invoice, values):
 	docitem.conversion_factor = 1
 	docitem.income_account = income_account
 	docitem.down_payment_rate = down_payment_item.down_payment_percentage
+	docitem.discount_amount = 0
 
 	down_payment_invoice.append("items", docitem)
 
@@ -132,14 +151,27 @@ def add_down_payment_with_tva(order, down_payment_invoice, values):
 					* float(down_payment_item.down_payment_percentage)
 					/ 100
 				)
+			docitem.description = _("Down Payment {0} {1} on Sales Order {2} {3} € HT").format(
+				str(values.down_payment_value),
+				"%",
+				str(order.name),
+				str(docitem.rate),
+			)
 		else:
 			docitem.rate = float(group_down_payments_item_map[item_tax_template]) * new_discount_percent
+			docitem.description = _("Down Payment {0} {1} on Sales Order {2} {3} € HT").format(
+				str(down_payment_item.down_payment_percentage),
+				"€",
+				str(order.name),
+				str(docitem.rate),
+			)
 
 		docitem.qty = 1
 		docitem.amount = docitem.rate
 		docitem.uom = down_payment_item.stock_uom
 		docitem.conversion_factor = 1
 		docitem.income_account = income_account
+		docitem.discount_amount = 0
 		docitem.down_payment_rate = down_payment_item.down_payment_percentage
 		docitem.item_tax_template = item_tax_template
 		down_payment_invoice.append("items", docitem)
