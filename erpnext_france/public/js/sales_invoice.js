@@ -123,6 +123,11 @@ frappe.ui.form.on("Sales Invoice", {
         args: {
           doc: frm.doc,
         },
+        callback: function (r) {
+          if (r.message) {
+            frm.reload_doc();
+          }
+        }
       });
     }
   },
