@@ -36,10 +36,13 @@ def add_accounting_entry_number(gl_entry, action):
 	gl_entry.accounting_entry_number = accounting_entry_number
 	gl_entry.accounting_journal = get_accounting_journal(gl_entry)
 
+	# Fix precision issues for all currency fields
 	gl_entry.credit_in_account_currency = round(
 		gl_entry.credit_in_account_currency,
-		gl_entry.precision('credit_in_account_currency'
-    ))
+		gl_entry.precision('credit_in_account_currency'))
+	gl_entry.debit_in_account_currency = round(
+		gl_entry.debit_in_account_currency,
+		gl_entry.precision('debit_in_account_currency'))
 	gl_entry.save()
 
 
