@@ -43,6 +43,12 @@ def add_accounting_entry_number(gl_entry, action):
 	gl_entry.debit_in_account_currency = round(
 		gl_entry.debit_in_account_currency,
 		gl_entry.precision('debit_in_account_currency'))
+	gl_entry.credit = round(
+		gl_entry.credit,
+		gl_entry.precision('credit'))
+	gl_entry.debit = round(
+		gl_entry.debit,
+		gl_entry.precision('debit'))
 	gl_entry.save()
 
 
