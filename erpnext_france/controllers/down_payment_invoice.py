@@ -4,7 +4,7 @@ from frappe.query_builder import DocType
 from frappe.utils import cint, flt
 
 from erpnext_france.controllers.accounts_controller import get_down_payment_item_default
-from erpnext_france.controllers.taxes import create_ecopart_taxes_map
+from erpnext_france.controllers.taxes import create_ecopart_taxes_map, find_item_tax_template
 
 
 @frappe.whitelist()
@@ -172,7 +172,11 @@ def add_down_payment_with_tva(order, down_payment_invoice, values):
 		docitem.conversion_factor = 1
 		docitem.income_account = income_account
 		docitem.discount_amount = 0
-		docitem.down_payment_rate = down_payment_item.down_payment_percentage
+		docitem.down_payment_rate = (
+			values.down_payment_value
+			if values.down_payment_value > 0
+			else down_payment_item.down_payment_percentage
+		)
 		docitem.item_tax_template = item_tax_template
 		down_payment_invoice.append("items", docitem)
 
@@ -197,42 +201,6 @@ def get_item_tax_template(order, order_item, item, down_payments_item_map):
 		frappe.throw(_("Item Tax template cannot be defined"))
 
 	down_payments_item_map.append({"item_tax_template": item_tax_template_name, "amount": order_item.amount})
-
-
-def find_item_tax_template(taxes_map):
-	# Utilise le DocType pour la table enfant "Item Tax Template Tax"
-	ItemTaxTemplateTax = DocType("Item Tax Template Detail")
-
-	# Construit une requête pour obtenir les templates et leurs taxes_map
-	query = (
-		frappe.qb.from_(ItemTaxTemplateTax)
-		.select(ItemTaxTemplateTax.parent.as_("template_name"), ItemTaxTemplateTax.tax_type)
-		.where(ItemTaxTemplateTax.tax_type.isin(taxes_map))
-	)
-
-	result = query.run(as_dict=True)
-
-	# Compte les taxes_map uniques par template
-	from collections import defaultdict
-
-	template_tax_counts = defaultdict(set)
-
-	for row in result:
-		template_tax_counts[row.template_name].add(row.tax_type)
-
-	# Trouve les templates qui contiennent tous les taxes_map recherchés
-	matching_templates = []
-	for template, tax_set in template_tax_counts.items():
-		if set(taxes_map).issubset(tax_set):
-			matching_templates.append(template)
-
-	tax_template_name = None
-	if len(matching_templates) > 0:
-		tax_template_name = matching_templates[0]
-	else:
-		frappe.throw(_("Missing Item Tax Template Corresponding to Sales Taxes and Charges Template"))
-
-	return tax_template_name
 
 
 def set_paid_amount_of_linked_invoice(doc, method):

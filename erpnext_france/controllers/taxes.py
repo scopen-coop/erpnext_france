@@ -4,6 +4,7 @@ import frappe
 from erpnext.controllers.taxes_and_totals import get_itemised_taxable_amount
 from erpnext.stock.get_item_details import get_conversion_factor
 from frappe import _
+from frappe.query_builder import DocType
 from frappe.utils import flt, parse_json, round_based_on_smallest_currency_fraction
 
 
@@ -17,6 +18,8 @@ def update_ecopart_taxes_for_item(doc):
 	if doc.doctype in ("Quotation", "Sales Invoice", "Sales Order"):
 		is_sales_doc = True
 
+	is_down_payment_invoice = True if doc.get("is_down_payment_invoice") else False
+
 	if len(doc.items) == 0:
 		return
 
@@ -27,7 +30,7 @@ def update_ecopart_taxes_for_item(doc):
 		item_wise_tax_detail_standard_tva,
 		used_ecopart_accounts,
 		used_vat_accounts,
-	) = create_ecopart_taxes_map(doc, is_sales_doc)
+	) = create_ecopart_taxes_map(doc, is_sales_doc, is_down_payment_invoice)
 
 	# Remove all Taxes
 	delete_taxes(doc)
@@ -114,37 +117,29 @@ def create_update_ecopart_without_vat_taxes(
 			create_update_ecotax(doc, None, ecopart_account, None, item_tax_wise, total_tax, is_sales_doc)
 
 
-def create_ecopart_taxes_map(doc, is_sales_doc):
+def create_ecopart_taxes_map(doc, is_sales_doc, is_down_payment_invoice):
 	used_ecopart_accounts = []
 	used_vat_accounts = []
 	item_map = {}
 	taxes_map = {}
 	taxes_itemised_map = {}
-
 	for doc_item in doc.items:
 		item = frappe.get_doc("Item", doc_item.item_code)
 
 		vat_accounts = init_taxes_map_and_vat_account(doc, doc_item, item, taxes_map, is_sales_doc)
 		if len(vat_accounts) > 0:
-			for vat_account in vat_accounts:
-				if vat_account not in used_vat_accounts:
-					used_vat_accounts.append(vat_account)
-
-				if len(item.eco_part):
-					create_item_and_tax_maps_with_ecopart(
-						doc_item,
-						item,
-						taxes_itemised_map,
-						taxes_map,
-						vat_account,
-						used_ecopart_accounts,
-						is_sales_doc,
-					)
-				create_item_and_tax_maps_without_ecopart(
-					doc_item,
-					item_map,
-					vat_account,
-				)
+			loop_on_vat_account_to_create_ecopart_tax_maps(
+				doc_item,
+				is_down_payment_invoice,
+				is_sales_doc,
+				item,
+				item_map,
+				taxes_itemised_map,
+				taxes_map,
+				used_ecopart_accounts,
+				used_vat_accounts,
+				vat_accounts,
+			)
 		elif len(item.eco_part):
 			if None not in used_vat_accounts:
 				used_vat_accounts.append(None)
@@ -169,6 +164,50 @@ def create_ecopart_taxes_map(doc, is_sales_doc):
 		used_ecopart_accounts,
 		used_vat_accounts,
 	)
+
+
+def loop_on_vat_account_to_create_ecopart_tax_maps(
+	doc_item,
+	is_down_payment_invoice,
+	is_sales_doc,
+	item,
+	item_map: dict,
+	taxes_itemised_map: dict,
+	taxes_map: dict,
+	used_ecopart_accounts: list,
+	used_vat_accounts: list,
+	vat_accounts: list,
+):
+	for vat_account in vat_accounts:
+		if vat_account not in used_vat_accounts:
+			used_vat_accounts.append(vat_account)
+
+		if is_down_payment_invoice and item.is_down_payment_item:
+			set_down_payment_ecotax_from_sales_order_item(doc_item, item)
+			create_item_and_tax_maps_with_ecopart(
+				doc_item,
+				item,
+				taxes_itemised_map,
+				taxes_map,
+				vat_account,
+				used_ecopart_accounts,
+				is_sales_doc,
+			)
+		elif len(item.eco_part):
+			create_item_and_tax_maps_with_ecopart(
+				doc_item,
+				item,
+				taxes_itemised_map,
+				taxes_map,
+				vat_account,
+				used_ecopart_accounts,
+				is_sales_doc,
+			)
+		create_item_and_tax_maps_without_ecopart(
+			doc_item,
+			item_map,
+			vat_account,
+		)
 
 
 def init_taxes_map_and_vat_account(doc, doc_item, item, taxes_map, is_sales_doc):
@@ -744,3 +783,74 @@ def get_taxe_description(account):
 	else:
 		taxe_description = account.get("account_name")
 	return taxe_description
+
+
+def set_down_payment_ecotax_from_sales_order_item(sales_invoice_item, item):
+	origin_sales_order = frappe.get_cached_doc("Sales Order", sales_invoice_item.sales_order)
+	for sales_order_item in origin_sales_order.items:
+		origin_item = frappe.get_cached_doc("Item", sales_order_item.item_code)
+		item_tax_template_name = None
+		if sales_order_item.item_tax_template:
+			item_tax_template = frappe.get_cached_doc("Item Tax Template", sales_order_item.item_tax_template)
+			item_tax_template_name = item_tax_template.name
+		elif origin_sales_order.taxes_and_charges:
+			taxes_and_charges_template = frappe.get_cached_doc(
+				"Sales Taxes and Charges Template", origin_sales_order.taxes_and_charges
+			)
+			taxes_map = []
+			for tax in taxes_and_charges_template.taxes:
+				taxes_map.append(tax.account_head)
+			item_tax_template_name = find_item_tax_template(taxes_map)
+		elif len(origin_item.taxes) > 0:
+			item_tax_template = frappe.get_cached_doc(
+				"Item Tax Template", origin_item.taxes[0].get("item_tax_template")
+			)
+			item_tax_template_name = item_tax_template.name
+
+		if item_tax_template_name != sales_invoice_item.item_tax_template:
+			continue
+
+		down_payment_rate = sales_invoice_item.down_payment_rate
+		for ecopart in origin_item.eco_part:
+			new_ecopart = frappe.new_doc("Item EcoTax")
+			new_ecopart.amount = sales_order_item.qty * ecopart.amount * down_payment_rate / 100
+			new_ecopart.buy_account = ecopart.buy_account
+			new_ecopart.sell_account = ecopart.sell_account
+			new_ecopart.tax_type = ecopart.tax_type
+			item.append("eco_part", new_ecopart)
+
+
+def find_item_tax_template(taxes_map):
+	# Utilise le DocType pour la table enfant "Item Tax Template Tax"
+	ItemTaxTemplateTax = DocType("Item Tax Template Detail")
+
+	# Construit une requête pour obtenir les templates et leurs taxes_map
+	query = (
+		frappe.qb.from_(ItemTaxTemplateTax)
+		.select(ItemTaxTemplateTax.parent.as_("template_name"), ItemTaxTemplateTax.tax_type)
+		.where(ItemTaxTemplateTax.tax_type.isin(taxes_map))
+	)
+
+	result = query.run(as_dict=True)
+
+	# Compte les taxes_map uniques par template
+	from collections import defaultdict
+
+	template_tax_counts = defaultdict(set)
+
+	for row in result:
+		template_tax_counts[row.template_name].add(row.tax_type)
+
+	# Trouve les templates qui contiennent tous les taxes_map recherchés
+	matching_templates = []
+	for template, tax_set in template_tax_counts.items():
+		if set(taxes_map).issubset(tax_set):
+			matching_templates.append(template)
+
+	tax_template_name = None
+	if len(matching_templates) > 0:
+		tax_template_name = matching_templates[0]
+	else:
+		frappe.throw(_("Missing Item Tax Template Corresponding to Sales Taxes and Charges Template"))
+
+	return tax_template_name
