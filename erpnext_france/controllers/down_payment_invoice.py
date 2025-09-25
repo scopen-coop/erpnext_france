@@ -129,9 +129,14 @@ def add_down_payment_with_tva(order, down_payment_invoice, values):
 		] += down_payments_item_info.get("amount")
 
 	total = order.grand_total
-	new_discount_percent = None
+	new_discount_percent = 0
 	if values.down_payment_type == "ByAmount" and float(total) != 0:
-		new_discount_percent = float(values.down_payment_value) / float(total)
+		new_discount_percent = 100 * float(values.down_payment_value) / float(total)
+	elif values.down_payment_type == "ByPercent":
+		if float(values.down_payment_value) > 0:
+			new_discount_percent = float(values.down_payment_value)
+		else:
+			new_discount_percent = float(down_payment_item.down_payment_percentage)
 
 	for item_tax_template in group_down_payments_item_map.keys():
 		docitem = frappe.new_doc("Sales Invoice Item")
@@ -139,18 +144,10 @@ def add_down_payment_with_tva(order, down_payment_invoice, values):
 		docitem.sales_order = order.name
 
 		if values.down_payment_type == "ByPercent":
-			if float(values.down_payment_value) > 0:
-				docitem.rate = (
-					float(group_down_payments_item_map[item_tax_template])
-					* float(values.down_payment_value)
-					/ 100
-				)
-			else:
-				docitem.rate = (
-					float(group_down_payments_item_map[item_tax_template])
-					* float(down_payment_item.down_payment_percentage)
-					/ 100
-				)
+			docitem.rate = (
+				float(group_down_payments_item_map[item_tax_template]) * float(new_discount_percent) / 100
+			)
+
 			docitem.description = _("Down Payment {0} {1} on Sales Order {2} {3} € HT").format(
 				str(values.down_payment_value),
 				"%",
@@ -158,7 +155,7 @@ def add_down_payment_with_tva(order, down_payment_invoice, values):
 				str(docitem.rate),
 			)
 		else:
-			docitem.rate = float(group_down_payments_item_map[item_tax_template]) * new_discount_percent
+			docitem.rate = float(group_down_payments_item_map[item_tax_template]) * new_discount_percent / 100
 			docitem.description = _("Down Payment {0} {1} on Sales Order {2} {3} € HT").format(
 				str(down_payment_item.down_payment_percentage),
 				"€",
@@ -172,11 +169,7 @@ def add_down_payment_with_tva(order, down_payment_invoice, values):
 		docitem.conversion_factor = 1
 		docitem.income_account = income_account
 		docitem.discount_amount = 0
-		docitem.down_payment_rate = (
-			values.down_payment_value
-			if values.down_payment_value > 0
-			else down_payment_item.down_payment_percentage
-		)
+		docitem.down_payment_rate = new_discount_percent
 		docitem.item_tax_template = item_tax_template
 		down_payment_invoice.append("items", docitem)
 
