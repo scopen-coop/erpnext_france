@@ -28,18 +28,22 @@ def add_accounting_entry_number(gl_entry, action):
 	if not accounting_entry_number:
 		accounting_entry_number = get_accounting_number(gl_entry)
 
-	# May be check why devise precsision is not the same
-	# frappe.db.set_value('GL Entry', gl_entry.name, 'accounting_entry_number', accounting_entry_number,
-	#                     update_modified=False)
-	# frappe.db.set_value('GL Entry', gl_entry.name, 'accounting_journal', get_accounting_journal(gl_entry),
-	#                     update_modified=False)
 	gl_entry.accounting_entry_number = accounting_entry_number
 	gl_entry.accounting_journal = get_accounting_journal(gl_entry)
 
+	# Fix precision issues for all currency fields
 	gl_entry.credit_in_account_currency = round(
 		gl_entry.credit_in_account_currency,
-		gl_entry.precision('credit_in_account_currency'
-    ))
+		gl_entry.precision('credit_in_account_currency'))
+	gl_entry.debit_in_account_currency = round(
+		gl_entry.debit_in_account_currency,
+		gl_entry.precision('debit_in_account_currency'))
+	gl_entry.credit = round(
+		gl_entry.credit,
+		gl_entry.precision('credit'))
+	gl_entry.debit = round(
+		gl_entry.debit,
+		gl_entry.precision('debit'))
 	gl_entry.save()
 
 
