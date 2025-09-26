@@ -13,13 +13,29 @@ In order to be compliant with the latest finance law applicable to POS software,
 - Le Fichier des Écritures Comptables [FEC] -
 Since 2014, a legal requirement makes it mandatory for companies operating in France to provide a file of their general accounting postings by fiscal year corresponding to an electronic accounting journal.
 
-For ERPNext France users this file can be generated using this report called Le Fichier des Écritures Comptables [FEC].
+For ERPNext France users this file can be generated using this report called Le Fichier des Écritures Comptables FEC.
 
-- Check VAT customer and supplier code from https://ec.europa.eu/
+- Check VAT customer and supplier code from [European VIES](https://europa.eu/youreurope/business/taxation/vat/check-vat-number-vies/index_fr.htm)
 
 - Manage Deposit Invoice (Facture d'acompte) that is a real invoice with a % of total paiement that need to be deducted as payment after
 
-- Export for CIEL and Sage Accountancy journal for Sales and Buying only 
+- Export for CIEL and Sage Accountancy journal for Sales and Buying only
+
+- EcoTax management
+
+- Easier Customer and Supplier creation with [API Sinene](https://api.gouv.fr/les-api/sirene_v3)
+
+- Easier Item Taxe Template creation
+
+- Header and Footer for document "Francisé"
+
+- Cannot delete invoices
+
+- Payment terms before invoice (example 30% deposit invoice, 70% delivery)
+
+- Codes NAF/APE (for customer and supplier)
+
+- Compny type from INSEE (for customer and supplier)
 
 
 ### Installation

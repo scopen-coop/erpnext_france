@@ -1,6 +1,7 @@
 [
  {
   "add_total_row": 0,
+  "add_translate_data": 0,
   "columns": [],
   "disabled": 0,
   "docstatus": 0,
@@ -20,10 +21,12 @@
   "report_name": "Fichier des Ecritures Comptables [FEC]",
   "report_script": null,
   "report_type": "Script Report",
-  "roles": []
+  "roles": [],
+  "timeout": 0
  },
  {
   "add_total_row": 0,
+  "add_translate_data": 0,
   "columns": [],
   "disabled": 0,
   "docstatus": 0,
@@ -62,6 +65,7 @@
     "parenttype": "Report",
     "role": "Auditor"
    }
-  ]
+  ],
+  "timeout": 0
  }
 ]

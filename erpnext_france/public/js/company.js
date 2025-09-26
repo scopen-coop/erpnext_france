@@ -10,6 +10,13 @@ frappe.ui.form.on("Company", {
         },
       };
     });
+    frm.set_query("legal_form", function () {
+      return {
+        filters: {
+          docstatus: 1,
+        },
+      };
+    });
   },
   refresh: function (frm) {
     if (
@@ -37,6 +44,18 @@ frappe.ui.form.on("Company", {
         },
         __("Manage")
       );
+      frappe.call('erpnext_france.utils.create_down_payment_item.has_down_payment_item').then(r => {
+        if (r.message) {
+          return;
+        }
+        frm.add_custom_button(
+          __("ERPNext France - Create Down Payment Item"),
+          function () {
+            display_dialog_create_down_payment_item(frm, frm.doc.name)
+          },
+          __("Manage")
+        );
+      });
     }
   },
 });

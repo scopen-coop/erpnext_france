@@ -18,7 +18,6 @@ frappe.ui.form.on("Sales Invoice", {
         "grand_total",
       ]);
       total = total.message.grand_total;
-
       let down_payment_items = await frappe.db.get_list("Item", {
         fields: [
           "item_name",
@@ -40,16 +39,17 @@ frappe.ui.form.on("Sales Invoice", {
         );
         return;
       }
-      let down_payment_item = down_payment_items[0];
 
-      let down_payment_item_defaults = await frappe.db.get_list(
-        "Item Default",
-        {
-          fields: ["company", "income_account"],
-          filters: { parent: down_payment_item.item_code },
-        }
-      );
-      if (down_payment_item_defaults.length === 0) {
+      let down_payment_item = down_payment_items[0];
+      let response = await frappe.call({
+        method:
+          "erpnext_france.controllers.accounts_controller.get_down_payment_item_default",
+        args: {
+          item_code: down_payment_item.item_code,
+        },
+      });
+
+      if (!response || !response.message) {
         frm.set_value("is_down_payment_invoice", 0);
         frappe.throw(
           __(
@@ -58,12 +58,9 @@ frappe.ui.form.on("Sales Invoice", {
         );
         return;
       }
+      let income_account = response.message;
 
-      let down_payment_item_default = down_payment_item_defaults[0];
-      if (
-        down_payment_item_default.income_account === null ||
-        down_payment_item_default.income_account === ""
-      ) {
+      if (income_account === null || income_account === "") {
         frm.set_value("is_down_payment_invoice", 0);
         frappe.throw(
           __(
@@ -82,8 +79,7 @@ frappe.ui.form.on("Sales Invoice", {
       down_payment_item.amount = down_payment_item.rate;
       down_payment_item.uom = down_payment_item.stock_uom;
       down_payment_item.conversion_factor = 1;
-      down_payment_item.income_account =
-        down_payment_item_default.income_account;
+      down_payment_item.income_account = income_account;
       down_payment_item.down_payment_rate =
         down_payment_item.down_payment_percentage;
 
@@ -127,32 +123,11 @@ frappe.ui.form.on("Sales Invoice", {
         args: {
           doc: frm.doc,
         },
-        callback: async function (r) {
+        callback: function (r) {
           if (r.message) {
-            frm.set_value("advances", []);
-
-            for (let row of r.message.advances) {
-              frm.add_child("advances", {
-                advance_amount: row.advance_amount,
-                allocated_amount: row.allocated_amount,
-                reference_type: row.reference_type,
-                reference_name: row.reference_name,
-                remarks: row.remarks,
-                reference_row: row.reference_row,
-                is_down_payment: row.is_down_payment,
-                exchange_gain_loss: row.exchange_gain_loss,
-                ref_exchange_rate: row.ref_exchange_rate,
-              });
-            }
-
-            frm.refresh_field("advances");
-
-            let outstanding_amount =
-              parseFloat(frm.doc.grand_total) -
-              parseFloat(frm.doc.total_advance);
-            await frm.cscript.calculate_taxes_and_totals(outstanding_amount);
+            frm.reload_doc();
           }
-        },
+        }
       });
     }
   },
@@ -178,27 +153,36 @@ const calculate_down_payment = (line) => {
     frappe.db.get_value(
       "Sales Order",
       line.sales_order,
-      ["base_total", "total"],
+      ["base_total", "total", "grand_total"],
       (r) => {
         frappe.model.set_value(
           line.doctype,
           line.name,
           "price_list_rate",
-          (flt(line.down_payment_rate) / 100.0) * flt(r.total)
+          (flt(line.down_payment_rate) / 100.0) * flt(r.grand_total)
         );
         frappe.model.set_value(
           line.doctype,
           line.name,
           "base_rate",
-          (flt(line.down_payment_rate) / 100.0) * flt(r.base_total)
+          (flt(line.down_payment_rate) / 100.0) * flt(r.grand_total)
         );
         frappe.model.set_value(
           line.doctype,
           line.name,
           "rate",
-          (flt(line.down_payment_rate) / 100.0) * flt(r.total)
+          (flt(line.down_payment_rate) / 100.0) * flt(r.grand_total)
         );
       }
     );
   }
 };
+
+frappe.ui.form.on("Sales Invoice", {
+  customer: function (frm) {
+    frm.trigger("payment_terms_template");
+  },
+  due_date: function (frm) {
+    frm.trigger("payment_terms_template");
+  },
+});

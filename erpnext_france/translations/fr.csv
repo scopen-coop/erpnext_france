@@ -117,7 +117,7 @@ Down Payment,Acompte,
 Down Payment Against,Facture liée à l'acompte,
 Down Payment Percentage,Pourcentage d'acompte,
 Down Payment Rate,Pourcentage d'acompte,
-Get Down Payment,Obtenir les Acomptes Reçus,
+Get Down Payment,Obtenir les acomptes reçus,
 Is Down Payment Invoice,Facture d'acompte,
 Is Down Payment Item,Article d'acompte,
 Is Down Payment,Est un acompte,
@@ -351,7 +351,7 @@ No {0} found with matching filters. Clear filters to see all {0}.,Aucun {0} trou
 Terms & Conditions,Termes et Conditions,
 Additional Info,Infos supplémentaires,
 "<span class=\"h4\"><b>Your Shortcuts</b></span>","<span class=\"h4\"><b>Vos Raccourcis</b></span>",
-<span class="h4"><b>Your Shortcuts</b></span>,<span class="h4"><b>Vos Racourcis</b></span>,
+<span class="h4"><b>Your Shortcuts</b></span>,<span class="h4"><b>Vos Raccourcis</b></span>,
 Your Shortcuts,Vos Raccourcis,
 Let's Set Up Your Accounts and Taxes.,Veuillez configurer les paramètres de vos comptes et taxes.,
 "Accounts, Invoices, Taxation, and more.","Comptes, factures, taxes etc.",
@@ -486,7 +486,8 @@ Deferred Accounting,Comptabilité différée,
 "Cannot find Deposit Item, may be missing Item with checkbox Is Down Payment","Aucun article utilisable pour une facture d'acompte, vérifiez si il existe un article avec Article d'acompte coché"
 "Cannot find Deposit Item, may be missing Default Accountancy table","Aucun article utilisable pour une facture d'acompte, vérifiez si il existe un article avec Article d'acompte coché et qu'il y a une bien une ligne dans Comptabilité"
 "Cannot find Deposit Item, may be missing Default Accountancy table with Income Account","Aucun article utilisable pour une facture d'acompte, vérifiez si il existe un article avec Article d'acompte coché et qu'il y a une bien une ligne dans Comptabilité avec un code comptable pour Compte de produit (vente) par défaut"
-Left,Gauche,
+Left,Gauche,alignment
+Right,Droite,alignment
 Discount Amount,Remise en montant
 Named Place,Lieu Incoterm
 ERPNext France - Create Tax Template,ERPNext France - Créer les modéles de taxes
@@ -512,7 +513,133 @@ Tree View,Vue arborescente
 List View,Vue en liste
 Report View,Vue rapport
 Dashboard View,Vue KPI
-Kaban View,Vue kanban
+Kanban View,Vue kanban
 Add Row,Nv. ligne
 Supplier Invoice,Facture fournisseur
 Get Outstanding Orders,Obtenir les commandes en cours
+Draft,Brouillon
+Bulk Salary Structure Assignment,Affectation en masse aux grilles de salaires
+Salary Payout,Gestion des payes
+Tax & Benefits,Taxes et bénéfices
+Income Tax Computation,Calcul des taxes entrantes
+Payroll Reports,Rapport des paies
+Deduction Reports,Rapport des deductions
+Salary Withholding,Retenue sur salaire
+Search or type a command ({0}),Recherche globale (Ctrl + G)
+Get Customer Group Details,Appliquer les informations depuis le Groupe de client
+Leave Control Panel,Assistant de politique de congés en masse
+Leave Policy Assignment,Politique de congés appliqué aux employés
+Leaves Pending Approval,Congés en attente d'approbation
+Expired Leaves,Demandes de congés expirées
+New Leaves Allocated,Nb Jours de congés à attribuer
+Shift & Attendance,Quart et présence
+Décalage par défaut,Quart par défaut
+Shift Schedule,Planification des quarts
+Shift Schedule Assignment,Affect. plan. des quarts
+Shift Assignment Tool,Affect. planning des quarts en masse
+Payment Term Before Invoice, Terme de paiement avant facture,
+Payment Terms Before Invoice, Termes de paiements avant facture,
+Template Payment Terms Before Invoice, Modèle de termes de paiement avant facture,
+Date Computed Based On, Date caculée à partir de,
+Document Date, Date du document,
+Payment Terms Template Detail Before Invoice, Détail du modèle de conditions de paiement avant facture,
+Default Payment Terms Template Before Invoice, Modèle de termes de paiement par défaut avant facture,
+Payment Terms Template Before Invoice, Modèle de termes de paiement avant facture,
+Payment Schedule Before Invoice, Calendrier de paiement avant facture,
+Cannot Delete term {0} because its on a payment, Vous ne pouvez pas supprimer le terme de paiement {0} car celui çi a déjà été payé,
+Cannot Modify term {0} because its on a payment, Vous ne pouvez pas modifier le terme de paiement {0} car celui çi a déjà été payé,
+Eco Part, Eco Participation,
+Buy Account, Code Comptable Achat,
+Sell Account, Code Comptable Vente
+Item EcoTax, Ecotaxe sur l'article,
+Cannot Update EcoPart because there is no conversion factor between units, Le nouveau montant de l’Eco participation (onglet Taxe) ne peux être calculé car les conversions d’unités ne sont pas disponibles,
+Eco Part VAT: {0}, Eco Part TVA: {0},
+Eco Part {0}%:, Eco Participation {0}%,
+Sales Order Number, Numéro de la commande client,
+Unit Price, Prix Unitaire,
+Item {0} does not has default settings, Les paramètres par défaut de l'article {0} n'ont pas été remplis,
+Missing Default Income Account On Item {0}, Il manque le Compte de produit (vente) par défaut dans les paramètre par défaut de l'article {0},
+Subcontracting BOM,Nomenclature en sous-traitance,
+Leaves,Congés
+Left,Parti,Employee
+Leave Control Panel,Assistant de politique de congés en masse
+Attendance,Absences et Présences
+Shift Tools,Outils des gest. des quarts
+Save Filter,Sauv. filtre
+Filter By,Filtrer avec
+From Prospect,Depuis le Prospect
+No contacts added yet.,Pas de contact existant
+Mention if non-standard Receivable account,Précisez les si ce n'est pas les comptes standard
+Customer Portal Users,Utilisateur du portail
+Create User Permission,Ne voir que ses propres informations
+This will restrict user access to other employee records,Cela empêche l'utilisateur d'accéder aux informations des autres employés
+Series,Masque de numérotation,Quotation
+Series,Masque de numérotation,Sales Order
+Series,Masque de numérotation,Sales Invoice
+Series,Masque de numérotation,Purchase Invoice
+Series,Masque de numérotation,Purchase Order
+Series,Masque de numérotation,Work Order
+Series,Masque de numérotation,Material Request
+Series,Masque de numérotation,BOM
+Putaway Rule,Règle de routage d'entrée en stock
+Disable Comment Count,Désactivé le nb de commantaire
+Leave Approver,Approbateur de congés
+Disassemble,Désassemblage
+Credit Limit,Termes de paiement par défaut,Supplier Group
+Update Item Supplier Part No, Mettre à jour la reférence fournisseur de l'article automatiquement,
+VAT {0}%,TVA {0}%
+Against Blanket Order,Depuis une Commande avec limites
+Reset to default,Réinitialiser
+Delete All,Tous supprimer
+In House,Sur place
+Manufacturing Type,Type de production,Production Plan Sub Assembly Item
+Get Finished Goods for Manufacture,Obtenir les produits à fabriquer,Production Plan
+Assembly Items,Articles à fabriquer,Production Plan
+Consolidate Sub Assembly Items,Agréger les sous ensembles,Production Plan
+Sub Assembly Warehouse,Entrepot les sous enembles,Production Plan
+Get Sub Assembly Items,Obtenir les sous ensembles,Production Plan
+"When a parent warehouse is chosen, the system conducts stock checks against the associated child warehouses","Lorsqu'un entrepot parent est choisi, les entrepots fils seront également pris en compte dans le calcul du besoin",Production Plan
+Skip Available Sub Assembly Items,Le calcul ne prendra pas les sous enemble disponible en stock,Production Plan
+"If this checkbox is enabled, then the system won’t run the MRP for the available sub-assembly items.","Si cette case est cochée, le calcul du besion du besoin ne prendra pas en compte les sous ensemble déja en stock",Production Plan
+Consider Minimum Order Qty,Proposer dans le calcul du besoin la quantité minimum d'achat (Onglet Achat de l'article),Production Plan
+Include Safety Stock in Required Qty Calculation,Inclure dans la calcul du besion le stock de sécurité (Onglet Achat de l'article),Production Plan
+Ignore Available Stock,Ingorer le stock existant,Production Plan
+"If enabled, the system will create material requests even if the stock exists in the 'Raw Materials Warehouse'.","Si cette case est cochée, le calcul créera des demande de matériels même si le stock est actuellement disponible",Production Plan
+Raw Materials Warehouse,Entrepot cible des matiéres premiéres (composants),Production Plan
+Get Raw Materials for Purchase,Calculer les matiéres premiéres à acheter,Production Plan
+Get Raw Materials for Transfer,Calculer les matiéres premiéres transférer,Production Plan
+Plan to Request Qty,Qté. calc. pour le besoin,Material Request Plan Item
+Qty As Per BOM,Qté. par nomenclature,Material Request Plan Item
+Qty In Stock,Qté. en stock,Material Request Plan Item
+Preview Required Materials,Télécharger la liste des composants necessaire,Production Plan
+Download Required Materials,Télécharger CSV,Production Plan
+From Delivery Date,Date de livraison (début),Production Plan
+To Delivery Date,Date de livraison (fin),Production Plan
+Sales Order Status,Statut de la commande client,Production Plan
+Select Warehouses to get Stock for Materials Planning,Selectionner les entrepot source pour les matières premiéres (les entrepots fils seront inclus)
+ERPNext France - Create Down Payment Item,ERPNext France - Créer Article Acompte,
+Down Payment Item Successfully created,Article d'acompte à été correctement créé,
+Down Payment Item,Article d'acompte,
+Missing root Item group,Il manque le groupe d'article racine,
+Income Account,Compte de produit,
+Expense Account,Compte de charges,
+Section Item Managment,Section Gestion Article,
+Section Down Payment,Section Acompte,
+Section Sirene,Section SIRENE,
+TVA Accounting on down payment,Comptabilitation de la TVA sur les acomptes,
+Down Payment Invoice,Facture d'acompte,
+Down Payment Type,Type d'acompte,
+Down Payment Value,Valeur de l'acompte,
+ByAmount Acompte en Montant,
+ByPercent,Acompte en Pourcentage,
+Create Down Payment,Créer la facture d'acompte,
+Missing Item Tax Template Corresponding to Sales Taxes and Charges Template,Il manque un modèle de taxe d'article qui correspond aux taxes contenu dans modèles de taxes et frais de ventes de la commande,
+Item Tax template cannot be defined, Le modèle de taxe d'article ne peut pas être retrouvé,
+Down payment invoices can only be made against a single sales order., Les factures d'acompte ne peuvent être établies que pour une seule commande client.,
+"Default tax templates for sales, purchase and items are created.","Les modèles de taxes d'article, de vente et d'achat ont été créée",
+Please Save your doc before getting down payment, Veuillez sauvegarder le document avant de récupérer les acomptes,
+Down Payment is already included in this document, Les acomptes on déjà été récupéré sur ce document.,
+Down Payment {0} {1} on Sales Order {2} {3} € HT, Acompte {0} {1} de la commande {2} {3} € HT,
+Allocate Leaves,Allouer des congés manuellement,
+Manual Leave Allocation,Affectation manuel de congés
+New Leaves to be Allocated,Nouveau nombre de jours de congés à allouer

@@ -5,9 +5,13 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "deposit_print_heading",
+  "section_item_managment_section",
+  "update_item_supplier_part_no",
+  "section_sirene_section",
   "api_url",
-  "api_token"
+  "api_token",
+  "section_down_payment_section",
+  "tva_accounting_on_down_payment"
  ],
  "fields": [
   {
@@ -19,12 +23,40 @@
    "fieldname": "api_token",
    "fieldtype": "Data",
    "label": "API Token"
+  },
+  {
+   "default": "0",
+   "fieldname": "update_item_supplier_part_no",
+   "fieldtype": "Check",
+   "label": "Update Item Supplier Part No"
+  },
+  {
+   "fieldname": "section_item_managment_section",
+   "fieldtype": "Section Break",
+   "label": "Section Item Managment"
+  },
+  {
+   "fieldname": "section_sirene_section",
+   "fieldtype": "Section Break",
+   "label": "Section Sirene"
+  },
+  {
+   "fieldname": "section_down_payment_section",
+   "fieldtype": "Section Break",
+   "label": "Section Down Payment"
+  },
+  {
+   "default": "1",
+   "fieldname": "tva_accounting_on_down_payment",
+   "fieldtype": "Check",
+   "label": "TVA Accounting on down payment"
   }
  ],
+ "grid_page_length": 50,
  "issingle": 1,
  "links": [],
- "modified": "2023-11-03 14:28:53.382758",
- "modified_by": "Administrator",
+ "modified": "2025-08-29 12:00:38.084121",
+ "modified_by": "simep-erpnext@scopen.fr",
  "module": "ERPNext France",
  "name": "ERPNext France Settings",
  "owner": "Administrator",
@@ -40,33 +72,16 @@
    "write": 1
   },
   {
-   "create": 0,
-   "delete": 0,
-   "email": 0,
-   "export": 0,
-   "import": 0,
-   "print": 0,
    "read": 1,
-   "report": 0,
-   "role": "Sales Manager",
-   "share": 0,
-   "write": 0
+   "role": "Sales Manager"
   },
   {
-   "create": 0,
-   "delete": 0,
-   "email": 0,
-   "export": 0,
-   "import": 0,
-   "print": 0,
    "read": 1,
-   "report": 0,
-   "role": "Purchase Manager",
-   "share": 0,
-   "write": 0
+   "role": "Purchase Manager"
   }
  ],
  "quick_entry": 1,
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

@@ -35,3 +35,30 @@ frappe.ui.form.on(
     }
   }
 );
+
+frappe.ui.form.on("Customer", "onload", function (frm) {
+  frm.set_query("legal_form", function () {
+    return {
+      filters: {
+        docstatus: 1,
+      },
+    };
+  });
+  frm.set_query("payment_terms", function () {
+    return {
+      filters: {
+        template_payment_terms_before_invoice: 0,
+      },
+    };
+  });
+});
+
+frappe.ui.form.on("Supplier", "onload", function (frm) {
+  frm.set_query("legal_form", function () {
+    return {
+      filters: {
+        docstatus: 1,
+      },
+    };
+  });
+});

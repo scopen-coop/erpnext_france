@@ -2,21 +2,44 @@
 # Copyright (c) 2023, Scopen and contributors
 # For license information, please see license.txt
 
-import frappe
-from frappe import _
-from frappe.email.doctype.notification.notification import get_context
-from frappe.model.document import Document
 import copy
 
-from erpnext_france.utils.accounting_entry_number import get_accounting_number
+import frappe
 from erpnext.accounts.general_ledger import (
-	make_entry,
 	check_freezing_date,
+	make_entry,
 	set_as_cancel,
 	validate_accounting_period,
 )
+from frappe import _
+from frappe.email.doctype.notification.notification import get_context
+from frappe.model.document import Document
+
+from erpnext_france.utils.accounting_entry_number import get_accounting_number
+
 
 class AccountingJournal(Document):
+	# begin: auto-generated types
+	# This code is auto-generated. Do not modify anything in this block.
+
+	from typing import TYPE_CHECKING
+
+	if TYPE_CHECKING:
+		from frappe.types import DF
+
+		from erpnext_france.erpnext_france.doctype.accounting_journal_rule.accounting_journal_rule import (
+			AccountingJournalRule,
+		)
+
+		account: DF.Link | None
+		company: DF.Link
+		conditions: DF.Table[AccountingJournalRule]
+		disabled: DF.Check
+		journal_code: DF.Data
+		journal_name: DF.Data
+		type: DF.Literal["Sales", "Purchase", "Cash", "Bank", "Miscellaneous"]
+
+	# end: auto-generated types
 	def validate(self):
 		if self.conditions:
 			self.validate_conditions()
@@ -107,9 +130,12 @@ def get_accounting_journal(doc):
 			return condition.name
 
 	if [rule for rule in applicable_rules if not rule.condition]:
-		return [rule for rule in applicable_rules if not rule.condition][0].name
+		rule_name = [rule for rule in applicable_rules if not rule.condition]
+		if len(rule_name) > 0:
+			return rule_name[0].name
 
 	return None
+
 
 def make_reverse_gl_entries_without_cancelling(
 	voucher_type=None,
