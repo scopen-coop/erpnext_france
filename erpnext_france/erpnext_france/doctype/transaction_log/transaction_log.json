@@ -107,8 +107,8 @@
  ],
  "in_create": 1,
  "links": [],
- "modified": "2025-08-29 15:27:46.229372",
- "modified_by": "Administrator",
+ "modified": "2025-09-26 11:22:28.368448",
+ "modified_by": "simep-erpnext@scopen.fr",
  "module": "ERPNext France",
  "name": "Transaction Log",
  "owner": "Administrator",
@@ -121,6 +121,24 @@
    "report": 1,
    "role": "Administrator",
    "share": 1
+  },
+  {
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager"
+  },
+  {
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager"
+  },
+  {
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User"
   }
  ],
  "row_format": "Dynamic",
