@@ -1,3 +1,6 @@
+# Copyright (c) 2025, Scopen and contributors
+# For license information, please see license.txt
+
 import json
 
 import frappe
@@ -5,7 +8,7 @@ from erpnext.controllers.taxes_and_totals import get_itemised_taxable_amount
 from erpnext.stock.get_item_details import get_conversion_factor
 from frappe import _
 from frappe.query_builder import DocType
-from frappe.utils import flt, parse_json, round_based_on_smallest_currency_fraction
+from frappe.utils import flt
 
 
 def before_save(doc, method):

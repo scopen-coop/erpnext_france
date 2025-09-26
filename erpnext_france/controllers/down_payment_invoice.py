@@ -1,10 +1,12 @@
+# Copyright (c) 2025, Scopen and contributors
+# For license information, please see license.txt
+
 import frappe
 from frappe import _
-from frappe.query_builder import DocType
 from frappe.utils import cint, flt
 
 from erpnext_france.controllers.accounts_controller import get_down_payment_item_default
-from erpnext_france.controllers.taxes import create_ecopart_taxes_map, find_item_tax_template
+from erpnext_france.controllers.taxes import find_item_tax_template
 
 
 @frappe.whitelist()
