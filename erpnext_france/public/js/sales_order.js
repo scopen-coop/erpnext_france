@@ -1,6 +1,6 @@
 // Copyright (c) 2021, Scopen and contributors
 // For license information, please see license.txt
-frappe.ui.form.on("Sales Order", onload, function (frm) {
+frappe.ui.form.on("Sales Order", "onload", function (frm) {
   frm.set_query("payment_terms_template", function () {
     return {
       filters: {
