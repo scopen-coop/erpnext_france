@@ -86,22 +86,13 @@ def add_down_payment_without_tva(order, down_payment_invoice, values):
 	docitem.sales_order = order.name
 
 	if values.down_payment_type == "ByPercent":
-		if float(values.down_payment_value) > 0:
-			docitem.rate = float(total) * float(values.down_payment_value) / 100
-			docitem.description = _("Down Payment {0} {1} on Sales Order {2} {3} € HT").format(
-				str(values.down_payment_value),
-				"%",
-				str(order.name),
-				str(docitem.rate),
-			)
-		else:
-			docitem.rate = float(total) * float(down_payment_item.down_payment_percentage) / 100
-			docitem.description = _("Down Payment {0} {1} on Sales Order {2} {3} € HT").format(
-				str(down_payment_item.down_payment_percentage),
-				"%",
-				str(order.name),
-				frappe.format_value(docitem.rate, {"fieldtype": "Currency"}),
-			)
+		docitem.rate = float(total) * float(values.down_payment_value) / 100
+		docitem.description = _("Down Payment {0} {1} on Sales Order {2} {3} € HT").format(
+			str(values.down_payment_value),
+			"%",
+			str(order.name),
+			str(docitem.rate),
+		)
 	else:
 		docitem.rate = float(values.down_payment_value)
 		docitem.description = _("Down Payment {0} {1} on Sales Order {2} {3} € HT").format(
@@ -116,7 +107,7 @@ def add_down_payment_without_tva(order, down_payment_invoice, values):
 	docitem.uom = down_payment_item.stock_uom
 	docitem.conversion_factor = 1
 	docitem.income_account = income_account
-	docitem.down_payment_rate = down_payment_item.down_payment_percentage
+	docitem.down_payment_rate = values.down_payment_value
 	docitem.discount_amount = 0
 
 	down_payment_invoice.append("items", docitem)

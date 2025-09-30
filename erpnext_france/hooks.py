@@ -47,7 +47,6 @@ fixtures = [
 					"GL Entry-accounting_entry_number",
 					"GL Entry-accounting_journal",
 					"GL Entry-export_date",
-					"Item-down_payment_percentage",
 					"Item-is_down_payment_item",
 					"Item-eco_part",
 					"Mode of Payment Account-discount_supplier_account",
@@ -403,7 +402,6 @@ doc_events = {
 # ------------------------------
 #
 override_whitelisted_methods = {
-	"erpnext.stock.get_item_details.get_item_details": "erpnext_france.controllers.get_item_details_down_payment.get_item_details_down_payment",
 	"erpnext.controllers.accounts_controller.get_payment_term_details": "erpnext_france.controllers.party.get_payment_term_details",
 	"erpnext.accounts.party.get_party_details": "erpnext_france.controllers.party.get_party_details",
 	"erpnext.selling.doctype.sales_order.sales_order.make_sales_invoice": "erpnext_france.controllers.sales_order.make_sales_invoice_with_payment_terms",
