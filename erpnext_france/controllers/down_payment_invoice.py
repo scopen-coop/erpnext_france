@@ -19,6 +19,17 @@ def init_down_payment_invoice(order_name, values):
 	if not order.get("project") and "project" in values:
 		order.project = values["project"]
 
+	if values.down_payment_type == "ByPercent":
+		if 0 > values.down_payment_value or values.down_payment_value > 100:
+			frappe.throw("Down Payment By Percent should be between 0 and 100")
+		if not float(values.down_payment_value).is_integer():
+			frappe.throw("Down Payment By Percent should be an integer")
+
+	if values.down_payment_type == "ByAmount" and (
+		0 > values.down_payment_value or values.down_payment_value > order.grand_total
+	):
+		frappe.throw("Down Payment By Amount should be between 0 and total")
+
 	down_payment_invoice = frappe.get_cached_doc(
 		{
 			"doctype": "Sales Invoice",
@@ -34,14 +45,23 @@ def init_down_payment_invoice(order_name, values):
 	tva_accounting_on_down_payment = frappe.db.get_single_value(
 		"ERPNext France Settings", "tva_accounting_on_down_payment"
 	)
+
 	if not tva_accounting_on_down_payment:
 		add_down_payment_without_tva(order, down_payment_invoice, values)
 	else:
 		add_down_payment_with_tva(order, down_payment_invoice, values)
 
+	down_payment_invoice.down_payment_value = values.down_payment_value
+	down_payment_invoice.down_payment_type = values.down_payment_type
+
+	if (
+		values.down_payment_type == "ByAmount"
+		and values.down_payment_value != down_payment_invoice.grand_total
+	):
+		down_payment_invoice.disable_rounded_total = 1
+
 	# Insère le down_payment_invoice dans la base de données
 	down_payment_invoice.insert()
-
 	return down_payment_invoice.name
 
 
@@ -80,15 +100,15 @@ def add_down_payment_without_tva(order, down_payment_invoice, values):
 				str(down_payment_item.down_payment_percentage),
 				"%",
 				str(order.name),
-				str(docitem.rate),
+				frappe.format_value(docitem.rate, {"fieldtype": "Currency"}),
 			)
 	else:
-		docitem.rate = float(values.down_payment_value) or 0
+		docitem.rate = float(values.down_payment_value)
 		docitem.description = _("Down Payment {0} {1} on Sales Order {2} {3} € HT").format(
 			str(docitem.rate),
 			"€",
 			str(order.name),
-			str(docitem.rate),
+			frappe.format_value(docitem.rate, {"fieldtype": "Currency"}),
 		)
 
 	docitem.qty = 1
@@ -137,8 +157,6 @@ def add_down_payment_with_tva(order, down_payment_invoice, values):
 	elif values.down_payment_type == "ByPercent":
 		if float(values.down_payment_value) > 0:
 			new_discount_percent = float(values.down_payment_value)
-		else:
-			new_discount_percent = float(down_payment_item.down_payment_percentage)
 
 	for item_tax_template in group_down_payments_item_map.keys():
 		docitem = frappe.new_doc("Sales Invoice Item")
@@ -151,18 +169,18 @@ def add_down_payment_with_tva(order, down_payment_invoice, values):
 			)
 
 			docitem.description = _("Down Payment {0} {1} on Sales Order {2} {3} € HT").format(
-				str(values.down_payment_value),
+				values.down_payment_value,
 				"%",
 				str(order.name),
-				str(docitem.rate),
+				frappe.format_value(docitem.rate, {"fieldtype": "Currency"}),
 			)
 		else:
 			docitem.rate = float(group_down_payments_item_map[item_tax_template]) * new_discount_percent / 100
 			docitem.description = _("Down Payment {0} {1} on Sales Order {2} {3} € HT").format(
-				str(down_payment_item.down_payment_percentage),
+				values.down_payment_value,
 				"€",
 				str(order.name),
-				str(docitem.rate),
+				frappe.format_value(docitem.rate, {"fieldtype": "Currency"}),
 			)
 
 		docitem.qty = 1
