@@ -37,14 +37,16 @@ frappe.ui.form.on("Sales Order", {
 });
 
 async function prevent_term_modification_if_payment_exist(frm) {
-  let payments = await frappe.db.get_list("Payment Entry Reference", {
-    fields: ["parent", "payment_term", "allocated_amount"],
-    filters: {
+  const response = await frappe.call({
+    method: "erpnext_france.controllers.payment_entry_ref.payment_entry_ref",
+    freeze: true,
+    args: {
       reference_doctype: "Sales Order",
       reference_name: frm.doc.name,
     },
   });
 
+  let payments = response.message;
   let payments_array = payments.map((payment) => payment.payment_term);
   for (let idx in frm.doc.payment_schedule) {
     if (!payments_array.includes(frm.doc.payment_schedule[idx].payment_term)) {
