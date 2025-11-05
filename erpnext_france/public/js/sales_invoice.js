@@ -3,92 +3,24 @@
 frappe.provide("erpnext");
 
 frappe.ui.form.on("Sales Invoice", {
-  is_down_payment_invoice: async function (frm) {
-    if (frm.doc.is_down_payment_invoice) {
-      const so = [
-        ...new Set(
-          frm.doc.items.map((line) => {
-            return line.sales_order;
-          })
-        ),
-      ];
-      frm.set_value("items", []);
-
-      let total = await frappe.db.get_value("Sales Order", so[0], [
-        "grand_total",
-      ]);
-      total = total.message.grand_total;
-      let down_payment_items = await frappe.db.get_list("Item", {
-        fields: [
-          "item_name",
-          "item_code",
-          "stock_uom",
-          "is_down_payment_item",
-          "down_payment_percentage",
-          "description",
-        ],
-        filters: { is_down_payment_item: 1 },
-      });
-
-      if (down_payment_items.length === 0) {
-        frm.set_value("is_down_payment_invoice", 0);
-        frappe.throw(
-          __(
-            "Cannot find Deposit Item, may be missing Item with checkbox Is Down Payment"
-          )
-        );
-        return;
-      }
-
-      let down_payment_item = down_payment_items[0];
-      let response = await frappe.call({
-        method:
-          "erpnext_france.controllers.accounts_controller.get_down_payment_item_default",
-        args: {
-          item_code: down_payment_item.item_code,
-        },
-      });
-
-      if (!response || !response.message) {
-        frm.set_value("is_down_payment_invoice", 0);
-        frappe.throw(
-          __(
-            "Cannot find Deposit Item, may be missing Default Accountancy table"
-          )
-        );
-        return;
-      }
-      let income_account = response.message;
-
-      if (income_account === null || income_account === "") {
-        frm.set_value("is_down_payment_invoice", 0);
-        frappe.throw(
-          __(
-            "Cannot find Deposit Item, may be missing Default Accountancy table with Income Account"
-          )
-        );
-        return;
-      }
-
-      down_payment_item.sales_order = so[0];
-      down_payment_item.rate =
-        (parseFloat(total) *
-          parseFloat(down_payment_item.down_payment_percentage)) /
-        100;
-      down_payment_item.qty = 1;
-      down_payment_item.amount = down_payment_item.rate;
-      down_payment_item.uom = down_payment_item.stock_uom;
-      down_payment_item.conversion_factor = 1;
-      down_payment_item.income_account = income_account;
-      down_payment_item.down_payment_rate =
-        down_payment_item.down_payment_percentage;
-
-      frm.add_child("items", down_payment_item);
-      frm.refresh_field("items");
-
-      frm.set_value("taxes_and_charges", null);
-      frm.set_value("taxes", []);
+  refresh: function (frm) {
+    if (!frm.doc.is_down_payment_invoice) {
+      return;
     }
+
+    if (
+      frm.doc.down_payment_type == "ByPercent" ||
+      frm.doc.down_payment_value === frm.doc.grand_total
+    ) {
+      return;
+    }
+    frm.dashboard.set_headline_alert(
+      __(
+        "Warning: Rounding Issue when creating down payment invoice {0} instead of {1}",
+        [frm.doc.grand_total, frm.doc.down_payment_value]
+      ),
+      "red"
+    );
   },
 
   customer: function (frm) {
@@ -127,56 +59,17 @@ frappe.ui.form.on("Sales Invoice", {
           if (r.message) {
             frm.reload_doc();
           }
-        }
+        },
       });
     }
   },
 });
 
 frappe.ui.form.on("Sales Invoice Item", {
-  sales_order: function (frm, cdt, cdn) {
-    calculate_down_payment(locals[cdt][cdn]);
-  },
-  is_down_payment_item: function (frm, cdt, cdn) {
-    calculate_down_payment(locals[cdt][cdn]);
-  },
-  down_payment_rate: function (frm, cdt, cdn) {
-    calculate_down_payment(locals[cdt][cdn]);
-  },
   timesheets_remove(frm) {
     frm.trigger("calculate_timesheet_totals");
   },
 });
-
-const calculate_down_payment = (line) => {
-  if (line.sales_order && line.is_down_payment_item) {
-    frappe.db.get_value(
-      "Sales Order",
-      line.sales_order,
-      ["base_total", "total", "grand_total"],
-      (r) => {
-        frappe.model.set_value(
-          line.doctype,
-          line.name,
-          "price_list_rate",
-          (flt(line.down_payment_rate) / 100.0) * flt(r.grand_total)
-        );
-        frappe.model.set_value(
-          line.doctype,
-          line.name,
-          "base_rate",
-          (flt(line.down_payment_rate) / 100.0) * flt(r.grand_total)
-        );
-        frappe.model.set_value(
-          line.doctype,
-          line.name,
-          "rate",
-          (flt(line.down_payment_rate) / 100.0) * flt(r.grand_total)
-        );
-      }
-    );
-  }
-};
 
 frappe.ui.form.on("Sales Invoice", {
   customer: function (frm) {

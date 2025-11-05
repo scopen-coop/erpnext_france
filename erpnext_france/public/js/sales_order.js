@@ -1,6 +1,6 @@
 // Copyright (c) 2021, Scopen and contributors
 // For license information, please see license.txt
-frappe.ui.form.on("Sales Order", onload, function (frm) {
+frappe.ui.form.on("Sales Order", "refresh", async function (frm) {
   frm.set_query("payment_terms_template", function () {
     return {
       filters: {
@@ -15,14 +15,16 @@ frappe.ui.form.on("Sales Order", onload, function (frm) {
       },
     };
   });
-  frm.add_custom_button(
-    __("Down Payment Invoice"),
-    () => {
-      display_dialog_create_down_payment_invoice(frm);
-    },
-    __("Create")
-  );
-  //  await prevent_term_modification_if_payment_exist(frm)
+  if (frm.doc.docstatus == 1) {
+    frm.add_custom_button(
+      __("Down Payment Invoice"),
+      () => {
+        display_dialog_create_down_payment_invoice(frm);
+      },
+      __("Create")
+    );
+  }
+  await prevent_term_modification_if_payment_exist(frm);
 });
 
 frappe.ui.form.on("Sales Order", {
@@ -35,25 +37,32 @@ frappe.ui.form.on("Sales Order", {
 });
 
 async function prevent_term_modification_if_payment_exist(frm) {
-  let payments = await frappe.db.get_list("Payment Entry Reference", {
-    fields: ["parent", "payment_term", "allocated_amount"],
-    filters: {
+  const response = await frappe.call({
+    method: "erpnext_france.controllers.payment_entry_ref.payment_entry_ref",
+    freeze: true,
+    args: {
       reference_doctype: "Sales Order",
       reference_name: frm.doc.name,
     },
   });
 
+  let payments = response.message;
   let payments_array = payments.map((payment) => payment.payment_term);
   for (let idx in frm.doc.payment_schedule) {
-    if (payments_array.includes(frm.doc.payment_schedule[idx].payment_term)) {
-      for (let field of frm.fields_dict.payment_schedule.grid.grid_rows[idx]
-        .docfields) {
-        frm.fields_dict.payment_schedule.grid.grid_rows[idx].toggle_editable(
-          field.fieldname,
-          false
-        );
-      }
-      frm.fields_dict.payment_schedule.grid.refresh();
+    if (!payments_array.includes(frm.doc.payment_schedule[idx].payment_term)) {
+      continue;
+    }
+    frm.set_df_property("payment_schedule", "read_only", 1);
+    let grid_row = frm.fields_dict.payment_schedule.grid.grid_rows[idx];
+    for (let field of grid_row.docfields) {
+      frm.set_df_property(
+        "payment_schedule",
+        "read_only",
+        1,
+        frm.doc.name,
+        field.fieldname,
+        grid_row.doc.name
+      );
     }
   }
 }

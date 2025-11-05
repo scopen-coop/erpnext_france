@@ -76,6 +76,16 @@ def get_down_payment(doc):
 			new_sinv_item.income_account = sinv_item.income_account
 			new_sinv_item.down_payment_rate = sinv_item.down_payment_rate
 			new_sinv_item.item_tax_template = sinv_item.item_tax_template
+			new_sinv_item.sales_order = sinv_item.sales_order
+			new_sinv_item.description = _(
+				"Down Payment Retribution {0} {1} {2} on Sales Order {3} {4} € HT"
+			).format(
+				str(sales_invoice.name),
+				str(new_sinv_item.down_payment_rate),
+				"%",
+				str(sinv_item.sales_order),
+				frappe.format_value(new_sinv_item.rate, {"fieldtype": "Currency"}),
+			)
 			current_doc.append("items", new_sinv_item)
 
 	current_doc.save()
