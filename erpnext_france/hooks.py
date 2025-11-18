@@ -44,11 +44,16 @@ fixtures = [
 					"Customer-default_payment_terms_template_before_invoice",
 					"Customer Group-default_payment_terms_template_before_invoice",
 					"Customer Group-tax_category",
+					"Customer-categorie_comptable_tiers",
 					"GL Entry-accounting_entry_number",
 					"GL Entry-accounting_journal",
 					"GL Entry-export_date",
 					"Item-is_down_payment_item",
 					"Item-eco_part",
+					"Item-special_item_accountancy_code",
+					"Item-special_item_accountancy_code_details",
+					"Item Group-special_item_accountancy_code",
+					"Item Group-special_item_accountancy_code_details",
 					"Mode of Payment Account-discount_supplier_account",
 					"Mode of Payment Account-journal_label",
 					"Party Account-advance_account",
@@ -62,6 +67,7 @@ fixtures = [
 					"Payment Terms Template-payment_terms_before_invoice",
 					"Purchase Invoice Item-supplier_part_no",
 					"Purchase Invoice-accounting_export_date",
+					"Purchase Invoice Item-supplier_part_no",
 					"Purchase Taxes and Charges-ecotax",
 					"Purchase Taxes and Charges-ecotax_tva_linked",
 					"Sales Invoice-accounting_export_date",
@@ -89,8 +95,8 @@ fixtures = [
 					"Supplier-legal_form",
 					"Supplier-siret",
 					"Supplier-siren",
+					"Supplier-categorie_comptable_tiers",
 					"Supplier Group-tax_category",
-					"Purchase Invoice Item-supplier_part_no",
 				),
 			],
 		],
@@ -102,28 +108,19 @@ fixtures = [
 				"name",
 				"in",
 				(
-					"Fiscal Year Company-read_only_onload",
-					"Mode of Payment Account-read_only_onload",
-					"Period Closing Voucher-main-autoname",
-					"Period Closing Voucher-main-naming_rule",
+					"Address-main-field_order",
 					"Customer-tax_id-allow_in_quick_entry",
 					"Customer-payment_terms-fetch_if_empty",
 					"Customer-payment_terms-fetch_from",
 					"Customer-tax_category-fetch_if_empty",
 					"Customer-tax_category-fetch_from",
-					"Sales Invoice-is_return-depends_on",
-					"Sales Invoice-outstanding_amount-allow_on_submit",
-					"Sales Invoice Advance-allocated_amount-depends_on",
-					"Sales Invoice Item-sales_order-read_only_depends_on",
+					"Fiscal Year Company-read_only_onload",
 					"Item-is_fixed_asset-depends_on",
 					"Item-standard_rate-depends_on",
 					"Item-include_item_in_manufacturing-depends_on",
 					"Item-is_stock_item-depends_on",
 					"Item-allow_alternative_item-depends_on",
-					"Address-main-field_order",
-					"Opportunity-opportunity_type-translatable",
-					"Opportunity-opportunity_type-default",
-					"Opportunity Type-main-translated_doctype",
+					"Item-grant_commission-default",
 					"Item Price-brand-in_list_view",
 					"Item Price-customer-in_list_view",
 					"Item Price-item_code-in_list_view",
@@ -135,7 +132,12 @@ fixtures = [
 					"Item Price-uom-in_list_view",
 					"Item Price-valid_from-in_list_view",
 					"Item Price-valid_upto-in_list_view",
-					"Item-grant_commission-default",
+					"Mode of Payment Account-read_only_onload",
+					"Opportunity-opportunity_type-translatable",
+					"Opportunity-opportunity_type-default",
+					"Opportunity Type-main-translated_doctype",
+					"Period Closing Voucher-main-autoname",
+					"Period Closing Voucher-main-naming_rule",
 					"Payment Term-due_date_based_on-depends_on",
 					"Payment Term-section_break_8-depends_on",
 					"Payment Term-credit_days-depends_on",
@@ -150,18 +152,22 @@ fixtures = [
 					"Payment Schedule-due_date-allow_on_submit",
 					"Payment Schedule-payment_amount-allow_on_submit",
 					"Payment Schedule-invoice_portion-allow_on_submit",
+					"Purchase Order Item-supplier_part_no-print_hide",
+					"Purchase Order Item-supplier_part_no-hidden",
+					"Purchase Order Item-supplier_part_no-read_only",
+					"Quotation-payment_schedule-label",
+					"Quotation-payment_terms_template-label",
+					"Request for Quotation Item-supplier_part_no-hidden",
+					"Request for Quotation Item-supplier_part_no-read_only",
 					"Sales Order-payment_schedule-label",
 					"Sales Order-payment_schedule-allow_on_submit",
 					"Sales Order-payment_terms_template-label",
 					"Sales Invoice-items-read_only_depends_on",
+					"Sales Invoice-is_return-depends_on",
+					"Sales Invoice-outstanding_amount-allow_on_submit",
+					"Sales Invoice Advance-allocated_amount-depends_on",
+					"Sales Invoice Item-sales_order-read_only_depends_on",
 					"Sales Invoice-taxes-read_only_depends_on",
-					"Quotation-payment_schedule-label",
-					"Quotation-payment_terms_template-label",
-					"Purchase Order Item-supplier_part_no-print_hide",
-					"Purchase Order Item-supplier_part_no-hidden",
-					"Purchase Order Item-supplier_part_no-read_only",
-					"Request for Quotation Item-supplier_part_no-hidden",
-					"Request for Quotation Item-supplier_part_no-read_only",
 					"Stock Entry Type-main-translated_doctype",
 					"Supplier-tax_category-fetch_if_empty",
 					"Supplier-tax_category-fetch_from",
@@ -209,6 +215,20 @@ fixtures = [
 			]
 		],
 	},
+	{
+		"dt": "Workspace Link",
+		"filters": [
+			[
+				"name",
+				"in",
+				(
+					"special_item_accountancy_code",
+					"category_accounting_thirdparty",
+					"special_item_accountancy_code_default",
+				),
+			],
+		],
+	},
 ]
 
 
@@ -235,9 +255,17 @@ app_include_js = ["erpnext_france.bundle.js"]
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 doctype_js = {
-	"Customer": ["public/js/party.js", "public/js/party_check_vat.js"],
+	"Customer": [
+		"public/js/party.js",
+		"public/js/party_check_vat.js",
+		"public/js/customer.js",
+	],
 	"Customer Group": ["public/js/customer_group.js"],
-	"Supplier": ["public/js/party.js", "public/js/party_check_vat.js"],
+	"Supplier": [
+		"public/js/party.js",
+		"public/js/party_check_vat.js",
+		"public/js/supplier.js",
+	],
 	"Sales Order": ["public/js/sales_order.js"],
 	"Purchase Invoice": ["public/js/purchase_invoice.js"],
 	"Sales Invoice": ["public/js/sales_invoice.js"],
@@ -247,13 +275,19 @@ doctype_js = {
 }
 
 doctype_list_js = {
-	"Customer": ["public/js/fetch_from_sirene.js"],
+	"Customer": [
+		"public/js/fetch_from_sirene.js",
+	],
 	"Supplier": ["public/js/fetch_from_sirene.js"],
 	"Payment Entry": ["public/js/payment_entry_list.js"],
 	"Item Price": ["public/js/item_price_list.js"],
 	"Task": ["public/js/task_list.js"],
 }
-
+doctype_js = {
+	"Customer": ["custom_scripts_js/customer.js"],
+	"Supplier": ["custom_scripts_js/supplier.js"],
+	"Item": ["custom_scripts_js/item.js"],
+}
 # Home Pages
 # ----------
 
@@ -319,8 +353,10 @@ after_migrate = [
 # 		"on_trash": "method"
 # }
 # }
+
 doc_events = {
 	"Purchase Invoice": {
+		"validate": "erpnext_france.controllers.item_account_gl.get_correct_default_account_validate",
 		"on_submit": "erpnext_france.erpnext_france.purchase_invoice.purchase_invoice.correct_gl_entry_supplier_discount",
 		"before_save": [
 			"erpnext_france.controllers.supplier_item_no.before_save",
@@ -345,6 +381,7 @@ doc_events = {
 			"erpnext_france.utils.transaction_log.create_transaction_log",
 		],
 		"before_save": "erpnext_france.controllers.taxes.before_save",
+		"validate": "erpnext_france.controllers.item_account_gl.get_correct_default_account_validate",
 	},
 	"Sales Order": {
 		"before_update_after_submit": "erpnext_france.controllers.sales_order.verify_sales_orders_terms",
@@ -410,6 +447,7 @@ override_whitelisted_methods = {
 	"erpnext.accounts.doctype.account.chart_of_accounts.chart_of_accounts.get_charts_for_country": "erpnext_france.erpnext_france.overrides.doctype.chart_of_accounts.get_charts_for_country_fr",
 	"erpnext.accounts.utils.get_coa": "erpnext_france.erpnext_france.overrides.doctype.chart_of_accounts.get_coa",
 	"erpnext.selling.doctype.customer.customer.make_quotation": "erpnext_france.controllers.party.make_quotation_with_payment_terms",
+	"erpnext.stock.get_item_details.get_item_details": "erpnext_france.controllers.item_account_gl.get_item_details_account_code",
 }
 
 # Regional Overrides
