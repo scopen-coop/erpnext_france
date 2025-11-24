@@ -174,6 +174,9 @@ class PaymentEntryDownPayment(PaymentEntry):
 						"account_currency": self.paid_from_account_currency,
 						"against": self.party if self.payment_type == "Pay" else self.paid_to,
 						"credit_in_account_currency": self.paid_amount,
+						"credit_in_transaction_currency": self.paid_amount
+						if self.paid_from_account_currency == self.transaction_currency
+						else self.base_paid_amount / self.transaction_exchange_rate,
 						"credit": self.base_paid_amount,
 						"cost_center": self.cost_center,
 						"accounting_journal": self.accounting_journal,  # Erpnext France
@@ -182,7 +185,6 @@ class PaymentEntryDownPayment(PaymentEntry):
 					item=self,
 				)
 			)
-
 		if self.payment_type in ("Receive", "Internal Transfer"):
 			gl_entries.append(
 				self.get_gl_dict(
@@ -191,6 +193,9 @@ class PaymentEntryDownPayment(PaymentEntry):
 						"account_currency": self.paid_to_account_currency,
 						"against": self.party if self.payment_type == "Receive" else self.paid_from,
 						"debit_in_account_currency": self.received_amount,
+						"debit_in_transaction_currency": self.received_amount
+						if self.paid_to_account_currency == self.transaction_currency
+						else self.base_received_amount / self.transaction_exchange_rate,
 						"debit": self.base_received_amount,
 						"cost_center": self.cost_center,
 						"accounting_journal": self.accounting_journal,  # Erpnext France
@@ -198,41 +203,6 @@ class PaymentEntryDownPayment(PaymentEntry):
 					item=self,
 				)
 			)
-
-		if self.payment_type == "Internal Transfer":
-			inter_banks_transfer_account = frappe.get_cached_value(
-				"Company", self.company, "inter_banks_transfer_account"
-			)
-			if inter_banks_transfer_account:
-				gl_entries.append(
-					self.get_gl_dict(
-						{
-							"account": inter_banks_transfer_account,
-							"account_currency": self.paid_from_account_currency,
-							"against": self.paid_from,
-							"debit_in_account_currency": self.paid_amount,
-							"debit": self.base_paid_amount,
-							"cost_center": self.cost_center,
-							"accounting_journal": self.accounting_journal,  # Erpnext France
-						},
-						item=self,
-					)
-				)
-
-				gl_entries.append(
-					self.get_gl_dict(
-						{
-							"account": inter_banks_transfer_account,
-							"account_currency": self.paid_to_account_currency,
-							"against": self.paid_to,
-							"credit_in_account_currency": self.paid_amount,
-							"credit": self.base_paid_amount,
-							"cost_center": self.cost_center,
-							"accounting_journal": self.accounting_journal,  # Erpnext France
-						},
-						item=self,
-					)
-				)
 
 	def add_tax_gl_entries(self, gl_entries):
 		for d in self.get("taxes"):
@@ -262,6 +232,8 @@ class PaymentEntryDownPayment(PaymentEntry):
 						dr_or_cr + "_in_account_currency": base_tax_amount
 						if account_currency == self.company_currency
 						else d.tax_amount,
+						dr_or_cr + "_in_transaction_currency": base_tax_amount
+						/ self.transaction_exchange_rate,
 						"cost_center": d.cost_center,
 						"post_net_value": True,
 						"accounting_journal": self.accounting_journal,  # Erpnext France
@@ -288,6 +260,8 @@ class PaymentEntryDownPayment(PaymentEntry):
 							rev_dr_or_cr + "_in_account_currency": base_tax_amount
 							if account_currency == self.company_currency
 							else d.tax_amount,
+							rev_dr_or_cr + "_in_transaction_currency": base_tax_amount
+							/ self.transaction_exchange_rate,
 							"cost_center": self.cost_center,
 							"post_net_value": True,
 							"accounting_journal": self.accounting_journal,  # Erpnext France
@@ -299,82 +273,25 @@ class PaymentEntryDownPayment(PaymentEntry):
 
 	def add_deductions_gl_entries(self, gl_entries):
 		for d in self.get("deductions"):
-			if d.amount:
-				account_currency = get_account_currency(d.account)
-				if account_currency != self.company_currency:
-					frappe.throw(_("Currency for {0} must be {1}").format(d.account, self.company_currency))
+			if not d.amount:
+				continue
 
-				gl_entries.append(
-					self.get_gl_dict(
-						{
-							"account": d.account,
-							"account_currency": account_currency,
-							"against": self.party or self.paid_from,
-							"debit_in_account_currency": d.amount,
-							"debit": d.amount,
-							"cost_center": d.cost_center,
-							"accounting_journal": self.accounting_journal,  # Erpnext France
-						},
-						item=d,
-					)
-				)
+			account_currency = get_account_currency(d.account)
+			if account_currency != self.company_currency:
+				frappe.throw(_("Currency for {0} must be {1}").format(d.account, self.company_currency))
 
-	def get_cash_flow_journal(self, account):  # Erpnext France
-		rules = frappe.get_all(
-			"Accounting Journal",
-			filters={"company": self.company, "disabled": 0},
-			fields=[
-				"name",
-				"type",
-				"account",
-				"`tabAccounting Journal Rule`.document_type",
-				"`tabAccounting Journal Rule`.condition",
-			],
-		)
-
-		applicable_rules = [
-			rule for rule in rules if (rule.document_type == self.doctype and rule.account == account)
-		]
-
-		for condition in [rule for rule in applicable_rules if rule.condition]:
-			if frappe.safe_eval(condition.condition, None, {"doc": self.as_dict()}):
-				return condition.name
-
-		if [rule for rule in applicable_rules if not rule.condition]:
-			rules = next([rule for rule in applicable_rules if not rule.condition])
-			return rules.name
-
-	def update_advance_paid(self):
-		if self.payment_type in ("Receive", "Pay") and self.party:
-			for d in self.get("references"):
-				if d.allocated_amount and d.reference_doctype in frappe.get_hooks("advance_payment_doctypes"):
-					doc = frappe.get_doc(d.reference_doctype, d.reference_name, for_update=True)
-					set_total_advance_paid(doc)
-
-				if d.allocated_amount and d.reference_doctype == "Sales Invoice":  # Erpnext France
-					so = frappe.db.get_value(
-						"Sales Invoice Item",
-						{"parenttype": "Sales Invoice", "parent": d.reference_name},
-						"sales_order",
-					)
-					if so:
-						doc = frappe.get_doc("Sales Order", so, for_update=True)
-
-						set_total_advance_paid(doc)
-
-	def set_advance_reference_for_down_payments(self):  # @dokos
-		for ref in self.references:
-			if ref.reference_doctype == "Sales Invoice" and frappe.db.get_value(
-				ref.reference_doctype, ref.reference_name, "is_down_payment_invoice"
-			):
-				if sales_order := frappe.db.get_value(
-					"Sales Invoice Item",
+			gl_entries.append(
+				self.get_gl_dict(
 					{
-						"parenttype": ref.reference_doctype,
-						"parent": ref.reference_name,
-						"sales_order": ("is", "set"),
+						"account": d.account,
+						"account_currency": account_currency,
+						"against": self.party or self.paid_from,
+						"debit_in_account_currency": d.amount,
+						"debit_in_transaction_currency": d.amount / self.transaction_exchange_rate,
+						"debit": d.amount,
+						"cost_center": d.cost_center,
+						"accounting_journal": self.accounting_journal,  # Erpnext France
 					},
-					"sales_order",
-				):
-					ref.advance_voucher_type = "Sales Order"
-					ref.advance_voucher_no = sales_order
+					item=d,
+				)
+			)

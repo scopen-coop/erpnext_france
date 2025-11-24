@@ -248,7 +248,6 @@ app_include_js = ["erpnext_france.bundle.js"]
 
 # include js in page
 # page_js = {"page" : "public/js/file.js"}
-
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
@@ -266,7 +265,7 @@ doctype_js = {
 		"public/js/party_check_vat.js",
 		"public/js/supplier.js",
 	],
-	"Sales Order": ["public/js/sales_order.js"],
+	"Sales Order": "public/js/sales_order.js",
 	"Purchase Invoice": ["public/js/purchase_invoice.js"],
 	"Sales Invoice": ["public/js/sales_invoice.js"],
 	"Quotation": ["public/js/quotation.js"],
@@ -283,11 +282,7 @@ doctype_list_js = {
 	"Item Price": ["public/js/item_price_list.js"],
 	"Task": ["public/js/task_list.js"],
 }
-doctype_js = {
-	"Customer": ["custom_scripts_js/customer.js"],
-	"Supplier": ["custom_scripts_js/supplier.js"],
-	"Item": ["custom_scripts_js/item.js"],
-}
+
 # Home Pages
 # ----------
 
@@ -439,13 +434,13 @@ doc_events = {
 # ------------------------------
 #
 override_whitelisted_methods = {
-	"erpnext.controllers.accounts_controller.get_payment_term_details": "erpnext_france.controllers.party.get_payment_term_details",
+	"erpnext.controllers.accounts_controller.get_payment_term_details": "erpnext_france.controllers.accounts_controller.get_payment_term_details",
 	"erpnext.accounts.party.get_party_details": "erpnext_france.controllers.party.get_party_details",
-	"erpnext.selling.doctype.sales_order.sales_order.make_sales_invoice": "erpnext_france.controllers.sales_order.make_sales_invoice_with_payment_terms",
 	"erpnext.accounts.doctype.account.chart_of_accounts.chart_of_accounts.get_chart": "erpnext_france.erpnext_france.overrides.doctype.chart_of_accounts.get_chart_fr",
 	"erpnext.accounts.doctype.account.chart_of_accounts.chart_of_accounts.build_tree_from_json": "erpnext_france.erpnext_france.overrides.doctype.chart_of_accounts.build_tree_from_json",
 	"erpnext.accounts.doctype.account.chart_of_accounts.chart_of_accounts.get_charts_for_country": "erpnext_france.erpnext_france.overrides.doctype.chart_of_accounts.get_charts_for_country_fr",
 	"erpnext.accounts.utils.get_coa": "erpnext_france.erpnext_france.overrides.doctype.chart_of_accounts.get_coa",
+	"erpnext.selling.doctype.sales_order.sales_order.make_sales_invoice": "erpnext_france.controllers.sales_order.make_sales_invoice_with_payment_terms",
 	"erpnext.selling.doctype.customer.customer.make_quotation": "erpnext_france.controllers.party.make_quotation_with_payment_terms",
 	"erpnext.stock.get_item_details.get_item_details": "erpnext_france.controllers.item_account_gl.get_item_details_account_code",
 }

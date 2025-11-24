@@ -1,38 +1,35 @@
 # Copyright (c) 2023, Scopen and contributors
 # For license information, please see license.txt
 
-import frappe
-from frappe import _, scrub
 import erpnext
+import frappe
 from erpnext import get_company_currency
-from frappe.utils import cint, flt, getdate, add_days, nowdate
-from erpnext.controllers.accounts_controller import get_discount_date
-from erpnext.selling.doctype.quotation.quotation import make_sales_order
-
 from erpnext.accounts.party import (
-	get_party_gle_currency,
-	get_party_gle_account,
 	get_due_date,
+	get_party_advance_account,
+	get_party_gle_account,
+	get_party_gle_currency,
 	set_address_details,
 	set_contact_details,
 	set_other_values,
 	set_price_list,
-	set_taxes
+	set_taxes,
 )
+from erpnext.selling.doctype.quotation.quotation import make_sales_order
+from frappe import _, scrub
+from frappe.utils import add_days, cint, flt, getdate, nowdate
+
+from erpnext_france.controllers.accounts_controller import get_payment_term_details
 
 
 @frappe.whitelist()
-def get_party_account(
-	party_type,
-	party=None,
-	company=None,
-	include_advance=False,
-	down_payment=None
-):
+def get_party_account(party_type, party=None, company=None, include_advance=False, down_payment=None):
 	"""Returns the account for the given `party`.
 	Will first search in party (Customer / Supplier) record, if not found,
 	will search in group (Customer Group / Supplier Group),
 	finally will return default."""
+	if not party_type:
+		frappe.throw(_("Party Type is mandatory"))
 	if not company:
 		frappe.throw(_("Please select a Company"))
 
@@ -40,11 +37,13 @@ def get_party_account(
 		default_account_name = (
 			"default_receivable_account" if party_type == "Customer" else "default_payable_account"
 		)
+
 		return frappe.get_cached_value("Company", company, default_account_name)
 
 	account = frappe.db.get_value(
 		"Party Account", {"parenttype": party_type, "parent": party, "company": company}, "account"
 	)
+
 	if not account and party_type in ["Customer", "Supplier"]:
 		party_group_doctype = "Customer Group" if party_type == "Customer" else "Supplier Group"
 		group = frappe.get_cached_value(party_type, party, scrub(party_group_doctype))
@@ -67,37 +66,20 @@ def get_party_account(
 		if (account and account_currency != existing_gle_currency) or not account:
 			account = get_party_gle_account(party_type, party, company)
 
-	# TODO: create a hook for this function
+	# get default account on the basis of party type
+	if not account:
+		account_type = frappe.get_cached_value("Party Type", party_type, "account_type")
+		default_account_name = "default_" + account_type.lower() + "_account"
+		account = frappe.get_cached_value("Company", company, default_account_name)
+
+	# ERPNEXT FRANCE
 	if (include_advance or cint(down_payment)) and party_type in ["Customer", "Supplier", "Student"]:
-		if advance_account := get_party_advance_account(party_type, party, company):
-			return [advance_account] if include_advance else advance_account
-
-	return account
-
-
-def get_party_advance_account(party_type, party, company):
-	account = frappe.db.get_value(
-		"Party Account",
-		{"parenttype": party_type, "parent": party, "company": company},
-		"advance_account",
-	)
-
-	if not account:
-		party_group_doctype = "Customer Group" if party_type == "Customer" else "Supplier Group"
-		group = frappe.get_cached_value(party_type, party, scrub(party_group_doctype))
-		account = frappe.db.get_value(
-			"Party Account",
-			{"parenttype": party_group_doctype, "parent": group, "company": company},
-			"advance_account",
-		)
-
-	if not account:
-		account_name = (
-			"default_advance_received_account"
-			if party_type == "Customer"
-			else "default_advance_paid_account"
-		)
-		account = frappe.get_cached_value("Company", company, account_name)
+		# END ERPNEXT FRANCE
+		advance_account = get_party_advance_account(party_type, party, company)
+		if advance_account:
+			return [account, advance_account]
+		else:
+			return [account]
 
 	return account
 
@@ -118,6 +100,7 @@ def get_party_details(
 	party_address=None,
 	company_address=None,
 	shipping_address=None,
+	dispatch_address=None,
 	pos_profile=None,
 	down_payment=None,
 ):
@@ -140,6 +123,7 @@ def get_party_details(
 		party_address,
 		company_address,
 		shipping_address,
+		dispatch_address,
 		pos_profile,
 		down_payment,
 	)
@@ -160,23 +144,24 @@ def _get_party_details(
 	party_address=None,
 	company_address=None,
 	shipping_address=None,
+	dispatch_address=None,
 	pos_profile=None,
 	down_payment=None,
 ):
+	# ERPNEXT FRANCE
 	party_details = frappe._dict(
 		set_account_and_due_date(
 			party, account, party_type, company, posting_date, bill_date, doctype, down_payment
 		)
 	)
+	# END ERPNEXT FRANCE
 	party = party_details[party_type.lower()]
-
-	if not ignore_permissions and not (
-		frappe.has_permission(party_type, "read", party)
-		or frappe.has_permission(party_type, "select", party)
-	):
-		frappe.throw(_("Not permitted for {0}").format(party), frappe.PermissionError)
-
 	party = frappe.get_doc(party_type, party)
+
+	if not ignore_permissions:
+		ptype = "select" if frappe.only_has_select_perm(party_type) else "read"
+		frappe.has_permission(party_type, ptype, party, throw=True)
+
 	currency = party.get("default_currency") or currency or get_company_currency(company)
 
 	party_address, shipping_address = set_address_details(
@@ -188,10 +173,13 @@ def _get_party_details(
 		party_address,
 		company_address,
 		shipping_address,
+		dispatch_address,
+		ignore_permissions=ignore_permissions,
 	)
 	set_contact_details(party_details, party, party_type)
 	set_other_values(party_details, party, party_type)
 	set_price_list(party_details, party, party_type, price_list, pos_profile)
+
 	tax_template = set_taxes(
 		party.name,
 		party_type,
@@ -208,9 +196,7 @@ def _get_party_details(
 		party_details["taxes_and_charges"] = tax_template
 
 	if cint(fetch_payment_terms_template):
-		party_details["payment_terms_template"] = get_payment_terms_template(
-			party.name, party_type, doctype, company
-		)
+		party_details["payment_terms_template"] = get_payment_terms_template(party.name, party_type, company)
 
 	if not party_details.get("currency"):
 		party_details["currency"] = currency
@@ -228,29 +214,25 @@ def _get_party_details(
 
 	# supplier tax withholding category
 	if party_type == "Supplier" and party:
-		party_details["supplier_tds"] = frappe.get_value(
-			party_type, party.name, "tax_withholding_category"
-		)
+		party_details["supplier_tds"] = frappe.get_value(party_type, party.name, "tax_withholding_category")
+
+	if not party_details.get("tax_category") and pos_profile:
+		party_details["tax_category"] = frappe.get_value("POS Profile", pos_profile, "tax_category")
 
 	return party_details
 
 
 def set_account_and_due_date(
-	party,
-	account,
-	party_type,
-	company,
-	posting_date,
-	bill_date,
-	doctype,
-	down_payment
+	party, account, party_type, company, posting_date, bill_date, doctype, down_payment
 ):
 	if doctype not in ["POS Invoice", "Sales Invoice", "Purchase Invoice"]:
 		# not an invoice
 		return {party_type.lower(): party}
 
 	if party:
+		# ERPNEXT FRANCE
 		account = get_party_account(party_type, party, company, down_payment)
+		# END ERPNEXT FRANCE
 
 	account_fieldname = "debit_to" if party_type == "Customer" else "credit_to"
 	out = {
@@ -267,22 +249,20 @@ def get_payment_terms_template(party_name, party_type, doctype, company=None):
 		return
 
 	if party_type == "Customer":
-		if doctype in ('Quotation', 'Sales Order'):
+		# ERPNEXT FRANCE
+		if doctype in ("Quotation", "Sales Order"):
 			payment_terms_template_field = "default_payment_terms_template_before_invoice"
 		else:
-			payment_terms_template_field = 'payment_terms'
+			payment_terms_template_field = "payment_terms"
 		customer = frappe.get_cached_value(
-			"Customer",
-			party_name,
-			fieldname=[payment_terms_template_field, "customer_group"],
-			as_dict=1
+			"Customer", party_name, fieldname=[payment_terms_template_field, "customer_group"], as_dict=1
 		)
-		if doctype in ('Quotation', 'Sales Order'):
+		if doctype in ("Quotation", "Sales Order"):
 			template = customer.default_payment_terms_template_before_invoice
 		else:
 			template = customer.payment_terms
+		# END ERPNEXT FRANCE
 
-		# payment_terms_before_invoice on customer group
 		if not template and customer.customer_group:
 			template = frappe.get_cached_value("Customer Group", customer.customer_group, "payment_terms")
 	else:
@@ -303,18 +283,19 @@ def get_payment_terms_template(party_name, party_type, doctype, company=None):
 def make_quotation_with_payment_terms(source_name, target_doc=None):
 	from erpnext.selling.doctype.customer.customer import make_quotation
 
-	target_doc  = make_quotation(source_name, target_doc=None)
-	customer = frappe.get_cached_doc('Customer', source_name)
+	target_doc = make_quotation(source_name, target_doc)
+	customer = frappe.get_cached_doc("Customer", source_name)
 	target_doc.payment_terms_template = customer.default_payment_terms_template_before_invoice
 
 	payment_schedule = get_payment_terms_before_invoice(
 		doctype=target_doc.doctype,
 		posting_date=nowdate(),
-		payment_terms_template=target_doc.payment_terms_template
+		payment_terms_template=target_doc.payment_terms_template,
 	)
 
-	target_doc.set('payment_schedule', payment_schedule)
+	target_doc.set("payment_schedule", payment_schedule)
 	return target_doc
+
 
 @frappe.whitelist()
 def get_payment_terms_before_invoice(
@@ -323,9 +304,9 @@ def get_payment_terms_before_invoice(
 	base_grand_total=None,
 	posting_date=None,
 	delivery_date=None,
-	payment_terms_template=None
+	payment_terms_template=None,
 ):
-	if doctype not in ('Quotation', 'Sales Order'):
+	if doctype not in ("Quotation", "Sales Order"):
 		return
 
 	if not payment_terms_template:
@@ -336,60 +317,8 @@ def get_payment_terms_before_invoice(
 	if terms_doc.get("payment_terms_before_invoice"):
 		for d in terms_doc.get("payment_terms_before_invoice"):
 			term_details = get_payment_term_details(
-				d,
-				posting_date,
-				grand_total,
-				base_grand_total,
-				delivery_date
+				d, posting_date, grand_total, base_grand_total, delivery_date
 			)
 			schedule.append(term_details)
 
 	return schedule
-
-
-@frappe.whitelist()
-def get_payment_term_details(
-	term,
-	posting_date=None,
-	grand_total=None,
-	base_grand_total=None,
-	delivery_date=None
-):
-	term_details = frappe._dict()
-	if isinstance(term, str):
-		term = frappe.get_doc("Payment Term", term)
-	else:
-		term_details.payment_term = term.get('payment_term')
-
-	term_details.description = term.get('description')
-	term_details.invoice_portion = term.get('invoice_portion')
-	term_details.payment_amount = flt(term.get('invoice_portion')) * flt(grand_total) / 100
-	term_details.base_payment_amount = flt(term.get('invoice_portion')) * flt(base_grand_total) / 100
-	term_details.outstanding = term_details.get('payment_amount')
-	term_details.mode_of_payment = term.get('mode_of_payment')
-
-	term_details.due_date = get_due_date_before_invoice(term, posting_date, delivery_date)
-
-	term_details.discount_type = term.get('discount_type')
-	term_details.discount = term.get('discount')
-
-	if term.get('discount_validity_based_on'):
-		term_details.discount_date = get_discount_date(term, posting_date, delivery_date)
-	else:
-		term_details.discount_date = None
-
-	if getdate(term_details.due_date) < getdate(posting_date):
-		term_details.due_date = posting_date
-
-	return term_details
-
-
-def get_due_date_before_invoice(term, document_date, delivery_date):
-	due_date = None
-	if term.get('date_computed_based_on') == "Document Date":
-		due_date = document_date
-	elif term.get('date_computed_based_on') == "Delivery Date":
-		if not term.get('credit_days'):
-			return delivery_date or document_date
-		due_date = add_days(delivery_date, term.get('credit_days'))
-	return due_date

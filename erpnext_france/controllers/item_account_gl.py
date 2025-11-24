@@ -13,6 +13,8 @@ from erpnext.stock.get_item_details import (
 )
 from frappe import _, get_hooks
 
+# from erpnext.stock.get_item_details import process_string_args, validate_item_details
+
 
 @frappe.whitelist()
 def get_item_details_account_code(args, doc=None, for_validate=False, overwrite_warehouse=True):
@@ -37,6 +39,8 @@ def get_item_details_account_code(args, doc=None, for_validate=False, overwrite_
 	else:
 		# standard feature
 		out = get_item_details(args, doc, for_validate, overwrite_warehouse)
+
+	# ERPNEXT FRANCE: after standard execution
 
 	# return out
 	# Process arges and doc to use it as object
