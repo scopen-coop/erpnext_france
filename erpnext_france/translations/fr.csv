@@ -650,3 +650,4 @@ Down Payment By Percent should be between 0 and 100, La valeur de l'acompte en p
 Down Payment By Percent should be an integer, La valeur de l'acompte en pourcentage doit être un nombre entier,
 Down Payment By Amount should be between 0 and total, La valeur de l'acompte en montant doit être un nombre entier compris entre 0 et le total de la commande,
 Disassembled Qty,Quantité de désassemblage
+Rate,Taux,Expense Taxes and Charges
