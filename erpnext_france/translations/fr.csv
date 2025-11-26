@@ -651,3 +651,6 @@ Down Payment By Percent should be an integer, La valeur de l'acompte en pourcent
 Down Payment By Amount should be between 0 and total, La valeur de l'acompte en montant doit être un nombre entier compris entre 0 et le total de la commande,
 Disassembled Qty,Quantité de désassemblage
 Rate,Taux,Expense Taxes and Charges
+Clear & Add Template,Appliquer le modèle
+Prepend the template to the email message,Ajouter le contenu du modèle à la suite
+Clear the email message and add the template,Remplacer par le contenu du modèle
