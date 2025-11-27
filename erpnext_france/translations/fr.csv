@@ -650,3 +650,7 @@ Down Payment By Percent should be between 0 and 100, La valeur de l'acompte en p
 Down Payment By Percent should be an integer, La valeur de l'acompte en pourcentage doit être un nombre entier,
 Down Payment By Amount should be between 0 and total, La valeur de l'acompte en montant doit être un nombre entier compris entre 0 et le total de la commande,
 Disassembled Qty,Quantité de désassemblage
+Special Item Accountancy Code,Code comptable produit spécifiques
+Cutomer accountancy category is missing,La catégorie comptable du tier est manquante
+Special Item Accountancy Code Default,Code par défaut par catégorie comptable
+Special Item Accountancy Code Setup, Configuration des codes par défaut par catégorie comptable

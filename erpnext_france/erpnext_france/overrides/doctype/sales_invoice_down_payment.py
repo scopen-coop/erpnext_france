@@ -19,7 +19,7 @@ from erpnext.assets.doctype.asset.depreciation import (
 from erpnext.controllers.accounts_controller import validate_account_head
 from erpnext.setup.doctype.company.company import update_company_current_month_sales
 from frappe import _
-from frappe.utils import cint, flt
+from frappe.utils import cint, flt, get_link_to_form
 
 from erpnext_france.controllers.accounts_controller import (
 	make_exchange_gain_loss_gl_entries,
@@ -209,6 +209,7 @@ class SalesInvoiceDownPayment(SalesInvoice):
 								"credit_in_transaction_currency": flt(amount, item.precision("net_amount")),
 								"cost_center": item.cost_center,
 								"project": item.project or self.project,
+								"accounting_journal": self.accounting_journal,
 							},
 							account_currency,
 							item=item,
@@ -217,4 +218,4 @@ class SalesInvoiceDownPayment(SalesInvoice):
 
 		# expense account gl entries
 		if cint(self.update_stock) and is_perpetual_inventory_enabled(self.company):
-			gl_entries += super().get_gl_entries()
+			gl_entries += super(SalesInvoice, self).get_gl_entries()

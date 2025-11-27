@@ -1,33 +1,32 @@
 // Copyright (c) 2021, Scopen and contributors
 // For license information, please see license.txt
-frappe.ui.form.on("Sales Order", "refresh", async function (frm) {
-  frm.set_query("payment_terms_template", function () {
-    return {
-      filters: {
-        template_payment_terms_before_invoice: 1,
-      },
-    };
-  });
-  frm.set_query("payment_term", "payment_schedule", function (frm, cdt, cdn) {
-    return {
-      filters: {
-        payment_terms_before_invoice: 1,
-      },
-    };
-  });
-  if (frm.doc.docstatus == 1) {
-    frm.add_custom_button(
-      __("Down Payment Invoice"),
-      () => {
-        display_dialog_create_down_payment_invoice(frm);
-      },
-      __("Create")
-    );
-  }
-  await prevent_term_modification_if_payment_exist(frm);
-});
-
 frappe.ui.form.on("Sales Order", {
+  refresh: async function (frm) {
+    frm.set_query("payment_terms_template", function () {
+      return {
+        filters: {
+          template_payment_terms_before_invoice: 1,
+        },
+      };
+    });
+    frm.set_query("payment_term", "payment_schedule", function (frm, cdt, cdn) {
+      return {
+        filters: {
+          payment_terms_before_invoice: 1,
+        },
+      };
+    });
+    if (frm.doc.docstatus == 1) {
+      frm.add_custom_button(
+        __("Down Payment Invoice"),
+        () => {
+          display_dialog_create_down_payment_invoice(frm);
+        },
+        __("Create")
+      );
+    }
+    await prevent_term_modification_if_payment_exist(frm);
+  },
   delivery_date: function (frm) {
     frm.trigger("payment_terms_template");
   },

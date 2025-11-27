@@ -10,11 +10,11 @@ from erpnext.accounts.doctype.accounting_dimension.accounting_dimension import (
 )
 from erpnext.accounts.party import get_party_account
 from erpnext.accounts.utils import get_account_currency, reconcile_against_document
-from erpnext.controllers.accounts_controller import get_advance_journal_entries
+from erpnext.controllers.accounts_controller import get_advance_journal_entries, get_discount_date
 from frappe import _
 from frappe.query_builder.custom import ConstantColumn
 from frappe.query_builder.functions import Abs, Sum
-from frappe.utils import cint, flt, fmt_money
+from frappe.utils import add_days, cint, flt, fmt_money, getdate
 
 
 @frappe.whitelist()
@@ -428,3 +428,61 @@ def get_advance_payment_entries(
 		)
 
 	return list(payment_entries_against_order)
+
+
+@frappe.whitelist()
+def get_payment_term_details(
+	term, posting_date=None, grand_total=None, base_grand_total=None, bill_date=None
+):
+	term_details = frappe._dict()
+	if isinstance(term, str):
+		term = frappe.get_doc("Payment Term", term)
+	else:
+		term_details.payment_term = term.get("payment_term")
+
+	fields_to_copy = [
+		"description",
+		"invoice_portion",
+		"discount_type",
+		"discount",
+		"mode_of_payment",
+		"due_date_based_on",
+		"credit_days",
+		"credit_months",
+		"discount_validity_based_on",
+		"discount_validity",
+	]
+
+	for field in fields_to_copy:
+		term_details[field] = term.get(field)
+
+	term_details.payment_amount = flt(term.invoice_portion) * flt(grand_total) / 100
+	term_details.base_payment_amount = flt(term.invoice_portion) * flt(base_grand_total) / 100
+	term_details.outstanding = term_details.get("payment_amount")
+	term_details.base_outstanding = term_details.base_payment_amount
+
+	if bill_date:
+		term_details.discount_date = get_discount_date(term, bill_date)
+	elif posting_date:
+		term_details.discount_date = get_discount_date(term, posting_date)
+
+	# ERPNEXT FRANCE
+	term_details.due_date = get_due_date_before_invoice(term, posting_date, bill_date)
+	# END ERPNEXT FRANCE
+
+	if getdate(term_details.due_date) < getdate(posting_date):
+		term_details.due_date = posting_date
+
+	return term_details
+
+
+# ERPNEXT FRANCE
+def get_due_date_before_invoice(term, posting_date, bill_date):
+	due_date = None
+	if term.get("date_computed_based_on") == "Document Date":
+		due_date = posting_date
+	elif term.get("date_computed_based_on") == "Delivery Date":
+		if not term.get("credit_days"):
+			return bill_date or posting_date
+		due_date = add_days(bill_date, term.get("credit_days"))
+	return due_date
