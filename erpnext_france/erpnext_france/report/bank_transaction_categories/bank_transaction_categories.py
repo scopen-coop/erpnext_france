@@ -26,7 +26,7 @@ def get_data(filters=None):
 			"company": filters["company"],
 			filters.get("transaction_type"): (">", 0.0),
 		},
-		fields=["category", f'sum({filters.get("transaction_type")}) as amount'],
+		fields=["category", {"SUM": "transaction_type", "as": "amount"}],
 		group_by="category",
 	)
 
