@@ -122,7 +122,7 @@ display_dialog_create_down_payment_item = function (frm, company) {
       },
     ],
     size: "small", // small, large, extra-large
-    primary_action_label: "Submit",
+    primary_action_label: _("Submit"),
     primary_action(values) {
       frm.call({
         method:

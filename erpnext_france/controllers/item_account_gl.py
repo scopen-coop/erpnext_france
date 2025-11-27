@@ -7,7 +7,6 @@ import json
 import frappe
 from erpnext.stock.get_item_details import (
 	get_item_details,
-	process_args,
 	purchase_doctypes,
 	sales_doctypes,
 )
@@ -44,7 +43,7 @@ def get_item_details_account_code(args, doc=None, for_validate=False, overwrite_
 
 	# return out
 	# Process arges and doc to use it as object
-	args = process_args(args)
+	args = frappe.dict(args)
 	if isinstance(doc, str):
 		doc = json.loads(doc)
 
@@ -136,25 +135,26 @@ def get_correct_default_account(third_party, type_thirdparty, item_code):
 
 @frappe.whitelist()
 def get_correct_default_account_validate(doc, method):
-	if doc:
-		if doc.get("doctype") in purchase_doctypes:
-			supplier = frappe.get_doc("Supplier", doc.supplier)
-			if supplier.get("categorie_comptable_tiers") is None or (
-				supplier.get("categorie_comptable_tiers") == ""
-			):
-				frappe.throw(_("Cutomer accountancy category is missing"))
-			for itm in doc.items:
-				account = get_correct_default_account(doc.supplier, "Supplier", itm.item_code)
-				if account:
-					itm.expense_account = account
-
-		if doc.get("doctype") in sales_doctypes:
-			customer = frappe.get_doc("Customer", doc.customer)
-			if (customer.get("categorie_comptable_tiers") is None) or (
-				customer.get("categorie_comptable_tiers") == ""
-			):
-				frappe.throw(_("Cutomer accountancy category is missing"))
-			for itm in doc.items:
-				account = get_correct_default_account(doc.customer, "Customer", itm.item_code)
-				if account:
-					itm.income_account = account
+	pass
+	# if doc:
+	# 	if doc.get("doctype") in purchase_doctypes:
+	# 		supplier = frappe.get_doc("Supplier", doc.supplier)
+	# 		if supplier.get("categorie_comptable_tiers") is None or (
+	# 			supplier.get("categorie_comptable_tiers") == ""
+	# 		):
+	# 			frappe.throw(_("Cutomer accountancy category is missing"))
+	# 		for itm in doc.items:
+	# 			account = get_correct_default_account(doc.supplier, "Supplier", itm.item_code)
+	# 			if account:
+	# 				itm.expense_account = account
+	#
+	# 	if doc.get("doctype") in sales_doctypes:
+	# 		customer = frappe.get_doc("Customer", doc.customer)
+	# 		if (customer.get("categorie_comptable_tiers") is None) or (
+	# 			customer.get("categorie_comptable_tiers") == ""
+	# 		):
+	# 			frappe.throw(_("Cutomer accountancy category is missing"))
+	# 		for itm in doc.items:
+	# 			account = get_correct_default_account(doc.customer, "Customer", itm.item_code)
+	# 			if account:
+	# 				itm.income_account = account

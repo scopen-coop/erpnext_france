@@ -29,6 +29,7 @@ def create_down_payment_item(company, item_group, income_account, expense_accoun
 	down_payment_item.is_down_payment_item = 1
 	down_payment_item.is_stock_item = 0
 	down_payment_item.item_group = item_group
+	down_payment_item.stock_uom = 'Unit'
 	down_payment_item.insert(ignore_permissions=True)
 
 	# Item default creation

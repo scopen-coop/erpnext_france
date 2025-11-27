@@ -99,8 +99,9 @@ class PaymentEntryDownPayment(PaymentEntry):
 						dr_or_cr + "_in_transaction_currency": d.allocated_amount
 						if self.transaction_currency == self.party_account_currency
 						else allocated_amount_in_company_currency / self.transaction_exchange_rate,
-						# "advance_voucher_type": d.advance_voucher_type,
-						# "advance_voucher_no": d.advance_voucher_no,
+						"advance_voucher_type": d.advance_voucher_type,
+						"advance_voucher_no": d.advance_voucher_no,
+						"transaction_exchange_rate": self.target_exchange_rate,
 					},
 					item=self,
 				)
@@ -112,8 +113,8 @@ class PaymentEntryDownPayment(PaymentEntry):
 					{
 						"against_voucher_type": self.doctype,
 						"against_voucher": self.name,
-						# "advance_voucher_type": d.reference_doctype,
-						# "advance_voucher_no": d.reference_name,
+						"advance_voucher_type": d.reference_doctype,
+						"advance_voucher_no": d.reference_name,
 					}
 				)
 
