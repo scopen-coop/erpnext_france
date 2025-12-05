@@ -662,3 +662,4 @@ Production Plan,Planification de la prod.,
 "{0} on item {1} has been modified according to the thirdparty's accounting category from {2} to {3}","Le {0} sur l'article {1} à été modifié en fonction de la catégorie comptable du tiers de {2} vers {3}",
 income_account, Compte de produit,
 expense_account, Compte de charge,
+Unit,Unité
