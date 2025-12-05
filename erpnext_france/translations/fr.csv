@@ -654,3 +654,8 @@ Special Item Accountancy Code,Code comptable produit spécifiques
 Cutomer accountancy category is missing,La catégorie comptable du tier est manquante
 Special Item Accountancy Code Default,Code par défaut par catégorie comptable
 Special Item Accountancy Code Setup, Configuration des codes par défaut par catégorie comptable
+Rate,Taux,Expense Taxes and Charges
+Clear & Add Template,Appliquer le modèle
+Prepend the template to the email message,Ajouter le contenu du modèle à la suite
+Clear the email message and add the template,Remplacer par le contenu du modèle
+Production Plan,Planification de la prod.
