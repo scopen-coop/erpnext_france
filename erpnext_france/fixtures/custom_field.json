@@ -263,7 +263,7 @@
   "mandatory_depends_on": null,
   "modified": "2023-11-16 11:20:55.202624",
   "module": null,
-  "name": "Accounts Settings-invoice_and_billing_tab",
+  "name": "Accounts Settings-mandatory_accounting_journal",
   "no_copy": 0,
   "non_negative": 0,
   "options": null,

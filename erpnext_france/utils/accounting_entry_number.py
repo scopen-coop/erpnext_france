@@ -13,7 +13,7 @@ def add_accounting_entry_number(gl_entry, action):
 
 	linked_gl_entries = frappe.get_all(
 		"GL Entry",
-		fields={"name", "accounting_entry_number"},
+		fields=["name", "accounting_entry_number"],
 		filters={"voucher_no": gl_entry.voucher_no},
 	)
 
