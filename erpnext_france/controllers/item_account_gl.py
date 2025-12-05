@@ -43,9 +43,11 @@ def get_item_details_account_code(args, doc=None, for_validate=False, overwrite_
 
 	# return out
 	# Process arges and doc to use it as object
-	args = frappe.dict(args)
+	args = frappe._dict(args)
 	if isinstance(doc, str):
 		doc = json.loads(doc)
+	else:
+		doc = args
 
 	# deal with tax code selling or buying
 	transaction_type = None
@@ -135,26 +137,29 @@ def get_correct_default_account(third_party, type_thirdparty, item_code):
 
 @frappe.whitelist()
 def get_correct_default_account_validate(doc, method):
-	pass
-	# if doc:
-	# 	if doc.get("doctype") in purchase_doctypes:
-	# 		supplier = frappe.get_doc("Supplier", doc.supplier)
-	# 		if supplier.get("categorie_comptable_tiers") is None or (
-	# 			supplier.get("categorie_comptable_tiers") == ""
-	# 		):
-	# 			frappe.throw(_("Cutomer accountancy category is missing"))
-	# 		for itm in doc.items:
-	# 			account = get_correct_default_account(doc.supplier, "Supplier", itm.item_code)
-	# 			if account:
-	# 				itm.expense_account = account
-	#
-	# 	if doc.get("doctype") in sales_doctypes:
-	# 		customer = frappe.get_doc("Customer", doc.customer)
-	# 		if (customer.get("categorie_comptable_tiers") is None) or (
-	# 			customer.get("categorie_comptable_tiers") == ""
-	# 		):
-	# 			frappe.throw(_("Cutomer accountancy category is missing"))
-	# 		for itm in doc.items:
-	# 			account = get_correct_default_account(doc.customer, "Customer", itm.item_code)
-	# 			if account:
-	# 				itm.income_account = account
+	if not doc:
+		return
+	if doc.get("doctype") in purchase_doctypes:
+		change_account_on_item_based_on_thirdparty_accounting_category('supplier', doc)
+	elif doc.get("doctype") in sales_doctypes:
+		change_account_on_item_based_on_thirdparty_accounting_category('customer', doc)
+
+
+def change_account_on_item_based_on_thirdparty_accounting_category(thirdparty_type, doc):
+	account_type = 'income_account' if thirdparty_type == 'customer' else 'expense_account'
+
+	thirdparty = frappe.get_doc(thirdparty_type.capitalize(), doc.get(thirdparty_type))
+	if (thirdparty.get("categorie_comptable_tiers") is None) or (thirdparty.get("categorie_comptable_tiers") == ""):
+		frappe.throw(_("Thirdparty accountancy category is missing"))
+
+	for itm in doc.items:
+		account = get_correct_default_account(doc.get(thirdparty_type), thirdparty_type.capitalize(), itm.item_code)
+		origin_account = itm.get(account_type)
+		if not account or account == origin_account:
+			continue
+
+		itm.set(account_type, account)
+		frappe.msgprint(
+			_("{0} on item {1} has been modified according to the thirdparty's accounting category from {2} to {3}").format(
+				_(account_type), itm.item_code, origin_account, account
+			))

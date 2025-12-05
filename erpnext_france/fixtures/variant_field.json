@@ -8,5 +8,15 @@
   "parent": "Item Variant Settings",
   "parentfield": "fields",
   "parenttype": "Item Variant Settings"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Variant Field",
+  "field_name": "eco_part",
+  "modified": "2025-11-27 11:27:36.006605",
+  "name": "2vf3300rog",
+  "parent": "Item Variant Settings",
+  "parentfield": "fields",
+  "parenttype": "Item Variant Settings"
  }
 ]

@@ -48,21 +48,12 @@
   "report_type": "Script Report",
   "roles": [
    {
-    "parent": "General Ledger",
-    "parentfield": "roles",
-    "parenttype": "Report",
     "role": "Accounts User"
    },
    {
-    "parent": "General Ledger",
-    "parentfield": "roles",
-    "parenttype": "Report",
     "role": "Accounts Manager"
    },
    {
-    "parent": "General Ledger",
-    "parentfield": "roles",
-    "parenttype": "Report",
     "role": "Auditor"
    }
   ],

@@ -18,6 +18,7 @@
   "parent": "Accounting",
   "parentfield": "links",
   "parenttype": "Workspace",
+  "report_ref_doctype": null,
   "type": "Card Break"
  },
  {
@@ -39,6 +40,7 @@
   "parent": "Accounting",
   "parentfield": "links",
   "parenttype": "Workspace",
+  "report_ref_doctype": null,
   "type": "Link"
  },
  {
@@ -60,6 +62,7 @@
   "parent": "Accounting",
   "parentfield": "links",
   "parenttype": "Workspace",
+  "report_ref_doctype": null,
   "type": "Link"
  }
 ]

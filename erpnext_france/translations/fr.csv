@@ -649,13 +649,16 @@ New Leaves to be Allocated,Nouveau nombre de jours de congés à allouer,
 Down Payment By Percent should be between 0 and 100, La valeur de l'acompte en pourcentage doit être un nombre entier compris entre 0 et 100,
 Down Payment By Percent should be an integer, La valeur de l'acompte en pourcentage doit être un nombre entier,
 Down Payment By Amount should be between 0 and total, La valeur de l'acompte en montant doit être un nombre entier compris entre 0 et le total de la commande,
-Disassembled Qty,Quantité de désassemblage
-Special Item Accountancy Code,Code comptable produit spécifiques
-Cutomer accountancy category is missing,La catégorie comptable du tier est manquante
-Special Item Accountancy Code Default,Code par défaut par catégorie comptable
-Special Item Accountancy Code Setup, Configuration des codes par défaut par catégorie comptable
-Rate,Taux,Expense Taxes and Charges
-Clear & Add Template,Appliquer le modèle
-Prepend the template to the email message,Ajouter le contenu du modèle à la suite
-Clear the email message and add the template,Remplacer par le contenu du modèle
-Production Plan,Planification de la prod.
+Disassembled Qty,Quantité de désassemblage,
+Special Item Accountancy Code,Code comptable produit spécifiques,
+Thirdparty accountancy category is missing,La catégorie comptable du tier est manquante,
+Special Item Accountancy Code Default,Code par défaut par catégorie comptable,
+Special Item Accountancy Code Setup, Configuration des codes par défaut par catégorie comptable,
+Rate,Taux,Expense Taxes and Charges,
+Clear & Add Template,Appliquer le modèle,
+Prepend the template to the email message,Ajouter le contenu du modèle à la suite,
+Clear the email message and add the template,Remplacer par le contenu du modèle,
+Production Plan,Planification de la prod.,
+"{0} on item {1} has been modified according to the thirdparty's accounting category from {2} to {3}","Le {0} sur l'article {1} à été modifié en fonction de la catégorie comptable du tiers de {2} vers {3}",
+income_account, Compte de produit,
+expense_account, Compte de charge,
