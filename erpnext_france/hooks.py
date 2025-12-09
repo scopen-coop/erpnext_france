@@ -229,6 +229,20 @@ fixtures = [
 			],
 		],
 	},
+	{
+		"dt": "Desktop Icon",
+		"filters": [
+			[
+				"name",
+				"in",
+				(
+					"ERPNext France",
+					"Code comptable produit spécifiques",
+					"Gestion France",
+				),
+			],
+		],
+	},
 ]
 
 

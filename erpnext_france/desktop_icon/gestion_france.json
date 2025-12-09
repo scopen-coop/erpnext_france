@@ -1,0 +1,20 @@
+{
+ "app": "erpnext_france",
+ "creation": "2025-11-27 15:56:02.121918",
+ "docstatus": 0,
+ "doctype": "Desktop Icon",
+ "hidden": 0,
+ "icon": "milestone",
+ "icon_type": "Link",
+ "idx": 0,
+ "label": "Gestion France",
+ "link_to": "Gestion France",
+ "link_type": "Workspace",
+ "modified": "2025-12-09 17:07:03.589910",
+ "modified_by": "Administrator",
+ "name": "Gestion France",
+ "owner": "Administrator",
+ "parent_icon": "ERPNext France",
+ "roles": [],
+ "standard": 1
+}

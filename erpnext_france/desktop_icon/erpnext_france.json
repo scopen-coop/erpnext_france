@@ -1,0 +1,18 @@
+{
+ "app": "erpnext_france",
+ "creation": "2025-12-09 17:06:15.415981",
+ "docstatus": 0,
+ "doctype": "Desktop Icon",
+ "hidden": 0,
+ "icon": "euro",
+ "icon_type": "Folder",
+ "idx": 0,
+ "label": "ERPNext France",
+ "link_type": "Workspace",
+ "modified": "2025-12-09 17:06:52.434018",
+ "modified_by": "Administrator",
+ "name": "ERPNext France",
+ "owner": "Administrator",
+ "roles": [],
+ "standard": 1
+}
