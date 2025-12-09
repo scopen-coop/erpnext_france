@@ -274,12 +274,10 @@ doctype_js = {
 }
 
 doctype_list_js = {
-	"Customer": [
-		"public/js/fetch_from_sirene.js",
-	],
+	"User": ["public/js/user_list.js"],
+	"Customer": ["public/js/fetch_from_sirene.js"],
 	"Supplier": ["public/js/fetch_from_sirene.js"],
 	"Payment Entry": ["public/js/payment_entry_list.js"],
-	"Item Price": ["public/js/item_price_list.js"],
 	"Task": ["public/js/task_list.js"],
 }
 

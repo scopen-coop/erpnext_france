@@ -2,6 +2,7 @@
 // For license information, please see license.txt
 
 frappe.listview_settings["Customer"] = {
+  hide_name_column: true,
   onload(listview) {
     if (listview.can_create) {
       listview.page.add_inner_button(
@@ -15,6 +16,7 @@ frappe.listview_settings["Customer"] = {
 };
 
 frappe.listview_settings["Supplier"] = {
+  hide_name_column: true,
   onload(listview) {
     if (listview.can_create) {
       listview.page.add_inner_button(
@@ -367,7 +369,7 @@ function make_table(entities, doctype) {
     '    <div class="form-grid">' +
     '        <div class="grid-heading-row">' +
     '            <div class="grid-row">' +
-    '               <div class="data-row row">' +
+    '               <div class="data-row row" style="margin-left: 0 !important">' +
     '                   <div class="col grid-static-col col-xs-3 ">' +
     '                       <span class="static-area ellipsis bold">' +
     __("Company Name") +
@@ -393,7 +395,7 @@ function make_table(entities, doctype) {
     __("SIREN") +
     "</span>" +
     "                   </div>" +
-    '                   <div class="col grid-static-col col-xs-1">' +
+    '                   <div class="col grid-static-col col-xs-2">' +
     '                       <span class="static-area ellipsis bold">' +
     __("SIRET") +
     "</span>" +
@@ -405,7 +407,7 @@ function make_table(entities, doctype) {
   for (entity of entities) {
     table +=
       '            <div class="grid-row">' +
-      '               <div class="data-row row">' +
+      '               <div class="data-row row" style="margin-left: 0 !important">' +
       '                   <div class="col grid-static-col col-xs-3 bold" style="height: auto !important;">' +
       '                       <input name="entity-select" class="grid-row-check" type="radio" value="' +
       entity.id +
@@ -429,17 +431,17 @@ function make_table(entities, doctype) {
       "</span>" +
       "                   </div>" +
       '                   <div class="col grid-static-col col-xs-1">' +
-      '                       <span class="col grid-static-col col-xs-2">' +
+      '                       <span class="static-area">' +
       entity.code_naf +
       "</span>" +
       "                   </div>" +
       '                   <div class="col grid-static-col col-xs-1">' +
-      '                       <span class="static-area ellipsis">' +
+      '                       <span class="static-area">' +
       entity.siren +
       "</span>" +
       "                   </div>" +
-      '                   <div class="col grid-static-col col-xs-1">' +
-      '                       <span class="static-area ellipsis">' +
+      '                   <div class="col grid-static-col col-xs-2">' +
+      '                       <span class="static-area">' +
       entity.siret +
       "</span>" +
       "                   </div>" +
