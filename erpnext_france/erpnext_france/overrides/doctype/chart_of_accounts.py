@@ -93,7 +93,7 @@ def build_tree_from_json(chart_template, chart_data=None, from_coa_importer=Fals
 	accounts = []
 
 	def _import_accounts(children, parent):
-		if children is str:
+		if isinstance(children, str):
 			return
 		"""recursively called to form a parent-child based list of dict from chart template"""
 		for account_name, child in children.items():
@@ -113,17 +113,20 @@ def build_tree_from_json(chart_template, chart_data=None, from_coa_importer=Fals
 				account_name = child["account_name"]
 
 			account["parent_account"] = parent
-			account["expandable"] = True if identify_is_group(child) else False
-			account["value"] = (
-				(cstr(child.get("account_number")).strip() + " - " + account_name)
-				if child.get("account_number")
-				else account_name
-			)
+			if isinstance(child, str):
+				account["expandable"] = False
+				account["value"] = account_name
+			else:
+				account["expandable"] = True if identify_is_group(child) else False
+				account["value"] = (
+					(cstr(child.get("account_number")).strip() + " - " + account_name)
+					if child.get("account_number")
+					else account_name
+				)
 			accounts.append(account)
 			_import_accounts(child, account["value"])
 
 	_import_accounts(chart, None)
-
 	return accounts
 
 
@@ -134,7 +137,8 @@ def get_coa(doctype, parent, is_root=None, chart=None):
 	chart = chart if chart else frappe.flags.chart
 	frappe.flags.chart = chart
 
-	parent = None if parent == _("All Accounts") else parent
+	# CELA NE MARCHE PAS A CAUSE D'uUN BUG dans le standard ici la trad n'est pas prise en compte
+	parent = None if parent in [_("All Accounts"), 'Tous les comptes'] else parent
 	accounts = build_tree_from_json(chart)  # returns alist of dict in a tree render-able form
 
 	# filter out to show data for the selected node only
