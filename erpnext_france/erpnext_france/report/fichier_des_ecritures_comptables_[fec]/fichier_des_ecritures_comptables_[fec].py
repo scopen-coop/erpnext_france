@@ -207,7 +207,7 @@ def get_gl_entries(company, fiscal_year, from_date, to_date, hide_already_export
 			gle.accounting_journal,
 			gle.remarks,
 			sales_invoice.name.as_("InvName"),
-			sales_invoice.title.as_("InvTitle"),
+			sales_invoice.customer.as_("InvTitle"),
 			sales_invoice.posting_date.as_("InvPostDate"),
 			purchase_invoice.name.as_("PurName"),
 			purchase_invoice.title.as_("PurTitle"),

@@ -1,4 +1,5 @@
 {
+ "app": "erpnext_france",
  "charts": [],
  "content": "[{\"id\":\"j1chJFWhbS\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Categorie Comptable Tiers\",\"col\":3}},{\"id\":\"8rOgYCggt6\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Item Group\",\"col\":3}},{\"id\":\"4BTUFM89Uz\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Item\",\"col\":3}}]",
  "creation": "2024-12-19 11:24:53.285992",
@@ -58,7 +59,7 @@
    "type": "Link"
   }
  ],
- "modified": "2024-12-19 11:29:17.671681",
+ "modified": "2025-12-09 14:47:50.898133",
  "modified_by": "Administrator",
  "module": "ERPNext France",
  "name": "Special Item Accountancy Code",
@@ -96,5 +97,6 @@
    "type": "DocType"
   }
  ],
- "title": "Special Item Accountancy Code"
+ "title": "Special Item Accountancy Code",
+ "type": "Workspace"
 }

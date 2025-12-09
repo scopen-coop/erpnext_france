@@ -461,12 +461,13 @@ def get_payment_term_details(
 	term_details.outstanding = term_details.get("payment_amount")
 	term_details.base_outstanding = term_details.base_payment_amount
 
-	if bill_date:
-		term_details.discount_date = get_discount_date(term, bill_date)
-	elif posting_date:
-		term_details.discount_date = get_discount_date(term, posting_date)
-
 	# ERPNEXT FRANCE
+	if term.doctype != 'Payment Terms Template Detail Before Invoice':
+		if bill_date:
+			term_details.discount_date = get_discount_date(term, bill_date)
+		elif posting_date:
+			term_details.discount_date = get_discount_date(term, posting_date)
+
 	term_details.due_date = get_due_date_before_invoice(term, posting_date, bill_date)
 	# END ERPNEXT FRANCE
 

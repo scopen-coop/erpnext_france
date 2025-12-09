@@ -77,7 +77,9 @@ class TaxSummary:
 				)
 
 			doc = frappe.get_cached_doc(self.transaction, document)
-			itemised_tax = get_itemised_tax(doc.taxes, True)
+			itemised_tax = {}
+			if doc.get("_item_wise_tax_details"):
+				itemised_tax = get_itemised_tax(doc, True)
 
 			processed_items = []
 			for item in doc.items:
@@ -100,6 +102,7 @@ class TaxSummary:
 
 				total_amount = 0
 				has_taxes = False
+
 				if itemised_tax:
 					for tax in itemised_tax.get(item.item_code):
 						if itemised_tax[item.item_code][tax].get("tax_account") not in self.tax_accounts:

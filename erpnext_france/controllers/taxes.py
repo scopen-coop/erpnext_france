@@ -743,7 +743,7 @@ def get_itemised_tax(taxes, with_tax_account=False):
         if getattr(tax, "category", None) and tax.category == "Valuation":
             continue
 
-        item_tax_map = json.loads(tax.item_wise_tax_detail) if tax.item_wise_tax_detail else {}
+        item_tax_map = json.loads(tax.get('item_wise_tax_detail')) if tax.get('item_wise_tax_detail') else {}
 
         if item_tax_map:
             for item_code, tax_data in item_tax_map.items():

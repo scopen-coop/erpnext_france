@@ -196,7 +196,7 @@ def _get_party_details(
 		party_details["taxes_and_charges"] = tax_template
 
 	if cint(fetch_payment_terms_template):
-		party_details["payment_terms_template"] = get_payment_terms_template(party.name, party_type, company)
+		party_details["payment_terms_template"] = get_payment_terms_template(party.name, party_type, doctype, company)
 
 	if not party_details.get("currency"):
 		party_details["currency"] = currency
