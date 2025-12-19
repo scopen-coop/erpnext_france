@@ -655,3 +655,10 @@ Clear & Add Template,Appliquer le modèle
 Prepend the template to the email message,Ajouter le contenu du modèle à la suite
 Clear the email message and add the template,Remplacer par le contenu du modèle
 Production Plan,Planification de la prod.
+Update all,Tout mettre à jour,
+Cancel,Annuler,
+Updating data...,Mise à jour des données...,
+Retrieving data...,Récupération des données...,
+Update customer from SIRENE,Mettre à jour le client depuis le SIRENE,
+Update supplier from SIRENE,Mettre à jour le fournisseur depuis le SIRENE,
+Error while updating,Erreur lors de la mise à jour,
