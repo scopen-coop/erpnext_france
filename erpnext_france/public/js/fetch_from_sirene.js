@@ -483,7 +483,6 @@ function make_table(entities, doctype) {
  */
 function update_thirdparty_from_sirene(frm) {
   let currentDoc = frm.doc
-  console.log("frm.doc", frm.doc)
   $(document).on('click', '.addRemoveArrow', function () {
     const $btn = $(this);
     const $use = $btn.find('use');
