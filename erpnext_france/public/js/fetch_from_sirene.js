@@ -566,11 +566,8 @@ async function selectFields(frm, currentDoc, etablissement) {
   let AddressDoc = await getAddressDoctype(currentDoc)
   let route_attributes = frappe.get_route();
   let doctype = route_attributes[1];
-  console.log("## currentDoc", currentDoc)
-  console.log("## AddressDoc", AddressDoc)
-  console.log("## entity", entity)
   const match = checkValues(currentDoc, AddressDoc, entity)
-  console.log("match", match)
+
   if (match) {
     frappe.msgprint({
       title: __('Perfect Match'),
@@ -1014,7 +1011,7 @@ async function getAddressDoctype(currentDoc) {
 function checkValue(datas) {
   let match = true;
   $.map(datas, function (item, idx) {
-    console.log('idx', idx, 'item', item, 'match', item.dval === item.sval);
+    //console.log('idx', idx, 'item', item, 'match', item.dval === item.sval);
     match &&= item.dval.localeCompare(item.sval, "fr", {sensitivity: "accent"}) === 0;
   });
   return match;
