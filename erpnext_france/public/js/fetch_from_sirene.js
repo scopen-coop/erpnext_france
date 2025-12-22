@@ -16,9 +16,20 @@ frappe.listview_settings["Customer"] = {
 
 frappe.ui.form.on("Customer", {
   refresh(frm) {
-    console.log("doctype", frm.doc.doctype);
     frm.page.add_inner_button(
-      frm.doc.doctype === "Customer" ? __('Update customer from SIRENE') : __("Update supplier from SIRENE"),
+      __('Update customer from SIRENE'),
+      function () {
+        update_thirdparty_from_sirene(frm);
+      },
+      "",
+      "primary");
+  }
+})
+
+frappe.ui.form.on("Supplier", {
+  refresh(frm) {
+    frm.page.add_inner_button(
+      __("Update supplier from SIRENE"),
       function () {
         update_thirdparty_from_sirene(frm);
       },
@@ -472,10 +483,8 @@ function make_table(entities, doctype) {
  */
 function update_thirdparty_from_sirene(frm) {
   let currentDoc = frm.doc
-  console.log("### Doc", frm.doc)
-
+  console.log("frm.doc", frm.doc)
   $(document).on('click', '.addRemoveArrow', function () {
-    console.log("clicked")
     const $btn = $(this);
     const $use = $btn.find('use');
     const currentDirection = $btn.data('direction');
@@ -553,30 +562,21 @@ function update_thirdparty_from_sirene(frm) {
  * Display a Dialog where entity can be selected
  */
 async function selectFields(frm, currentDoc, etablissement) {
-
-  console.log("# currentDoc", currentDoc)
-
   let entity = findInfoEntity(etablissement, 0);
-  console.log("entity", entity)
-
   let AddressDoc = await getAddressDoctype(currentDoc)
-  console.log("AddressDoc", AddressDoc)
-
-  var route_attributes = frappe.get_route();
-  doctype = route_attributes[1];
-
-  const match = checkValues(currentDoc, entity)
-
+  let route_attributes = frappe.get_route();
+  let doctype = route_attributes[1];
+  console.log("## currentDoc", currentDoc)
+  console.log("## AddressDoc", AddressDoc)
+  console.log("## entity", entity)
+  const match = checkValues(currentDoc, AddressDoc, entity)
+  console.log("match", match)
   if (match) {
     frappe.msgprint({
       title: __('Perfect Match'),
       indicator: 'green',
       message: __('Document is up-to-date')
     });
-    /* frappe.show_alert({
-       message: __('Document is up-to-date'),
-       indicator: 'green'
-     }, 5);  // 5 secondes d'affichage*/
     return
   }
 
@@ -630,15 +630,6 @@ async function selectFields(frm, currentDoc, etablissement) {
 }
 
 function make_table_update(currentDoc, entity, AddressDoc) {
-  /*function sireneUpdateValue(field_name_check, datas) {
-    let match = true;
-    $.map(datas, function (item, idx) {
-      console.log('idx', idx, 'item', item, 'match', item.dval === item.sval);
-      match &= item.dval.localeCompare(item.sval, "fr", {sensitivity: "accent"}) === 0;
-    });
-    return match;
-  }*/
-
 
   return `
   <div class="updateFields my-3" style="border-radius: 3px; overflow: auto;">
@@ -652,8 +643,8 @@ function make_table_update(currentDoc, entity, AddressDoc) {
                     <input class="input-with-feedback form-control currentValue" value="` + currentDoc.customer_name + `"/>
                 </td>
                 <td style="width:100px" class="center">` +
-    sirenePrintCheckbox('customer_name', checkValue('company_name', [
-      {fname: 'company_name', dval: currentDoc.customer_name, sval: entity.company_name}
+    sirenePrintCheckbox('customer_name', checkValue( [
+      {fname: 'company_name', dval: currentDoc.doctype ==='Customer' ? currentDoc.customer_name : currentDoc.supplier_name, sval: entity.company_name}
     ])) + `</td>
                 <td>
                     <input id="sirene_company_name" class="input-with-feedback form-control retrievedValue" value="` + entity.company_name + `" />
@@ -666,7 +657,7 @@ function make_table_update(currentDoc, entity, AddressDoc) {
                 <td>
                     <input class="input-with-feedback form-control currentValue" value="` + AddressDoc.address_line1 + `"/>
                 </td>
-                <td class="center">` + sirenePrintCheckbox('company_address', checkValue('company_address', [
+                <td class="center">` + sirenePrintCheckbox('company_address', checkValue( [
       {fname: 'company_address', dval: AddressDoc.address_line1, sval: entity.address_1}
     ])) + `</td>
                 <td>
@@ -680,7 +671,7 @@ function make_table_update(currentDoc, entity, AddressDoc) {
                 <td>
                     <input class="input-with-feedback form-control currentValue" value="` + AddressDoc.pincode + `"/>
                 </td>
-                <td class="center">` + sirenePrintCheckbox('company_pincode', checkValue('company_pincode', [
+                <td class="center">` + sirenePrintCheckbox('company_pincode', checkValue( [
       {fname: 'company_pincode', dval: AddressDoc.pincode, sval: entity.zipcode}
     ])) + `</td>
                 <td>
@@ -694,7 +685,7 @@ function make_table_update(currentDoc, entity, AddressDoc) {
                 <td>
                     <input class="input-with-feedback form-control currentValue" value="` + AddressDoc.city + `"/>
                 </td>
-                <td class="center">` + sirenePrintCheckbox('company_city', checkValue('company_city', [
+                <td class="center">` + sirenePrintCheckbox('company_city', checkValue( [
       {fname: 'company_city', dval: AddressDoc.city, sval: entity.town}
     ])) + `</td>
                 <td>
@@ -708,7 +699,7 @@ function make_table_update(currentDoc, entity, AddressDoc) {
                 <td>
                     <input class="input-with-feedback form-control currentValue" value="` + AddressDoc.country + `"/>
                 </td>
-                <td class="center">` + sirenePrintCheckbox('company_country', checkValue('company_country', [
+                <td class="center">` + sirenePrintCheckbox('company_country', checkValue( [
       {fname: 'company_country', dval: AddressDoc.country, sval: entity.country}
     ])) + `</td>
                 <td>
@@ -722,7 +713,7 @@ function make_table_update(currentDoc, entity, AddressDoc) {
                 <td>
                     <input class="input-with-feedback form-control currentValue" value="` + currentDoc.siren + `"/>
                 </td>
-                <td>` + sirenePrintCheckbox('company_siren', checkValue('company_siren', [
+                <td>` + sirenePrintCheckbox('company_siren', checkValue( [
       {fname: 'company_siren', dval: currentDoc.siren, sval: entity.siren}
     ])) + `</td>
                 <td>
@@ -736,7 +727,7 @@ function make_table_update(currentDoc, entity, AddressDoc) {
                 <td>
                     <input class="input-with-feedback form-control currentValue" value="` + currentDoc.siret + `"/>
                 </td>
-                <td>` + sirenePrintCheckbox('company_siret', checkValue('company_siret', [
+                <td>` + sirenePrintCheckbox('company_siret', checkValue([
       {fname: 'company_siret', dval: currentDoc.siret, sval: entity.siret}
     ])) + `</td>
                 <td>
@@ -750,7 +741,7 @@ function make_table_update(currentDoc, entity, AddressDoc) {
                 <td>
                     <input class="input-with-feedback form-control currentValue" value="` + currentDoc.code_naf + `"/>
                 </td>
-                <td>` + sirenePrintCheckbox('company_naf', checkValue('company_naf', [
+                <td>` + sirenePrintCheckbox('company_naf', checkValue([
       {fname: 'company_naf', dval: currentDoc.code_naf, sval: entity.code_naf}
     ])) + `</td>
                 <td>
@@ -764,7 +755,7 @@ function make_table_update(currentDoc, entity, AddressDoc) {
                 <td>
                     <input class="input-with-feedback form-control currentValue" value="` + currentDoc.tax_id + `"/>
                 </td>
-                <td>` + sirenePrintCheckbox('company_vat_intra', checkValue('company_vat_intra', [
+                <td>` + sirenePrintCheckbox('company_vat_intra', checkValue([
       {fname: 'company_naf', dval: currentDoc.tax_id, sval: entity.tax_id}
     ])) + `</td>
                 <td>
@@ -895,9 +886,6 @@ async function updateFieldsWithSireneInfo(frm, doctype) {
 
     const { doctypeFields, addressFields } = separateAndMapFields(allFields, doctype);
 
-    console.log('Customer/Supplier fields:', doctypeFields);
-    console.log('Address fields:', addressFields);
-
     frappe.dom.freeze(__('Updating data...'));
 
     if (Object.keys(doctypeFields).length > 0) {
@@ -997,209 +985,15 @@ async function updateDocWithSireneInfo(frm, entity, doctype) {
   }
 }
 
-
-/*async function updateFieldsWithSireneInfo(frm, doctype) {
-
-  let basisFields = {};
-  let addressFields = {};
-
-  const addressFieldNames = ['address_line1', 'city', 'pincode', 'country', 'state'];
-  const fieldPromises = [];
-
-  $(".updateFields").find("tr").each((index, element) => {
-    if ($(element).find(".currentValue").data('updated')) {
-      const fieldName = $(element).find(".addRemoveArrow").data('field');
-      const value = $(element).find(".retrievedValue").val();
-
-      const fieldPromise = (async () => {
-        let finalValue = value;
-
-        if (fieldName === 'code_naf') {
-          finalValue = await getCodeNaf(value);
-        } else if (fieldName === 'legal_form') {
-          finalValue = await getLegalForm(value);
-        }
-
-        if (addressFieldNames.includes(fieldName)) {
-          addressFields[fieldName] = finalValue;
-        } else {
-          basisFields[fieldName] = finalValue;
-        }
-      })();
-
-      fieldPromises.push(fieldPromise);
-    }
-  });
-
-  await Promise.all(fieldPromises);
-
-  if (Object.keys(basisFields).length === 0 && Object.keys(addressFields).length === 0) {
-    frappe.msgprint(__('No fields selected for update'));
-    return;
-  }
-
-   frappe.dom.freeze(__('Updating data...'));
-
-
-  try {
-    if (Object.keys(basisFields).length > 0) {
-      await new Promise((resolve, reject) => {
-        frappe.call({
-          method: 'frappe.client.set_value',
-          args: {
-            doctype: doctype,
-            name: frm.doc.name,
-            fieldname: basisFields
-          },
-          callback: function(r) {
-            if (r.exc) reject(r.exc);
-            else resolve(r.message);
-          },
-          error: reject
-        });
-      });
-    }
-
-    if (Object.keys(addressFields).length > 0) {
-      const addressName = doctype === 'Customer'
-        ? frm.doc.customer_primary_address
-        : frm.doc.supplier_primary_address;
-
-      if (addressName) {
-        await new Promise((resolve, reject) => {
-          frappe.call({
-            method: 'frappe.client.set_value',
-            args: {
-              doctype: 'Address',
-              name: addressName,
-              fieldname: addressFields
-            },
-            callback: function(r) {
-              if (r.exc) reject(r.exc);
-              else resolve(r.message);
-            },
-            error: reject
-          });
-        });
-      } else {
-        console.warn('No primary address found, skipping address update');
-        frappe.show_alert({
-          message: __('Warning: No primary address found to update'),
-          indicator: 'orange'
-        }, 5);
-      }
-    }
-
-    await frm.reload_doc();
-
-    frappe.show_alert({
-      message: doctype === "Customer"
-        ? __('Customer successfully updated')
-        : __('Supplier successfully updated'),
-      indicator: 'green'
-    });
-
-  } catch (error) {
-    console.error('Error updating fields:', error);
-    frappe.msgprint({
-      title: __('Error'),
-      indicator: 'red',
-      message: __('Error while updating: ') + (error.message || error)
-    });
-  } finally {
-    frappe.dom.unfreeze();
-  }
-
-
-}
-
-async function updateDocWithSireneInfo(frm, entity, doctype) {
-  frappe.dom.freeze(__('Updating data...'));
-  let basisFields = {}
-  let addressFields = {}
-
-  if (doctype === "Customer") {
-    basisFields['customer_name'] = entity.company_name
-    basisFields['customer_type'] = entity.entity_type
-    //frappe.model.set_value(doctype, frm.doc.name, 'customer_name', entity.company_name);
-  } else {
-    basisFields['supplier_name'] = entity.company_name
-    basisFields['supplier_type'] = entity.entity_type
-    //frappe.model.set_value(doctype, frm.doc.name, 'supplier_name', entity.company_name);
-  }
-  basisFields['siret'] = entity.siret
-  basisFields['siren'] = entity.siren
-  basisFields['code_naf'] = await getCodeNaf(entity.code_naf)
-  basisFields['legal_form'] = await getLegalForm(entity.legal_form)
-  basisFields['tax_id'] = entity.tax_id
-
-  addressFields['address_line1'] = entity.address_1
-  addressFields['city'] = entity.town
-  addressFields['pincode'] = entity.zipcode
-  addressFields['country'] = entity.country
-
-  await frappe.model.set_value(doctype, frm.doc.name, basisFields);
-
-  try {
-
-    await new Promise((resolve, reject) => {
-      frappe.call({
-        method: 'frappe.client.set_value',
-        args: {
-          doctype: 'Customer',
-          name: frm.doc.name,
-          fieldname: basisFields
-        },
-        callback: function (r) {
-          if (r.exc) reject(r.exc);
-          else resolve(r.message);
-        }
-      });
-    });
-
-    if (frm.doc.customer_primary_address && Object.keys(addressFields).length > 0) {
-      await new Promise((resolve, reject) => {
-        frappe.call({
-          method: 'frappe.client.set_value',
-          args: {
-            doctype: 'Address',
-            name: frm.doc.customer_primary_address,
-            fieldname: addressFields
-          },
-          callback: function (r) {
-            if (r.exc) reject(r.exc);
-            else resolve(r.message);
-          }
-        });
-      });
-    }
-
-    await frm.reload_doc();
-
-    frappe.show_alert({
-      message: frm.doc.doctype === "Customer" ? __('Customer successfully updated') : __("Supplier successfully updated"),
-      indicator: 'green'
-    });
-
-  } catch (error) {
-    console.error('Error:', error);
-    frappe.msgprint({
-      title: __('Error'),
-      indicator: 'red',
-      message: __('Error while updating')
-    });
-  } finally {
-    frappe.dom.unfreeze();
-  }
-}*/
-
 async function getAddressDoctype(currentDoc) {
+  let doctypeMethod = currentDoc.doctype === 'Customer' ? 'frappe.client.get' : 'frappe.client.get'
+  let doctypePrimaryAddress = currentDoc.doctype === 'Customer' ? currentDoc.customer_primary_address : currentDoc.supplier_primary_address
   return new Promise((resolve, reject) => {
     frappe.call({
-      method: 'frappe.client.get',
+      method: doctypeMethod,
       args: {
         doctype: 'Address',
-        name: currentDoc.customer_primary_address
+        name: doctypePrimaryAddress
       },
       callback: function (r) {
         if (r.message) {
@@ -1217,7 +1011,7 @@ async function getAddressDoctype(currentDoc) {
   });
 }
 
-function checkValue(field_name_check, datas) {
+function checkValue(datas) {
   let match = true;
   $.map(datas, function (item, idx) {
     console.log('idx', idx, 'item', item, 'match', item.dval === item.sval);
@@ -1226,35 +1020,43 @@ function checkValue(field_name_check, datas) {
   return match;
 }
 
-function checkValues(currentDoc, data) {
+function checkValues(currentDoc, AddressDoc, data) {
   let match = true;
 
-  match &&= checkValue('company_name', [
+  match &&= checkValue([
     {fname: 'company_name', dval: currentDoc.doctype === "Customer" ? currentDoc.customer_name : currentDoc.supplier_name, sval: data.company_name}
   ]);
-  match &&= checkValue('company_type', [
+  match &&= checkValue( [
     {fname: 'company_type', dval: currentDoc.doctype === "Customer" ? currentDoc.customer_type : currentDoc.supplier_type, sval: data.entity_type}
   ]);
-  match &&= checkValue('company_address', [
-    {fname: 'company_address', dval: currentDoc.primary_address, sval: data.address_1}
+  match &&= checkValue([
+    {fname: 'company_address', dval: AddressDoc.address_line1, sval: data.address_1}
   ]);
-  match &&= checkValue('company_siren', [
+  match &&= checkValue([
+    {fname: 'company_pincode', dval: AddressDoc.pincode, sval: data.zipcode}
+  ]);
+  match &&= checkValue( [
+    {fname: 'company_city', dval: AddressDoc.city, sval: data.town}
+  ]);
+  match &&= checkValue( [
+    {fname: 'company_country', dval: AddressDoc.country, sval: data.country}
+  ]);
+  match &&= checkValue([
     {fname: 'company_siren', dval: currentDoc.siren, sval: data.siren}
   ]);
-  match &&= checkValue('company_siret', [
+  match &&= checkValue([
     {fname: 'company_siret', dval: currentDoc.siret, sval: data.siret}
   ]);
-  match &&= checkValue('company_naf', [
+  match &&= checkValue([
     {fname: 'company_naf', dval: currentDoc.code_naf, sval: data.code_naf}
   ]);
-  match &&= checkValue('company_vat_intra', [
+  match &&= checkValue( [
     {fname: 'company_vat_intra', dval: currentDoc.tax_id, sval: data.tax_id}
   ]);
-  match &&= checkValue('company_judicial_form', [
+  match &&= checkValue( [
     {fname: 'company_judicial_form', dval: currentDoc.legal_form, sval: data.legal_form}
   ]);
   return match
-
 }
 
 
