@@ -109,12 +109,12 @@ def create_update_ecopart_without_vat_taxes(
             continue
 
         item_tax_wise = item_wise_tax_detail_before_tva[None][ecopart_account]
-        item_code_2_keep = []
-        for item_code in item_tax_wise:
-            if item_code in item_wise_tax_detail_before_tva[None][ecopart_account].keys():
-                item_code_2_keep.append(item_code)
+        item_name_2_keep = []
+        for item_name in item_tax_wise:
+            if item_name in item_wise_tax_detail_before_tva[None][ecopart_account].keys():
+                item_name_2_keep.append(item_name)
 
-        item_tax_wise = {item_code: [0, item_tax_wise[item_code]] for item_code in item_code_2_keep}
+        item_tax_wise = {item_name: [0, item_tax_wise[item_name]] for item_name in item_name_2_keep}
         if taxes_map is not None and None in taxes_map:
             total_tax = taxes_map[None][ecopart_account]
             create_update_ecotax(doc, None, ecopart_account, None, item_tax_wise, total_tax, is_sales_doc)
@@ -264,13 +264,13 @@ def create_item_and_tax_maps_with_ecopart(
             taxes_itemised_map[vat_account][ecopart_account] = {}
 
         if doc_item.item_code not in taxes_itemised_map[vat_account][ecopart_account]:
-            taxes_itemised_map[vat_account][ecopart_account][doc_item.item_code] = 0
+            taxes_itemised_map[vat_account][ecopart_account][doc_item.name] = 0
 
         conversion_factor_obj = get_conversion_factor(doc_item.item_code, doc_item.uom)
         conversion_factor = conversion_factor_obj.get("conversion_factor") if not None else 1
 
         taxes_map[vat_account][ecopart_account] += ecopart.amount * doc_item.qty / conversion_factor
-        taxes_itemised_map[vat_account][ecopart_account][doc_item.item_code] += (
+        taxes_itemised_map[vat_account][ecopart_account][doc_item.name] += (
             ecopart.amount * doc_item.qty / conversion_factor
         )
 
@@ -286,10 +286,10 @@ def create_item_and_tax_maps_without_ecopart(
     if vat_account not in item_map:
         item_map[vat_account] = {}
 
-    if doc_item.item_code not in item_map[vat_account]:
-        item_map[vat_account][doc_item.item_code] = 0
+    if doc_item.name not in item_map[vat_account]:
+        item_map[vat_account][doc_item.name] = 0
 
-    item_map[vat_account][doc_item.item_code] += doc_item.amount
+    item_map[vat_account][doc_item.name] += doc_item.amount
 
 
 def build_item_wise_taxes_map(
@@ -380,12 +380,12 @@ def create_update_ecopart_with_vat_taxes(
             and ecopart_account in item_wise_tax_detail_with_tva[vat_account]
         ):
             item_tax_wise = item_wise_tax_detail_before_tva[vat_account][ecopart_account]
-            item_code_2_keep = []
-            for item_code in item_tax_wise:
-                if item_code in item_wise_tax_detail_with_tva[vat_account][ecopart_account].keys():
-                    item_code_2_keep.append(item_code)
+            item_name_2_keep = []
+            for item_name in item_tax_wise:
+                if item_name in item_wise_tax_detail_with_tva[vat_account][ecopart_account].keys():
+                    item_name_2_keep.append(item_name)
 
-            item_tax_wise = {item_code: [0, item_tax_wise[item_code]] for item_code in item_code_2_keep}
+            item_tax_wise = {item_name: [0, item_tax_wise[item_name]] for item_name in item_name_2_keep}
             ecopart_tax = create_update_ecotax(
                 doc, vat_account, ecopart_account, ecopart_tax, item_tax_wise, total_tax, is_sales_doc
             )
@@ -457,6 +457,9 @@ def create_update_vat_taxes(doc, item_wise_tax_detail_standard_tva, vat_account,
 
         doc.append("taxes", vat_tax)
 
+    for item_name in item_tax_wise.keys():
+        doc_item = frappe.get_cached_doc(doc.doctype + ' Item', item_name)
+        set_item_wise_tax(doc, doc_item, vat_tax, tax_rate, tax_amount)
 
 def create_update_autoliquidation_taxes(doc, item_wise_tax_detail_standard_tva, vat_account, is_sales_doc):
     vat_tax = None
@@ -572,6 +575,10 @@ def create_update_ecotax(
             ecopart_tax.add_deduct_tax = "Add"
             ecopart_tax.category = "Total"
         doc.append("taxes", ecopart_tax)
+
+    for item_name in item_tax_wise.keys():
+        doc_item = frappe.get_cached_doc(doc.doctype + ' Item', item_name)
+        set_item_wise_tax(doc, doc_item, ecopart_tax, 0, total_tax)
     return ecopart_tax
 
 
@@ -586,7 +593,7 @@ def create_update_vat_on_ecotax(
     is_sales_doc,
 ):
     tax_rate = frappe.get_value("Account", vat_account, "tax_rate") or 0
-    item_tax_wise = {item_code: item_tax_wise[item_code] for item_code in item_tax_wise}
+    item_tax_wise = {item_name: item_tax_wise[item_name] for item_name in item_tax_wise}
     if ecopart_vat_tax:
         # Load existing item_wise_tax_detail
         existing_tax_detail = (
@@ -631,6 +638,9 @@ def create_update_vat_on_ecotax(
             ecopart_vat_tax.category = "Total"
         doc.append("taxes", ecopart_vat_tax)
 
+    for item_name in item_tax_wise.keys():
+        doc_item = frappe.get_cached_doc(doc.doctype + ' Item', item_name)
+        set_item_wise_tax(doc, doc_item, ecopart_vat_tax, tax_rate, total_tax * tax_rate / 100)
 
 def delete_taxes(doc):
     to_remove = []
@@ -640,6 +650,14 @@ def delete_taxes(doc):
     # Ensure the removal actually happens
     for taxe in to_remove:
         doc.taxes.remove(taxe)
+
+    to_remove_item_tax_wise = []
+    for item_tax_wise in doc.get('_item_wise_tax_details'):
+        to_remove_item_tax_wise.append(item_tax_wise)
+
+    # Ensure the removal actually happens
+    for item_tax_wise in to_remove_item_tax_wise:
+        doc._item_wise_tax_details.remove(item_tax_wise)
 
     if not doc.is_new():
         doc.db_update()
@@ -688,17 +706,17 @@ def update_itemised_tax_data(doc):
                 tax_rate_detail = tax_tax_rate_detail[1]
                 tax_rate += tax_rate_detail if tax_rate_detail else 0
 
-        elif row.item_code and valid_itemised_tax.get(row.item_code):
+        elif row.item_code and valid_itemised_tax.get(row.name):
             item_specific_rates = [
                 tax
-                for tax in valid_itemised_tax.get(row.item_code).items()
+                for tax in valid_itemised_tax.get(row.name).items()
                 if flt(tax[1].get("form_rate", 0)) != 0.0
             ]
 
             tax_rate = sum(
                 [
                     tax.get("tax_rate", 0) * (-1 if tax.get("add_deduct_tax") == "Deduct" else 1)
-                    for d, tax in (item_specific_rates or valid_itemised_tax.get(row.item_code, {}).items())
+                    for d, tax in (item_specific_rates or valid_itemised_tax.get(row.name, {}).items())
                 ]
             )
 
@@ -717,7 +735,7 @@ def update_itemised_tax_data(doc):
                     "taxable_amount": row.get("base_net_amount"),
                     "tax_amount": row.get("tax_amount"),
                 }
-                for d, tax in (item_specific_rates or valid_itemised_tax.get(row.item_code, {}).items())
+                for d, tax in (item_specific_rates or valid_itemised_tax.get(row.name, {}).items())
             ]
         )
 
@@ -746,8 +764,8 @@ def get_itemised_tax(taxes, with_tax_account=False):
         item_tax_map = json.loads(tax.get('item_wise_tax_detail')) if tax.get('item_wise_tax_detail') else {}
 
         if item_tax_map:
-            for item_code, tax_data in item_tax_map.items():
-                itemised_tax.setdefault(item_code, frappe._dict())
+            for name, tax_data in item_tax_map.items():
+                itemised_tax.setdefault(name, frappe._dict())
 
                 tax_rate = 0.0
                 tax_amount = 0.0
@@ -765,7 +783,7 @@ def get_itemised_tax(taxes, with_tax_account=False):
                 if not tax_rate and tax_amount:
                     tax_rate = flt(frappe.db.get_value("Account", tax.account_head, "tax_rate"))
 
-                itemised_tax[item_code][tax.description] = frappe._dict(
+                itemised_tax[name][tax.description] = frappe._dict(
                     dict(
                         tax_rate=tax_rate,
                         tax_amount=tax_amount,
@@ -775,7 +793,7 @@ def get_itemised_tax(taxes, with_tax_account=False):
                 )
 
                 if with_tax_account:
-                    itemised_tax[item_code][tax.description].tax_account = tax.account_head
+                    itemised_tax[name][tax.description].tax_account = tax.account_head
 
     return itemised_tax
 
@@ -859,3 +877,21 @@ def find_item_tax_template(taxes_map):
         frappe.throw(_("Missing Item Tax Template Corresponding to Sales Taxes and Charges Template"))
 
     return tax_template_name
+
+
+def set_item_wise_tax(doc, item, tax, tax_rate, current_tax_amount):
+    # store tax breakup for each item
+    multiplier = -1 if tax.get("add_deduct_tax") == "Deduct" else 1
+    item_wise_tax_amount = flt(
+        current_tax_amount * doc.conversion_rate * multiplier, tax.precision("tax_amount")
+    )
+
+    # maintaining a temp object with item and tax object because correct name will be available after insertion.
+    doc._item_wise_tax_details.append(
+        frappe._dict(
+            item=item,
+            tax=tax,
+            rate=tax_rate,
+            amount=item_wise_tax_amount,
+        )
+    )
