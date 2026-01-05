@@ -458,8 +458,9 @@ def create_update_vat_taxes(doc, item_wise_tax_detail_standard_tva, vat_account,
         doc.append("taxes", vat_tax)
 
     for item_name in item_tax_wise.keys():
-        doc_item = frappe.get_cached_doc(doc.doctype + ' Item', item_name)
-        set_item_wise_tax(doc, doc_item, vat_tax, tax_rate, tax_amount)
+        for doc_item in doc.items:
+            if doc_item.name == item_name:
+                set_item_wise_tax(doc, doc_item, vat_tax, tax_rate, tax_amount)
 
 def create_update_autoliquidation_taxes(doc, item_wise_tax_detail_standard_tva, vat_account, is_sales_doc):
     vat_tax = None
@@ -577,8 +578,10 @@ def create_update_ecotax(
         doc.append("taxes", ecopart_tax)
 
     for item_name in item_tax_wise.keys():
-        doc_item = frappe.get_cached_doc(doc.doctype + ' Item', item_name)
-        set_item_wise_tax(doc, doc_item, ecopart_tax, 0, total_tax)
+        for doc_item in doc.items:
+            if doc_item.name == item_name:
+                set_item_wise_tax(doc, doc_item, ecopart_tax, 0, total_tax)
+
     return ecopart_tax
 
 
@@ -639,8 +642,9 @@ def create_update_vat_on_ecotax(
         doc.append("taxes", ecopart_vat_tax)
 
     for item_name in item_tax_wise.keys():
-        doc_item = frappe.get_cached_doc(doc.doctype + ' Item', item_name)
-        set_item_wise_tax(doc, doc_item, ecopart_vat_tax, tax_rate, total_tax * tax_rate / 100)
+        for doc_item in doc.items:
+            if doc_item.name == item_name:
+                set_item_wise_tax(doc, doc_item, ecopart_vat_tax, tax_rate, total_tax * tax_rate / 100)
 
 def delete_taxes(doc):
     to_remove = []
