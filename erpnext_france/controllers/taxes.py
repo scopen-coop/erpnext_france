@@ -57,9 +57,7 @@ def update_ecopart_taxes_for_item(doc):
 
     for vat_account in used_vat_accounts:
         if vat_account:
-            create_update_autoliquidation_taxes(
-                doc, item_wise_tax_detail_standard_tva, vat_account, is_sales_doc
-            )
+            create_update_autoliquidation_taxes(doc, item_wise_tax_detail_standard_tva, vat_account)
 
     reorder_tax(doc)
 
@@ -462,7 +460,7 @@ def create_update_vat_taxes(doc, item_wise_tax_detail_standard_tva, vat_account,
             if doc_item.name == item_name:
                 set_item_wise_tax(doc, doc_item, vat_tax, tax_rate, tax_amount)
 
-def create_update_autoliquidation_taxes(doc, item_wise_tax_detail_standard_tva, vat_account, is_sales_doc):
+def create_update_autoliquidation_taxes(doc, item_wise_tax_detail_standard_tva, vat_account):
     vat_tax = None
     corresponding_vat_tax = None
     ecotax_tax = None
