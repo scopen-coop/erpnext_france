@@ -81,7 +81,8 @@ def _execute_sirene_update():
     """
     Logique métier de comparaison des données sirene
     """
-    mail_body = "<h5>" + MAIL_BODY_HEADER + "</h5>"
+    mail_body = "<h4>ERPNext France</h4>"
+    mail_body += "<p>" + MAIL_BODY_HEADER + "</p>"
     log_details = []
 
     try:
