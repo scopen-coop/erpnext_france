@@ -636,7 +636,7 @@ function make_table_update(currentDoc, entity, AddressDoc) {
                     <label style="display: block;">${__("Company Name")}</label>
                 </td>
                 <td>
-                    <input class="input-with-feedback form-control currentValue" value="` + currentDoc.customer_name + `"/>
+                    <input class="input-with-feedback form-control currentValue" value="${ currentDoc.doctype === 'Customer' ? currentDoc.customer_name : currentDoc.supplier_name }"/>
                 </td>
                 <td style="width:100px" class="center">` +
     sirenePrintCheckbox('customer_name', checkValue( [
