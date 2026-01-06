@@ -1,3 +1,4 @@
+import time
 import unicodedata
 import json
 
@@ -183,7 +184,12 @@ def _execute_sirene_update():
                         log_details.append(f"Calling {query_data['type']}: {query_data['value']}")
 
                         entity = get_entity(query_data)
-                        print(element)
+
+                        # Add a sleep each 50 ajax calls to prevent api flooding
+                        if processed % 25 == 0:
+                            print("Pause")
+                            time.sleep(5)
+
                         if entity:
                             logger.info(f"{doctype['type']} {element[doctype['field_name']]} - Data found")
                             log_details.append(f"Data found from API")
