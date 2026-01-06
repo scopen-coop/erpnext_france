@@ -639,7 +639,7 @@ function make_table_update(currentDoc, entity, AddressDoc) {
                     <input class="input-with-feedback form-control currentValue" value="${ currentDoc.doctype === 'Customer' ? currentDoc.customer_name : currentDoc.supplier_name }"/>
                 </td>
                 <td style="width:100px" class="center">` +
-    sirenePrintCheckbox('customer_name', checkValue( [
+    sirenePrintCheckbox(currentDoc.doctype ==='Customer' ? 'customer_name' : 'supplier_name', checkValue( [
       {fname: 'company_name', dval: currentDoc.doctype ==='Customer' ? currentDoc.customer_name : currentDoc.supplier_name, sval: entity.company_name}
     ])) + `</td>
                 <td>
