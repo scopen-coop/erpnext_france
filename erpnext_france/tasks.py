@@ -1,11 +1,13 @@
+import json
 import time
 import unicodedata
-import json
 
 import frappe
 import requests
 from requests.exceptions import RequestException, Timeout
 from frappe import _
+
+from .controllers.fetch_company_from_sirene import fetch_company_from_sirene
 
 logger = frappe.logger("scheduler")
 logger.setLevel("INFO")
@@ -184,7 +186,13 @@ def _execute_sirene_update():
                         log_details.append(f"{processed}. {element[doctype['field_name']]}")
                         log_details.append(f"Calling {query_data['type']}: {query_data['value']}")
 
-                        entity = get_entity(query_data)
+                        data_to_post = {
+                            query_data['type'].lower(): query_data['value'],
+                            "nb_results": 1,
+                        }
+
+                        response = fetch_company_from_sirene(json.dumps(data_to_post))
+                        entity = response['message']['etablissements'][0]
 
                         # Add a sleep each 50 ajax calls to prevent api flooding
                         if processed % 25 == 0:
@@ -276,58 +284,6 @@ def _execute_sirene_update():
         frappe.db.rollback()
 
         return "\n".join(log_details)
-
-
-def get_entity(query_data):
-    """
-    Récupérer les donnees depuis l'API SIRENE
-    """
-    parameters = frappe.get_doc("ERPNext France Settings")
-    if not parameters.api_url:
-        logger.error("API URL not configured")
-        frappe.log_error("You have to specify an url for SIRENE API")
-        return None
-
-    if not parameters.api_token:
-        logger.error("API Token not configured")
-        frappe.log_error("You have to specify a token for SIRENE API")
-        return None
-
-    try:
-
-        url = parameters.api_url + "/siret"
-        token = parameters.api_token
-
-        headers = {
-            'X-INSEE-Api-Key-Integration': format(token),
-            'Accept': 'application/json',
-            'Content-Type': "application/x-www-form-urlencoded",
-        }
-
-        filters = [query_data['type'].lower()+":"+ query_data['value']]
-        response = requests.post(
-            url=url,
-            data={"q": filters, query_data['type']: query_data['value']},
-            headers=headers,
-            timeout=10
-        )
-        response.raise_for_status()
-
-        data = response.json()
-
-        return data['etablissements'][0]
-
-    except Timeout:
-        logger.error(f"Timeout calling SIRENE API for {query_data['type']} {query_data['value']}")
-        return None
-
-    except RequestException as e:
-        logger.error(f"Error calling SIRENE API for {query_data['type']} {query_data['value']}: {str(e)}")
-        return None
-
-    except Exception as e:
-        logger.error(f"Unexpected error for {query_data['type']} {query_data['value']}: {str(e)}")
-        return None
 
 
 def compare_values(doctype, element, address, entity):
