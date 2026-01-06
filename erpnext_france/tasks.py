@@ -198,7 +198,7 @@ def _execute_sirene_update():
                                         mail_body += f"<b><u>{_(doctype['type'])}(s)<u></b><br />"
                                         mail_body += "<table border='0' style='border-bottom:1px solid #eee; width: 100%; margin-bottom:50px;'>"
                                     mail_body += "<tr>"
-                                    mail_body += "<td style='border-bottom:1px solid #eee; padding:6px; font-size:0.833em;'>" + element[doctype['field_name']] + "<a href='" + SITE_URL + "/" + doctype['type'].lower() + "/" + element['name'] + "' style='padding-left:10px;'>Voir ↗</a><td>"
+                                    mail_body += "<td style='border-bottom:1px solid #eee; padding:6px; font-size:0.833em;'>" + element[doctype['field_name']] + "<a href='" + SITE_URL + "/" + doctype['type'].lower() + "/" + element['name'] + "' style='padding-left:10px;'>" + _("View") + " ↗</a><td>"
                                     mail_body += "<tr>"
 
                                     doctype['update'] += 1
