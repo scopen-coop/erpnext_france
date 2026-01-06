@@ -9,10 +9,13 @@ from frappe import _
 logger = frappe.logger("scheduler")
 logger.setLevel("INFO")
 
+frappe.local.lang = "fr"
+SITE_URL = frappe.utils.get_site_url(frappe.local.site) + "/app"
 MAIL_SUBJECT = _("SIRENE - Updates available")
-PICTO_MAGNIFIER = "https://cdn.iconscout.com/icon/free/png-256/free-magnifying-glass-icon-svg-download-png-1798586.png"
+PICTO_SHOW = "https://cdn.iconscout.com/icon/free/png-256/free-magnifying-glass-icon-svg-download-png-1798586.png"
 MAIL_TO = ["support@example.com"]
 MAIL_BODY_HEADER = _("Updates available for the entities below:")
+
 
 
 def check_sirene_update():
@@ -24,12 +27,14 @@ def check_sirene_update():
     try:
         result = _execute_sirene_update()
         complete_job_log(job_log, status='Complete', details=result)
+        print("Task successfully completed")
 
     except Exception as e:
         error_details = f"Fatal Error: {str(e)}\n\n{frappe.get_traceback()}"
         complete_job_log(job_log, status='Failed', details=error_details)
 
-        frappe.log_error(frappe.get_traceback(), "SIREN Update Task Failed")
+        frappe.log_error(frappe.get_traceback(), "SIREN Update Check - Task Failed")
+        print("SIREN Update Check - Task Failed")
 
 
 def create_job_log(method_name):
@@ -80,6 +85,7 @@ def _execute_sirene_update():
 
     try:
         logger.info("=== Starting SIREN Update Check ===")
+        print("=== Starting SIREN Update Check ===")
         log_details.append("===" * 10 + " Starting SIREN Update Check " + 10 * "===")
         log_details.append(f"Started at: {frappe.utils.now()}\n")
 
@@ -97,14 +103,16 @@ def _execute_sirene_update():
                     'field_name': 'customer_name',
                     'field_type': 'customer_type',
                     'field_address': 'customer_primary_address',
-                    'processed': 0
+                    'processed': 0,
+                    'update': 0
                 },
                 {
                     'type': 'Supplier',
                     'field_name': 'supplier_name',
                     'field_type': 'supplier_type',
                     'field_address': 'supplier_primary_address',
-                    'processed': 0
+                    'processed': 0,
+                    'update': 0
                 }
             ]
 
@@ -175,7 +183,7 @@ def _execute_sirene_update():
                         log_details.append(f"Calling {query_data['type']}: {query_data['value']}")
 
                         entity = get_entity(query_data)
-
+                        print(element)
                         if entity:
                             logger.info(f"{doctype['type']} {element[doctype['field_name']]} - Data found")
                             log_details.append(f"Data found from API")
@@ -186,12 +194,14 @@ def _execute_sirene_update():
                                 match = compare_values(doctype, element, address.as_dict(), entity)
 
                                 if not match:
-                                    if doctype['processed'] == 1:
-                                        mail_body += f"<b><u>{_(doctype['type'])}<u></b><br />"
+                                    if doctype['update'] == 0:
+                                        mail_body += f"<b><u>{_(doctype['type'])}(s)<u></b><br />"
                                         mail_body += "<table border='0' style='border-bottom:1px solid #eee; width: 100%; margin-bottom:50px;'>"
                                     mail_body += "<tr>"
-                                    mail_body += "<td style='border-bottom:1px solid #eee; padding:6px; font-size:0.833em;'>" + element[doctype['field_name']] + "<a href='#'><img src='" + PICTO_MAGNIFIER + "' style='margin-left:15px; width:20px; height:20px' /></td>"
+                                    mail_body += "<td style='border-bottom:1px solid #eee; padding:6px; font-size:0.833em;'>" + element[doctype['field_name']] + "<a href='" + SITE_URL + "/" + doctype['type'].lower() + "/" + element['name'] + "' style='padding-left:10px;'>Voir ↗</a><td>"
                                     mail_body += "<tr>"
+
+                                    doctype['update'] += 1
 
                             else:
                                 # TODO : A CONFIRMER SI ON STOP OU SI ON CONTINUE DANS TOUS LES CAS
