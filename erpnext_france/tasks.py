@@ -183,19 +183,20 @@ def _execute_sirene_update():
                             address = frappe.get_doc('Address', element[doctype['field_address']])
 
                             if address:
-                                compare_values(doctype, element, address.as_dict(), entity)
+                                match = compare_values(doctype, element, address.as_dict(), entity)
 
-                                if doctype['processed'] == 1:
-                                    mail_body += f"<b><u>{_(doctype['type'])}<u></b><br />"
-                                    mail_body += "<table border='0' style='border-bottom:1px solid #eee; width: 100%; margin-bottom:50px;'>"
-                                mail_body += "<tr>"
-                                mail_body += "<td style='border-bottom:1px solid #eee; padding:6px; font-size:0.833em;'>" + element[doctype['field_name']] + "<a href='#'><img src='" + PICTO_MAGNIFIER + "' style='margin-left:15px; width:20px; height:20px' /></td>"
-                                mail_body += "<tr>"
+                                if not match:
+                                    if doctype['processed'] == 1:
+                                        mail_body += f"<b><u>{_(doctype['type'])}<u></b><br />"
+                                        mail_body += "<table border='0' style='border-bottom:1px solid #eee; width: 100%; margin-bottom:50px;'>"
+                                    mail_body += "<tr>"
+                                    mail_body += "<td style='border-bottom:1px solid #eee; padding:6px; font-size:0.833em;'>" + element[doctype['field_name']] + "<a href='#'><img src='" + PICTO_MAGNIFIER + "' style='margin-left:15px; width:20px; height:20px' /></td>"
+                                    mail_body += "<tr>"
 
                             else:
                                 # TODO : A CONFIRMER SI ON STOP OU SI ON CONTINUE DANS TOUS LES CAS
                                 skipped += 1
-                                log_details.append(f"No address returned from API")
+                                log_details.append(f"No address returned from ErpNext API")
 
                         else:
                             skipped += 1
@@ -313,28 +314,25 @@ def get_entity(query_data):
 
 
 def compare_values(doctype, element, address, entity):
-    print("#" * 25)
-    print(element)
-    # print("-" * 25)
-    # print(address)
-
-    # print(entity)
     entity_info = get_entity_info(entity)
-    print("entity_info :")
-    print(entity_info)
     match = True
-    match += match and compare_value(element[doctype['field_name']], entity_info['company_name'])
-    match += match and compare_value(element[doctype['field_type']], entity_info['entity_type'])
-    print("=" * 5)
-    print(match)
-    #TODO : Finir de faire la logique pour comparer les champs.
-    # Reminder :  les champs n'ont pas le meme nom dans entity.
-    # + récupérer l'objet doctype dans la fonction pour gestion dyn des champs spéciaux
+    match &= match and compare_value(element[doctype['field_name']] , entity_info['company_name'])
+    match &= match and compare_value(element[doctype['field_type']] , entity_info['entity_type'])
+    match &= match and compare_value(address['address_line1'] , entity_info['address_1'])
+    match &= match and compare_value(address['pincode'] , entity_info['zipcode'])
+    match &= match and compare_value(address['city'] , entity_info['town'])
+    match &= match and compare_value(address['country'] , entity_info['country'])
+    match &= match and compare_value(element['siren'] , entity_info['siren'])
+    match &= match and compare_value(element['siret'] , entity_info['siret'])
+    match &= match and compare_value(element['code_naf'] , entity_info['code_naf'])
+    match &= match and compare_value(element['tax_id'] , entity_info['tax_id'])
+    match &= match and compare_value(element['legal_form'] , entity_info['legal_form'])
+
+    return match
 
 def compare_value(dval, sval):
-    print("||" + sval + " ||||| " + dval + "||")
     match = True
-    match = match and (dval == sval)
+    match &= match and (dval == sval)
     return match
 
 def get_entity_info(entity):
@@ -372,7 +370,7 @@ def get_entity_info(entity):
                     company_name_alias = entityinfo["enseigne1Etablissement"]
                 elif entityinfo["enseigne2Etablissement"] not in [None, '[ND]', '']:
                     company_name_alias = entityinfo["enseigne2Etablissement"]
-                elif entityinfo.enseigne3Etablissement not in [None, '[ND]', '']:
+                elif entityinfo["enseigne3Etablissement"] not in [None, '[ND]', '']:
                     company_name_alias = entityinfo["enseigne3Etablissement"]
 
 
@@ -454,7 +452,7 @@ def get_entity_info(entity):
     # intra - community vat number calculation
     coef = 97
     vat_intra_calc = int(siren) % coef
-    vat_intra_calc2 = leftFillNum((12 + 3 * vat_intra_calc) % coef, 2)
+    vat_intra_calc2 = left_fill_num((12 + 3 * vat_intra_calc) % coef, 2)
     tva_intra = "FR" + vat_intra_calc2 + siren
 
     entity_info = {
@@ -479,7 +477,7 @@ def remove_accents(text):
     nfkd = unicodedata.normalize('NFKD', text)
     return ''.join([c for c in nfkd if not unicodedata.combining(c)])
 
-def leftFillNum(num, targetLength) :
+def left_fill_num(num, target_length) :
     val = str(num)
-    return val.rjust(len(val) + targetLength, '0')
+    return val.rjust(target_length, '0')
 
