@@ -640,7 +640,6 @@ async function selectFields(frm, currentDoc, etablissement) {
         primary_action_label: __("Update"),
         secondary_action_label: __("Update all"),
         onhide: function () {
-          //dialog3.fields_dict.table_area.$wrapper.append('')
           this.$wrapper.remove();
           dialog3 = null;
         },
