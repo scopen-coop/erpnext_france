@@ -1063,51 +1063,10 @@ async function getAddressDoctype(currentDoc) {
 function checkValue(datas) {
   let match = true;
   $.map(datas, function (item, idx) {
-    //console.log('idx', idx, 'item', item, 'match', item.dval === item.sval);
     match &&= item.dval.localeCompare(item.sval, "fr", {sensitivity: "accent"}) === 0;
   });
   return match;
 }
-
-function checkValues(currentDoc, AddressDoc, data) {
-  let match = true;
-
-  match &&= checkValue([
-    {fname: 'company_name', dval: currentDoc.doctype === "Customer" ? currentDoc.customer_name : currentDoc.supplier_name, sval: data.company_name}
-  ]);
-  match &&= checkValue([
-    {fname: 'company_type', dval: currentDoc.doctype === "Customer" ? currentDoc.customer_type : currentDoc.supplier_type, sval: data.entity_type}
-  ]);
-  match &&= checkValue([
-    {fname: 'company_address', dval: AddressDoc.address_line1, sval: data.address_1}
-  ]);
-  match &&= checkValue([
-    {fname: 'company_pincode', dval: AddressDoc.pincode, sval: data.zipcode}
-  ]);
-  match &&= checkValue([
-    {fname: 'company_city', dval: AddressDoc.city, sval: data.town}
-  ]);
-  match &&= checkValue([
-    {fname: 'company_country', dval: AddressDoc.country, sval: data.country}
-  ]);
-  match &&= checkValue([
-    {fname: 'company_siren', dval: currentDoc.siren, sval: data.siren}
-  ]);
-  match &&= checkValue([
-    {fname: 'company_siret', dval: currentDoc.siret, sval: data.siret}
-  ]);
-  match &&= checkValue([
-    {fname: 'company_naf', dval: currentDoc.code_naf, sval: data.code_naf}
-  ]);
-  match &&= checkValue([
-    {fname: 'company_vat_intra', dval: currentDoc.tax_id, sval: data.tax_id}
-  ]);
-  match &&= checkValue([
-    {fname: 'company_judicial_form', dval: currentDoc.legal_form, sval: data.legal_form}
-  ]);
-  return match
-}
-
 
 function leftFillNum(num, targetLength) {
   return num.toString().padStart(targetLength, "0");
