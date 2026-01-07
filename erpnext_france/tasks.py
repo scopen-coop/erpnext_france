@@ -4,8 +4,14 @@
 import frappe
 from frappe import _
 
-from .controllers.fetch_company_from_sirene import execute_sirene_check
+from .controllers.fetch_company_from_sirene import execute_sirene_check, send_sirene_report
 
+
+SITE_URL = frappe.utils.get_site_url(frappe.local.site) + "/app"
+MAIL_SUBJECT = _("SIRENE - Updates available")
+PICTO_SHOW = "https://cdn.iconscout.com/icon/free/png-256/free-magnifying-glass-icon-svg-download-png-1798586.png"
+MAIL_TO = ["support@example.com"]
+MAIL_BODY_HEADER = _("Updates available for the entities below:")
 
 def check_sirene_update():
     """
@@ -14,8 +20,20 @@ def check_sirene_update():
     job_log = create_job_log('check_sirene_update')
 
     try:
-        result = execute_sirene_check()
-        complete_job_log(job_log, status='Complete', details=result)
+        results = execute_sirene_check()
+        total_updates = sum(len(updates) for updates in results['updates'].values())
+
+        if total_updates > 0 or results['errors'] > 0:
+            email_sent = send_sirene_report(
+                results=results,
+                recipients=MAIL_TO,
+                site_url=SITE_URL,
+                subject=MAIL_SUBJECT
+            )
+
+        log_message = "\n".join(results['logs'])
+
+        complete_job_log(job_log, status='Complete', details=log_message)
         print("Task successfully completed")
 
     except Exception as e:
