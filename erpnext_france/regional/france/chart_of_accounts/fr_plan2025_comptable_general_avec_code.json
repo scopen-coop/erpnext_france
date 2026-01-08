@@ -1,5 +1,5 @@
 {
-	"county_code": "fr",
+	"country_code": "fr",
 	"name": "France - Plan Comptable General 2025 avec code",
 	"tree": {
 		"1-Comptes de capitaux": {
@@ -613,6 +613,7 @@
 					}
 				},
 				"Amortissements des immobilisations mises en concession": {
+					"account_type": "Accumulated Depreciation",
 					"account_number": "282"
 				}
 			},
