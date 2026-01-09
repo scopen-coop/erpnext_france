@@ -266,11 +266,11 @@ def execute_sirene_check():
                                     results['updates'][doctype['type']].append({
                                         'name': element['name'],
                                         'display_name': element[doctype['field_name']],
-                                        'entity_info': entity_info
+                                        'new_data': entity_info,
+                                        'current_data': element,
                                     })
 
                             else:
-                                # TODO : A CONFIRMER SI ON STOP OU SI ON CONTINUE DANS TOUS LES CAS
                                 results['skipped'] += 1
                                 results['logs'].append(f"No address returned from ErpNext API")
 

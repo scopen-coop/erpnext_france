@@ -561,7 +561,6 @@ function update_thirdparty_from_sirene(frm) {
  * Display a Dialog where entity can be selected
  */
 async function selectFields(frm, currentDoc, etablissement) {
-  //let entity = findInfoEntity(etablissement, 0);
   let response = await frappe.call({
     method: 'erpnext_france.controllers.fetch_company_from_sirene.get_entity_info',
     args: {
@@ -577,9 +576,7 @@ async function selectFields(frm, currentDoc, etablissement) {
   let entity = response.message
 
   let AddressDoc = await getAddressDoctype(currentDoc)
-  // let route_attributes = frappe.get_route();
-  // let doctype = route_attributes[1];
-  // const matchOLD = checkValues(currentDoc, AddressDoc, entity)
+
   let doctype
 
   switch (currentDoc.doctype) {
@@ -651,7 +648,30 @@ async function selectFields(frm, currentDoc, etablissement) {
         },
         async secondary_action() {
           frappe.dom.freeze(__("Updating data..."));
-          await updateDocWithSireneInfo(frm, entity, doctype.type, AddressDoc)
+
+          try {
+            await update_doc_with_sirene_info(frm.doc, entity, doctype.type, AddressDoc)
+
+            await frm.reload_doc();
+
+            frappe.show_alert({
+              message: doctype === "Customer"
+                ? __('Customer successfully updated')
+                : __('Supplier successfully updated'),
+              indicator: 'green'
+            });
+          } catch (error) {
+            console.error('Error:', error);
+            frappe.msgprint({
+              title: __('Error'),
+              indicator: 'red',
+              message: __('Error while updating')
+            });
+          } finally {
+            frappe.dom.unfreeze();
+          }
+
+
           frappe.dom.unfreeze()
           dialog3.hide();
         },
@@ -977,7 +997,7 @@ async function updateFieldsWithSireneInfo(frm, doctype) {
   }
 }
 
-async function updateDocWithSireneInfo(frm, entity, doctype) {
+async function update_doc_with_sirene_info(doc, entity, doctype) {
   const baseFields = {};
   const addressFields = {};
 
@@ -1000,38 +1020,16 @@ async function updateDocWithSireneInfo(frm, entity, doctype) {
   addressFields['pincode'] = entity.zipcode;
   addressFields['country'] = entity.country;
 
-  frappe.dom.freeze(__('Updating data...'));
+  let response = await updateDoctype(doctype, doc.name, baseFields);
 
-  try {
-    await updateDoctype(doctype, frm.doc.name, baseFields);
+  const addressName = doctype === 'Customer'
+    ? doc.customer_primary_address
+    : doc.supplier_primary_address;
 
-    const addressName = doctype === 'Customer'
-      ? frm.doc.customer_primary_address
-      : frm.doc.supplier_primary_address;
-
-    if (addressName) {
-      await updateDoctype('Address', addressName, addressFields);
-    }
-
-    await frm.reload_doc();
-
-    frappe.show_alert({
-      message: doctype === "Customer"
-        ? __('Customer successfully updated')
-        : __('Supplier successfully updated'),
-      indicator: 'green'
-    });
-
-  } catch (error) {
-    console.error('Error:', error);
-    frappe.msgprint({
-      title: __('Error'),
-      indicator: 'red',
-      message: __('Error while updating')
-    });
-  } finally {
-    frappe.dom.unfreeze();
+  if (addressName) {
+    await updateDoctype('Address', addressName, addressFields);
   }
+  return response
 }
 
 async function getAddressDoctype(currentDoc) {
