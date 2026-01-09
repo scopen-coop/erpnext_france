@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f5f5f5;">
+    <div style="max-width: 800px; margin: 20px auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+
+        <div style="border-bottom: 3px solid #0b5ea5; padding-bottom: 15px; margin-bottom: 20px;">
+            <h2 style="margin: 0; color: #333;">ERPNext France</h2>
+            <p style="margin: 5px 0 0 0; color: #666;">{{ _("SIREN/SIRET Verification Report") }}</p>
+        </div>
+
+        <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 25px;">
+            <h3 style="margin: 0 0 10px 0; color: #333; font-size: 16px;">{{ _("Summary") }}</h3>
+            <table style="width: 100%; font-size: 14px;">
+                <tr>
+                    <td style="padding: 5px 0; color: #555;">{{ _("Processed") }}</td>
+                    <td style="text-align: right; font-weight: bold;">{{ results.processed }}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px 0; color: #555;">{{ _("Updates") }}</td>
+                    <td style="text-align: right; font-weight: bold; color: #0b5ea5;">
+                        {% set total_updates = results.updates.values()|map('length')|sum %}
+                        {{ total_updates }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px 0; color: #555;">{{ _("Skipped") }}</td>
+                    <td style="text-align: right; font-weight: bold;">{{ results.skipped }}</td>
+                </tr>
+                {% if results.errors > 0 %}
+                <tr>
+                    <td style="padding: 5px 0; color: #555;">{{ _("Errors") }}</td>
+                    <td style="text-align: right; font-weight: bold; color: #dc3545;">{{ results.errors }}</td>
+                </tr>
+                {% endif %}
+				{% if total_updates > 0 %}
+					<tr>
+                    <td style="border-radius: 4px; padding: 5px; color: #fff; text-align: center"  colspan="2">
+						<a href='{{ site_url }}/erpnext-france-settings/'><button style="background-color: #0b5ea5">{{ _("Update all") }}</button></a>
+					</td>
+					</tr>
+				{% endif %}
+            </table>
+        </div>
+
+        {% set total_updates = results.updates.values()|map('length')|sum %}
+        {% if total_updates > 0 %}
+            {% for doctype, updates in results.updates.items() %}
+                {% if updates|length > 0 %}
+                <div style="margin-bottom: 30px;">
+                    <h3 style="margin: 0 0 10px 0; color: #0b5ea5; font-size: 16px; border-bottom: 2px solid #e9ecef; padding-bottom: 8px;">
+                        {{ _(doctype) }}(s)
+                        <span style="color: #6c757d; font-size: 14px; font-weight: normal;">({{ updates|length }})</span>
+                    </h3>
+                    <table border='0' style='width: 100%; border-collapse: collapse;'>
+                        {% for update in updates %}
+                        <tr>
+                            <td style='border-bottom: 1px solid #e9ecef; padding: 10px 6px; font-size: 14px;'>
+                                <span style="color: #333; font-weight: 500;">{{ update.display_name }}</span>
+                                <a href='{{ site_url }}/{{ doctype.lower() }}/{{ update.name }}'
+                                   style='margin-left: 10px; color: #0b5ea5; text-decoration: none; font-size: 13px;'>
+                                    {{ _("View") }} →
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+
+        <div style="margin-top: 30px; padding-top: 15px; border-top: 1px solid #e9ecef; text-align: center;">
+            <p style="margin: 0; color: #999; font-size: 12px;">
+                {{ _("Report generated on") }} {{ frappe.utils.format_datetime(frappe.utils.now(), "dd/MM/yyyy HH:mm") }}
+            </p>
+        </div>
+
+    </div>
+</body>
+</html>
