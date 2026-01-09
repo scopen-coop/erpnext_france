@@ -67,7 +67,7 @@ async function display_dialog_update_companies() {
       {
         fieldname: "Customer",
         fieldtype: "Table",
-        label: __("Customers"),
+        label: __("Customer(s)"),
         cannot_add_rows: true,
         cannot_delete_rows: true,
         in_place_edit: true,
@@ -106,7 +106,7 @@ async function display_dialog_update_companies() {
       {
         fieldname: "Supplier",
         fieldtype: "Table",
-        label: __("Suppliers"),
+        label: __("Supplier(s)"),
         cannot_add_rows: true,
         cannot_delete_rows: true,
         in_place_edit: true,

@@ -221,7 +221,6 @@ fixtures = [
 # app_include_js = "/assets/erpnext_france/js/erpnext_france.js"
 app_include_js = [
     "erpnext_france.bundle.js",
-    "/assets/erpnext_france/js/fetch_from_sirene.js?v=8",
 ]
 
 # include js, css files in header of web template

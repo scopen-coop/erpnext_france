@@ -924,26 +924,6 @@ async function collectSelectedFields() {
   return fields;
 }
 
-async function updateDoctype(doctype, docname, fields) {
-  if (Object.keys(fields).length === 0) return;
-
-  return new Promise((resolve, reject) => {
-    frappe.call({
-      method: 'frappe.client.set_value',
-      args: {
-        doctype: doctype,
-        name: docname,
-        fieldname: fields
-      },
-      callback: function (r) {
-        if (r.exc) reject(r.exc);
-        else resolve(r.message);
-      },
-      error: reject
-    });
-  });
-}
-
 async function updateFieldsWithSireneInfo(frm, doctype) {
   try {
     const allFields = await collectSelectedFields();
@@ -997,41 +977,6 @@ async function updateFieldsWithSireneInfo(frm, doctype) {
   }
 }
 
-async function update_doc_with_sirene_info(doc, entity, doctype) {
-  const baseFields = {};
-  const addressFields = {};
-
-  if (doctype === "Customer") {
-    baseFields['customer_name'] = entity.company_name;
-    baseFields['customer_type'] = entity.entity_type;
-  } else {
-    baseFields['supplier_name'] = entity.company_name;
-    baseFields['supplier_type'] = entity.entity_type;
-  }
-
-  baseFields['siret'] = entity.siret;
-  baseFields['siren'] = entity.siren;
-  baseFields['code_naf'] = await getCodeNaf(entity.code_naf);
-  baseFields['legal_form'] = await getLegalForm(entity.legal_form);
-  baseFields['tax_id'] = entity.tax_id;
-
-  addressFields['address_line1'] = entity.address_1;
-  addressFields['city'] = entity.town;
-  addressFields['pincode'] = entity.zipcode;
-  addressFields['country'] = entity.country;
-
-  let response = await updateDoctype(doctype, doc.name, baseFields);
-
-  const addressName = doctype === 'Customer'
-    ? doc.customer_primary_address
-    : doc.supplier_primary_address;
-
-  if (addressName) {
-    await updateDoctype('Address', addressName, addressFields);
-  }
-  return response
-}
-
 async function getAddressDoctype(currentDoc) {
   let doctypeMethod = currentDoc.doctype === 'Customer' ? 'frappe.client.get' : 'frappe.client.get'
   let doctypePrimaryAddress = currentDoc.doctype === 'Customer' ? currentDoc.customer_primary_address : currentDoc.supplier_primary_address
@@ -1068,14 +1013,4 @@ function checkValue(datas) {
 
 function leftFillNum(num, targetLength) {
   return num.toString().padStart(targetLength, "0");
-}
-
-async function getCodeNaf(code_naf) {
-  let naf = await frappe.db.get_doc("Code Naf", null, {code: code_naf});
-  return naf.name;
-}
-
-async function getLegalForm(legal_form) {
-  let form = await frappe.db.get_doc("Legal Form", null, {code: legal_form});
-  return form.name;
 }
