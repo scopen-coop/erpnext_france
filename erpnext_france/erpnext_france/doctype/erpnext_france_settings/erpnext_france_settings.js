@@ -22,7 +22,7 @@ frappe.ui.form.on("ERPNext France Settings", {
           __("Manage")
         );
         frm.add_custom_button(
-          __("ERPNext France - Update companies (siren)"),
+          __("ERPNext France - Update companies (sirene)"),
           function () {
             display_dialog_update_companies(
               frm,
