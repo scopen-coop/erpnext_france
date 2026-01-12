@@ -486,33 +486,39 @@ function update_thirdparty_from_sirene(frm) {
   $(document).on('click', '.addRemoveArrow', function () {
     const $btn = $(this);
     const $use = $btn.find('use');
-    const currentDirection = $btn.data('direction');
+    const currentDirection = $btn.attr('data-direction');
     const currentField = $btn.data('field');
-
     if (currentDirection === 'left') {
       $use.attr('href', '#icon-close');
-      $btn.data('direction', 'right');
+      $btn.attr('data-direction', 'right');
+      let previousValue, newValue
 
-      const previousValue = $btn.closest("tr").find(".currentValue").val()
-      const newValue = $btn.closest("tr").find(".retrievedValue").val()
+      if($btn.closest("tr").find(".currentValue").hasClass('Link')){
+        previousValue = $btn.closest("tr").find(".currentValue").closest("td").find('.control-value a').attr("data-value");
+        newValue = $btn.closest("tr").find(".retrievedValue").closest("td").find('.control-value a').attr("data-value");
+        console.log(newValue)
+      }else{
+        previousValue = $btn.closest("tr").find(".currentValue").val()
+        newValue = $btn.closest("tr").find(".retrievedValue").val()
+      }
+
       $btn.closest("tr").find(".currentValue").val(newValue)
-      $btn.closest("tr").find(".currentValue").data('previousValue', previousValue);
-      $btn.closest("tr").find(".currentValue").data('updated', true);
+      $btn.closest("tr").find(".currentValue").attr('data-previousValue', previousValue);
+      $btn.closest("tr").find(".currentValue").attr('data-updated', true);
+      $("#sirene_mismatch_" + currentField).find('svg.error').hide()
+      $("#sirene_match_" + currentField).show()
     } else {
       $use.attr('href', '#es-line-left-chevron');
-      $btn.data('direction', 'left');
+      $btn.attr('data-direction', 'left');
 
-      const previousValue = $btn.closest("tr").find(".currentValue").data('previousValue')
+      const previousValue = $btn.closest("tr").find(".currentValue").attr('data-previousValue')
 
       $btn.closest("tr").find(".currentValue").val(previousValue)
-      $btn.closest("tr").find(".currentValue").data('previousValue', '');
-      $btn.closest("tr").find(".currentValue").data('updated', false);
+      $btn.closest("tr").find(".currentValue").attr('data-previousValue', '');
+      $btn.closest("tr").find(".currentValue").attr('data-updated', false);
+      $("#sirene_mismatch_" + currentField).find('svg').show()
+      $("#sirene_match_" + currentField).hide()
     }
-
-    $("#sirene_mismatch_" + currentField).hide()
-    $("#sirene_match_" + currentField).show()
-
-
   });
 
 
@@ -681,6 +687,30 @@ async function selectFields(frm, currentDoc, etablissement) {
         make_table_update(currentDoc, entity, AddressDoc)
       );
 
+      frappe.ui.form.make_control({
+        parent: dialog3.fields_dict.table_area.$wrapper.find('.legal-form-erpnext-control'),
+        df: {
+          fieldname: 'legal_form',
+          fieldtype: 'Link',
+          options: 'Legal Form',
+          input_class: 'currentValue Link'
+        },
+        value: currentDoc.legal_form,
+        render_input: true
+      });
+
+      frappe.ui.form.make_control({
+        parent: dialog3.fields_dict.table_area.$wrapper.find('.legal-form-sirene-control'),
+        df: {
+          fieldname: 'legal_form',
+          fieldtype: 'Link',
+          options: 'Legal Form',
+          input_class: 'retrievedValue Link'
+        },
+        value: entity.legal_form,
+        render_input: true
+      });
+
       dialog3.$wrapper.find('.btn-secondary')
         .removeClass('btn-secondary')
         .addClass('btn-warning');
@@ -835,14 +865,12 @@ function make_table_update(currentDoc, entity, AddressDoc) {
                 <td>
                     <label style="display: block;">${__("Legal Form")}</label>
                 </td>
-                <td>
-                    <input class="input-with-feedback form-control currentValue" value="` + currentDoc.legal_form + `"/>
-                </td>
+                <td class="legal-form-erpnext-control">
+                    </td>
                 <td>` + sirenePrintCheckbox('company_judicial_form', checkValue([
       {fname: 'company_judicial_form', dval: currentDoc.legal_form, sval: entity.legal_form}
     ])) + `</td>
-                <td>
-                    <input id="sirene_company_judicial_form" class="input-with-feedback form-control retrievedValue" value="` + entity.legal_form + `" />
+                <td  class="legal-form-sirene-control">
                 </td>
             </tr>
         </tbody>
@@ -856,8 +884,8 @@ function sirenePrintCheckbox(field_name, match) {
   let result = '<span id="sirene_match_' + field_name + '" style="' + (match ? "display: block;" : "display: none;") + '" title="' + __("SireneIconCheckHelp") + '">' + "\n";
   result += '<svg class="es-icon ml-0 icon-sm" ><use href="#icon-solid-success"></use></svg>' + "\n";
   result += '</span>' + "\n";
-  result += '<span id="sirene_mismatch_' + field_name + '" style="' + (match ? "display: none;" : "display: block;") + '" class="nowrap sirene_check">' + "\n";
-  result += '<svg class="es-icon ml-0 icon-sm" style="display:inline-block"><use href="#icon-solid-error"></use></svg></i>' + "\n";
+  result += '<span id="sirene_mismatch_' + field_name + '" style="' + (match ? "display: none;" : "display: inline-block;") + '" class="nowrap sirene_check">' + "\n";
+  result += '<svg class="es-icon ml-0 icon-sm error" style="display:inline-block"><use href="#icon-solid-error"></use></svg></i>' + "\n";
   result += '<button class="text-muted btn btn-default prev-doc addRemoveArrow icon-btn " data-field="' + field_name + '" data-direction="left" style="display:inline-block" title="' + __("SireneIconUpdateHelp") + '" data-original-title="' + __("SireneIconUpdateHelp") + '">' + "\n";
   result += '<svg class="es-icon es-line  icon-sm" style="" aria-hidden="true">' + "\n";
   result += '<use href="#es-line-left-chevron"></use>' + "\n";
@@ -931,6 +959,11 @@ async function updateFieldsWithSireneInfo(frm, doctype) {
     if (Object.keys(allFields).length === 0) {
       frappe.msgprint(__('No fields selected for update'));
       return;
+    }
+
+    if(Object.keys(allFields).includes('company_judicial_form')){
+      allFields.company_judicial_form = getLegalFormByName(allFields.company_judicial_form)
+
     }
 
     const {doctypeFields, addressFields} = separateAndMapFields(allFields, doctype);
