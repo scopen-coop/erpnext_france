@@ -180,7 +180,7 @@ update_doc_with_sirene_info = async function (doc, entity, doctype) {
   return response
 }
 
-async function updateDoctype(doctype, docname, fields) {
+updateDoctype = async function (doctype, docname, fields) {
   if (Object.keys(fields).length === 0) return;
 
   return new Promise((resolve, reject) => {
@@ -191,6 +191,7 @@ async function updateDoctype(doctype, docname, fields) {
         name: docname,
         fieldname: fields
       },
+
       callback: function (r) {
         if (r.exc) reject(r.exc);
         else resolve(r.message);
@@ -200,12 +201,16 @@ async function updateDoctype(doctype, docname, fields) {
   });
 }
 
-async function getCodeNaf(code_naf) {
+getCodeNaf = async function (code_naf) {
   let naf = await frappe.db.get_doc("Code Naf", null, {code: code_naf});
   return naf.name;
 }
 
-async function getLegalForm(legal_form) {
+getLegalForm = async function getLegalForm(legal_form) {
   let form = await frappe.db.get_doc("Legal Form", null, {code: legal_form});
+  return form.name;
+}
+getLegalFormByName = async function getLegalForm(legal_form) {
+  let form = await frappe.db.get_doc("Legal Form", null, {label: legal_form});
   return form.name;
 }
