@@ -41,7 +41,7 @@ Deposit Setup,Gestion des acomptes
 Accountancy Export,Export journaux vente et achat
 Export FEC,Export ecriture FEC
 API Url,Url d'accès à l'API généré depuis le compte de Sirene
-API Token,Token d'accès à l'API généré depuis le compte de Sirene (Authorization : Bearer),
+API Token,Token d'accès à l'API généré via le compte de Sirene (Authorization : Bearer),
 API Timeout,Délai d'attente maximum d'une requête vers l'API (en secondes par defaut 2)
 Import supplier from SIRENE,Importer un fournisseur depuis SIRENE
 Import customer from SIRENE,Importer un client depuis SIRENE
@@ -678,9 +678,12 @@ View,Voir,
 Processed,Traités,
 Skipped,Ignorés,
 Report generated on,Rapport généré le,
-ERPNext France - Update companies (sirene),ERPNext France - Mettre à jour les entreprises (Siren),
+ERPNext France - Update companies (sirene),ERPNext France - Mettre à jour les entreprises (Sirene),
 Please select at least one line,Veuillez sélectionner au moins une ligne,
 Pending,En attente,
 In Progress,En cours,
 Updated,Mis à jour,
 Error,Erreur,
+Customer recovery email,Email de récupération des clients,
+Supplier recovery email,Email de récupération des fournisseurs,
+Errors,Erreurs,
