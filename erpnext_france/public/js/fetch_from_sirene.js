@@ -619,7 +619,6 @@ async function selectFields(frm, currentDoc, etablissement) {
         fields.push(
           {
             fieldtype: "Section Break",
-            //label: label
           },
           {
             fieldtype: "Column Break",
@@ -933,9 +932,6 @@ async function updateFieldsWithSireneInfo(dialog3, frm, doctype) {
 
     const {doctypeFields, addressFields} = separateAndMapFields(allFields, doctype);
     frappe.dom.freeze(__('Updating data...'));
-    console.log("allFields", allFields)
-    console.log("doctypeFields", doctypeFields)
-    console.log("addressFields", addressFields)
     if (Object.keys(doctypeFields).length > 0) {
       await updateDoctype(doctype, frm.doc.name, doctypeFields);
     }

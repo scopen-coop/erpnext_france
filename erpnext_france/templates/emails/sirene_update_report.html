@@ -17,26 +17,21 @@
             <table style="width: 100%; font-size: 14px;">
                 <tr>
                     <td style="padding: 5px 0; color: #555;">{{ _("Processed") }}</td>
-                    <td style="text-align: right; font-weight: bold;">{{ results.processed }}</td>
+                    <td style="text-align: right; font-weight: bold;">{{ processed }}</td>
                 </tr>
                 <tr>
                     <td style="padding: 5px 0; color: #555;">{{ _("Updates") }}</td>
                     <td style="text-align: right; font-weight: bold; color: #0b5ea5;">
-                        {% set total_updates = results.updates.values()|map('length')|sum %}
-                        {{ total_updates }}
+                        {{ updates|length }}
                     </td>
                 </tr>
-                <tr>
-                    <td style="padding: 5px 0; color: #555;">{{ _("Skipped") }}</td>
-                    <td style="text-align: right; font-weight: bold;">{{ results.skipped }}</td>
-                </tr>
-                {% if results.errors > 0 %}
+
                 <tr>
                     <td style="padding: 5px 0; color: #555;">{{ _("Errors") }}</td>
-                    <td style="text-align: right; font-weight: bold; color: #dc3545;">{{ results.errors }}</td>
+                    <td style="text-align: right; font-weight: bold; color: {% if errors > 0 %}#dc3545 {% else %}#555{% endif %};">{{ errors }}</td>
                 </tr>
-                {% endif %}
-				{% if total_updates > 0 %}
+
+				{% if updates|length > 0 %}
 					<tr>
                     <td style="border-radius: 4px; padding: 5px; color: #fff; text-align: center"  colspan="2">
 						<a href='{{ site_url }}/erpnext-france-settings/'><button style="background-color: #0b5ea5">{{ _("Update all") }}</button></a>
@@ -46,9 +41,7 @@
             </table>
         </div>
 
-        {% set total_updates = results.updates.values()|map('length')|sum %}
-        {% if total_updates > 0 %}
-            {% for doctype, updates in results.updates.items() %}
+
                 {% if updates|length > 0 %}
                 <div style="margin-bottom: 30px;">
                     <h3 style="margin: 0 0 10px 0; color: #0b5ea5; font-size: 16px; border-bottom: 2px solid #e9ecef; padding-bottom: 8px;">
@@ -70,8 +63,6 @@
                     </table>
                 </div>
                 {% endif %}
-            {% endfor %}
-        {% endif %}
 
 
         <div style="margin-top: 30px; padding-top: 15px; border-top: 1px solid #e9ecef; text-align: center;">

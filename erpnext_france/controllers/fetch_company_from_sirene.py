@@ -143,9 +143,11 @@ def execute_sirene_check():
     """
 
     results = {
-        'processed': 0,
+        'processed_customer': 0,
+        'processed_supplier': 0,
         'skipped': 0,
-        'errors': 0,
+        'errors_customer': 0,
+        'errors_supplier': 0,
         'updates': {},
         'logs': []
     }
@@ -213,7 +215,7 @@ def execute_sirene_check():
 
                 for idx, element in enumerate(elements, 1):
                     try:
-                        results['processed'] += 1
+                        results['processed_' + doctype['type'].lower()] += 1
 
                         siret = element.get('siret')
                         siren = element.get('siren')
@@ -247,7 +249,7 @@ def execute_sirene_check():
                         response = fetch_company_from_sirene(json.dumps(data_to_post))
                         entity = response['message']['etablissements'][0]
 
-                        if results['processed'] % 25 == 0:
+                        if (results['processed_customer'] + results['processed_customer']) % 25 == 0:
                             print("Pause")
                             time.sleep(5)
 
@@ -282,7 +284,7 @@ def execute_sirene_check():
 
 
                     except Exception as e:
-                        results['errors'] += 1
+                        results['errors_'+ doctype['type'].lower()] += 1
                         error_msg = str(e)
                         logger.error(f"Error processing {element[doctype['field_name']]}: {error_msg}")
                         results['logs'].append(f"Error: {error_msg}\n")
@@ -296,16 +298,18 @@ def execute_sirene_check():
 
             results['logs'].append("\nSUMMARY")
             results['logs'].append("=" * 50)
-            results['logs'].append(f"Processed: {results['processed']}")
+            results['logs'].append(f"Processed: {results['processed_customer']}")
+            results['logs'].append(f"Processed: {results['processed_supplier']}")
             results['logs'].append(f"Skipped: {results['skipped']}")
-            results['logs'].append(f"Errors: {results['errors']}")
+            results['logs'].append(f"Errors: {results['errors_customer']}")
+            results['logs'].append(f"Errors: {results['errors_supplier']}")
 
             total_updates = sum(len(updates) for updates in results['updates'].values())
             results['logs'].append(f"Updates detected: {total_updates}")
 
             results['logs'].append(f"\nCompleted at: {frappe.utils.now()}")
 
-            logger.info(f"Task completed: {results['processed']} processed, {results['errors']} errors")
+            logger.info(f"Task completed: {(results['errors_customer'] + results['errors_supplier'])} processed, {( results['errors_customer'] + results['errors_supplier'])} errors")
 
         finally:
             frappe.cache().delete_value('siren_update_running')
@@ -496,37 +500,80 @@ def get_entity_info(entity, i):
 
     return entity_info
 
-def send_sirene_report(results, recipients, site_url, subject=None):
-    try:
-        email_content = frappe.render_template(
-            "templates/emails/sirene_update_report.html",
-            {
-                'results': results,
-                'site_url': site_url,
-                '_': _
-            }
-        )
+def send_sirene_report(results, recipients_customer, recipients_supplier, site_url, subject=None):
+    total_updates_customers = len(results['updates']['Customer'])
+    total_updates_suppliers = len(results['updates']['Supplier'])
 
-        frappe.sendmail(
-            recipients=recipients,
-            subject=subject,
-            message=email_content,
-            now=True
-        )
+    customer_sent = False
+    supplier_sent = False
 
-        logger.info("Report sent by email successfully")
-        return True
+    if total_updates_customers > 0 or results['errors_customer'] > 0:
+        try:
+            email_content = frappe.render_template(
+                "templates/emails/sirene_update_report.html",
+                {
+                    'updates': results['updates']['Customer'],
+                    'errors': results['errors_customer'],
+                    'processed': results['processed_customer'],
+                    'doctype' : 'Customer',
+                    'site_url': site_url,
+                    '_': _
+                }
+            )
 
-    except Exception as e:
-        logger.error(f"Error sending email: {str(e)}")
-        frappe.log_error(
-            message=frappe.get_traceback(),
-            title="SIREN Report Email Error"
-        )
-        return False
+            frappe.sendmail(
+                recipients=recipients_customer,
+                subject=subject,
+                message=email_content,
+                now=True
+            )
 
+            logger.info("Customers report successfully sent by email")
+            customer_sent = True
 
+        except Exception as e:
+            logger.error(f"Error sending email: {str(e)}")
+            frappe.log_error(
+                message=frappe.get_traceback(),
+                title="SIREN Customers report Email Error"
+            )
+            return False
 
+    if total_updates_suppliers > 0 or results['errors_supplier'] > 0:
+
+        try:
+
+            email_content = frappe.render_template(
+                "templates/emails/sirene_update_report.html",
+                {
+                    'updates': results['updates']['Supplier'],
+                    'errors': results['errors_supplier'],
+                    'processed': results['processed_supplier'],
+                    'doctype': 'Supplier',
+                    'site_url': site_url,
+                    '_': _
+                }
+            )
+
+            frappe.sendmail(
+                recipients=recipients_supplier,
+                subject=subject,
+                message=email_content,
+                now=True
+            )
+
+            logger.info("Suppliers report successfully sent by email")
+            supplier_sent = True
+
+        except Exception as e:
+            logger.error(f"Error sending email: {str(e)}")
+            frappe.log_error(
+                message=frappe.get_traceback(),
+                title="SIREN Suppliers report Email Error"
+            )
+            return False
+
+    return customer_sent or supplier_sent
 
 
 def local_compare(text):

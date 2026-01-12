@@ -10,7 +10,8 @@ from .controllers.fetch_company_from_sirene import execute_sirene_check, send_si
 SITE_URL = frappe.utils.get_site_url(frappe.local.site) + "/app"
 MAIL_SUBJECT = _("SIRENE - Updates available")
 PICTO_SHOW = "https://cdn.iconscout.com/icon/free/png-256/free-magnifying-glass-icon-svg-download-png-1798586.png"
-MAIL_TO = ["support@example.com"]
+MAIL_TO_CUSTOMER = [frappe.get_doc("ERPNext France Settings").customer_recovery_email]
+MAIL_TO_SUPPLIER = [frappe.get_doc("ERPNext France Settings").supplier_recovery_email]
 MAIL_BODY_HEADER = _("Updates available for the entities below:")
 
 def check_sirene_update():
@@ -23,10 +24,11 @@ def check_sirene_update():
         results = execute_sirene_check()
         total_updates = sum(len(updates) for updates in results['updates'].values())
 
-        if total_updates > 0 or results['errors'] > 0:
+        if total_updates > 0 or results['errors_customer'] > 0:
             email_sent = send_sirene_report(
                 results=results,
-                recipients=MAIL_TO,
+                recipients_customer=MAIL_TO_CUSTOMER,
+                recipients_supplier=MAIL_TO_SUPPLIER,
                 site_url=SITE_URL,
                 subject=MAIL_SUBJECT
             )
