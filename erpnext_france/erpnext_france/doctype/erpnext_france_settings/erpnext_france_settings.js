@@ -47,11 +47,6 @@ async function display_dialog_update_companies() {
         frappe.throw(__("No Response From Server"));
 
       }
-
-      if (response.message.error) {
-
-      }
-
     },
   });
 
