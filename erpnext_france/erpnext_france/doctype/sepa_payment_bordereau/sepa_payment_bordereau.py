@@ -1,5 +1,5 @@
-# Copyright (c) 2026, Dokos SAS and contributors
-# For license information, please see license.txt
+# Copyright (c) 2025, Scopen and Contributors
+# See license.txt
 
 import frappe
 from frappe import _
