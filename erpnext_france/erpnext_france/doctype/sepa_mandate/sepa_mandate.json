@@ -1,0 +1,136 @@
+{
+ "actions": [],
+ "autoname": "format:MANDATE-{####}",
+ "creation": "2026-01-15 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "customer",
+  "bank_account",
+  "column_break_1",
+  "rum",
+  "signature_date",
+  "section_break_2",
+  "mandate_type",
+  "sequence_type",
+  "column_break_3",
+  "status"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "bank_account",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Bank Account",
+   "options": "Bank Account",
+   "reqd": 1
+  },
+  {
+   "fieldname": "rum",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "RUM (Référence Unique de Mandat)",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "signature_date",
+   "fieldtype": "Date",
+   "label": "Signature Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "mandate_type",
+   "fieldtype": "Select",
+   "label": "Mandate Type",
+   "options": "CORE\nB2B",
+   "reqd": 1,
+   "default": "CORE"
+  },
+  {
+   "fieldname": "sequence_type",
+   "fieldtype": "Select",
+   "label": "Sequence Type",
+   "options": "FRST\nRCUR",
+   "reqd": 1,
+   "default": "FRST"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nActive\nCancelled",
+   "reqd": 1,
+   "default": "Draft"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "links": [],
+ "modified": "2026-01-15 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "ERPNext France",
+ "name": "SEPA Mandate",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

@@ -42,6 +42,10 @@ fixtures = [
 					"Customer-siret",
 					"Customer-siren",
 					"Customer-default_payment_terms_template_before_invoice",
+					"Customer-sepa_section",
+					"Customer-default_mode_of_payment_sepa",
+					"Customer-column_break_sepa_1",
+					"Customer-sepa_mandate",
 					"Customer Group-default_payment_terms_template_before_invoice",
 					"Customer Group-tax_category",
 					"GL Entry-accounting_entry_number",
@@ -345,6 +349,7 @@ doc_events = {
 			"erpnext_france.utils.transaction_log.create_transaction_log",
 		],
 		"before_save": "erpnext_france.controllers.taxes.before_save",
+		"validate": "erpnext_france.erpnext_france.overrides.sales_invoice.validate",
 	},
 	"Sales Order": {
 		"before_update_after_submit": "erpnext_france.controllers.sales_order.verify_sales_orders_terms",
