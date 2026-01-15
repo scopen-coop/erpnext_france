@@ -655,3 +655,5 @@ Clear & Add Template,Appliquer le modèle
 Prepend the template to the email message,Ajouter le contenu du modèle à la suite
 Clear the email message and add the template,Remplacer par le contenu du modèle
 Production Plan,Planification de la prod.
+Account Code Length,Longueur du code comptable
+"If you set the value to 6 here, account '706' will appear as '706000' in exports","Si vous définissez la valeur à 6 ici, le compte '706' apparaîtra comme '706000' dans les exports"
