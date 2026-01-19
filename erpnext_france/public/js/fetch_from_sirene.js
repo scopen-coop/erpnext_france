@@ -2,19 +2,19 @@
 // For license information, please see license.txt
 $('head').append(`
         <style id="dialog-columns-layout">
-            .modal-dialog .form-section .form-column:nth-child(1) {
+            #modal-3 .form-section .form-column:nth-child(1) {
                 flex: 0 0 20% !important;
                 max-width: 20% !important;
             }
-            .modal-dialog .form-section .form-column:nth-child(2) {
+            #modal-3 .form-section .form-column:nth-child(2) {
                 flex: 0 0 35% !important;
                 max-width: 35% !important;
             }
-            .modal-dialog .form-section .form-column:nth-child(3) {
+            #modal-3 .form-section .form-column:nth-child(3) {
                 flex: 0 0 10% !important;
                 max-width: 10% !important;
             }
-            .modal-dialog .form-section .form-column:nth-child(4) {
+            #modal-3 .form-section .form-column:nth-child(4) {
                 flex: 0 0 35% !important;
                 max-width: 35% !important;
             }
@@ -782,7 +782,7 @@ async function selectFields(frm, currentDoc, etablissement) {
           dialog3.hide();
         },
       });
-
+      dialog3.$wrapper.find(".modal-dialog").attr("id", "modal-3")
       dialog3.$wrapper.find('.btn-secondary')
         .removeClass('btn-secondary')
         .addClass('btn-warning');
@@ -908,16 +908,16 @@ function separateAndMapFields(fields, baseDoctype) {
 
 async function collectSelectedFields(dialog3, doctype) {
   return {
-    [doctype.toLowerCase() + "_name"] : dialog3.get_value('company_name'),
-    company_address_line1 : dialog3.get_value('address_line1'),
-    company_pincode : dialog3.get_value('pincode'),
-    company_city : dialog3.get_value('city'),
-    company_country : dialog3.get_value('country'),
-    siren : dialog3.get_value('siren'),
-    siret : dialog3.get_value('siret'),
-    code_naf : dialog3.get_value('code_naf'),
-    tax_id : dialog3.get_value('tax_id'),
-    legal_form : dialog3.get_value('legal_form'),
+    [doctype.toLowerCase() + "_name"]: dialog3.get_value('company_name'),
+    company_address_line1: dialog3.get_value('address_line1'),
+    company_pincode: dialog3.get_value('pincode'),
+    company_city: dialog3.get_value('city'),
+    company_country: dialog3.get_value('country'),
+    siren: dialog3.get_value('siren'),
+    siret: dialog3.get_value('siret'),
+    code_naf: dialog3.get_value('code_naf'),
+    tax_id: dialog3.get_value('tax_id'),
+    legal_form: dialog3.get_value('legal_form'),
   }
 }
 
