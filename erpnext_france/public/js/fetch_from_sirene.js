@@ -613,9 +613,9 @@ async function selectFields(frm, currentDoc, etablissement) {
         return
       }
 
-      let fields = [];
+      let fields = []
 
-      function addComparisonRow(label, fieldname, fieldtype, currentValue, sireneValue, options = null) {
+      function addComparisonRow(label, fieldname, fieldtype, currentValue, sireneValue, label_col1, label_col2, options = null) {
         fields.push(
           {
             fieldtype: "Section Break",
@@ -626,6 +626,7 @@ async function selectFields(frm, currentDoc, etablissement) {
           },
           {
             fieldtype: "Column Break",
+            label: label_col1,
           },
           {
             fieldname: fieldname,
@@ -643,23 +644,32 @@ async function selectFields(frm, currentDoc, etablissement) {
           },
           {
             fieldtype: "Column Break",
+            label:label_col2
           },
           {
             fieldname: `sirene_${fieldname}`,
             fieldtype: fieldtype,
             options: options,
             default: sireneValue,
-            read_only: 0
+            read_only: 1
           }
         );
       }
-
+      addComparisonRow(
+        "",
+        "",
+        "",
+        "",
+        "",
+        __("Current values"),
+        __("Sirene values"),
+      );
       addComparisonRow(
         __("Company Name"),
         "company_name",
         "Data",
         currentDoc.doctype === 'Customer' ? currentDoc.customer_name : currentDoc.supplier_name,
-        entity.company_name
+        entity.company_name,
       );
 
       addComparisonRow(
@@ -741,8 +751,8 @@ async function selectFields(frm, currentDoc, etablissement) {
         title: currentDoc.doctype === "Customer" ? __("Update customer from SIRENE") : __("Update supplier from SIRENE"),
         fields: fields,
         size: "extra-large", // small, large, extra-large
-        primary_action_label: __("Save"),
-        secondary_action_label: __("Update all"),
+        primary_action_label: __("Save current values"),
+        secondary_action_label: __("Update all with Sirene's values"),
         onhide: function () {
           this.$wrapper.remove();
           dialog3 = null;
