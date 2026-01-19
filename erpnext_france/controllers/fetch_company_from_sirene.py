@@ -161,6 +161,7 @@ def execute_sirene_check():
     if frappe.cache().get_value('siren_update_running'):
         logger.info("Task already running, exiting")
         results['logs'].append("Task already running, skipped")
+        print("Task already running, skipped")
         return results
 
     frappe.cache().set_value('siren_update_running', True, expires_in_sec=7200)
@@ -308,6 +309,8 @@ def execute_sirene_check():
 
     logger.info(f"Task completed: {(results['errors_customer'] + results['errors_supplier'])} processed, {(results['errors_customer'] + results['errors_supplier'])} errors")
 
+    frappe.cache().delete_value('siren_update_running')
+    results['logs'].append("\nCache lock released")
 
     return results
 

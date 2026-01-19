@@ -7,7 +7,7 @@ from frappe import _
 from .controllers.fetch_company_from_sirene import execute_sirene_check, send_sirene_report
 
 
-SITE_URL = frappe.utils.get_site_url(frappe.local.site) + "/app"
+SITE_URL = frappe.utils.get_url() + "/app"
 MAIL_SUBJECT = _("SIRENE - Updates available")
 PICTO_SHOW = "https://cdn.iconscout.com/icon/free/png-256/free-magnifying-glass-icon-svg-download-png-1798586.png"
 MAIL_TO_CUSTOMER = [frappe.get_doc("ERPNext France Settings").customer_recovery_email]
