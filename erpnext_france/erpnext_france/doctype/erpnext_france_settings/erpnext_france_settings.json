@@ -61,18 +61,18 @@
   {
    "fieldname": "customer_recovery_email",
    "fieldtype": "Data",
-   "label": "Customer recovery email"
+   "label": "Sirene report recovery recipient email for customers"
   },
   {
    "fieldname": "supplier_recovery_email",
    "fieldtype": "Data",
-   "label": "Supplier recovery email"
+   "label": "Sirene report recovery recipient email for suppliers"
   }
  ],
  "grid_page_length": 50,
  "issingle": 1,
  "links": [],
- "modified": "2026-01-12 12:20:13.359652",
+ "modified": "2026-01-19 16:00:58.437138",
  "modified_by": "aa.aa@aa.aa",
  "module": "ERPNext France",
  "name": "ERPNext France Settings",
