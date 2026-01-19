@@ -376,28 +376,33 @@ def get_entity_info(entity, i):
     entity_type = ""
     legal_form = ""
 
-    if (entity['uniteLegale']['denominationUniteLegale'] not in [None, '[ND]', ''] and
+    print("====")
+    print(entity['uniteLegale']['denominationUniteLegale'])
+    print(entity['uniteLegale']['nomUsageUniteLegale'])
+    print("====")
+
+    if ( is_not_null(entity['uniteLegale']['denominationUniteLegale']) and
         entity['uniteLegale']['nomUsageUniteLegale'] in [None, '[ND]', '']):
         # Morale
         entity_type = "Company"
         company_name = entity["uniteLegale"]["denominationUniteLegale"]
 
-        if entity["uniteLegale"]["denominationUsuelle1UniteLegale"] not in [None, '[ND]', '']:
+        if is_not_null(entity["uniteLegale"]["denominationUsuelle1UniteLegale"]):
             company_name_alias = entity["uniteLegale"]["denominationUsuelle1UniteLegale"]
-        elif entity["uniteLegale"]["denominationUsuelle2UniteLegale"] not in [None, '[ND]', '']:
+        elif is_not_null(entity["uniteLegale"]["denominationUsuelle2UniteLegale"]):
             company_name_alias = entity["uniteLegale"]["denominationUsuelle2UniteLegale"]
-        elif entity["uniteLegale"]["denominationUsuelle2UniteLegale"] not in [None, '[ND]', '']:
+        elif is_not_null(entity["uniteLegale"]["denominationUsuelle2UniteLegale"]):
             company_name_alias = entity["uniteLegale"]["denominationUsuelle2UniteLegale"]
-        elif entity["periodesEtablissement"][0] not in [None, '[ND]', '']:
+        elif is_not_null(entity["periodesEtablissement"][0] ):
             entityinfo = entity["periodesEtablissement"][0]
             company_name_alias = entityinfo["denominationUsuelleEtablissement"]
 
-            if not company_name_alias not in [None, '[ND]', '']:
-                if entityinfo["enseigne1Etablissement"] not in [None, '[ND]', '']:
+            if not is_not_null(company_name_alias):
+                if is_not_null(entityinfo["enseigne1Etablissement"]):
                     company_name_alias = entityinfo["enseigne1Etablissement"]
-                elif entityinfo["enseigne2Etablissement"] not in [None, '[ND]', '']:
+                elif is_not_null(entityinfo["enseigne2Etablissement"]):
                     company_name_alias = entityinfo["enseigne2Etablissement"]
-                elif entityinfo["enseigne3Etablissement"] not in [None, '[ND]', '']:
+                elif is_not_null(entityinfo["enseigne3Etablissement"]):
                     company_name_alias = entityinfo["enseigne3Etablissement"]
 
 
@@ -411,69 +416,70 @@ def get_entity_info(entity, i):
         entity_type = "Individual"
         company_name = entity["uniteLegale"]["nomUsageUniteLegale"]
         firstname = entity["uniteLegale"]["prenomUsuelUniteLegale"]
-
+        print("is firstname", firstname)
         if not firstname :
-            if entity["uniteLegale"]["prenom1UniteLegale"] not in [None, '[ND]', '']:
+            if is_not_null(entity["uniteLegale"]["prenom1UniteLegale"]):
                 firstname = entity["uniteLegale"]["prenom1UniteLegale"]
-            elif entity["uniteLegale"]["prenom2UniteLegale"] not in [None, '[ND]', '']:
+            elif is_not_null(entity["uniteLegale"]["prenom2UniteLegale"]):
                 firstname = entity["uniteLegale"]["prenom2UniteLegale"]
-            elif entity["uniteLegale"]["prenom3UniteLegale"] not in [None, '[ND]', '']:
+            elif is_not_null(entity["uniteLegale"]["prenom3UniteLegale"]):
                 firstname = entity["uniteLegale"]["prenom3UniteLegale"]
-            elif    entity["uniteLegale"]["prenom4UniteLegale"] not in [None, '[ND]', '']:
+            elif is_not_null(entity["uniteLegale"]["prenom4UniteLegale"]):
                 firstname = entity["uniteLegale"]["prenom4UniteLegale"]
 
         else :
-            if entity["uniteLegale"]["prenom1UniteLegale"] not in [None, '[ND]', '']:
+            if is_not_null(entity["uniteLegale"]["prenom1UniteLegale"]):
                 company_name_alias = entity["uniteLegale"]["prenom1UniteLegale"]
-            elif entity["uniteLegale"]["prenom2UniteLegale"] not in [None, '[ND]', '']:
+            elif is_not_null(entity["uniteLegale"]["prenom2UniteLegale"]):
                 company_name_alias = entity["uniteLegale"]["prenom2UniteLegale"]
-            elif entity["uniteLegale"]["prenom3UniteLegale"] not in [None, '[ND]', '']:
+            elif is_not_null(entity["uniteLegale"]["prenom3UniteLegale"]):
                 company_name_alias = entity["uniteLegale"]["prenom3UniteLegale"]
-            elif entity["uniteLegale"]["prenom4UniteLegale"] not in [None, '[ND]', '']:
+            elif is_not_null(entity["uniteLegale"]["prenom4UniteLegale"]):
                 company_name_alias = entity["uniteLegale"]["prenom4UniteLegale"]
+        print(">" , firstname)
+        print(">>" , company_name)
+        company_name_all = firstname + " " if firstname else "" + (company_name if company_name else "")
 
-        company_name_all = firstname + " " + (company_name if company_name else "")
-
-    if company_name_alias not in [None, '[ND]', '']:
+    if is_not_null(company_name_alias):
         company_name_all += " (" + company_name_alias + ")"
 
-    if entity['dateCreationEtablissement'] not in [None, '[ND]', ''] :
+    if is_not_null(entity['dateCreationEtablissement']) :
         date_creation = entity['dateCreationEtablissement']
 
-    if entity['adresseEtablissement']['numeroVoieEtablissement'] not in [None, '[ND]', ''] :
+    if is_not_null(entity['adresseEtablissement']['numeroVoieEtablissement']):
         address_1 = entity['adresseEtablissement']['numeroVoieEtablissement']
 
     if entity['adresseEtablissement']['typeVoieEtablissement'] :
         address_1 += " " + entity['adresseEtablissement']['typeVoieEtablissement']
 
-    if entity['adresseEtablissement']['libelleVoieEtablissement'] not in [None, '[ND]', ''] :
+    if is_not_null(entity['adresseEtablissement']['libelleVoieEtablissement']) :
         address_1 += " " + entity['adresseEtablissement']['libelleVoieEtablissement']
 
-    if entity['adresseEtablissement']['complementAdresseEtablissement'] not in [None, '[ND]', ''] :
+    if is_not_null(entity['adresseEtablissement']['complementAdresseEtablissement']) :
         address_1 +=" " + entity['adresseEtablissement']['complementAdresseEtablissement']
 
-    if entity['adresseEtablissement']['libelleCommuneEtablissement'] not in [None, '[ND]', ''] :
+    if is_not_null(entity['adresseEtablissement']['libelleCommuneEtablissement']):
         town = entity['adresseEtablissement']['libelleCommuneEtablissement']
-    elif entity['adresseEtablissement']['libelleCommuneEtrangerEtablissement'] not in [None, '[ND]', ''] :
+    elif is_not_null(entity['adresseEtablissement']['libelleCommuneEtrangerEtablissement']) :
        town = entity['adresseEtablissement']['libelleCommuneEtrangerEtablissement']
 
-    if entity['adresseEtablissement']['codePostalEtablissement'] not in [None, '[ND]', ''] :
+    if is_not_null(entity['adresseEtablissement']['codePostalEtablissement']) :
         zipcode = entity['adresseEtablissement']['codePostalEtablissement']
 
-    if entity['adresseEtablissement']['libellePaysEtrangerEtablissement'] not in [None, '[ND]', ''] :
+    if is_not_null(entity['adresseEtablissement']['libellePaysEtrangerEtablissement']):
         country = entity['adresseEtablissement']['libellePaysEtrangerEtablissement']
 
-    if entity['siren'] not in [None, '[ND]', '']:
+    if is_not_null(entity['siren']):
         siren = entity['siren']
 
-    if entity['siret'] not in [None, '[ND]', '']:
+    if is_not_null(entity['siret']):
         siret = entity['siret']
 
-    if entity['uniteLegale']['activitePrincipaleUniteLegale'] not in [None, '[ND]', '']:
+    if is_not_null(entity['uniteLegale']['activitePrincipaleUniteLegale']):
         code_naf = entity['uniteLegale']['activitePrincipaleUniteLegale']
         code_naf = code_naf.replace(".", "")
 
-    if entity['uniteLegale']['categorieJuridiqueUniteLegale'] not in [None, '[ND]', '']:
+    if is_not_null(entity['uniteLegale']['categorieJuridiqueUniteLegale']):
         legal_form = entity['uniteLegale']['categorieJuridiqueUniteLegale']
 
     # intra - community vat number calculation
@@ -585,3 +591,5 @@ def left_fill_num(num, target_length) :
     val = str(num)
     return val.rjust(target_length, '0')
 
+def is_not_null(val):
+    return val not in [None, '[ND]', '']
