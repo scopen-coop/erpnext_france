@@ -67,10 +67,10 @@ async function display_dialog_update_companies() {
         cannot_delete_rows: true,
         in_place_edit: true,
         hide_footer: true,
-        data: updates.Customer.map(item => ({
+        data: updates.Customer ? updates.Customer.map(item => ({
           ...item,
           status: 'Pending'
-        })),
+        })) : [],
         fields: [
           {
             fieldname: "display_name",
@@ -105,10 +105,10 @@ async function display_dialog_update_companies() {
         cannot_add_rows: true,
         cannot_delete_rows: true,
         in_place_edit: true,
-        data: updates.Supplier.map(item => ({
+        data: updates.Supplier ? updates.Supplier.map(item => ({
           ...item,
           status: 'Pending',
-        })),
+        })) : [],
         fields: [
           {
             fieldname: "display_name",
