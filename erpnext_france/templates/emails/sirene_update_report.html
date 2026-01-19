@@ -8,27 +8,27 @@
     <div style="max-width: 800px; margin: 20px auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
 
         <div style="border-bottom: 3px solid #0b5ea5; padding-bottom: 15px; margin-bottom: 20px;">
-            <h2 style="margin: 0; color: #333;">ERPNext France</h2>
+            <h2 style="margin: 0; color: #333333;">ERPNext France</h2>
             <p style="margin: 5px 0 0 0; color: #666;">{{ _("SIREN/SIRET Verification Report") }}</p>
         </div>
 
         <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 25px;">
-            <h3 style="margin: 0 0 10px 0; color: #333; font-size: 16px;">{{ _("Summary") }}</h3>
+            <h3 style="margin: 0 0 10px 0; color: #333333; font-size: 16px;">{{ _("Summary") }}</h3>
             <table style="width: 100%; font-size: 14px;">
                 <tr>
-                    <td style="padding: 5px 0; color: #555;">{{ _("Processed") }}</td>
+                    <td style="padding: 5px 0; color: #555555;">{{ _("Processed") }}</td>
                     <td style="text-align: right; font-weight: bold;">{{ processed }}</td>
                 </tr>
                 <tr>
-                    <td style="padding: 5px 0; color: #555;">{{ _("Updates") }}</td>
+                    <td style="padding: 5px 0; color: #555555;">{{ _("Updates") }}</td>
                     <td style="text-align: right; font-weight: bold; color: #0b5ea5;">
                         {{ updates|length }}
                     </td>
                 </tr>
 
                 <tr>
-                    <td style="padding: 5px 0; color: #555;">{{ _("Errors") }}</td>
-                    <td style="text-align: right; font-weight: bold; color: {% if errors > 0 %}#dc3545 {% else %}#555{% endif %};">{{ errors }}</td>
+                    <td style="padding: 5px 0; color: #555555;">{{ _("Errors") }}</td>
+                    <td style="text-align: right; font-weight: bold; color: {% if errors > 0 %}#dc3545{% else %}#555{% endif %};">{{ errors }}</td>
                 </tr>
 
 				{% if updates|length > 0 %}
@@ -52,7 +52,7 @@
                         {% for update in updates %}
                         <tr>
                             <td style='border-bottom: 1px solid #e9ecef; padding: 10px 6px; font-size: 14px;'>
-                                <span style="color: #333; font-weight: 500;">{{ update.display_name }}</span>
+                                <span style="color: #333333; font-weight: 500;">{{ update.display_name }}</span>
                                 <a href='{{ site_url }}/{{ doctype.lower() }}/{{ update.name }}'
                                    style='margin-left: 10px; color: #0b5ea5; text-decoration: none; font-size: 13px;'>
                                     {{ _("View") }} →

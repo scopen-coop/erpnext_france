@@ -523,7 +523,7 @@ def send_sirene_report(results, recipients_customer, recipients_supplier, site_u
                 recipients=recipients_customer,
                 subject=subject,
                 message=email_content,
-                now=True
+                now=True,
             )
 
             logger.info("Customers report successfully sent by email")
@@ -548,8 +548,7 @@ def send_sirene_report(results, recipients_customer, recipients_supplier, site_u
                     'errors': results['errors_supplier'],
                     'processed': results['processed_supplier'],
                     'doctype': 'Supplier',
-                    'site_url': site_url,
-                    '_': _
+                    'site_url': site_url
                 }
             )
 
@@ -557,7 +556,7 @@ def send_sirene_report(results, recipients_customer, recipients_supplier, site_u
                 recipients=recipients_supplier,
                 subject=subject,
                 message=email_content,
-                now=True
+                now=True,
             )
 
             logger.info("Suppliers report successfully sent by email")
