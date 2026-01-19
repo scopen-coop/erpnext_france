@@ -751,19 +751,19 @@ async function selectFields(frm, currentDoc, etablissement) {
         title: currentDoc.doctype === "Customer" ? __("Update customer from SIRENE") : __("Update supplier from SIRENE"),
         fields: fields,
         size: "extra-large", // small, large, extra-large
-        primary_action_label: __("Save current values"),
-        secondary_action_label: __("Update all with Sirene's values"),
+        secondary_action_label: __("Save current values"),
+        primary_action_label: __("Update all with Sirene's values"),
         onhide: function () {
           this.$wrapper.remove();
           dialog3 = null;
         },
-        async primary_action() {
+        async secondary_action() {
           frappe.dom.freeze(__("Updating data..."));
           await updateFieldsWithSireneInfo(this, frm, doctype.type, AddressDoc)
           frappe.dom.unfreeze()
           dialog3.hide();
         },
-        async secondary_action() {
+        async primary_action() {
           frappe.dom.freeze(__("Updating data..."));
 
           try {
@@ -795,7 +795,7 @@ async function selectFields(frm, currentDoc, etablissement) {
       dialog3.$wrapper.find(".modal-dialog").attr("id", "modal-3")
       dialog3.$wrapper.find('.btn-secondary')
         .removeClass('btn-secondary')
-        .addClass('btn-warning');
+        .addClass('btn-primary');
       dialog3.$wrapper.find('.modal-footer').prepend(
         `<button class="btn btn-default btn-sm" data-action="third-action"> ${__("Cancel")}</button>`
       );
