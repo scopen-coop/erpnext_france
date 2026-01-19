@@ -23,15 +23,15 @@ frappe.ui.form.on("ERPNext France Settings", {
         );
       });
     frm.add_custom_button(
-          __("ERPNext France - Update companies (sirene)"),
-          function () {
-            display_dialog_update_companies(
-              frm,
-              frappe.defaults.get_user_default("Company")
-            );
-          },
-          __("Manage")
+      __("ERPNext France - Update companies (sirene)"),
+      function () {
+        display_dialog_update_companies(
+          frm,
+          frappe.defaults.get_user_default("Company")
         );
+      },
+      __("Manage")
+    );
   },
 });
 
