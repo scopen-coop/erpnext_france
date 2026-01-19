@@ -152,179 +152,166 @@ def execute_sirene_check():
         'logs': []
     }
 
-    try:
-        logger.info("=== Starting SIREN Update Check ===")
-        print("=== Starting SIREN Update Check ===")
-        results['logs'].append("=" * 30 + " Starting SIREN Update Check " + "=" * 30)
-        results['logs'].append(f"Started at: {frappe.utils.now()}\n")
 
-        if frappe.cache().get_value('siren_update_running'):
-            logger.info("Task already running, exiting")
-            results['logs'].append("Task already running, skipped")
-            return results
+    logger.info("=== Starting SIREN Update Check ===")
+    print("=== Starting SIREN Update Check ===")
+    results['logs'].append("=" * 30 + " Starting SIREN Update Check " + "=" * 30)
+    results['logs'].append(f"Started at: {frappe.utils.now()}\n")
 
-        try:
-            frappe.cache().set_value('siren_update_running', True, expires_in_sec=7200)
+    if frappe.cache().get_value('siren_update_running'):
+        logger.info("Task already running, exiting")
+        results['logs'].append("Task already running, skipped")
+        return results
 
-            doctypes = [
-                {
-                    'type': 'Customer',
-                    'field_name': 'customer_name',
-                    'field_type': 'customer_type',
-                    'field_address': 'customer_primary_address',
-                    'processed': 0,
-                    'update': 0
-                },
-                {
-                    'type': 'Supplier',
-                    'field_name': 'supplier_name',
-                    'field_type': 'supplier_type',
-                    'field_address': 'supplier_primary_address',
-                    'processed': 0,
-                    'update': 0
-                }
+    frappe.cache().set_value('siren_update_running', True, expires_in_sec=7200)
+
+    doctypes = [
+        {
+            'type': 'Customer',
+            'field_name': 'customer_name',
+            'field_type': 'customer_type',
+            'field_address': 'customer_primary_address',
+            'processed': 0,
+            'update': 0
+        },
+        {
+            'type': 'Supplier',
+            'field_name': 'supplier_name',
+            'field_type': 'supplier_type',
+            'field_address': 'supplier_primary_address',
+            'processed': 0,
+            'update': 0
+        }
+    ]
+
+    for doctype in doctypes:
+
+        results['logs'].append(f"\n{'#' * 10} Processing {doctype['type']}s")
+
+        elements = frappe.get_all(
+            doctype['type'],
+            filters=[[doctype['type'], 'siret', '!=', '']],
+            or_filters=[[doctype['type'], 'siren', '!=', '']],
+            fields=[
+                doctype['field_name'],
+                doctype['field_type'],
+                'name',
+                'siren',
+                'siret',
+                'code_naf',
+                'legal_form',
+                'tax_id',
+                doctype['field_address']
             ]
+        )
 
-            for doctype in doctypes:
+        results['logs'].append(f"Found {len(elements)} {doctype['type']} to check\n")
 
-                results['logs'].append(f"\n{'#' * 10} Processing {doctype['type']}s")
+        if len(elements) == 0:
+            continue
 
-                elements = frappe.get_all(
-                    doctype['type'],
-                    filters=[[doctype['type'], 'siret', '!=', '']],
-                    or_filters=[[doctype['type'], 'siren', '!=', '']],
-                    fields=[
-                        doctype['field_name'],
-                        doctype['field_type'],
-                        'name',
-                        'siren',
-                        'siret',
-                        'code_naf',
-                        'legal_form',
-                        'tax_id',
-                        doctype['field_address']
-                    ]
-                )
+        results['updates'][doctype['type']] = []
 
-                results['logs'].append(f"Found {len(elements)} {doctype['type']} to check\n")
+        for idx, element in enumerate(elements, 1):
+            try:
+                results['processed_' + doctype['type'].lower()] += 1
 
-                if len(elements) == 0:
+                siret = element.get('siret')
+                siren = element.get('siren')
+
+                if siret:
+                    query_data = {
+                        'data': {"siret": siret},
+                        'type': "SIRET",
+                        'value': siret
+                    }
+                elif siren:
+                    query_data = {
+                        'data': {"siren": siren},
+                        'type': "SIREN",
+                        'value': siren
+                    }
+                else:
+                    results['skipped'] += 1
+                    results['logs'].append(f"\n{idx}. {element[doctype['field_name']]}")
+                    results['logs'].append(f"Skipped: No SIRET or SIREN")
                     continue
 
-                results['updates'][doctype['type']] = []
+                results['logs'].append(f"{idx}. {element[doctype['field_name']]}")
+                results['logs'].append(f"Calling {query_data['type']}: {query_data['value']}")
 
-                for idx, element in enumerate(elements, 1):
-                    try:
-                        results['processed_' + doctype['type'].lower()] += 1
+                data_to_post = {
+                    query_data['type'].lower(): query_data['value'],
+                    "nb_results": 1,
+                }
 
-                        siret = element.get('siret')
-                        siren = element.get('siren')
+                response = fetch_company_from_sirene(json.dumps(data_to_post))
+                entity = response['message']['etablissements'][0]
 
-                        if siret:
-                            query_data = {
-                                'data': {"siret": siret},
-                                'type': "SIRET",
-                                'value': siret
-                            }
-                        elif siren:
-                            query_data = {
-                                'data': {"siren": siren},
-                                'type': "SIREN",
-                                'value': siren
-                            }
-                        else:
-                            results['skipped'] += 1
-                            results['logs'].append(f"\n{idx}. {element[doctype['field_name']]}")
-                            results['logs'].append(f"Skipped: No SIRET or SIREN")
-                            continue
+                if (results['processed_customer'] + results['processed_customer']) % 25 == 0:
+                    print("Pause")
+                    time.sleep(5)
 
-                        results['logs'].append(f"{idx}. {element[doctype['field_name']]}")
-                        results['logs'].append(f"Calling {query_data['type']}: {query_data['value']}")
+                if entity:
+                    logger.info(f"{doctype['type']} {element[doctype['field_name']]} - Data found")
+                    results['logs'].append(f"Data found from API")
 
-                        data_to_post = {
-                            query_data['type'].lower(): query_data['value'],
-                            "nb_results": 1,
-                        }
+                    address = frappe.get_doc('Address', element[doctype['field_address']])
+                    entity_info = get_entity_info(entity, 0)
 
-                        response = fetch_company_from_sirene(json.dumps(data_to_post))
-                        entity = response['message']['etablissements'][0]
+                    if address:
+                        match = compare_values(doctype, element, address.as_dict(), entity_info)
 
-                        if (results['processed_customer'] + results['processed_customer']) % 25 == 0:
-                            print("Pause")
-                            time.sleep(5)
+                        if not match:
+                            results['updates'][doctype['type']].append({
+                                'name': element['name'],
+                                'display_name': element[doctype['field_name']],
+                                'new_data': entity_info,
+                                'current_data': element,
+                            })
 
-                        if entity:
-                            logger.info(f"{doctype['type']} {element[doctype['field_name']]} - Data found")
-                            results['logs'].append(f"Data found from API")
+                    else:
+                        results['skipped'] += 1
+                        results['logs'].append(f"No address returned from ErpNext API")
 
-                            address = frappe.get_doc('Address', element[doctype['field_address']])
-                            entity_info = get_entity_info(entity, 0)
+                else:
+                    results['skipped'] += 1
+                    results['logs'].append(f"No entity returned from API")
 
-                            if address:
-                                match = compare_values(doctype, element, address.as_dict(), entity_info)
-
-                                if not match:
-
-                                    results['updates'][doctype['type']].append({
-                                        'name': element['name'],
-                                        'display_name': element[doctype['field_name']],
-                                        'new_data': entity_info,
-                                        'current_data': element,
-                                    })
-
-                            else:
-                                results['skipped'] += 1
-                                results['logs'].append(f"No address returned from ErpNext API")
-
-                        else:
-                            results['skipped'] += 1
-                            results['logs'].append(f"No entity returned from API")
-
-                        results['logs'].append("\n")
+                results['logs'].append("\n")
 
 
-                    except Exception as e:
-                        results['errors_'+ doctype['type'].lower()] += 1
-                        error_msg = str(e)
-                        logger.error(f"Error processing {element[doctype['field_name']]}: {error_msg}")
-                        results['logs'].append(f"Error: {error_msg}\n")
+            except Exception as e:
+                results['errors_' + doctype['type'].lower()] += 1
+                error_msg = str(e)
+                logger.error(f"Error processing {element[doctype['field_name']]}: {error_msg}")
+                results['logs'].append(f"Error: {error_msg}\n")
 
-                        frappe.log_error(
-                            message=frappe.get_traceback(),
-                            title=f"SIREN API Error: {element.name}"
-                        )
-                results['logs'].append("\n" + "=" * 50)
+                frappe.log_error(
+                    message=frappe.get_traceback(),
+                    title=f"SIREN API Error: {element.name}"
+                )
+        results['logs'].append("\n" + "=" * 50)
+
+    results['logs'].append("\nSUMMARY")
+    results['logs'].append("=" * 50)
+    results['logs'].append(f"Processed: {results['processed_customer']}")
+    results['logs'].append(f"Processed: {results['processed_supplier']}")
+    results['logs'].append(f"Skipped: {results['skipped']}")
+    results['logs'].append(f"Errors: {results['errors_customer']}")
+    results['logs'].append(f"Errors: {results['errors_supplier']}")
+
+    total_updates = sum(len(updates) for updates in results['updates'].values())
+    results['logs'].append(f"Updates detected: {total_updates}")
+
+    results['logs'].append(f"\nCompleted at: {frappe.utils.now()}")
+
+    logger.info(f"Task completed: {(results['errors_customer'] + results['errors_supplier'])} processed, {(results['errors_customer'] + results['errors_supplier'])} errors")
 
 
-            results['logs'].append("\nSUMMARY")
-            results['logs'].append("=" * 50)
-            results['logs'].append(f"Processed: {results['processed_customer']}")
-            results['logs'].append(f"Processed: {results['processed_supplier']}")
-            results['logs'].append(f"Skipped: {results['skipped']}")
-            results['logs'].append(f"Errors: {results['errors_customer']}")
-            results['logs'].append(f"Errors: {results['errors_supplier']}")
+    return results
 
-            total_updates = sum(len(updates) for updates in results['updates'].values())
-            results['logs'].append(f"Updates detected: {total_updates}")
 
-            results['logs'].append(f"\nCompleted at: {frappe.utils.now()}")
-
-            logger.info(f"Task completed: {(results['errors_customer'] + results['errors_supplier'])} processed, {( results['errors_customer'] + results['errors_supplier'])} errors")
-
-        finally:
-            frappe.cache().delete_value('siren_update_running')
-            results['logs'].append("\nCache lock released")
-
-        return results
-
-    except Exception as e:
-        logger.error(f"Fatal error: {str(e)}")
-        results['logs'].append(f"\n\n❌ FATAL ERROR: {str(e)}")
-        results['logs'].append(f"\n{frappe.get_traceback()}")
-
-        frappe.db.rollback()
-
-        return results
 
 @frappe.whitelist()
 def compare_values(doctype, element, address, entity_info):
