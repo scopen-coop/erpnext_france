@@ -376,11 +376,6 @@ def get_entity_info(entity, i):
     entity_type = ""
     legal_form = ""
 
-    print("====")
-    print(entity['uniteLegale']['denominationUniteLegale'])
-    print(entity['uniteLegale']['nomUsageUniteLegale'])
-    print("====")
-
     if ( is_not_null(entity['uniteLegale']['denominationUniteLegale']) and
         entity['uniteLegale']['nomUsageUniteLegale'] in [None, '[ND]', '']):
         # Morale
@@ -416,7 +411,6 @@ def get_entity_info(entity, i):
         entity_type = "Individual"
         company_name = entity["uniteLegale"]["nomUsageUniteLegale"]
         firstname = entity["uniteLegale"]["prenomUsuelUniteLegale"]
-        print("is firstname", firstname)
         if not firstname :
             if is_not_null(entity["uniteLegale"]["prenom1UniteLegale"]):
                 firstname = entity["uniteLegale"]["prenom1UniteLegale"]
@@ -436,8 +430,7 @@ def get_entity_info(entity, i):
                 company_name_alias = entity["uniteLegale"]["prenom3UniteLegale"]
             elif is_not_null(entity["uniteLegale"]["prenom4UniteLegale"]):
                 company_name_alias = entity["uniteLegale"]["prenom4UniteLegale"]
-        print(">" , firstname)
-        print(">>" , company_name)
+
         company_name_all = firstname + " " if firstname else "" + (company_name if company_name else "")
 
     if is_not_null(company_name_alias):
@@ -522,8 +515,7 @@ def send_sirene_report(results, recipients_customer, recipients_supplier, site_u
                     'errors': results['errors_customer'],
                     'processed': results['processed_customer'],
                     'doctype' : 'Customer',
-                    'site_url': site_url,
-                    '_': _
+                    'site_url': site_url
                 }
             )
 
