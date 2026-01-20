@@ -633,7 +633,7 @@ async function selectFields(frm, currentDoc, etablissement) {
             fieldtype: fieldtype,
             options: options,
             default: currentValue,
-            read_only: 0,
+            read_only: 1,
           },
           {
             fieldtype: "Column Break",
@@ -666,7 +666,7 @@ async function selectFields(frm, currentDoc, etablissement) {
       );
       addComparisonRow(
         __("Company Name"),
-        "company_name",
+        currentDoc.doctype.toLowerCase() + '_name',
         "Data",
         currentDoc.doctype === 'Customer' ? currentDoc.customer_name : currentDoc.supplier_name,
         entity.company_name,
@@ -726,6 +726,8 @@ async function selectFields(frm, currentDoc, etablissement) {
         "Link",
         currentDoc.code_naf,
         entity.code_naf,
+        "",
+        "",
         "Code Naf"
       );
 
@@ -743,6 +745,8 @@ async function selectFields(frm, currentDoc, etablissement) {
         "Link",
         currentDoc.legal_form,
         entity.legal_form,
+        "",
+        "",
         "Legal Form"
       );
 
@@ -812,7 +816,6 @@ async function selectFields(frm, currentDoc, etablissement) {
         if (currentDirection === 'left') {
           $use.attr('href', '#icon-close');
           $btn.attr('data-direction', 'right');
-
           let newValue = dialog3.get_value(sireneField);
           dialog3.set_value(currentField, newValue);
 
@@ -833,7 +836,7 @@ async function selectFields(frm, currentDoc, etablissement) {
 
       setTimeout(() => {
         let fieldNames = [
-          {name: 'company_name', current: currentDoc.doctype === 'Customer' ? currentDoc.customer_name : currentDoc.supplier_name, sirene: entity.company_name},
+          {name: currentDoc.doctype.toLowerCase() + '_name', current: currentDoc.doctype === 'Customer' ? currentDoc.customer_name : currentDoc.supplier_name, sirene: entity.company_name},
           {name: 'address_line1', current: AddressDoc.address_line1, sirene: entity.address_1},
           {name: 'pincode', current: AddressDoc.pincode, sirene: entity.zipcode},
           {name: 'city', current: AddressDoc.city, sirene: entity.town},
@@ -854,7 +857,7 @@ async function selectFields(frm, currentDoc, etablissement) {
               sval: field.sirene
             }])
           );
-
+          console.log(dialog3.fields_dict)
           dialog3.fields_dict[`checkbox_${field.name}`].$wrapper.html(checkboxHtml);
           dialog3.$wrapper.find('.clearfix').hide();
         });
