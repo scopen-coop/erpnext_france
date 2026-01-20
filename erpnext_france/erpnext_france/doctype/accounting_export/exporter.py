@@ -55,6 +55,36 @@ class DataExporter:
             "Company", self.company, "export_file_format"
         )
         self.journal_code = ""
+        self.account_code_length = frappe.db.get_value(
+            "Company", self.company, "account_code_length"
+        ) or 0
+
+    def pad_account_code(self, account_code, prefix_length=0):
+        """
+        Pad account code with zeros (suffix) based on company configuration.
+
+        Args:
+            account_code: The account code to pad (str or empty)
+            prefix_length: Length of prefix (e.g., 3 for "401", "411") to subtract from target length
+
+        Returns:
+            Zero-padded account code (zeros added as suffix), or original if longer than configured length
+        """
+        if not self.account_code_length or not account_code:
+            return account_code or ""
+
+        account_code = str(account_code).strip()
+        if not account_code:
+            return ""
+
+        target_length = self.account_code_length - prefix_length
+
+        # If code is already longer than or equal to target length, keep as-is
+        if len(account_code) >= target_length:
+            return account_code
+
+        # Pad with zeros as suffix (to the right) to reach target length
+        return account_code.ljust(target_length, '0')
 
     def build_response(self):
         if self.file_format == "CIEL":
@@ -274,11 +304,14 @@ class DataExporter:
         piece_num = "{:<12s}".format(doc.get("voucher_no"))
 
         if doc.get("party_type") == "Supplier":
-            compte_num = "{}{:<8s}".format("401", doc.get("supp_subl_acc") or "")
+            subledger = self.pad_account_code(doc.get("supp_subl_acc"), prefix_length=3)
+            compte_num = "{:<11s}".format("401" + subledger)
         elif doc.get("party_type") == "Customer":
-            compte_num = "{}{:<8s}".format("411", doc.get("cust_subl_acc") or "")
+            subledger = self.pad_account_code(doc.get("cust_subl_acc"), prefix_length=3)
+            compte_num = "{:<11s}".format("411" + subledger)
         else:
-            compte_num = "{:<11s}".format(doc.get("account_number") or "")
+            padded = self.pad_account_code(doc.get("account_number"))
+            compte_num = "{:<11s}".format(padded or "")
 
         libelle = "{}{:<17s}".format("FACTURE ", doc.get("voucher_no")[:17])
         montant = (
@@ -329,14 +362,14 @@ class DataExporter:
         piece_num = "{:.17s}".format(
             doc.get("invoice_number").replace("\n", " ").replace("\r", " ")
         )
-        compte_num = doc.get("account_number")
+        compte_num = self.pad_account_code(doc.get("account_number"))
         ref_inv = "{:.13s}".format(doc.get("voucher_no"))
         ref_inv_inv = ref_inv
         compte_num_aux = ""
         if doc.get("party_type") == "Supplier":
-            compte_num_aux = format(doc.get("supp_subl_acc") or "")
+            compte_num_aux = self.pad_account_code(doc.get("supp_subl_acc"))
         elif doc.get("party_type") == "Customer":
-            compte_num_aux = format(doc.get("cust_subl_acc") or "")
+            compte_num_aux = self.pad_account_code(doc.get("cust_subl_acc"))
 
         libelle = "{}{:.49s}".format("FACT ", doc.get("party"))
         debit = "{:.2f}".format(doc.get("debit")).replace(".", ",")

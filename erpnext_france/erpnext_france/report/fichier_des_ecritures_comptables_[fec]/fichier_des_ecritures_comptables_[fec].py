@@ -251,6 +251,7 @@ def get_result(company, fiscal_year, from_date, to_date, hide_already_exported):
 	result = []
 
 	company_currency = frappe.get_cached_value("Company", company, "default_currency")
+	account_code_length = frappe.db.get_value("Company", company, "account_code_length") or 0
 	accounts = frappe.get_all(
 		"Account",
 		filters={"Company": company},
@@ -278,7 +279,12 @@ def get_result(company, fiscal_year, from_date, to_date, hide_already_exported):
 			if account.name == d.get("account") and account.account_number
 		]
 		if account_number:
-			CompteNum = account_number[0]["account_number"]
+			original = account_number[0]["account_number"]
+			# Apply zero-padding as suffix if configured
+			if account_code_length > 0 and len(original) < account_code_length:
+				CompteNum = original.ljust(account_code_length, '0')
+			else:
+				CompteNum = original
 			CompteLib = account_number[0]["account_name"]
 		else:
 			frappe.throw(
