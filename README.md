@@ -14,6 +14,7 @@ In order to be compliant with the latest finance law applicable to POS software,
 Since 2014, a legal requirement makes it mandatory for companies operating in France to provide a file of their general accounting postings by fiscal year corresponding to an electronic accounting journal.
 
 For ERPNext France users this file can be generated using this report called Le Fichier des Écritures Comptables FEC.
+Manage number of "0" at the end of account code in FEC
 
 - Check VAT customer and supplier code from [European VIES](https://europa.eu/youreurope/business/taxation/vat/check-vat-number-vies/index_fr.htm)
 
@@ -25,7 +26,9 @@ For ERPNext France users this file can be generated using this report called Le 
 
 - Easier Customer and Supplier creation with [API Sinene](https://api.gouv.fr/les-api/sirene_v3)
 
-- Easier Item Taxe Template creation
+- Easier Item Taxe Template creation from company card
+
+- Easier Deposit Item creation from company card
 
 - Header and Footer for document "Francisé"
 
@@ -35,7 +38,7 @@ For ERPNext France users this file can be generated using this report called Le 
 
 - Codes NAF/APE (for customer and supplier)
 
-- Compny type from INSEE (for customer and supplier)
+- Company type from INSEE (for customer and supplier)
 
 
 ### Installation
