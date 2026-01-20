@@ -51,9 +51,8 @@ async function display_dialog_update_companies() {
   });
 
   let updates = updateReport.message.updates
-
   let dialog = new frappe.ui.Dialog({
-    title: __("ERPNext France - Update companies (siren)"),
+    title: __("ERPNext France - Update companies (sirene)"),
     fields: [
       {
         fieldname: 'table_Customer_section',
@@ -69,7 +68,7 @@ async function display_dialog_update_companies() {
         hide_footer: true,
         data: updates.Customer ? updates.Customer.map(item => ({
           ...item,
-          status: 'Pending'
+          status: 'Differences detected'
         })) : [],
         fields: [
           {
@@ -79,6 +78,7 @@ async function display_dialog_update_companies() {
             in_list_view: 1,
             read_only: 1,
             columns: 4,
+            options: "Customer",
           },
           {
             fieldname: "status_Customer",
@@ -107,7 +107,7 @@ async function display_dialog_update_companies() {
         in_place_edit: true,
         data: updates.Supplier ? updates.Supplier.map(item => ({
           ...item,
-          status: 'Pending',
+          status: 'Differences detected',
         })) : [],
         fields: [
           {
@@ -116,7 +116,7 @@ async function display_dialog_update_companies() {
             fieldtype: "Data",
             in_list_view: 1,
             read_only: 1,
-            columns: 4
+            columns: 4,
           },
           {
             fieldname: "status_Supplier",
@@ -175,12 +175,67 @@ async function display_dialog_update_companies() {
         .map(row => row.doc);
     };
 
-    dialog.fields_dict.Customer.grid.grid_rows.forEach((row) => {
+    /*dialog.fields_dict.Customer.grid.grid_rows.forEach((row) => {
       format_status("Customer", row);
     });
     dialog.fields_dict.Supplier.grid.grid_rows.forEach((row) => {
       format_status("Supplier", row);
-    });
+    });*/
+
+    const grid_customer = dialog.fields_dict.Customer.grid;
+    const grid_supplier = dialog.fields_dict.Supplier.grid;
+
+
+    function make_grid_clickable(grid, doctype) {
+      grid.grid_rows.forEach((row) => {
+        format_status(doctype, row);
+
+        const name_cell = row.columns.name;
+        if (name_cell) {
+          $(name_cell.static_area).css({
+            'color': 'var(--primary-color)',
+            'cursor': 'pointer',
+            'font-weight': '500'
+          });
+
+          $(name_cell.static_area).show();
+          $(name_cell.wrapper).find('.like_disabled-input').hide();
+        }
+      });
+
+      grid.wrapper.find('.grid-body')[0].addEventListener('click', function (e) {
+        const $target = $(e.target);
+        const $row = $target.closest('.grid-row');
+
+        if ($row.length) {
+          const row_index = $row.index();
+          const row_data = grid.grid_rows[row_index];
+
+          const $cell = $target.closest('.col');
+          const is_name_column = $cell.find('[data-fieldname="name"]').length > 0 ||
+            $target.closest('[data-fieldname="name"]').length > 0 ||
+            $cell.index() === 2;
+
+          if (is_name_column) {
+            const doc_name = row_data?.doc?.name;
+
+            if (doc_name) {
+              e.preventDefault();
+              e.stopPropagation();
+              e.stopImmediatePropagation();
+
+              window.open(`/app/${doctype.toLowerCase()}/${encodeURIComponent(doc_name)}`, '_blank');
+              return false;
+            }
+          }
+        }
+      }, true);
+    }
+
+    make_grid_clickable(grid_customer, 'Customer');
+    make_grid_clickable(grid_supplier, 'Supplier');
+
+
   }, 100);
   dialog.show()
 
@@ -245,10 +300,10 @@ function format_status(doctype, grid_row) {
   let status = grid_row.doc.status;
   let $cell = $(grid_row.row).find(`[data-fieldname="status_${doctype}"]`);
   let configs = {
-    'Pending': {class: 'orange', text: __('Pending')},
-    'In Progress': {class: 'blue', text: __('En cours')},
-    'Updated': {class: 'green', text: __('Mis à jour')},
-    'Error': {class: 'red', text: __('Erreur')}
+    'Differences detected': {class: 'orange', text: __('Differences detected')},
+    'In Progress': {class: 'blue', text: __('In Progress')},
+    'Updated': {class: 'green', text: __('Updated')},
+    'Error': {class: 'red', text: __('Error')}
   };
 
   let config = configs[status];
