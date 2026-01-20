@@ -765,7 +765,7 @@ async function selectFields(frm, currentDoc, etablissement) {
             await frm.reload_doc();
 
             frappe.show_alert({
-              message: doctype === "Customer"
+              message: doctype.type === "Customer"
                 ? __('Customer successfully updated')
                 : __('Supplier successfully updated'),
               indicator: 'green'
