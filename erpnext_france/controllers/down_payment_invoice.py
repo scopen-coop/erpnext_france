@@ -208,10 +208,11 @@ def get_item_tax_template(order, order_item, item, down_payments_item_map):
 
 
 def set_paid_amount_of_linked_invoice(doc, method):
-	if doc.get("references")[0].get("reference_doctype") != "Sales Invoice":
+	references = doc.get("references", [])
+	if len(references) == 0 or references[0].get("reference_doctype") != "Sales Invoice":
 		return
 
-	sales_invoice = frappe.get_cached_doc("Sales Invoice", doc.get("references")[0].get("reference_name"))
+	sales_invoice = frappe.get_cached_doc("Sales Invoice", references[0].get("reference_name"))
 
 	if sales_invoice.get("is_down_payment_invoice") == 1:
 		return
