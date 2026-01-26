@@ -857,7 +857,7 @@ async function selectFields(frm, currentDoc, etablissement) {
               sval: field.sirene
             }])
           );
-          console.log(dialog3.fields_dict)
+
           dialog3.fields_dict[`checkbox_${field.name}`].$wrapper.html(checkboxHtml);
           dialog3.$wrapper.find('.clearfix').hide();
         });
@@ -918,7 +918,7 @@ function separateAndMapFields(fields, baseDoctype) {
 
 async function collectSelectedFields(dialog3, doctype) {
   return {
-    [doctype.toLowerCase() + "_name"]: dialog3.get_value('company_name'),
+    [doctype.toLowerCase() + "_name"]: dialog3.get_value(doctype.toLowerCase() + "_name"),
     company_address_line1: dialog3.get_value('address_line1'),
     company_pincode: dialog3.get_value('pincode'),
     company_city: dialog3.get_value('city'),
@@ -934,7 +934,6 @@ async function collectSelectedFields(dialog3, doctype) {
 async function updateFieldsWithSireneInfo(dialog3, frm, doctype) {
   try {
     const allFields = await collectSelectedFields(dialog3, doctype);
-
     if (Object.keys(allFields).length === 0) {
       frappe.msgprint(__('No fields selected for update'));
       return;
