@@ -532,6 +532,10 @@ function update_thirdparty_from_sirene(frm) {
           }
 
           if (response.message.error) {
+              frappe.msgprint({
+              message: response.message.error,
+              indicator: 'red'
+            });
             return;
           }
 
