@@ -586,7 +586,7 @@ Disable Comment Count,Désactivé le nb de commantaire
 Leave Approver,Approbateur de congés
 Disassemble,Désassemblage
 Credit Limit,Termes de paiement par défaut,Supplier Group
-Update Item Supplier Part No, Mettre à jour la reférence fournisseur de l'article automatiquement,
+Update Item Supplier Part No, Mettre à jour la référence fournisseur de l'article automatiquement,
 VAT {0}%,TVA {0}%
 Against Blanket Order,Depuis une Commande avec limites
 Reset to default,Réinitialiser
@@ -626,7 +626,7 @@ Expense Account,Compte de charges,
 Section Item Managment,Section Gestion Article,
 Section Down Payment,Section Acompte,
 Section Sirene,Section SIRENE,
-TVA Accounting on down payment,Comptabilitation de la TVA sur les acomptes,
+TVA Accounting on down payment,Comptabilisation de la TVA sur les acomptes,
 Down Payment Invoice,Facture d'acompte,
 Down Payment Type,Type d'acompte,
 Down Payment Value,Valeur de l'acompte,
@@ -657,6 +657,7 @@ Clear the email message and add the template,Remplacer par le contenu du modèle
 Production Plan,Planification de la prod.
 Account Code Length,Longueur du code comptable
 "If you set the value to 6 here, account '706' will appear as '706000' in exports","Si vous définissez la valeur à 6 ici, le compte '706' apparaîtra comme '706000' dans les exports"
+Leave Approver,Approbateur de note de frais,Department
 Update all,Tout mettre à jour,
 Cancel,Annuler,
 Updating data...,Mise à jour des données...,
