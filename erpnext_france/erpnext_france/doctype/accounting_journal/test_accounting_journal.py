@@ -3,13 +3,12 @@
 
 
 import frappe
-from frappe.tests.utils import FrappeTestCase
-from frappe.utils import nowdate
-
 from erpnext.accounts.doctype.accounting_journal.accounting_journal import (
 	accounting_journal_adjustment,
 )
 from erpnext.accounts.doctype.payment_entry.test_payment_entry import get_payment_entry
+from frappe.tests.utils import FrappeTestCase
+from frappe.utils import nowdate
 
 test_records = frappe.get_test_records("Sales Invoice")
 
@@ -70,7 +69,7 @@ class TestAccountingJournal(FrappeTestCase):
 			filters={"voucher_type": "Payment Entry", "voucher_no": pe.name},
 			fields=["name", "accounting_journal"],
 		)
-		accounting_journal = list(set(gl.accounting_journal for gl in pe_gl_entries))[0]
+		accounting_journal = next(iter({gl.accounting_journal for gl in pe_gl_entries}))
 		self.assertEqual(accounting_journal, "BQ")
 
 		accounting_journal_adjustment("Payment Entry", [pe.name], "MD")
@@ -80,7 +79,7 @@ class TestAccountingJournal(FrappeTestCase):
 			filters={"voucher_type": "Payment Entry", "voucher_no": pe.name, "is_cancelled": 0},
 			fields=["name", "accounting_journal"],
 		)
-		accounting_journal = list(set(gl.accounting_journal for gl in pe_gl_entries))[0]
+		accounting_journal = next(iter({gl.accounting_journal for gl in pe_gl_entries}))
 		self.assertEqual(accounting_journal, "MD")
 
 		si_status = frappe.db.get_value("Sales Invoice", sales_invoice.name, "status")

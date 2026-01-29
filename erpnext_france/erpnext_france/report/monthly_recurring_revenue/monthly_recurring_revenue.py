@@ -2,11 +2,10 @@
 # For license information, please see license.txt
 
 import frappe
-from frappe import _
-from frappe.utils import date_diff, flt, getdate, month_diff, nowdate
-
 from erpnext.accounts.report.financial_statements import get_columns, get_period_list
 from erpnext.accounts.utils import get_currency_precision
+from frappe import _
+from frappe.utils import date_diff, flt, getdate, month_diff, nowdate
 
 PERIOD_MAP = {"Month": "Monthly", "Year": "Yearly"}
 
@@ -72,9 +71,7 @@ def get_data(filters, period_list):
 	for subscription in subscriptions:
 		filtered_invoices.extend([x for x in invoices if x.subscription == subscription.name])
 
-	customers = list(
-		set([x.customer for x in filtered_invoices] + [x.customer for x in subscriptions])
-	)
+	customers = list({x.customer for x in filtered_invoices} | {x.customer for x in subscriptions})
 
 	result = []
 	precision = get_currency_precision() or 2
@@ -87,19 +84,29 @@ def get_data(filters, period_list):
 			"customer": customer,
 			"currency": frappe.get_cached_value("Company", filters.company, "default_currency"),
 		}
-		for index, period in enumerate(period_list):
-			total = get_invoices_mrr([x for x in filtered_invoices if x.customer == customer], period)
+		for period in period_list:
+			# Filtrer les factures et abonnements pour le client courant
+			customer_invoices = [x for x in filtered_invoices if x.customer == customer]
 			customer_subscriptions = [x for x in subscriptions if x.customer == customer]
+
+			# Calculer le MRR pour la période
+			total = get_invoices_mrr(customer_invoices, period)
+
+			# Si aucune facture n'est trouvée et que la période est actuelle/future,
+			# utiliser le MRR des abonnements
 			if not total and period.to_date >= getdate(nowdate()):
 				total = get_subscription_mrr(customer_subscriptions, period)
 
+			# Mettre à jour les totaux
 			customer_total += total
 			total_row[period.key] += total
 
+			# Mettre à jour la moyenne (si `total` est non nul)
 			if total:
 				average_count += 1
 
-			row.update({period.key: flt(total, precision)})
+			# Mettre à jour la ligne avec la valeur formatée
+			row[period.key] = flt(total, precision)
 
 		average_total = flt(customer_total, precision) / flt(average_count or 1)
 		total_row["total"] += average_total
