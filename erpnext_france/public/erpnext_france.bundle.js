@@ -145,72 +145,73 @@ display_dialog_create_down_payment_item = function (frm, company) {
   d.show();
 };
 
-update_doc_with_sirene_info = async function (doc, entity, doctype) {
+frappe.update_doc_with_sirene_info = async function (doc, entity, doctype) {
   const baseFields = {};
   const addressFields = {};
 
   if (doctype === "Customer") {
-    baseFields['customer_name'] = entity.company_name;
-    baseFields['customer_type'] = entity.entity_type;
+    baseFields["customer_name"] = entity.company_name;
+    baseFields["customer_type"] = entity.entity_type;
   } else {
-    baseFields['supplier_name'] = entity.company_name;
-    baseFields['supplier_type'] = entity.entity_type;
+    baseFields["supplier_name"] = entity.company_name;
+    baseFields["supplier_type"] = entity.entity_type;
   }
 
-  baseFields['siret'] = entity.siret;
-  baseFields['siren'] = entity.siren;
-  baseFields['code_naf'] = await getCodeNaf(entity.code_naf);
-  baseFields['legal_form'] = await getLegalForm(entity.legal_form);
-  baseFields['tax_id'] = entity.tax_id;
+  baseFields["siret"] = entity.siret;
+  baseFields["siren"] = entity.siren;
+  baseFields["code_naf"] = await frappe.getCodeNaf(entity.code_naf);
+  baseFields["legal_form"] = await frappe.getLegalForm(entity.legal_form);
+  baseFields["tax_id"] = entity.tax_id;
 
-  addressFields['address_line1'] = entity.address_1;
-  addressFields['city'] = entity.town;
-  addressFields['pincode'] = entity.zipcode;
-  addressFields['country'] = entity.country;
+  addressFields["address_line1"] = entity.address_1;
+  addressFields["city"] = entity.town;
+  addressFields["pincode"] = entity.zipcode;
+  addressFields["country"] = entity.country;
 
-  let response = await updateDoctype(doctype, doc.name, baseFields);
+  let response = await frappe.updateDoctype(doctype, doc.name, baseFields);
 
-  const addressName = doctype === 'Customer'
-    ? doc.customer_primary_address
-    : doc.supplier_primary_address;
+  const addressName =
+    doctype === "Customer"
+      ? doc.customer_primary_address
+      : doc.supplier_primary_address;
 
   if (addressName) {
-    await updateDoctype('Address', addressName, addressFields);
+    await frappe.updateDoctype("Address", addressName, addressFields);
   }
-  return response
-}
+  return response;
+};
 
-updateDoctype = async function (doctype, docname, fields) {
+frappe.updateDoctype = async function (doctype, docname, fields) {
   if (Object.keys(fields).length === 0) return;
 
   return new Promise((resolve, reject) => {
     frappe.call({
-      method: 'frappe.client.set_value',
+      method: "frappe.client.set_value",
       args: {
         doctype: doctype,
         name: docname,
-        fieldname: fields
+        fieldname: fields,
       },
 
       callback: function (r) {
         if (r.exc) reject(r.exc);
         else resolve(r.message);
       },
-      error: reject
+      error: reject,
     });
   });
-}
+};
 
-getCodeNaf = async function (code_naf) {
-  let naf = await frappe.db.get_doc("Code Naf", null, {code: code_naf});
+frappe.getCodeNaf = async function (code_naf) {
+  let naf = await frappe.db.get_doc("Code Naf", null, { code: code_naf });
   return naf.name;
-}
+};
 
-getLegalForm = async function getLegalForm(legal_form) {
-  let form = await frappe.db.get_doc("Legal Form", null, {code: legal_form});
+frappe.getLegalForm = async function getLegalForm(legal_form) {
+  let form = await frappe.db.get_doc("Legal Form", null, { code: legal_form });
   return form.name;
-}
-getLegalFormByName = async function getLegalForm(legal_form) {
-  let form = await frappe.db.get_doc("Legal Form", null, {label: legal_form});
+};
+frappe.getLegalFormByName = async function getLegalForm(legal_form) {
+  let form = await frappe.db.get_doc("Legal Form", null, { label: legal_form });
   return form.name;
-}
+};

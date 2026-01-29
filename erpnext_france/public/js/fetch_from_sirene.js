@@ -1,6 +1,6 @@
 // Copyright (c) 2023, scopen.fr and contributors
 // For license information, please see license.txt
-$('head').append(`
+$("head").append(`
         <style id="dialog-columns-layout">
             #modal-3 .form-section .form-column:nth-child(1) {
                 flex: 0 0 20% !important;
@@ -21,7 +21,6 @@ $('head').append(`
         </style>
     `);
 
-
 frappe.listview_settings["Customer"] = {
   onload(listview) {
     if (listview.can_create) {
@@ -38,14 +37,15 @@ frappe.listview_settings["Customer"] = {
 frappe.ui.form.on("Customer", {
   refresh(frm) {
     frm.page.add_inner_button(
-      __('Update customer from SIRENE'),
+      __("Update customer from SIRENE"),
       function () {
         update_thirdparty_from_sirene(frm);
       },
       "",
-      "primary");
-  }
-})
+      "primary"
+    );
+  },
+});
 
 frappe.ui.form.on("Supplier", {
   refresh(frm) {
@@ -55,10 +55,10 @@ frappe.ui.form.on("Supplier", {
         update_thirdparty_from_sirene(frm);
       },
       "",
-      "primary");
-  }
-})
-
+      "primary"
+    );
+  },
+});
 
 frappe.listview_settings["Supplier"] = {
   onload(listview) {
@@ -118,7 +118,7 @@ function import_thirdparty_from_sirene() {
       frappe.call({
         method:
           "erpnext_france.controllers.fetch_company_from_sirene.fetch_company_from_sirene",
-        args: {data},
+        args: { data },
         callback: function (response) {
           if (!response || !response.message) {
             frappe.throw(__("No Response From Server"));
@@ -154,18 +154,16 @@ function import_thirdparty_from_sirene() {
  * Display a Dialog where entity can be selected
  */
 function selectEntity(etablissements) {
-  let options = [];
   let entities = [];
   let i = 0;
   for (let entity of etablissements) {
-    entityInfo = findInfoEntity(entity, i);
-    options.push(entityInfo.title);
+    const entityInfo = findInfoEntity(entity, i);
     entities.push(entityInfo);
     i++;
   }
 
-  var route_attributes = frappe.get_route();
-  doctype = route_attributes[1];
+  let route_attributes = frappe.get_route();
+  const doctype = route_attributes[1];
 
   let dialog2 = new frappe.ui.Dialog({
     title: __("Select Entity"),
@@ -178,7 +176,7 @@ function selectEntity(etablissements) {
     size: "extra-large", // small, large, extra-large
     primary_action_label: __("Submit"),
     async primary_action() {
-      selected = $(this.$wrapper[0]).find(
+      const selected = $(this.$wrapper[0]).find(
         'input[name="entity-select"]:checked'
       );
       if (selected.length > 0) {
@@ -190,7 +188,10 @@ function selectEntity(etablissements) {
           }
         }
 
-        new_doc = await createNewDocWithSireneInfo(doctype, entity_chosen);
+        const new_doc = await createNewDocWithSireneInfo(
+          doctype,
+          entity_chosen
+        );
         frappe.ui.form.make_quick_entry(doctype, null, null, new_doc);
         dialog2.hide();
       }
@@ -219,7 +220,7 @@ function findInfoEntity(entity, i) {
   let country = "France";
   let siren = "";
   let siret = "";
-  let naf = "";
+  let code_naf = "";
   let entity_type = "";
   let legal_form = "";
 
@@ -233,8 +234,6 @@ function findInfoEntity(entity, i) {
     company_name = entity.uniteLegale.denominationUniteLegale;
     if (entity.uniteLegale.denominationUsuelle1UniteLegale) {
       company_name_alias = entity.uniteLegale.denominationUsuelle1UniteLegale;
-    } else if (entity.uniteLegale.denominationUsuelle2UniteLegale) {
-      company_name_alias = entity.uniteLegale.denominationUsuelle2UniteLegale;
     } else if (entity.uniteLegale.denominationUsuelle2UniteLegale) {
       company_name_alias = entity.uniteLegale.denominationUsuelle2UniteLegale;
     } else if (entity.periodesEtablissement[0]) {
@@ -350,7 +349,7 @@ function findInfoEntity(entity, i) {
   let vatintracalc2 = leftFillNum((12 + 3 * vatintracalc) % coef, 2);
   let tva_intra = "FR" + vatintracalc2 + siren;
 
-  entityInfo = {
+  return {
     company_name: company_name_all,
     entity_type: entity_type,
     address_1: address_1,
@@ -365,17 +364,15 @@ function findInfoEntity(entity, i) {
     tax_id: tva_intra,
     id: i,
   };
-
-  return entityInfo;
 }
 
 /**
  * Init Doctype with Sirene Info
  */
 async function createNewDocWithSireneInfo(doctype, entity_chosen) {
-  var new_doc = frappe.model.get_new_doc(doctype);
+  let new_doc = frappe.model.get_new_doc(doctype);
 
-  if (doctype == "Customer") {
+  if (doctype === "Customer") {
     new_doc.customer_name = entity_chosen.company_name;
     new_doc.customer_type = entity_chosen.entity_type;
   } else {
@@ -389,8 +386,8 @@ async function createNewDocWithSireneInfo(doctype, entity_chosen) {
   new_doc.country = entity_chosen.country;
   new_doc.siret = entity_chosen.siret;
   new_doc.siren = entity_chosen.siren;
-  new_doc.code_naf = await getCodeNaf(entity_chosen.code_naf);
-  new_doc.legal_form = await getLegalForm(entity_chosen.legal_form);
+  new_doc.code_naf = await frappe.getCodeNaf(entity_chosen.code_naf);
+  new_doc.legal_form = await frappe.getLegalForm(entity_chosen.legal_form);
   new_doc.tax_id = entity_chosen.tax_id;
 
   return new_doc;
@@ -398,7 +395,7 @@ async function createNewDocWithSireneInfo(doctype, entity_chosen) {
 
 function make_table(entities, doctype) {
   let contents = ``;
-  columns = [
+  const columns = [
     "radio",
     "company_name",
     "address1",
@@ -408,7 +405,7 @@ function make_table(entities, doctype) {
     "siret",
   ];
 
-  table =
+  let table =
     '<div class="form-grid-container">' +
     '    <div class="form-grid">' +
     '        <div class="grid-heading-row">' +
@@ -446,9 +443,10 @@ function make_table(entities, doctype) {
     "                   </div>" +
     "               </div>" +
     "            </div>" +
-    "        </div>";
-  +'        <div class="grid-body">' + '            <div class="rows">';
-  for (entity of entities) {
+    "        </div>" +
+    '        <div class="grid-body">' +
+    '            <div class="rows">';
+  for (let entity of entities) {
     table +=
       '            <div class="grid-row">' +
       '               <div class="data-row row">' +
@@ -503,16 +501,18 @@ function make_table(entities, doctype) {
  * Create a dialog where entity fields can be recovered by Sirene API
  */
 function update_thirdparty_from_sirene(frm) {
-  let currentDoc = frm.doc
+  let currentDoc = frm.doc;
 
-  let data = null
-  const {sirene, siret} = frm.doc;
+  let data = null;
+  const { sirene, siret } = frm.doc;
   if (siret !== null) {
-    data = {siret}
+    data = { siret };
   } else if (sirene !== null) {
-    data = {sirene}
+    data = { sirene };
   } else {
-    frappe.throw(__("SIRET or SIRENE must be specified to retrieve a third party"));
+    frappe.throw(
+      __("SIRET or SIRENE must be specified to retrieve a third party")
+    );
   }
 
   frappe.db.get_doc("ERPNext France Settings", null).then((doc) => {
@@ -524,7 +524,7 @@ function update_thirdparty_from_sirene(frm) {
         freeze_message: __("Retrieving data..."),
         method:
           "erpnext_france.controllers.fetch_company_from_sirene.fetch_company_from_siret_or_siren",
-        args: {data},
+        args: { data },
         callback: function (response) {
           if (!response || !response.message) {
             frappe.throw(__("No Response From Server"));
@@ -532,9 +532,9 @@ function update_thirdparty_from_sirene(frm) {
           }
 
           if (response.message.error) {
-              frappe.msgprint({
+            frappe.msgprint({
               message: response.message.error,
-              indicator: 'red'
+              indicator: "red",
             });
             return;
           }
@@ -543,7 +543,11 @@ function update_thirdparty_from_sirene(frm) {
             frappe.throw(__("No Entity Found With Those Info"));
             return;
           }
-          selectFields(frm, currentDoc, response.message.message.etablissements[0]);
+          selectFields(
+            frm,
+            currentDoc,
+            response.message.message.etablissements[0]
+          );
         },
       });
     }
@@ -555,46 +559,46 @@ function update_thirdparty_from_sirene(frm) {
  */
 async function selectFields(frm, currentDoc, etablissement) {
   let response = await frappe.call({
-    method: 'erpnext_france.controllers.fetch_company_from_sirene.get_entity_info',
+    method:
+      "erpnext_france.controllers.fetch_company_from_sirene.get_entity_info",
     args: {
       entity: etablissement,
       i: 0,
     },
     callback: function (response) {
-      if (!response || !response.hasOwnProperty('message')) {
+      if (!response || !("message" in response)) {
         frappe.throw(__("No Response From Server"));
       }
-    }
-  })
-  let entity = response.message
+    },
+  });
+  let entity = response.message;
 
-  let AddressDoc = await getAddressDoctype(currentDoc)
+  let AddressDoc = await getAddressDoctype(currentDoc);
 
-  let doctype
+  let doctype;
 
   switch (currentDoc.doctype) {
     case "Customer":
-      doctype =
-        {
-          'type': 'Customer',
-          'field_name': 'customer_name',
-          'field_type': 'customer_type',
-          'field_address': 'customer_primary_address',
-        }
+      doctype = {
+        type: "Customer",
+        field_name: "customer_name",
+        field_type: "customer_type",
+        field_address: "customer_primary_address",
+      };
       break;
     case "Supplier":
-      doctype =
-        {
-          'type': 'Supplier',
-          'field_name': 'supplier_name',
-          'field_type': 'supplier_type',
-          'field_address': 'supplier_primary_address',
-        }
+      doctype = {
+        type: "Supplier",
+        field_name: "supplier_name",
+        field_type: "supplier_type",
+        field_address: "supplier_primary_address",
+      };
       break;
   }
 
   frappe.call({
-    method: 'erpnext_france.controllers.fetch_company_from_sirene.compare_values',
+    method:
+      "erpnext_france.controllers.fetch_company_from_sirene.compare_values",
     args: {
       doctype: doctype,
       element: currentDoc,
@@ -602,24 +606,33 @@ async function selectFields(frm, currentDoc, etablissement) {
       entity_info: entity,
     },
     callback: function (response) {
-      if (!response || !response.hasOwnProperty('message')) {
+      if (!response || !("message" in response)) {
         frappe.throw(__("No Response From Server"));
-        return
+        return;
       }
-      const match = response.message
+      const match = response.message;
 
       if (match) {
         frappe.msgprint({
-          title: __('Perfect Match'),
-          indicator: 'green',
-          message: __('Document is up-to-date')
+          title: __("Perfect Match"),
+          indicator: "green",
+          message: __("Document is up-to-date"),
         });
-        return
+        return;
       }
 
-      let fields = []
+      let fields = [];
 
-      function addComparisonRow(label, fieldname, fieldtype, currentValue, sireneValue, label_col1, label_col2, options = null) {
+      function addComparisonRow(
+        label,
+        fieldname,
+        fieldtype,
+        currentValue,
+        sireneValue,
+        label_col1,
+        label_col2,
+        options = null
+      ) {
         fields.push(
           {
             fieldtype: "Section Break",
@@ -644,18 +657,18 @@ async function selectFields(frm, currentDoc, etablissement) {
           },
           {
             fieldname: `checkbox_${fieldname}`,
-            fieldtype: "HTML"
+            fieldtype: "HTML",
           },
           {
             fieldtype: "Column Break",
-            label:label_col2
+            label: label_col2,
           },
           {
             fieldname: `sirene_${fieldname}`,
             fieldtype: fieldtype,
             options: options,
             default: sireneValue,
-            read_only: 1
+            read_only: 1,
           }
         );
       }
@@ -666,14 +679,16 @@ async function selectFields(frm, currentDoc, etablissement) {
         "",
         "",
         __("Current values"),
-        __("Sirene values"),
+        __("Sirene values")
       );
       addComparisonRow(
         __("Company Name"),
-        currentDoc.doctype.toLowerCase() + '_name',
+        currentDoc.doctype.toLowerCase() + "_name",
         "Data",
-        currentDoc.doctype === 'Customer' ? currentDoc.customer_name : currentDoc.supplier_name,
-        entity.company_name,
+        currentDoc.doctype === "Customer"
+          ? currentDoc.customer_name
+          : currentDoc.supplier_name,
+        entity.company_name
       );
 
       addComparisonRow(
@@ -705,7 +720,7 @@ async function selectFields(frm, currentDoc, etablissement) {
         "country",
         "Data",
         AddressDoc.country,
-        entity.country,
+        entity.country
       );
 
       addComparisonRow(
@@ -754,13 +769,15 @@ async function selectFields(frm, currentDoc, etablissement) {
         "Legal Form"
       );
 
-
       let dialog3 = new frappe.ui.Dialog({
-        title: currentDoc.doctype === "Customer" ? __("Update customer from SIRENE") : __("Update supplier from SIRENE"),
+        title:
+          currentDoc.doctype === "Customer"
+            ? __("Update customer from SIRENE")
+            : __("Update supplier from SIRENE"),
         fields: fields,
         size: "extra-large", // small, large, extra-large
         primary_action_label: __("Update all with Sirene's values"),
-        secondary_action_label:  __("Save current values"),
+        secondary_action_label: __("Save current values"),
         onhide: function () {
           this.$wrapper.remove();
           dialog3 = null;
@@ -769,21 +786,27 @@ async function selectFields(frm, currentDoc, etablissement) {
           frappe.dom.freeze(__("Updating data..."));
 
           try {
-            await update_doc_with_sirene_info(frm.doc, entity, doctype.type, AddressDoc)
+            await frappe.update_doc_with_sirene_info(
+              frm.doc,
+              entity,
+              doctype.type,
+              AddressDoc
+            );
             await frm.reload_doc();
 
             frappe.show_alert({
-              message: doctype.type === "Customer"
-                ? __('Customer successfully updated')
-                : __('Supplier successfully updated'),
-              indicator: 'green'
+              message:
+                doctype.type === "Customer"
+                  ? __("Customer successfully updated")
+                  : __("Supplier successfully updated"),
+              indicator: "green",
             });
           } catch (error) {
-            console.error('Error:', error);
+            console.error("Error:", error);
             frappe.msgprint({
-              title: __('Error'),
-              indicator: 'red',
-              message: __('Error while updating')
+              title: __("Error"),
+              indicator: "red",
+              message: __("Error while updating"),
             });
           } finally {
             frappe.dom.unfreeze();
@@ -792,111 +815,185 @@ async function selectFields(frm, currentDoc, etablissement) {
         },
         async secondary_action() {
           frappe.dom.freeze(__("Updating data..."));
-          await updateFieldsWithSireneInfo(dialog3, frm, doctype.type, AddressDoc)
-          frappe.dom.unfreeze()
+          await updateFieldsWithSireneInfo(
+            dialog3,
+            frm,
+            doctype.type,
+            AddressDoc
+          );
+          frappe.dom.unfreeze();
           dialog3.hide();
         },
       });
-      dialog3.$wrapper.find(".modal-dialog").attr("id", "modal-3")
-      dialog3.$wrapper.find('.btn-secondary')
-        .removeClass('btn-secondary')
-        .addClass('btn-primary');
-      dialog3.$wrapper.find('.modal-footer').prepend(
-        `<button class="btn btn-default btn-sm" data-action="third-action"> ${__("Cancel")}</button>`
-      );
+      dialog3.$wrapper.find(".modal-dialog").attr("id", "modal-3");
+      dialog3.$wrapper
+        .find(".btn-secondary")
+        .removeClass("btn-secondary")
+        .addClass("btn-primary");
+      dialog3.$wrapper
+        .find(".modal-footer")
+        .prepend(
+          `<button class="btn btn-default btn-sm" data-action="third-action"> ${__(
+            "Cancel"
+          )}</button>`
+        );
 
-      dialog3.$wrapper.find('[data-action="third-action"]').on('click', function () {
-        dialog3.hide();
-      });
+      dialog3.$wrapper
+        .find('[data-action="third-action"]')
+        .on("click", function () {
+          dialog3.hide();
+        });
 
-      dialog3.$wrapper.on('click', '.addRemoveArrow', function () {
+      dialog3.$wrapper.on("click", ".addRemoveArrow", function () {
         const $btn = $(this);
-        const $use = $btn.find('use');
-        const currentDirection = $btn.attr('data-direction');
-        const fieldName = $btn.data('field');
-        const currentField = fieldName
-        const sireneField = 'sirene_' + fieldName
+        const $use = $btn.find("use");
+        const currentDirection = $btn.attr("data-direction");
+        const fieldName = $btn.data("field");
+        const currentField = fieldName;
+        const sireneField = "sirene_" + fieldName;
 
-        if (currentDirection === 'left') {
-          $use.attr('href', '#icon-close');
-          $btn.attr('data-direction', 'right');
+        if (currentDirection === "left") {
+          $use.attr("href", "#icon-close");
+          $btn.attr("data-direction", "right");
           let newValue = dialog3.get_value(sireneField);
           dialog3.set_value(currentField, newValue);
 
-          $("#sirene_mismatch_" + currentField).find('svg.error').hide()
-          $("#sirene_match_" + currentField).show()
+          $("#sirene_mismatch_" + currentField)
+            .find("svg.error")
+            .hide();
+          $("#sirene_match_" + currentField).show();
         } else {
-          $use.attr('href', '#es-line-left-chevron');
-          $btn.attr('data-direction', 'left');
+          $use.attr("href", "#es-line-left-chevron");
+          $btn.attr("data-direction", "left");
 
-          const previousValue = frm.doc[fieldName]
+          const previousValue = frm.doc[fieldName];
 
           dialog3.set_value(currentField, previousValue);
-          $("#sirene_mismatch_" + currentField).find('svg').show()
-          $("#sirene_match_" + currentField).hide()
+          $("#sirene_mismatch_" + currentField)
+            .find("svg")
+            .show();
+          $("#sirene_match_" + currentField).hide();
         }
       });
 
-
       setTimeout(() => {
         let fieldNames = [
-          {name: currentDoc.doctype.toLowerCase() + '_name', current: currentDoc.doctype === 'Customer' ? currentDoc.customer_name : currentDoc.supplier_name, sirene: entity.company_name},
-          {name: 'address_line1', current: AddressDoc.address_line1, sirene: entity.address_1},
-          {name: 'pincode', current: AddressDoc.pincode, sirene: entity.zipcode},
-          {name: 'city', current: AddressDoc.city, sirene: entity.town},
-          {name: 'country', current: AddressDoc.country, sirene: entity.country},
-          {name: 'siren', current: currentDoc.siren, sirene: entity.siren},
-          {name: 'siret', current: currentDoc.siret, sirene: entity.siret},
-          {name: 'code_naf', current: currentDoc.code_naf, sirene: entity.code_naf},
-          {name: 'tax_id', current: currentDoc.tax_id, sirene: entity.tax_id},
-          {name: 'legal_form', current: currentDoc.legal_form, sirene: entity.legal_form}
+          {
+            name: currentDoc.doctype.toLowerCase() + "_name",
+            current:
+              currentDoc.doctype === "Customer"
+                ? currentDoc.customer_name
+                : currentDoc.supplier_name,
+            sirene: entity.company_name,
+          },
+          {
+            name: "address_line1",
+            current: AddressDoc.address_line1,
+            sirene: entity.address_1,
+          },
+          {
+            name: "pincode",
+            current: AddressDoc.pincode,
+            sirene: entity.zipcode,
+          },
+          { name: "city", current: AddressDoc.city, sirene: entity.town },
+          {
+            name: "country",
+            current: AddressDoc.country,
+            sirene: entity.country,
+          },
+          { name: "siren", current: currentDoc.siren, sirene: entity.siren },
+          { name: "siret", current: currentDoc.siret, sirene: entity.siret },
+          {
+            name: "code_naf",
+            current: currentDoc.code_naf,
+            sirene: entity.code_naf,
+          },
+          { name: "tax_id", current: currentDoc.tax_id, sirene: entity.tax_id },
+          {
+            name: "legal_form",
+            current: currentDoc.legal_form,
+            sirene: entity.legal_form,
+          },
         ];
 
-        fieldNames.forEach(field => {
+        fieldNames.forEach((field) => {
           let checkboxHtml = sirenePrintCheckbox(
             field.name,
-            checkValue([{
-              fname: field.name,
-              dval: field.current,
-              sval: field.sirene
-            }])
+            checkValue([
+              {
+                fname: field.name,
+                dval: field.current,
+                sval: field.sirene,
+              },
+            ])
           );
 
-          dialog3.fields_dict[`checkbox_${field.name}`].$wrapper.html(checkboxHtml);
-          dialog3.$wrapper.find('.clearfix').hide();
+          dialog3.fields_dict[`checkbox_${field.name}`].$wrapper.html(
+            checkboxHtml
+          );
+          dialog3.$wrapper.find(".clearfix").hide();
         });
       }, 100);
 
-      dialog3.show()
-
+      dialog3.show();
     },
   });
 }
 
-
 function sirenePrintCheckbox(field_name, match) {
-
-  let result = '<span id="sirene_match_' + field_name + '" style="' + (match ? "display: block;" : "display: none;") + '" title="' + __("SireneIconCheckHelp") + '">' + "\n";
-  result += '<svg class="es-icon ml-0 icon-sm" ><use href="#icon-solid-success"></use></svg>' + "\n";
-  result += '</span>' + "\n";
-  result += '<span id="sirene_mismatch_' + field_name + '" style="' + (match ? "display: none;" : "display: inline-block;") + '" class="nowrap sirene_check">' + "\n";
-  result += '<svg class="es-icon ml-0 icon-sm error" style="display:inline-block"><use href="#icon-solid-error"></use></svg></i>' + "\n";
-  result += '<button class="text-muted btn btn-default prev-doc addRemoveArrow icon-btn " data-field="' + field_name + '" data-direction="left" style="display:inline-block" title="' + __("SireneIconUpdateHelp") + '" data-original-title="' + __("SireneIconUpdateHelp") + '">' + "\n";
-  result += '<svg class="es-icon es-line  icon-sm" style="" aria-hidden="true">' + "\n";
+  let result =
+    '<span id="sirene_match_' +
+    field_name +
+    '" style="' +
+    (match ? "display: block;" : "display: none;") +
+    '" title="' +
+    __("SireneIconCheckHelp") +
+    '">' +
+    "\n";
+  result +=
+    '<svg class="es-icon ml-0 icon-sm" ><use href="#icon-solid-success"></use></svg>' +
+    "\n";
+  result += "</span>" + "\n";
+  result +=
+    '<span id="sirene_mismatch_' +
+    field_name +
+    '" style="' +
+    (match ? "display: none;" : "display: inline-block;") +
+    '" class="nowrap sirene_check">' +
+    "\n";
+  result +=
+    '<svg class="es-icon ml-0 icon-sm error" style="display:inline-block"><use href="#icon-solid-error"></use></svg></i>' +
+    "\n";
+  result +=
+    '<button class="text-muted btn btn-default prev-doc addRemoveArrow icon-btn " data-field="' +
+    field_name +
+    '" data-direction="left" style="display:inline-block" title="' +
+    __("SireneIconUpdateHelp") +
+    '" data-original-title="' +
+    __("SireneIconUpdateHelp") +
+    '">' +
+    "\n";
+  result +=
+    '<svg class="es-icon es-line  icon-sm" style="" aria-hidden="true">' + "\n";
   result += '<use href="#es-line-left-chevron"></use>' + "\n";
-  result += '</svg>' + "\n";
-  result += '</button>' + "\n";
-  result += '<input type="hidden" name="sirene_update_' + field_name + '" value="0">' + "\n";
-  result += '</span>' + "\n";
+  result += "</svg>" + "\n";
+  result += "</button>" + "\n";
+  result +=
+    '<input type="hidden" name="sirene_update_' +
+    field_name +
+    '" value="0">' +
+    "\n";
+  result += "</span>" + "\n";
 
   return result;
 }
 
 const FIELD_MAPPING = {
-  'company_address_line1': {doctype: 'Address', field: 'address_line1'},
-  'company_city': {doctype: 'Address', field: 'city'},
-  'company_pincode': {doctype: 'Address', field: 'pincode'},
-  'company_country': {doctype: 'Address', field: 'country'},
+  company_address_line1: { doctype: "Address", field: "address_line1" },
+  company_city: { doctype: "Address", field: "city" },
+  company_pincode: { doctype: "Address", field: "pincode" },
+  company_country: { doctype: "Address", field: "country" },
 };
 
 function separateAndMapFields(fields, baseDoctype) {
@@ -907,7 +1004,7 @@ function separateAndMapFields(fields, baseDoctype) {
     if (FIELD_MAPPING[fieldName]) {
       const mapping = FIELD_MAPPING[fieldName];
 
-      if (mapping.doctype === 'Address') {
+      if (mapping.doctype === "Address") {
         addressFields[mapping.field] = value;
       } else if (mapping.doctype === baseDoctype) {
         doctypeFields[mapping.field] = value;
@@ -917,68 +1014,77 @@ function separateAndMapFields(fields, baseDoctype) {
     }
   }
 
-  return {doctypeFields, addressFields};
+  return { doctypeFields, addressFields };
 }
 
 async function collectSelectedFields(dialog3, doctype) {
   return {
-    [doctype.toLowerCase() + "_name"]: dialog3.get_value(doctype.toLowerCase() + "_name"),
-    company_address_line1: dialog3.get_value('address_line1'),
-    company_pincode: dialog3.get_value('pincode'),
-    company_city: dialog3.get_value('city'),
-    company_country: dialog3.get_value('country'),
-    siren: dialog3.get_value('siren'),
-    siret: dialog3.get_value('siret'),
-    code_naf: dialog3.get_value('code_naf'),
-    tax_id: dialog3.get_value('tax_id'),
-    legal_form: dialog3.get_value('legal_form'),
-  }
+    [doctype.toLowerCase() + "_name"]: dialog3.get_value(
+      doctype.toLowerCase() + "_name"
+    ),
+    company_address_line1: dialog3.get_value("address_line1"),
+    company_pincode: dialog3.get_value("pincode"),
+    company_city: dialog3.get_value("city"),
+    company_country: dialog3.get_value("country"),
+    siren: dialog3.get_value("siren"),
+    siret: dialog3.get_value("siret"),
+    code_naf: dialog3.get_value("code_naf"),
+    tax_id: dialog3.get_value("tax_id"),
+    legal_form: dialog3.get_value("legal_form"),
+  };
 }
 
 async function updateFieldsWithSireneInfo(dialog3, frm, doctype) {
   try {
     const allFields = await collectSelectedFields(dialog3, doctype);
     if (Object.keys(allFields).length === 0) {
-      frappe.msgprint(__('No fields selected for update'));
+      frappe.msgprint(__("No fields selected for update"));
       return;
     }
 
-    const {doctypeFields, addressFields} = separateAndMapFields(allFields, doctype);
-    frappe.dom.freeze(__('Updating data...'));
+    const { doctypeFields, addressFields } = separateAndMapFields(
+      allFields,
+      doctype
+    );
+    frappe.dom.freeze(__("Updating data..."));
     if (Object.keys(doctypeFields).length > 0) {
-      await updateDoctype(doctype, frm.doc.name, doctypeFields);
+      await frappe.updateDoctype(doctype, frm.doc.name, doctypeFields);
     }
 
     if (Object.keys(addressFields).length > 0) {
-      const addressName = doctype === 'Customer'
-        ? frm.doc.customer_primary_address
-        : frm.doc.supplier_primary_address;
+      const addressName =
+        doctype === "Customer"
+          ? frm.doc.customer_primary_address
+          : frm.doc.supplier_primary_address;
 
       if (addressName) {
-        await updateDoctype('Address', addressName, addressFields);
+        await frappe.updateDoctype("Address", addressName, addressFields);
       } else {
-        frappe.show_alert({
-          message: __('Warning: No primary address to update'),
-          indicator: 'orange'
-        }, 5);
+        frappe.show_alert(
+          {
+            message: __("Warning: No primary address to update"),
+            indicator: "orange",
+          },
+          5
+        );
       }
     }
 
     await frm.reload_doc();
 
     frappe.show_alert({
-      message: doctype === "Customer"
-        ? __('Customer successfully updated')
-        : __('Supplier successfully updated'),
-      indicator: 'green'
+      message:
+        doctype === "Customer"
+          ? __("Customer successfully updated")
+          : __("Supplier successfully updated"),
+      indicator: "green",
     });
-
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
     frappe.msgprint({
-      title: __('Error'),
-      indicator: 'red',
-      message: __('Error while updating: ') + (error.message || error)
+      title: __("Error"),
+      indicator: "red",
+      message: __("Error while updating: ") + (error.message || error),
     });
   } finally {
     frappe.dom.unfreeze();
@@ -986,14 +1092,20 @@ async function updateFieldsWithSireneInfo(dialog3, frm, doctype) {
 }
 
 async function getAddressDoctype(currentDoc) {
-  let doctypeMethod = currentDoc.doctype === 'Customer' ? 'frappe.client.get' : 'frappe.client.get'
-  let doctypePrimaryAddress = currentDoc.doctype === 'Customer' ? currentDoc.customer_primary_address : currentDoc.supplier_primary_address
+  let doctypeMethod =
+    currentDoc.doctype === "Customer"
+      ? "frappe.client.get"
+      : "frappe.client.get";
+  let doctypePrimaryAddress =
+    currentDoc.doctype === "Customer"
+      ? currentDoc.customer_primary_address
+      : currentDoc.supplier_primary_address;
   return new Promise((resolve, reject) => {
     frappe.call({
       method: doctypeMethod,
       args: {
-        doctype: 'Address',
-        name: doctypePrimaryAddress
+        doctype: "Address",
+        name: doctypePrimaryAddress,
       },
       callback: function (r) {
         if (r.message) {
@@ -1003,10 +1115,10 @@ async function getAddressDoctype(currentDoc) {
         }
       },
       error: function (r) {
-        console.log('Error:', r);
+        console.log("Error:", r);
         frappe.throw(__(r));
         reject(r);
-      }
+      },
     });
   });
 }
@@ -1014,7 +1126,8 @@ async function getAddressDoctype(currentDoc) {
 function checkValue(datas) {
   let match = true;
   $.map(datas, function (item, idx) {
-    match &&= item.dval.localeCompare(item.sval, "fr", {sensitivity: "accent"}) === 0;
+    match &&=
+      item.dval.localeCompare(item.sval, "fr", { sensitivity: "accent" }) === 0;
   });
   return match;
 }
