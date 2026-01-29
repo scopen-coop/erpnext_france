@@ -2,11 +2,13 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Recurrence Period", {
-	setup(frm) {
-		frm.set_query("billing_interval", () => {
-			return {
-				filters: {"name": ["in", [__("Day"), __("Week"), __("Month"), __("Year")]]}
-			};
-		});
-	},
+  setup(frm) {
+    frm.set_query("billing_interval", () => {
+      return {
+        filters: {
+          name: ["in", [__("Day"), __("Week"), __("Month"), __("Year")]],
+        },
+      };
+    });
+  },
 });

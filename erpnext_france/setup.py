@@ -122,6 +122,7 @@ def default_accounts_mapping(accounts):
 		for x in account_map
 	}
 
+
 def set_default_source_letter_head():
 	letter_head = frappe.get_last_doc(
 		"Letter Head",

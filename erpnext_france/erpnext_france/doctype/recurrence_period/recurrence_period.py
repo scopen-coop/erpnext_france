@@ -28,6 +28,7 @@ class RecurrencePeriod(Document):
 			"Delivery date", "1st day of the month", "15th day of the month", "Last day of the month"
 		]
 		title: DF.Data | None
+
 	# end: auto-generated types
 	def validate(self):
 		self.validate_interval_count()
@@ -63,7 +64,11 @@ class RecurrencePeriod(Document):
 				if invoicing_day == 1:
 					period_end = get_last_day(period_end)
 				else:
-					day = invoicing_day - 1 if month_max_no_of_days > invoicing_day else month_max_no_of_days - 1
+					day = (
+						invoicing_day - 1
+						if month_max_no_of_days > invoicing_day
+						else month_max_no_of_days - 1
+					)
 					period_end = period_end.replace(day=day)
 
 			return period_end

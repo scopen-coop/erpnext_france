@@ -4,10 +4,9 @@
 from collections import defaultdict
 
 import frappe
+from erpnext.controllers.taxes_and_totals import get_itemised_tax
 from frappe import _
 from frappe.utils import flt, rounded
-
-from erpnext.controllers.taxes_and_totals import get_itemised_tax
 
 
 def execute(filters=None):
@@ -56,7 +55,10 @@ class TaxSummary:
 				self.transaction,
 				filters={
 					"company": self.filters.company,
-					"posting_date": ("between", (self.filters.period_start_date, self.filters.period_end_date)),
+					"posting_date": (
+						"between",
+						(self.filters.period_start_date, self.filters.period_end_date),
+					),
 					"docstatus": 1,
 				},
 				fields=["name", "posting_date", "base_grand_total"],
@@ -98,7 +100,6 @@ class TaxSummary:
 					"base_net_amount": flt(base_net_amount),
 				}
 
-				total_amount = 0
 				has_taxes = False
 				if itemised_tax:
 					for tax in itemised_tax.get(item.item_code):
@@ -106,14 +107,18 @@ class TaxSummary:
 							tax_rate = -99.0
 						else:
 							tax_rate = flt(itemised_tax[item.item_code][tax].get("tax_rate")) * flt(
-								-1.0 if itemised_tax[item.item_code][tax].get("add_deduct_tax") == "Deduct" else 1.0
+								-1.0
+								if itemised_tax[item.item_code][tax].get("add_deduct_tax") == "Deduct"
+								else 1.0
 							)
 
 						if tax_rate not in self.tax_rates:
 							self.tax_rates.append(tax_rate)
 
 						tax_amount = flt(itemised_tax[item.item_code][tax].get("tax_amount")) * flt(
-							-1.0 if itemised_tax[item.item_code][tax].get("add_deduct_tax") == "Deduct" else 1.0
+							-1.0
+							if itemised_tax[item.item_code][tax].get("add_deduct_tax") == "Deduct"
+							else 1.0
 						)
 						row.update({tax_rate: tax_amount})
 						if tax_amount > 0:
@@ -153,7 +158,7 @@ class TaxSummary:
 
 				has_taxes = False
 				for tax in self.parents.get(data.get("reference_doctype"), {}).get(
-						data.get("reference_document"), {}
+					data.get("reference_document"), {}
 				):
 					if tax not in ("base_net_amount", "base_grand_amount"):
 						tax_amount = flt(
@@ -219,7 +224,7 @@ class TaxSummary:
 			self.columns.append(
 				{
 					"fieldname": str(rate),
-					"label": f"{str(rate)} %" if rate != -99.0 else _("Other charges"),
+					"label": f"{rate!s} %" if rate != -99.0 else _("Other charges"),
 					"fieldtype": "Currency",
 					"width": 180,
 				}

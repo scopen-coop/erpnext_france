@@ -1,5 +1,5 @@
-from __future__ import unicode_literals
 from frappe import _
+
 
 def get_data():
 	data = [
@@ -11,9 +11,9 @@ def get_data():
 					"type": "doctype",
 					"name": "Accounting Export",
 					"label": _("Accounting Export"),
-					"description": _("Export ledgers to your favorite accounting software.")
+					"description": _("Export ledgers to your favorite accounting software."),
 				}
-			]
+			],
 		},
 		{
 			"label": _("Setup"),
@@ -22,10 +22,10 @@ def get_data():
 				{
 					"type": "doctype",
 					"name": "ERPNext France Settings",
-					"description": _("Default settings for ERPNext France.")
+					"description": _("Default settings for ERPNext France."),
 				}
-			]
-		}
+			],
+		},
 	]
 
 	return data

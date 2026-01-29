@@ -19,23 +19,23 @@ def before_save(doc, method):
 	if supplier_part_no:
 		doc.reference = supplier_part_no
 	else:
-		doc.reference = doc.supplier + ' - ' + doc.item_code
+		doc.reference = doc.supplier + " - " + doc.item_code
 		update_item_supplier(doc.item_code, doc.supplier)
 
+
 def update_item_supplier(item_code, supplier_name):
-	item = frappe.get_doc('Item', item_code)
+	item = frappe.get_doc("Item", item_code)
 
 	supplier_item = frappe.get_doc(
 		{
-			'doctype': 'Item Supplier',
-			'parent': item_code,
-			'parenttype': 'Item',
-			'parentfield': 'supplier_items',
-			'supplier': supplier_name,
-			'supplier_part_no': supplier_name + ' - ' + item_code
+			"doctype": "Item Supplier",
+			"parent": item_code,
+			"parenttype": "Item",
+			"parentfield": "supplier_items",
+			"supplier": supplier_name,
+			"supplier_part_no": supplier_name + " - " + item_code,
 		}
 	)
 
 	supplier_item.save()
-	item.append('supplier_items', supplier_item)
-
+	item.append("supplier_items", supplier_item)
