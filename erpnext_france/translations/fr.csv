@@ -41,7 +41,7 @@ Deposit Setup,Gestion des acomptes
 Accountancy Export,Export journaux vente et achat
 Export FEC,Export ecriture FEC
 API Url,Url d'accès à l'API généré depuis le compte de Sirene
-API Token,Token d'accès à l'API généré depuis le compte de Sirene (Authorization : Bearer),
+API Token,Token d'accès à l'API généré via le compte de Sirene (Authorization : Bearer),
 API Timeout,Délai d'attente maximum d'une requête vers l'API (en secondes par defaut 2)
 Import supplier from SIRENE,Importer un fournisseur depuis SIRENE
 Import customer from SIRENE,Importer un client depuis SIRENE
@@ -658,3 +658,40 @@ Production Plan,Planification de la prod.
 Account Code Length,Longueur du code comptable
 "If you set the value to 6 here, account '706' will appear as '706000' in exports","Si vous définissez la valeur à 6 ici, le compte '706' apparaîtra comme '706000' dans les exports"
 Leave Approver,Approbateur de note de frais,Department
+Update all,Tout mettre à jour,
+Cancel,Annuler,
+Updating data...,Mise à jour des données...,
+Retrieving data...,Récupération des données...,
+Update customer from SIRENE,Mettre à jour le client depuis le SIRENE,
+Update supplier from SIRENE,Mettre à jour le fournisseur depuis le SIRENE,
+Error while updating,Erreur lors de la mise à jour,
+Document is up-to-date,Le document est à jour,
+Perfect Match,Correspondance parfaite,
+City,Ville,
+Customer successfully updated,Client mis à jour avec succès,
+Supplier successfully updated,Fournisseur mis à jour avec succès,
+Warning: No primary address found to update,Attention : Aucune adresse principale à mettre à jour n'a été trouvée ,
+No fields selected for update,Aucun champs selectionné à mettre à jour,
+SIRET or SIREN must be specified to retrieve a third party,Le SIRET ou le SIREN doivent être spécifié pour la récupération d'un tiers ,
+ERPNext France - SIRENE - Updates available,ERPNext France - SIRENE - Mises à jour disponibles,
+Updates available for the entities below:,Mises à jours disponibles pour les entités ci dessous :,
+Customer(s),Client(s),
+Supplier(s),Fournisseur(s),
+View,Voir,
+Processed,Traités,
+Skipped,Ignorés,
+Report generated on,Rapport généré le,
+ERPNext France - Update companies (sirene),ERPNext France - Mettre à jour les entreprises (Sirene),
+Please select at least one line,Veuillez sélectionner au moins une ligne,
+Differences detected,Différences détectées,
+In Progress,En cours,
+Updated,À jour,
+Error,Erreur,
+Sirene report recovery recipient email for customers,Email du destinataire de récupération du rapport Sirene pour les clients,
+Sirene report recovery recipient email for suppliers,Email du destinataire de récupération du rapport Sirene pour les fournisseurs,
+Errors,Erreurs,
+Current values,Valeurs actuelles,
+Sirene values,Valeurs Sirene,
+Update all with Sirene's values,Tout mettre à jour avec les valeurs Sirene,
+Save current values,Sauvegarder les valeurs actuelles,
+Siren or Siret is required to check updates,Sirene ou Siret nécessaire pour vérifier les mises à jour.,

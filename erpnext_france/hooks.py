@@ -212,7 +212,6 @@ fixtures = [
 	},
 ]
 
-
 # fixtures = ["Custom Field"]
 
 # Includes in <head>
@@ -221,7 +220,9 @@ fixtures = [
 # include js, css files in header of desk.html
 # app_include_css = "/assets/erpnext_france/css/erpnext_france.css"
 # app_include_js = "/assets/erpnext_france/js/erpnext_france.js"
-app_include_js = ["erpnext_france.bundle.js"]
+app_include_js = [
+	"erpnext_france.bundle.js",
+]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/erpnext_france/css/erpnext_france.css"
@@ -372,7 +373,6 @@ doc_events = {
 	},
 }
 
-
 # Scheduled Tasks
 # ---------------
 
@@ -393,6 +393,12 @@ doc_events = {
 # 		"erpnext_france.tasks.monthly"
 # 	]
 # }
+
+scheduler_events = {
+	"daily": [
+		"erpnext_france.tasks.check_sirene_update"
+	],
+}
 
 # Testing
 # -------
