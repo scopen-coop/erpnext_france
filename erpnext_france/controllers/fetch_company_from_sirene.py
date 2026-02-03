@@ -277,12 +277,13 @@ def execute_sirene_check():
 				results["logs"].append("\n")
 
 			except Exception as e:
+				frappe.cache().delete_value("siren_update_running")
 				results["errors_" + doctype["type"].lower()] += 1
 				error_msg = str(e)
 				logger.error(f"Error processing {element[doctype['field_name']]}: {error_msg}")
 				results["logs"].append(f"Error: {error_msg}\n")
-
 				frappe.log_error(message=frappe.get_traceback(), title=f"SIREN API Error: {element.name}")
+
 		results["logs"].append("\n" + "=" * 50)
 
 	results["logs"].append("\nSUMMARY")
@@ -368,8 +369,6 @@ def get_entity_info(entity, i):
 
 		if is_not_null(entity["uniteLegale"]["denominationUsuelle1UniteLegale"]):
 			company_name_alias = entity["uniteLegale"]["denominationUsuelle1UniteLegale"]
-		elif is_not_null(entity["uniteLegale"]["denominationUsuelle2UniteLegale"]):
-			company_name_alias = entity["uniteLegale"]["denominationUsuelle2UniteLegale"]
 		elif is_not_null(entity["uniteLegale"]["denominationUsuelle2UniteLegale"]):
 			company_name_alias = entity["uniteLegale"]["denominationUsuelle2UniteLegale"]
 		elif is_not_null(entity["periodesEtablissement"][0]):
@@ -458,7 +457,7 @@ def get_entity_info(entity, i):
 	if is_not_null(entity["uniteLegale"]["categorieJuridiqueUniteLegale"]):
 		legal_form = entity["uniteLegale"]["categorieJuridiqueUniteLegale"]
 
-	# intra - community vat number calculation
+	# intra - community vat number calculation (12 + 3 * (SIREN modulo 97)) modulo 97
 	coef = 97
 	vat_intra_calc = int(siren) % coef
 	vat_intra_calc2 = left_fill_num((12 + 3 * vat_intra_calc) % coef, 2)
