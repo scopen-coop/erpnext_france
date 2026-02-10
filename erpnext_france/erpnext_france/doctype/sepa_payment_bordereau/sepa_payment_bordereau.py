@@ -53,6 +53,16 @@ class SEPAPaymentBordereau(Document):
 		# Generate End-to-End IDs
 		self.generate_end_to_end_ids()
 
+		# Check Company bank account
+		if not self.bank_account:
+			frappe.throw(_("Please select a bank account for the bordereau"))
+		
+		bank_account = frappe.get_doc("Bank Account", self.bank_account)
+		if not bank_account.iban:
+			frappe.throw(_("Company bank account {0} must have an IBAN").format(self.bank_account))
+		if not bank_account.swift_number:
+			frappe.throw(_("Company bank account {0} must have a BIC (Swift Number)").format(self.bank_account))
+
 		# Perform all validations
 		for line in self.lines:
 			# Check IBAN/BIC
@@ -138,7 +148,7 @@ class SEPAPaymentBordereau(Document):
 		nb_of_txs = etree.SubElement(grp_hdr, "NbOfTxs")
 		nb_of_txs.text = str(len(self.lines))
 		ctrl_sum = etree.SubElement(grp_hdr, "CtrlSum")
-		ctrl_sum.text = str(self.total_amount)
+		ctrl_sum.text = f"{self.total_amount:.2f}"
 
 		# Initiating Party
 		initg_pty = etree.SubElement(grp_hdr, "InitgPty")
@@ -241,7 +251,7 @@ class SEPAPaymentBordereau(Document):
 		nb_of_txs = etree.SubElement(grp_hdr, "NbOfTxs")
 		nb_of_txs.text = str(len(self.lines))
 		ctrl_sum = etree.SubElement(grp_hdr, "CtrlSum")
-		ctrl_sum.text = str(self.total_amount)
+		ctrl_sum.text = f"{self.total_amount:.2f}"
 
 		# Initiating Party
 		initg_pty = etree.SubElement(grp_hdr, "InitgPty")

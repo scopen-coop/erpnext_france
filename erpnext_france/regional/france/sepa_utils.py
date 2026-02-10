@@ -170,12 +170,16 @@ def reconcile_bank_transaction_to_sepa_line(bank_transaction, end_to_end_id):
 	sepa_line = frappe.db.get_value(
 		"SEPA Payment Bordereau Line",
 		{"end_to_end_id": end_to_end_id},
-		["name", "parent", "invoice", "party", "party_type", "amount", "mandate"],
+		["name", "parent", "invoice", "party", "party_type", "amount", "mandate", "status"],
 		as_dict=1
 	)
 
 	if not sepa_line:
 		frappe.throw(_("SEPA Payment Line with End-to-End ID {0} not found").format(end_to_end_id))
+
+	if sepa_line.status == "Accepted":
+		# Already reconciled
+		return
 
 	# Get bordereau
 	bordereau = frappe.get_doc("SEPA Payment Bordereau", sepa_line.parent)
@@ -210,12 +214,79 @@ def reconcile_bank_transaction_to_sepa_line(bank_transaction, end_to_end_id):
 	# Update SEPA line status
 	frappe.db.set_value("SEPA Payment Bordereau Line", sepa_line.name, "status", "Accepted")
 
+	# Update mandate sequence type if first debit
+	if sepa_line.mandate and bordereau.payment_type == "Debit":
+		mandate = frappe.get_doc("SEPA Mandate", sepa_line.mandate)
+		if mandate.sequence_type == "FRST":
+			mandate.update_to_recurring()
+
 	# Check if all lines are accepted and update bordereau status
 	update_bordereau_status(sepa_line.parent)
 
 	frappe.msgprint(_("Payment Entry {0} created and SEPA line marked as accepted").format(payment_entry.name))
 
 	return payment_entry.name
+
+
+def auto_reconcile_sepa_transaction(doc, method):
+	"""
+	Hook on Bank Transaction submission to automatically reconcile SEPA payments.
+	"""
+	import re
+
+	# SEPA End-to-End ID pattern: often appears in description
+	# Format used in generate_end_to_end_ids: COMPANY-YYYYMMDD-UUID (max 35 chars)
+	# We search for any 8-digit date-like string followed by a dash and 8 hex-like chars
+	# This is a bit specific to our generation, but flexible enough.
+	pattern = r"[A-Z0-9]{1,10}-\d{8,14}-[A-Z0-9]{8}"
+	
+	search_text = f"{doc.description or ''} {doc.reference_number or ''} {doc.transaction_id or ''} {doc.bank_party_name or ''}"
+	matches = re.findall(pattern, search_text)
+
+	for end_to_end_id in matches:
+		# Check if this ID exists in a SEPA line
+		sepa_line = frappe.db.get_value(
+			"SEPA Payment Bordereau Line",
+			{"end_to_end_id": end_to_end_id, "status": "Pending"},
+			"name"
+		)
+
+		if sepa_line:
+			try:
+				reconcile_bank_transaction_to_sepa_line(doc.name, end_to_end_id)
+				# If successful, we can stop searching for this transaction
+				break
+			except Exception as e:
+				frappe.log_error(frappe.get_traceback(), _("SEPA Auto-Reconciliation Error"))
+
+
+@frappe.whitelist()
+def add_invoices_to_sepa_bordereau_bulk(invoice_names, invoice_type="Sales Invoice"):
+	"""
+	Add multiple invoices to a SEPA Payment Bordereau.
+	Returns a report with successes and failures.
+	"""
+	if isinstance(invoice_names, str):
+		import json
+		invoice_names = json.loads(invoice_names)
+
+	results = {
+		"success": [],
+		"failed": []
+	}
+
+	for name in invoice_names:
+		try:
+			# Wrap in sub-transaction/savepoint if needed, but here simple catch is enough for app logic
+			bordereau_name = add_invoice_to_sepa_bordereau(name, invoice_type)
+			results["success"].append({"name": name, "bordereau": bordereau_name})
+		except frappe.ValidationError as e:
+			results["failed"].append({"name": name, "reason": str(e)})
+		except Exception as e:
+			results["failed"].append({"name": name, "reason": _("Unexpected error: {0}").format(str(e))})
+			frappe.log_error(frappe.get_traceback(), _("Bulk SEPA Error"))
+
+	return results
 
 
 def update_bordereau_status(bordereau_name):
