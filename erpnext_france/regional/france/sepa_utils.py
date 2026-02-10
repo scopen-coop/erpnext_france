@@ -187,6 +187,11 @@ def reconcile_bank_transaction_to_sepa_line(bank_transaction, end_to_end_id):
 	# Get bank transaction
 	bank_txn = frappe.get_doc("Bank Transaction", bank_transaction)
 
+	# Get GL Account from Bank Account
+	gl_account = frappe.db.get_value("Bank Account", bordereau.bank_account, "account")
+	if not gl_account:
+		frappe.throw(_("Please link a GL Account to the Bank Account {0}").format(bordereau.bank_account))
+
 	# Create Payment Entry
 	payment_entry = frappe.get_doc({
 		"doctype": "Payment Entry",
@@ -197,16 +202,52 @@ def reconcile_bank_transaction_to_sepa_line(bank_transaction, end_to_end_id):
 		"received_amount": abs(bank_txn.unallocated_amount),
 		"reference_no": end_to_end_id,
 		"reference_date": bank_txn.date,
-		"paid_from": bordereau.bank_account if bordereau.payment_type == "Credit" else None,
-		"paid_to": bordereau.bank_account if bordereau.payment_type == "Debit" else None
+		"paid_from": gl_account if bordereau.payment_type == "Credit" else None,
+		"paid_to": gl_account if bordereau.payment_type == "Debit" else None
 	})
 
 	# Add reference to invoice
-	payment_entry.append("references", {
-		"reference_doctype": "Sales Invoice" if sepa_line.party_type == "Customer" else "Purchase Invoice",
+	inv_doctype = "Sales Invoice" if sepa_line.party_type == "Customer" else "Purchase Invoice"
+	invoice_doc = frappe.get_doc(inv_doctype, sepa_line.invoice)
+	
+	reference = {
+		"reference_doctype": inv_doctype,
 		"reference_name": sepa_line.invoice,
 		"allocated_amount": sepa_line.amount
-	})
+	}
+
+	# Check if Payment Terms are used and required
+	# Logic similar to PaymentEntry.term_based_allocation_enabled_for_reference
+	is_term_based = False
+	if invoice_doc.payment_terms_template:
+		is_term_based = frappe.db.get_value("Payment Terms Template", invoice_doc.payment_terms_template, "allocate_payment_based_on_payment_terms")
+	
+	if is_term_based and invoice_doc.get("payment_schedule"):
+		payment_term_id = None
+		
+		# 1. Try to match by Exact Amount
+		for term in invoice_doc.payment_schedule:
+			outstanding = flt(term.get("outstanding"))
+			if abs(flt(term.payment_amount) - flt(sepa_line.amount)) < 0.01 and outstanding > 0:
+				payment_term_id = term.payment_term
+				break
+		
+		# 2. Fallback: Find first term with outstanding amount
+		if not payment_term_id:
+			for term in invoice_doc.payment_schedule:
+				outstanding = flt(term.get("outstanding"))
+				if outstanding > 0:
+					payment_term_id = term.payment_term
+					break
+		
+		# 3. Last Resort: Just take the first one (corner case where maybe all are paid but we are overpaying?)
+		if not payment_term_id and invoice_doc.payment_schedule:
+			payment_term_id = invoice_doc.payment_schedule[0].payment_term
+
+		if payment_term_id:
+			reference["payment_term"] = payment_term_id
+
+	payment_entry.append("references", reference)
 
 	payment_entry.insert()
 	payment_entry.submit()
