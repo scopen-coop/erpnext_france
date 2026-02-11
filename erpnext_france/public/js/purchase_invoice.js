@@ -21,15 +21,15 @@ frappe.ui.form.on("Purchase Invoice", {
         __("Create"),
         true
       );
-                      if (frm.doc.outstanding_amount > 0 && frm.doc.supplier) {
-                    frappe.db.exists('Bank Account', {party_type: 'Supplier', party: frm.doc.supplier, is_default: 1}).then((has_bank) => {
-                        if (has_bank) {
-                            frm.add_custom_button(__('Add to SEPA Bordereau'), function() {
-                                add_to_sepa_bordereau(frm);
-                            }, __('Actions'));
-                        }
-                    });
-                }
+      if (frm.doc.outstanding_amount > 0 && frm.doc.supplier) {
+        frappe.db.exists('Bank Account', {party_type: 'Supplier', party: frm.doc.supplier, is_default: 1}).then((has_bank) => {
+          if (has_bank) {
+            frm.add_custom_button(__('Add to SEPA Bordereau'), function() {
+              add_to_sepa_bordereau(frm);
+            }, __('Actions'));
+          }
+        });
+      }
     }
     // @dokos
   },
