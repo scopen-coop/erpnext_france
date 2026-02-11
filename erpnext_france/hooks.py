@@ -35,6 +35,7 @@ fixtures = [
 					"Company-type_export_fec",
 					"Company-column_break_898956",
 					"Company-default_payment_terms_template_before_invoice",
+                    "Company-account_code_length",
 					"Customer-check_vat_id",
 					"Customer-code_naf",
 					"Customer-incoterm",
@@ -416,10 +417,6 @@ override_whitelisted_methods = {
 	"erpnext.controllers.accounts_controller.get_payment_term_details": "erpnext_france.controllers.party.get_payment_term_details",
 	"erpnext.accounts.party.get_party_details": "erpnext_france.controllers.party.get_party_details",
 	"erpnext.selling.doctype.sales_order.sales_order.make_sales_invoice": "erpnext_france.controllers.sales_order.make_sales_invoice_with_payment_terms",
-	"erpnext.accounts.doctype.account.chart_of_accounts.chart_of_accounts.get_chart": "erpnext_france.erpnext_france.overrides.doctype.chart_of_accounts.get_chart_fr",
-	"erpnext.accounts.doctype.account.chart_of_accounts.chart_of_accounts.build_tree_from_json": "erpnext_france.erpnext_france.overrides.doctype.chart_of_accounts.build_tree_from_json",
-	"erpnext.accounts.doctype.account.chart_of_accounts.chart_of_accounts.get_charts_for_country": "erpnext_france.erpnext_france.overrides.doctype.chart_of_accounts.get_charts_for_country_fr",
-	"erpnext.accounts.utils.get_coa": "erpnext_france.erpnext_france.overrides.doctype.chart_of_accounts.get_coa",
 	"erpnext.selling.doctype.customer.customer.make_quotation": "erpnext_france.controllers.party.make_quotation_with_payment_terms",
 }
 

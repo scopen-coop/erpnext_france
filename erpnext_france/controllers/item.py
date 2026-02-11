@@ -1,6 +1,7 @@
 import frappe
-from frappe import _
 from erpnext.stock.get_item_details import get_uom_conv_factor
+from frappe import _
+
 
 def on_update(doc, method):
 	old_doc = doc.get_doc_before_save()
@@ -21,7 +22,7 @@ def on_update(doc, method):
 				conversion_factor = detail.conversion_factor
 
 	if not conversion_factor:
-		frappe.throw(_('Cannot Update EcoPart because there is no conversion factor between units'))
+		frappe.throw(_("Cannot Update EcoPart because there is no conversion factor between units"))
 
 	for ecopart in doc.eco_part:
 		ecopart.amount /= conversion_factor

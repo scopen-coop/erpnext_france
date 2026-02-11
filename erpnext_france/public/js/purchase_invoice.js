@@ -1,18 +1,27 @@
 // Copyright (c) 2021, scopen.fr and contributors
 // For license information, please see license.txt
 
-
 frappe.ui.form.on("Purchase Invoice", {
-        refresh: function (frm) {
-            // @dokos
-            if (frm.doc.docstatus === 1) {
-                frm.add_custom_button(__('Accounting Journal Adjustment'), () => {
-                    frappe.require("assets/erpnext_france/js/accounting_journal_adjustment.js", () => {
-                        new erpnext.journalAdjustment({doctype: frm.doctype, docnames: [frm.docname]});
-                    });
-                }, __('Create'), true);
-
-                if (frm.doc.outstanding_amount > 0 && frm.doc.supplier) {
+  refresh: function (frm) {
+    // @dokos
+    if (frm.doc.docstatus === 1) {
+      frm.add_custom_button(
+        __("Accounting Journal Adjustment"),
+        () => {
+          frappe.require(
+            "assets/erpnext_france/js/accounting_journal_adjustment.js",
+            () => {
+              new erpnext.journalAdjustment({
+                doctype: frm.doctype,
+                docnames: [frm.docname],
+              });
+            }
+          );
+        },
+        __("Create"),
+        true
+      );
+                      if (frm.doc.outstanding_amount > 0 && frm.doc.supplier) {
                     frappe.db.exists('Bank Account', {party_type: 'Supplier', party: frm.doc.supplier, is_default: 1}).then((has_bank) => {
                         if (has_bank) {
                             frm.add_custom_button(__('Add to SEPA Bordereau'), function() {
@@ -21,10 +30,10 @@ frappe.ui.form.on("Purchase Invoice", {
                         }
                     });
                 }
-            }
-        }
     }
-);
+    // @dokos
+  },
+});
 
 function add_to_sepa_bordereau(frm) {
   frappe.call({

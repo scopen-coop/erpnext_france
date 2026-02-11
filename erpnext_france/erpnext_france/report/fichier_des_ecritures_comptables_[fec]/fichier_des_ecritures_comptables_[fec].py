@@ -137,7 +137,7 @@ def execute(filters=None):
 		fiscal_year=filters["fiscal_year"],
 		from_date=filters["from_date"],
 		to_date=filters["to_date"],
-		hide_already_exported=True if filters.get("hide_already_exported") else False
+		hide_already_exported=True if filters.get("hide_already_exported") else False,
 	)
 
 
@@ -150,7 +150,7 @@ def validate_filters(filters):
 
 
 def get_gl_entries(company, fiscal_year, from_date, to_date, hide_already_exported):
-	company_doc = frappe.get_doc('Company', company)
+	company_doc = frappe.get_doc("Company", company)
 	gle = frappe.qb.DocType("GL Entry")
 	sales_invoice = frappe.qb.DocType("Sales Invoice")
 	purchase_invoice = frappe.qb.DocType("Purchase Invoice")
@@ -162,12 +162,8 @@ def get_gl_entries(company, fiscal_year, from_date, to_date, hide_already_export
 
 	debit = frappe.query_builder.functions.Sum(gle.debit).as_("debit")
 	credit = frappe.query_builder.functions.Sum(gle.credit).as_("credit")
-	debit_currency = frappe.query_builder.functions.Sum(gle.debit_in_account_currency).as_(
-		"debitCurr"
-	)
-	credit_currency = frappe.query_builder.functions.Sum(gle.credit_in_account_currency).as_(
-		"creditCurr"
-	)
+	debit_currency = frappe.query_builder.functions.Sum(gle.debit_in_account_currency).as_("debitCurr")
+	credit_currency = frappe.query_builder.functions.Sum(gle.credit_in_account_currency).as_("creditCurr")
 
 	query = (
 		frappe.qb.from_(gle)
@@ -251,6 +247,7 @@ def get_result(company, fiscal_year, from_date, to_date, hide_already_exported):
 	result = []
 
 	company_currency = frappe.get_cached_value("Company", company, "default_currency")
+	account_code_length = frappe.db.get_value("Company", company, "account_code_length") or 0
 	accounts = frappe.get_all(
 		"Account",
 		filters={"Company": company},
@@ -262,7 +259,6 @@ def get_result(company, fiscal_year, from_date, to_date, hide_already_exported):
 	}
 
 	party_data = [x for x in data if x.get("against_voucher")]
-
 
 	for d in data:
 		JournalCode = d.get("accounting_journal") or re.split("-|/|[0-9]", d.get("voucher_no"))[0]
@@ -278,8 +274,13 @@ def get_result(company, fiscal_year, from_date, to_date, hide_already_exported):
 			if account.name == d.get("account") and account.account_number
 		]
 		if account_number:
-			CompteNum = account_number[0]["account_number"]
-			CompteLib = account_number[0]["account_name"]
+			original = account_number[0]["account_number"]
+			# Apply zero-padding as suffix if configured
+			if account_code_length > 0 and len(original) < account_code_length:
+				CompteNum = original.ljust(account_code_length, "0")
+			else:
+				CompteNum = original
+			# CompteLib = account_number[0]["account_name"]
 		else:
 			frappe.throw(
 				_(
@@ -314,7 +315,7 @@ def get_result(company, fiscal_year, from_date, to_date, hide_already_exported):
 		ValidDate = format_datetime(d.get("GlPostDate"), "yyyyMMdd")
 
 		PieceRef = d.get("voucher_no") or "Sans Reference"
-		PieceRefType = d.get("voucher_type") or "Sans Reference"
+		# PieceRefType = d.get("voucher_type") or "Sans Reference"
 
 		# EcritureLib is the reference title unless it is an opening entry
 		if d.get("is_opening") == "Yes":
@@ -379,12 +380,13 @@ def get_result(company, fiscal_year, from_date, to_date, hide_already_exported):
 			Montantdevise,
 			Idevise,
 			ExportDate,
-			GlName
+			GlName,
 		]
 
 		result.append(row)
 
 	return result
+
 
 def get_date_let(d, data):
 	let_dates = [

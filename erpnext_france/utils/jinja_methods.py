@@ -104,7 +104,7 @@ def get_ecopart_table(doc):
                 <td class="verdana right">{frappe.format_value(line['ht'] + line['tva'], {"fieldtype": "Currency"})}</td>
             </tr>
         """
-	html += f"""
+	html += """
         </table>
     """
 	return html
@@ -118,21 +118,11 @@ def get_ecopart_tax_map(doc):
 
 		if tax.ecotax:
 			if str(tax.idx) not in tax_map:
-				tax_map[str(tax.idx)] = {
-					'ht': 0,
-					'tva': 0,
-					"description": _('Ecopart Tax'),
-					"rate": 0
-				}
+				tax_map[str(tax.idx)] = {"ht": 0, "tva": 0, "description": _("Ecopart Tax"), "rate": 0}
 			tax_map[str(tax.idx)]["ht"] = tax.tax_amount
-		elif tax.charge_type == 'On Previous Row Amount' and tax.row_id:
+		elif tax.charge_type == "On Previous Row Amount" and tax.row_id:
 			if str(tax.row_id) not in tax_map:
-				tax_map[str(tax.row_id)] = {
-					'ht': 0,
-					'tva': 0,
-					'description': '',
-					"rate": 0
-				}
+				tax_map[str(tax.row_id)] = {"ht": 0, "tva": 0, "description": "", "rate": 0}
 			tax_map[str(tax.row_id)]["tva"] += tax.tax_amount
 			tax_map[str(tax.row_id)]["rate"] += tax.rate
 	return tax_map
