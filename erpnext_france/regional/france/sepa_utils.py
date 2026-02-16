@@ -194,9 +194,10 @@ def reconcile_bank_transaction_to_sepa_line(bank_transaction, end_to_end_id):
 		# Fallback: Try to get account from Invoice -> Mode of Payment
 		# We pick the first invoice to determine the mode of payment, assuming they are consistent or we take the one from the line
 		sepa_inv = frappe.get_doc("Sales Invoice" if sepa_line.party_type == "Customer" else "Purchase Invoice", sepa_line.invoice)
-		if sepa_inv.mode_of_payment:
+		mode_of_payment = sepa_inv.get("mode_of_payment")
+		if mode_of_payment:
 			# Get default account for this company and mode of payment
-			mode_of_payment_doc = frappe.get_doc("Mode of Payment", sepa_inv.mode_of_payment)
+			mode_of_payment_doc = frappe.get_doc("Mode of Payment", mode_of_payment)
 			for account_row in mode_of_payment_doc.accounts:
 				if account_row.company == bordereau.company:
 					gl_account = account_row.default_account
