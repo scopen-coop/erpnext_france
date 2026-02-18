@@ -22,9 +22,10 @@ frappe.ui.form.on("Purchase Invoice", {
         true
       );
       if (frm.doc.outstanding_amount > 0 && frm.doc.supplier) {
-        frappe.db.exists('Bank Account', {party_type: 'Supplier', party: frm.doc.supplier, is_default: 1}).then((has_bank) => {
+        frappe.db.get_list('Bank Account', { filters: { party_type: 'Supplier', party: frm.doc.supplier, is_default: 1 }, limit: 1 }).then((results) => {
+          const has_bank = results && results.length > 0;
           if (has_bank) {
-            frm.add_custom_button(__('Add to SEPA Bordereau'), function() {
+            frm.add_custom_button(__('Add to SEPA Bordereau'), function () {
               add_to_sepa_bordereau(frm);
             }, __('Actions'));
           }
@@ -42,7 +43,7 @@ function add_to_sepa_bordereau(frm) {
       invoice_name: frm.doc.name,
       invoice_type: 'Purchase Invoice'
     },
-    callback: function(r) {
+    callback: function (r) {
       if (r.message) {
         frappe.msgprint(__('Invoice added to SEPA Payment Bordereau {0}', [r.message]));
         frappe.set_route('Form', 'SEPA Payment Bordereau', r.message);
