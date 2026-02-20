@@ -21,6 +21,32 @@ class SEPAPaymentBordereau(Document):
 		self.calculate_total()
 		self.validate_lines()
 
+	def on_update(self):
+		status_changed_lines = False
+		if not self.is_new() and self.get_doc_before_save():
+			old_doc = self.get_doc_before_save()
+			old_statuses = {d.name: d.status for d in old_doc.lines}
+			for line in self.lines:
+				old_status = old_statuses.get(line.name)
+				if line.status != old_status and line.status in ["Accepted", "Rejected"]:
+					from erpnext_france.regional.france.sepa_utils import reconcile_sepa_line_on_status_change
+					reconcile_sepa_line_on_status_change(self, line, line.status)
+					status_changed_lines = True
+		
+		# Update overall bordereau status if needed
+		if status_changed_lines and self.lines:
+			statuses = [line.status for line in self.lines]
+			new_status = self.status
+			if all(status == "Accepted" for status in statuses):
+				new_status = "Closed"
+			elif "Accepted" in statuses and "Rejected" in statuses:
+				new_status = "Partial Rejections"
+			elif all(status == "Rejected" for status in statuses):
+				new_status = "Exported"
+				
+			if new_status != self.status:
+				self.db_set("status", new_status)
+
 	def calculate_total(self):
 		"""Calculate total amount from all lines"""
 		total = 0

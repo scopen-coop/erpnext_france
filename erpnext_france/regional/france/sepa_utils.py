@@ -353,3 +353,82 @@ def update_bordereau_status(bordereau_name):
 	elif all(status == "Rejected" for status in statuses):
 		bordereau.status = "Exported"
 		bordereau.save()
+
+
+def create_sepa_payment_entry(bordereau, line, gl_account):
+	payment_entry = frappe.get_doc({
+		"doctype": "Payment Entry",
+		"payment_type": "Receive" if bordereau.payment_type == "Debit" else "Pay",
+		"party_type": line.party_type,
+		"party": line.party,
+		"paid_amount": line.amount,
+		"received_amount": line.amount,
+		"reference_no": line.end_to_end_id or bordereau.name,
+		"reference_date": bordereau.execution_date,
+		"paid_from": gl_account if bordereau.payment_type == "Credit" else None,
+		"paid_to": gl_account if bordereau.payment_type == "Debit" else None
+	})
+
+	inv_doctype = "Sales Invoice" if line.party_type == "Customer" else "Purchase Invoice"
+	invoice_doc = frappe.get_doc(inv_doctype, line.invoice)
+	
+	reference = {
+		"reference_doctype": inv_doctype,
+		"reference_name": line.invoice,
+		"allocated_amount": line.amount
+	}
+
+	is_term_based = False
+	if invoice_doc.payment_terms_template:
+		is_term_based = frappe.db.get_value("Payment Terms Template", invoice_doc.payment_terms_template, "allocate_payment_based_on_payment_terms")
+	
+	if is_term_based and invoice_doc.get("payment_schedule"):
+		payment_term_id = None
+		for term in invoice_doc.payment_schedule:
+			outstanding = flt(term.get("outstanding"))
+			if abs(flt(term.payment_amount) - flt(line.amount)) < 0.01 and outstanding > 0:
+				payment_term_id = term.payment_term
+				break
+		if not payment_term_id:
+			for term in invoice_doc.payment_schedule:
+				outstanding = flt(term.get("outstanding"))
+				if outstanding > 0:
+					payment_term_id = term.payment_term
+					break
+		if not payment_term_id and invoice_doc.payment_schedule:
+			payment_term_id = invoice_doc.payment_schedule[0].payment_term
+
+		if payment_term_id:
+			reference["payment_term"] = payment_term_id
+
+	payment_entry.append("references", reference)
+	payment_entry.insert()
+	payment_entry.submit()
+
+	if line.mandate and bordereau.payment_type == "Debit":
+		mandate = frappe.get_doc("SEPA Mandate", line.mandate)
+		if mandate.sequence_type == "FRST":
+			mandate.update_to_recurring()
+
+	return payment_entry.name
+
+
+def reconcile_sepa_line_on_status_change(bordereau, line, new_status):
+	if getattr(line, "_reconciled_status_change", False):
+		return
+
+	gl_account = frappe.db.get_value("Bank Account", bordereau.bank_account, "account")
+	if not gl_account:
+		frappe.throw(_("Please link a GL Account to the Bank Account {0}").format(bordereau.bank_account))
+
+	if new_status == "Accepted":
+		pe_name = create_sepa_payment_entry(bordereau, line, gl_account)
+		frappe.msgprint(_("Payment Entry {0} created for SEPA line {1}").format(pe_name, line.name))
+
+	elif new_status == "Rejected":
+		pe_name = create_sepa_payment_entry(bordereau, line, gl_account)
+		pe_doc = frappe.get_doc("Payment Entry", pe_name)
+		pe_doc.cancel()
+		frappe.msgprint(_("Payment Entry {0} created and cancelled for rejected SEPA line {1} (+ and -) ").format(pe_name, line.name))
+
+	line._reconciled_status_change = True
