@@ -424,6 +424,14 @@ def reconcile_sepa_line_on_status_change(bordereau, line, new_status):
 	if new_status == "Accepted":
 		pe_name = create_sepa_payment_entry(bordereau, line, gl_account)
 		frappe.msgprint(_("Payment Entry {0} created for SEPA line {1}").format(pe_name, line.name))
+		
+		# Création de la transaction bancaire associée
+		try:
+			bt_name = create_sepa_bank_transaction(pe_name, bordereau, line)
+			if bt_name:
+				frappe.msgprint(_("Bank Transaction {0} created for SEPA line {1}").format(bt_name, line.name))
+		except Exception as e:
+			frappe.log_error(title=_("SEPA Bank Transaction Creation Error"), message=frappe.get_traceback())
 
 	elif new_status == "Rejected":
 		pe_name = create_sepa_payment_entry(bordereau, line, gl_account)
@@ -432,3 +440,57 @@ def reconcile_sepa_line_on_status_change(bordereau, line, new_status):
 		frappe.msgprint(_("Payment Entry {0} created and cancelled for rejected SEPA line {1} (+ and -) ").format(pe_name, line.name))
 
 	line._reconciled_status_change = True
+
+
+def create_sepa_bank_transaction(pe_name, bordereau, line):
+	doc = frappe.get_doc("Payment Entry", pe_name)
+	
+	if doc.payment_type not in ("Receive", "Pay"):
+		return
+	
+	bank_account_field = doc.paid_to if doc.payment_type == "Receive" else doc.paid_from
+	payment_amount = doc.paid_amount
+
+	if not bank_account_field:
+		return
+
+	is_bank = frappe.db.get_value("Account", bank_account_field, "account_type") == "Bank"
+	if not is_bank:
+		return
+
+	bt_exists = frappe.db.exists(
+		"Bank Transaction",
+		{
+			"reference_number": doc.name,
+			"company": doc.company
+		}
+	)
+	if bt_exists:
+		return
+
+	bt = frappe.new_doc("Bank Transaction")
+	
+	bt.date = doc.posting_date
+	bt.bank_account = bank_account_field
+	bt.company = doc.company
+	
+	if doc.payment_type == "Receive":
+		bt.deposit = payment_amount
+		bt.withdrawal = 0.0
+		bt.currency = doc.paid_to_account_currency
+	else:
+		bt.withdrawal = payment_amount
+		bt.deposit = 0.0
+		bt.currency = doc.paid_from_account_currency
+
+	bt.reference_number = doc.name
+	bt.party_type = doc.party_type
+	bt.party = doc.party
+	bt.description = doc.remarks or _("Transaction generated from SEPA bordereau {0}").format(bordereau.name)
+
+	bt.insert(ignore_permissions=True)
+	
+	if getattr(bt, 'docstatus', 0) == 0 and frappe.get_meta("Bank Transaction").is_submittable:
+		bt.submit()
+
+	return bt.name
