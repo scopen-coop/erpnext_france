@@ -129,15 +129,27 @@ def get_or_create_bordereau(payment_type, company):
 	# Create new bordereau
 	from datetime import datetime, timedelta
 
-	# Get default company bank account
-	default_bank_account = frappe.db.get_value(
-		"Bank Account",
-		{
-			"company": company,
-			"is_default": 1
-		},
-		"name"
-	)
+	# Get default company bank account (prefer company's default bank account GL)
+	company_default_account = frappe.db.get_value("Company", company, "default_bank_account")
+	default_bank_account = None
+	if company_default_account:
+		default_bank_account = frappe.db.get_value(
+			"Bank Account",
+			{
+				"company": company,
+				"account": company_default_account
+			},
+			"name"
+		)
+	if not default_bank_account:
+		default_bank_account = frappe.db.get_value(
+			"Bank Account",
+			{
+				"company": company,
+				"is_default": 1
+			},
+			"name"
+		)
 
 	if not default_bank_account:
 		frappe.throw(_("No default bank account found for company {0}").format(company))

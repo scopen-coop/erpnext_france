@@ -1,6 +1,44 @@
 // Copyright (c) 2026, Scopen and contributors
 // For license information, please see license.txt
 
+function set_default_bank_account(frm) {
+	if (frm.doc.company && !frm.doc.bank_account) {
+		frappe.db.get_value('Company', frm.doc.company, 'default_bank_account', function(company) {
+			if (company && company.default_bank_account) {
+				frappe.db.get_value('Bank Account',
+					{'company': frm.doc.company, 'account': company.default_bank_account},
+					'name',
+					function(r) {
+						if (r && r.name) {
+							frm.set_value('bank_account', r.name);
+						} else {
+							frappe.db.get_value('Bank Account',
+								{'company': frm.doc.company, 'is_default': 1},
+								'name',
+								function(fallback) {
+									if (fallback && fallback.name) {
+										frm.set_value('bank_account', fallback.name);
+									}
+								}
+							);
+						}
+					}
+				);
+			} else {
+				frappe.db.get_value('Bank Account',
+					{'company': frm.doc.company, 'is_default': 1},
+					'name',
+					function(r) {
+						if (r && r.name) {
+							frm.set_value('bank_account', r.name);
+						}
+					}
+				);
+			}
+		});
+	}
+}
+
 frappe.ui.form.on('SEPA Payment Bordereau', {
 	refresh: function(frm) {
 		// Add Validate button
@@ -76,21 +114,14 @@ frappe.ui.form.on('SEPA Payment Bordereau', {
 				};
 			});
 		}
+
+		// Ensure default bank account is set on new bordereau
+		set_default_bank_account(frm);
 	},
 
 	company: function(frm) {
 		// Set default bank account when company changes
-		if (frm.doc.company && !frm.doc.bank_account) {
-			frappe.db.get_value('Bank Account',
-				{'company': frm.doc.company, 'is_default': 1},
-				'name',
-				function(r) {
-					if (r && r.name) {
-						frm.set_value('bank_account', r.name);
-					}
-				}
-			);
-		}
+		set_default_bank_account(frm);
 	}
 });
 
