@@ -672,6 +672,7 @@ Credit,Virement
 Execution Date,Date d'exécution
 Payment Lines,Lignes de Paiement
 SEPA File,Fichier SEPA
+Download SEPA File,Télécharger le fichier SEPA
 RUM (Référence Unique de Mandat),RUM (Référence Unique de Mandat)
 Signature Date,Date de signature
 Mandate Type,Type de mandat

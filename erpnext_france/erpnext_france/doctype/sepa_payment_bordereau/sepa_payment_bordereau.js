@@ -70,6 +70,14 @@ frappe.ui.form.on('SEPA Payment Bordereau', {
 			}).addClass('btn-primary');
 		}
 
+		// Add Download SEPA File button when a file is already generated
+		if (frm.doc.sepa_file) {
+			frm.add_custom_button(__('Download SEPA File'), function() {
+				const file_url = frappe.urllib.get_full_url(frm.doc.sepa_file);
+				window.open(file_url, '_blank');
+			});
+		}
+
 		// Add Mark as Sent button
 		if (frm.doc.status === 'Exported') {
 			frm.add_custom_button(__('Mark as Sent'), function() {
