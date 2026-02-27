@@ -73,8 +73,8 @@ frappe.ui.form.on('SEPA Payment Bordereau', {
 		// Add Download SEPA File button when a file is already generated
 		if (frm.doc.sepa_file) {
 			frm.add_custom_button(__('Download SEPA File'), function() {
-				const file_url = frappe.urllib.get_full_url(frm.doc.sepa_file);
-				window.open(file_url, '_blank');
+				const download_url = `/api/method/frappe.utils.file_manager.download_file?file_url=${encodeURIComponent(frm.doc.sepa_file)}`;
+				window.location.href = download_url;
 			});
 		}
 
