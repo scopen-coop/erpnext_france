@@ -250,7 +250,10 @@ def execute_sirene_check():
 					logger.info(f"{doctype['type']} {element[doctype['field_name']]} - Data found")
 					results["logs"].append("Data found from API")
 
-					address = frappe.get_doc("Address", element[doctype["field_address"]])
+					address = None
+					if element[doctype["field_address"]]:
+						address = frappe.get_doc("Address", element[doctype["field_address"]])
+
 					entity_info = get_entity_info(entity, 0)
 
 					if address:
