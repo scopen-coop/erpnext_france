@@ -291,6 +291,12 @@ class SEPAPaymentBordereau(Document):
 		pmt_mtd = etree.SubElement(pmt_inf, "PmtMtd")
 		pmt_mtd.text = "TRF"
 
+		# Payment Type Information must be defined at lot level in pain.001.001.03
+		pmt_tp_inf = etree.SubElement(pmt_inf, "PmtTpInf")
+		svc_lvl = etree.SubElement(pmt_tp_inf, "SvcLvl")
+		svc_lvl_cd = etree.SubElement(svc_lvl, "Cd")
+		svc_lvl_cd.text = "SEPA"
+
 		# Requested Execution Date
 		reqd_exctn_dt = etree.SubElement(pmt_inf, "ReqdExctnDt")
 		reqd_exctn_dt.text = str(self.execution_date)
@@ -353,6 +359,25 @@ class SEPAPaymentBordereau(Document):
 			cdtr_acct_id = etree.SubElement(cdtr_acct, "Id")
 			cdtr_acct_iban = etree.SubElement(cdtr_acct_id, "IBAN")
 			cdtr_acct_iban.text = supplier_bank_account.iban.replace(" ", "")
+
+		ns = {"ns": "urn:iso:std:iso:20022:tech:xsd:pain.001.001.03"}
+		invalid_tx_pmt_tp_inf = root.xpath(
+			"/ns:Document/ns:CstmrCdtTrfInitn/ns:PmtInf/ns:CdtTrfTxInf/ns:PmtTpInf",
+			namespaces=ns,
+		)
+		if invalid_tx_pmt_tp_inf:
+			frappe.throw(
+				_("Invalid pain.001.001.03: PmtTpInf is forbidden at transaction level "
+				"(/Document/CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf/PmtTpInf).")
+			)
+
+		pmt_inf_nodes = root.xpath("/ns:Document/ns:CstmrCdtTrfInitn/ns:PmtInf", namespaces=ns)
+		lot_pmt_tp_inf = root.xpath("/ns:Document/ns:CstmrCdtTrfInitn/ns:PmtInf/ns:PmtTpInf", namespaces=ns)
+		if len(lot_pmt_tp_inf) != len(pmt_inf_nodes):
+			frappe.throw(
+				_("Invalid pain.001.001.03: each PmtInf must contain exactly one "
+				"PmtTpInf at lot level.")
+			)
 
 		return etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8")
 
