@@ -1,26 +1,29 @@
-frappe.listview_settings['Purchase Invoice'] = {
-	onload: function(listview) {
-		listview.page.add_action_item(__('Générer lignes de bordereau'), function() {
-			const selected_items = listview.get_checked_items();
-			if (selected_items.length > 0) {
-				const invoice_names = selected_items.map(item => item.name);
-				frappe.call({
-					method: 'erpnext_france.regional.france.sepa_utils.add_invoices_to_sepa_bordereau_bulk',
-					args: {
-						invoice_names: invoice_names,
-						invoice_type: 'Purchase Invoice'
-					},
-					freeze: true,
-					callback: function(r) {
-						if (r.message) {
-							show_sepa_summary_report(r.message);
-							listview.refresh();
-						}
+frappe.listview_settings['Purchase Invoice'] = frappe.listview_settings['Purchase Invoice'] || {};
+
+const _onload = frappe.listview_settings['Purchase Invoice'].onload;
+
+frappe.listview_settings['Purchase Invoice'].onload = function(listview) {
+	if (typeof _onload === "function") _onload(listview);
+	listview.page.add_action_item(__('Générer lignes de bordereau'), function() {
+		const selected_items = listview.get_checked_items();
+		if (selected_items.length > 0) {
+			const invoice_names = selected_items.map(item => item.name);
+			frappe.call({
+				method: 'erpnext_france.regional.france.sepa_utils.add_invoices_to_sepa_bordereau_bulk',
+				args: {
+					invoice_names: invoice_names,
+					invoice_type: 'Purchase Invoice'
+				},
+				freeze: true,
+				callback: function(r) {
+					if (r.message) {
+						show_sepa_summary_report(r.message);
+						listview.refresh();
 					}
-				});
-			}
-		});
-	}
+				}
+			});
+		}
+	});
 };
 
 function show_sepa_summary_report(report) {
