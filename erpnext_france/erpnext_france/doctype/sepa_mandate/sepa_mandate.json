@@ -1,11 +1,12 @@
 {
  "actions": [],
- "autoname": "format:MANDATE-{####}",
+ "autoname": "naming_series:",
  "creation": "2026-01-15 00:00:00.000000",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "naming_series",
   "customer",
   "bank_account",
   "column_break_1",
@@ -18,6 +19,14 @@
   "status"
  ],
  "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "MANDATE-.YYYY.-.####",
+   "default": "MANDATE-.YYYY.-.####",
+   "reqd": 1
+  },
   {
    "fieldname": "customer",
    "fieldtype": "Link",
@@ -90,7 +99,7 @@
  "modified_by": "Administrator",
  "module": "ERPNext France",
  "name": "SEPA Mandate",
- "naming_rule": "Expression",
+ "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
   {
