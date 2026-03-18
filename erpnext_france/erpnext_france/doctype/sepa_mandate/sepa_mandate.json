@@ -23,8 +23,8 @@
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Series",
-   "options": "MANDATE-.YYYY.-.####",
-   "default": "MANDATE-.YYYY.-.####",
+   "options": "MANDATE-.####",
+   "default": "MANDATE-.####",
    "reqd": 1
   },
   {
