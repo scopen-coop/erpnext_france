@@ -696,4 +696,4 @@ Update all with Sirene's values,Tout mettre à jour avec les valeurs Sirene,
 Save current values,Sauvegarder les valeurs actuelles,
 Siren or Siret is required to check updates,Sirene ou Siret nécessaire pour vérifier les mises à jour.,
 "We can see {0} is made against {1}. If you want {1}'s outstanding to be updated, uncheck the '{2}' checkbox.","Cette Avoir {0} est fait en correspondance de la facture {1}, si vous mettre le montant restant du à 0 de la facture {1} vous pouvez décoché '{2}' (non recommandé)",
-"You can use {0} to reconcile against {1} later.","Sinon vous pourrez utiliser l'outil {0} pour {1} plus tard"
+"You can use {0} to reconcile against {1} later.","Sinon vous pourrez utiliser l'outil {0} pour {1} plus tard."
