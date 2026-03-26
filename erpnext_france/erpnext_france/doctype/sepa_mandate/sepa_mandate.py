@@ -51,6 +51,19 @@ class SEPAMandate(Document):
 			frappe.msgprint(_("Mandate updated to recurring (RCUR) after first successful debit"))
 
 
+def backfill_customer_mandates():
+	"""One-time script: link active mandates to their customers"""
+	mandates = frappe.get_all(
+		"SEPA Mandate",
+		filters={"status": "Active"},
+		fields=["name", "customer"]
+	)
+	for m in mandates:
+		frappe.db.set_value("Customer", m.customer, "sepa_mandate", m.name)
+	frappe.db.commit()
+	print(f"{len(mandates)} customer(s) updated")
+
+
 def sync_mandate_to_customer(doc, method=None):
 	"""Sync active mandate to customer record when mandate status changes"""
 	if doc.status == "Active":
