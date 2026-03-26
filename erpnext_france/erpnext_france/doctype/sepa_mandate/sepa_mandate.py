@@ -44,8 +44,13 @@ class SEPAMandate(Document):
 				)
 
 	def on_update(self):
-		"""Update sequence type after first successful debit"""
-		pass
+		"""Sync active mandate to customer record"""
+		if self.status == "Active":
+			frappe.db.set_value("Customer", self.customer, "sepa_mandate", self.name)
+		elif self.status == "Cancelled":
+			current = frappe.db.get_value("Customer", self.customer, "sepa_mandate")
+			if current == self.name:
+				frappe.db.set_value("Customer", self.customer, "sepa_mandate", None)
 
 	@frappe.whitelist()
 	def update_to_recurring(self):
