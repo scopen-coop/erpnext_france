@@ -381,6 +381,9 @@ doc_events = {
 	"Bank Transaction": {
 		"on_submit": "erpnext_france.regional.france.sepa_utils.auto_reconcile_sepa_transaction"
 	},
+	"SEPA Mandate": {
+		"on_update": "erpnext_france.erpnext_france.doctype.sepa_mandate.sepa_mandate.sync_mandate_to_customer"
+	},
 }
 
 

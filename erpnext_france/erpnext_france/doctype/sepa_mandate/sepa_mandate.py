@@ -14,9 +14,6 @@ class SEPAMandate(Document):
 	def validate_unique_active_mandate(self):
 		"""Ensure only one active mandate per customer and bank account (IBAN)"""
 		if self.status == "Active":
-			# Get the IBAN from the linked bank account
-			bank_account = frappe.get_doc("Bank Account", self.bank_account)
-
 			existing = frappe.db.exists(
 				"SEPA Mandate",
 				{
@@ -37,20 +34,13 @@ class SEPAMandate(Document):
 		if self.bank_account and self.customer:
 			bank_account = frappe.get_doc("Bank Account", self.bank_account)
 
-			# Check if the bank account is linked to the customer
 			if bank_account.party_type != "Customer" or bank_account.party != self.customer:
 				frappe.throw(
 					_("The selected bank account does not belong to the customer {0}").format(self.customer)
 				)
 
 	def on_update(self):
-		"""Sync active mandate to customer record"""
-		if self.status == "Active":
-			frappe.db.set_value("Customer", self.customer, "sepa_mandate", self.name)
-		elif self.status == "Cancelled":
-			current = frappe.db.get_value("Customer", self.customer, "sepa_mandate")
-			if current == self.name:
-				frappe.db.set_value("Customer", self.customer, "sepa_mandate", None)
+		pass
 
 	@frappe.whitelist()
 	def update_to_recurring(self):
@@ -59,3 +49,13 @@ class SEPAMandate(Document):
 			self.sequence_type = "RCUR"
 			self.save()
 			frappe.msgprint(_("Mandate updated to recurring (RCUR) after first successful debit"))
+
+
+def sync_mandate_to_customer(doc, **_):
+	"""Sync active mandate to customer record when mandate status changes"""
+	if doc.status == "Active":
+		frappe.db.set_value("Customer", doc.customer, "sepa_mandate", doc.name)
+	elif doc.status == "Cancelled":
+		current = frappe.db.get_value("Customer", doc.customer, "sepa_mandate")
+		if current == doc.name:
+			frappe.db.set_value("Customer", doc.customer, "sepa_mandate", None)
