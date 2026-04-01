@@ -82,12 +82,18 @@ class SEPAPaymentBordereau(Document):
 		# Check Company bank account
 		if not self.bank_account:
 			frappe.throw(_("Please select a bank account for the bordereau"))
-		
+
 		bank_account = frappe.get_doc("Bank Account", self.bank_account)
 		if not bank_account.iban:
 			frappe.throw(_("Company bank account {0} must have an IBAN").format(self.bank_account))
 		if not bank_account.swift_number:
 			frappe.throw(_("Company bank account {0} must have a BIC (Swift Number)").format(self.bank_account))
+
+		# Check ICS for direct debit
+		if self.payment_type == "Debit":
+			company_ics = frappe.db.get_value("Company", self.company, "sepa_ics")
+			if not company_ics:
+				frappe.throw(_("Please set the SEPA Creditor Identifier (ICS) on company {0}").format(self.company))
 
 		# Perform all validations
 		for line in self.lines:
@@ -153,10 +159,21 @@ class SEPAPaymentBordereau(Document):
 		"""Generate pain.008 XML for SEPA Direct Debit"""
 		from lxml import etree
 
-		# Get bank account details
+		# Get bank account and company ICS
 		bank_account = frappe.get_doc("Bank Account", self.bank_account)
+		company_ics = frappe.db.get_value("Company", self.company, "sepa_ics")
+		if not company_ics:
+			frappe.throw(_("Please set the SEPA Creditor Identifier (ICS) on company {0}").format(self.company))
 
-		# Create XML structure
+		# Group lines by (mandate_type, sequence_type) — pain.008 requires one PmtInf per SeqTp
+		groups = {}
+		for line in self.lines:
+			mandate = frappe.get_doc("SEPA Mandate", line.mandate)
+			key = (mandate.mandate_type, mandate.sequence_type)
+			if key not in groups:
+				groups[key] = []
+			groups[key].append((line, mandate))
+
 		nsmap = {
 			None: "urn:iso:std:iso:20022:tech:xsd:pain.008.001.02",
 			"xsi": "http://www.w3.org/2001/XMLSchema-instance"
@@ -165,90 +182,88 @@ class SEPAPaymentBordereau(Document):
 		root = etree.Element("Document", nsmap=nsmap)
 		cstmr_drct_dbt_initn = etree.SubElement(root, "CstmrDrctDbtInitn")
 
-		# Group Header
+		# Group Header (totals across all groups)
 		grp_hdr = etree.SubElement(cstmr_drct_dbt_initn, "GrpHdr")
-		msg_id = etree.SubElement(grp_hdr, "MsgId")
-		msg_id.text = self.name
-		cre_dt_tm = etree.SubElement(grp_hdr, "CreDtTm")
-		cre_dt_tm.text = now_datetime().strftime("%Y-%m-%dT%H:%M:%S")
-		nb_of_txs = etree.SubElement(grp_hdr, "NbOfTxs")
-		nb_of_txs.text = str(len(self.lines))
-		ctrl_sum = etree.SubElement(grp_hdr, "CtrlSum")
-		ctrl_sum.text = f"{self.total_amount:.2f}"
-
-		# Initiating Party
+		etree.SubElement(grp_hdr, "MsgId").text = self.name
+		etree.SubElement(grp_hdr, "CreDtTm").text = now_datetime().strftime("%Y-%m-%dT%H:%M:%S")
+		etree.SubElement(grp_hdr, "NbOfTxs").text = str(len(self.lines))
+		etree.SubElement(grp_hdr, "CtrlSum").text = f"{self.total_amount:.2f}"
 		initg_pty = etree.SubElement(grp_hdr, "InitgPty")
-		nm = etree.SubElement(initg_pty, "Nm")
-		nm.text = self.company
+		etree.SubElement(initg_pty, "Nm").text = self.company
 
-		# Payment Information
-		pmt_inf = etree.SubElement(cstmr_drct_dbt_initn, "PmtInf")
-		pmt_inf_id = etree.SubElement(pmt_inf, "PmtInfId")
-		pmt_inf_id.text = self.name
-		pmt_mtd = etree.SubElement(pmt_inf, "PmtMtd")
-		pmt_mtd.text = "DD"
+		# One PmtInf per (mandate_type, sequence_type) group
+		for (mandate_type, sequence_type), group_lines in groups.items():
+			group_total = sum(flt(line.amount) for line, _ in group_lines)
 
-		# Requested Collection Date
-		reqd_colltn_dt = etree.SubElement(pmt_inf, "ReqdColltnDt")
-		reqd_colltn_dt.text = str(self.execution_date)
+			pmt_inf = etree.SubElement(cstmr_drct_dbt_initn, "PmtInf")
+			etree.SubElement(pmt_inf, "PmtInfId").text = f"{self.name}-{mandate_type}-{sequence_type}"
+			etree.SubElement(pmt_inf, "PmtMtd").text = "DD"
+			etree.SubElement(pmt_inf, "NbOfTxs").text = str(len(group_lines))
+			etree.SubElement(pmt_inf, "CtrlSum").text = f"{group_total:.2f}"
 
-		# Creditor (Company)
-		cdtr = etree.SubElement(pmt_inf, "Cdtr")
-		cdtr_nm = etree.SubElement(cdtr, "Nm")
-		cdtr_nm.text = self.company
+			# Payment Type Information (required: SvcLvl, LclInstrm, SeqTp)
+			pmt_tp_inf = etree.SubElement(pmt_inf, "PmtTpInf")
+			svc_lvl = etree.SubElement(pmt_tp_inf, "SvcLvl")
+			etree.SubElement(svc_lvl, "Cd").text = "SEPA"
+			lcl_instrm = etree.SubElement(pmt_tp_inf, "LclInstrm")
+			etree.SubElement(lcl_instrm, "Cd").text = mandate_type  # CORE or B2B
+			etree.SubElement(pmt_tp_inf, "SeqTp").text = sequence_type  # FRST or RCUR
 
-		# Creditor Account
-		cdtr_acct = etree.SubElement(pmt_inf, "CdtrAcct")
-		cdtr_acct_id = etree.SubElement(cdtr_acct, "Id")
-		cdtr_acct_iban = etree.SubElement(cdtr_acct_id, "IBAN")
-		cdtr_acct_iban.text = bank_account.iban.replace(" ", "")
+			etree.SubElement(pmt_inf, "ReqdColltnDt").text = str(self.execution_date)
 
-		# Creditor Agent (BIC)
-		cdtr_agt = etree.SubElement(pmt_inf, "CdtrAgt")
-		fin_instn_id = etree.SubElement(cdtr_agt, "FinInstnId")
-		bic = etree.SubElement(fin_instn_id, "BIC")
-		bic.text = bank_account.swift_number
+			# Creditor (Company)
+			cdtr = etree.SubElement(pmt_inf, "Cdtr")
+			etree.SubElement(cdtr, "Nm").text = self.company
 
-		# Direct Debit Transaction Information for each line
-		for line in self.lines:
-			mandate = frappe.get_doc("SEPA Mandate", line.mandate)
-			mandate_bank_account = frappe.get_doc("Bank Account", mandate.bank_account)
+			# Creditor Account
+			cdtr_acct = etree.SubElement(pmt_inf, "CdtrAcct")
+			cdtr_acct_id = etree.SubElement(cdtr_acct, "Id")
+			etree.SubElement(cdtr_acct_id, "IBAN").text = bank_account.iban.replace(" ", "")
 
-			drct_dbt_tx_inf = etree.SubElement(pmt_inf, "DrctDbtTxInf")
+			# Creditor Agent (BIC)
+			cdtr_agt = etree.SubElement(pmt_inf, "CdtrAgt")
+			fin_instn_id = etree.SubElement(cdtr_agt, "FinInstnId")
+			etree.SubElement(fin_instn_id, "BIC").text = bank_account.swift_number
 
-			# Payment ID
-			pmt_id = etree.SubElement(drct_dbt_tx_inf, "PmtId")
-			end_to_end_id_elem = etree.SubElement(pmt_id, "EndToEndId")
-			end_to_end_id_elem.text = line.end_to_end_id
+			# Direct Debit Transaction Information for each line in this group
+			for line, mandate in group_lines:
+				mandate_bank_account = frappe.get_doc("Bank Account", mandate.bank_account)
 
-			# Instructed Amount
-			instd_amt = etree.SubElement(drct_dbt_tx_inf, "InstdAmt", Ccy="EUR")
-			instd_amt.text = f"{line.amount:.2f}"
+				drct_dbt_tx_inf = etree.SubElement(pmt_inf, "DrctDbtTxInf")
 
-			# Direct Debit Transaction
-			drct_dbt_tx = etree.SubElement(drct_dbt_tx_inf, "DrctDbtTx")
-			mndt_rltd_inf = etree.SubElement(drct_dbt_tx, "MndtRltdInf")
-			mndt_id = etree.SubElement(mndt_rltd_inf, "MndtId")
-			mndt_id.text = mandate.rum
-			dt_of_sgntr = etree.SubElement(mndt_rltd_inf, "DtOfSgntr")
-			dt_of_sgntr.text = str(mandate.signature_date)
+				pmt_id = etree.SubElement(drct_dbt_tx_inf, "PmtId")
+				etree.SubElement(pmt_id, "EndToEndId").text = line.end_to_end_id
 
-			# Debtor Agent (Customer's Bank)
-			dbtr_agt = etree.SubElement(drct_dbt_tx_inf, "DbtrAgt")
-			dbtr_fin_instn_id = etree.SubElement(dbtr_agt, "FinInstnId")
-			dbtr_bic = etree.SubElement(dbtr_fin_instn_id, "BIC")
-			dbtr_bic.text = mandate_bank_account.swift_number
+				instd_amt = etree.SubElement(drct_dbt_tx_inf, "InstdAmt", Ccy="EUR")
+				instd_amt.text = f"{line.amount:.2f}"
 
-			# Debtor (Customer)
-			dbtr = etree.SubElement(drct_dbt_tx_inf, "Dbtr")
-			dbtr_nm = etree.SubElement(dbtr, "Nm")
-			dbtr_nm.text = line.party
+				# Direct Debit Transaction: mandate info + creditor scheme ID (ICS)
+				drct_dbt_tx = etree.SubElement(drct_dbt_tx_inf, "DrctDbtTx")
+				mndt_rltd_inf = etree.SubElement(drct_dbt_tx, "MndtRltdInf")
+				etree.SubElement(mndt_rltd_inf, "MndtId").text = mandate.rum
+				etree.SubElement(mndt_rltd_inf, "DtOfSgntr").text = str(mandate.signature_date)
 
-			# Debtor Account
-			dbtr_acct = etree.SubElement(drct_dbt_tx_inf, "DbtrAcct")
-			dbtr_acct_id = etree.SubElement(dbtr_acct, "Id")
-			dbtr_acct_iban = etree.SubElement(dbtr_acct_id, "IBAN")
-			dbtr_acct_iban.text = mandate_bank_account.iban.replace(" ", "")
+				cdtr_schme_id = etree.SubElement(drct_dbt_tx, "CdtrSchmeId")
+				cdtr_schme_id_id = etree.SubElement(cdtr_schme_id, "Id")
+				prvt_id = etree.SubElement(cdtr_schme_id_id, "PrvtId")
+				othr = etree.SubElement(prvt_id, "Othr")
+				etree.SubElement(othr, "Id").text = company_ics
+				schme_nm = etree.SubElement(othr, "SchmeNm")
+				etree.SubElement(schme_nm, "Prtry").text = "SEPA"
+
+				# Debtor Agent (Customer's Bank)
+				dbtr_agt = etree.SubElement(drct_dbt_tx_inf, "DbtrAgt")
+				dbtr_fin_instn_id = etree.SubElement(dbtr_agt, "FinInstnId")
+				etree.SubElement(dbtr_fin_instn_id, "BIC").text = mandate_bank_account.swift_number
+
+				# Debtor (Customer)
+				dbtr = etree.SubElement(drct_dbt_tx_inf, "Dbtr")
+				etree.SubElement(dbtr, "Nm").text = line.party
+
+				# Debtor Account
+				dbtr_acct = etree.SubElement(drct_dbt_tx_inf, "DbtrAcct")
+				dbtr_acct_id = etree.SubElement(dbtr_acct, "Id")
+				etree.SubElement(dbtr_acct_id, "IBAN").text = mandate_bank_account.iban.replace(" ", "")
 
 		return etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8")
 
