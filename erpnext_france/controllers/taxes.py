@@ -13,7 +13,7 @@ from frappe.utils import flt
 
 def before_save(doc, method):
 	# Verif before update
-	if not doc.custom_do_not_calc_france_vat:
+	if not doc.get("custom_do_not_calc_france_vat"):
 		update_ecopart_taxes_for_item(doc)
 
 
