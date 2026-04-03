@@ -61,6 +61,7 @@ fixtures = [
 					"Payment Term-date_computed_based_on",
 					"Payment Terms Template-template_payment_terms_before_invoice",
 					"Payment Terms Template-payment_terms_before_invoice",
+					"Purchase Invoice-custom_do_not_calc_france_vat",
 					"Purchase Invoice Item-supplier_part_no",
 					"Purchase Invoice-accounting_export_date",
 					"Purchase Taxes and Charges-ecotax",

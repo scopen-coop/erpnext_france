@@ -13,7 +13,8 @@ from frappe.utils import flt
 
 def before_save(doc, method):
 	# Verif before update
-	update_ecopart_taxes_for_item(doc)
+	if not doc.custom_do_not_calc_france_vat:
+		update_ecopart_taxes_for_item(doc)
 
 
 @frappe.whitelist()
@@ -277,9 +278,7 @@ def create_item_and_tax_maps_with_ecopart(
 
 		conversion_factor_obj = get_conversion_factor(doc_item.item_code, doc_item.uom)
 		conversion_factor = (
-			conversion_factor_obj.get("conversion_factor")
-			if conversion_factor_obj is not None
-			else 1
+			conversion_factor_obj.get("conversion_factor") if conversion_factor_obj is not None else 1
 		)
 		if not conversion_factor:
 			conversion_factor = 1
