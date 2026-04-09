@@ -13,7 +13,17 @@ from frappe.utils import flt
 
 def before_save(doc, method):
 	# Verif before update
+	if not doc.get("custom_do_not_calc_france_vat"):
+		update_ecopart_taxes_for_item(doc)
+
+
+@frappe.whitelist()
+def recompute_ecopart_taxes(docname, doctype="Quotation"):
+	doc = frappe.get_doc(doctype, docname)
 	update_ecopart_taxes_for_item(doc)
+	doc.flags.ignore_permissions = True
+	doc.save()
+	return {"name": doc.name}
 
 
 def update_ecopart_taxes_for_item(doc):
@@ -267,11 +277,15 @@ def create_item_and_tax_maps_with_ecopart(
 			taxes_itemised_map[vat_account][ecopart_account][doc_item.item_code] = 0
 
 		conversion_factor_obj = get_conversion_factor(doc_item.item_code, doc_item.uom)
-		conversion_factor = conversion_factor_obj.get("conversion_factor") if not None else 1
+		conversion_factor = (
+			conversion_factor_obj.get("conversion_factor") if conversion_factor_obj is not None else 1
+		)
+		if not conversion_factor:
+			conversion_factor = 1
 
-		taxes_map[vat_account][ecopart_account] += ecopart.amount * doc_item.qty / conversion_factor
+		taxes_map[vat_account][ecopart_account] += ecopart.amount * doc_item.qty * conversion_factor
 		taxes_itemised_map[vat_account][ecopart_account][doc_item.item_code] += (
-			ecopart.amount * doc_item.qty / conversion_factor
+			ecopart.amount * doc_item.qty * conversion_factor
 		)
 
 		if ecopart_account not in used_ecopart_accounts:

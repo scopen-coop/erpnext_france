@@ -35,7 +35,7 @@ fixtures = [
 					"Company-type_export_fec",
 					"Company-column_break_898956",
 					"Company-default_payment_terms_template_before_invoice",
-                    "Company-account_code_length",
+					"Company-account_code_length",
 					"Customer-check_vat_id",
 					"Customer-code_naf",
 					"Customer-incoterm",
@@ -65,6 +65,7 @@ fixtures = [
 					"Payment Term-date_computed_based_on",
 					"Payment Terms Template-template_payment_terms_before_invoice",
 					"Payment Terms Template-payment_terms_before_invoice",
+					"Purchase Invoice-custom_do_not_calc_france_vat",
 					"Purchase Invoice Item-supplier_part_no",
 					"Purchase Invoice-accounting_export_date",
 					"Purchase Taxes and Charges-ecotax",
@@ -216,7 +217,6 @@ fixtures = [
 	},
 ]
 
-
 # fixtures = ["Custom Field"]
 
 # Includes in <head>
@@ -225,7 +225,9 @@ fixtures = [
 # include js, css files in header of desk.html
 # app_include_css = "/assets/erpnext_france/css/erpnext_france.css"
 # app_include_js = "/assets/erpnext_france/js/erpnext_france.js"
-app_include_js = ["erpnext_france.bundle.js"]
+app_include_js = [
+	"erpnext_france.bundle.js",
+]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/erpnext_france/css/erpnext_france.css"
@@ -386,7 +388,6 @@ doc_events = {
 	},
 }
 
-
 # Scheduled Tasks
 # ---------------
 
@@ -407,6 +408,10 @@ doc_events = {
 # 		"erpnext_france.tasks.monthly"
 # 	]
 # }
+
+scheduler_events = {
+	"daily": ["erpnext_france.tasks.check_sirene_update"],
+}
 
 # Testing
 # -------

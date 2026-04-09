@@ -212,6 +212,9 @@ def set_paid_amount_of_linked_invoice(doc, method):
 	if len(references) == 0 or references[0].get("reference_doctype") != "Sales Invoice":
 		return
 
+	if doc.payment_type != "Receive":
+		return
+
 	sales_invoice = frappe.get_cached_doc("Sales Invoice", references[0].get("reference_name"))
 
 	if sales_invoice.get("is_down_payment_invoice") == 1:

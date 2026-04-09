@@ -25,5 +25,5 @@ def on_update(doc, method):
 		frappe.throw(_("Cannot Update EcoPart because there is no conversion factor between units"))
 
 	for ecopart in doc.eco_part:
-		ecopart.amount /= conversion_factor
+		ecopart.amount *= conversion_factor
 		ecopart.save()
