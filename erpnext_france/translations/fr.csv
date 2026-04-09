@@ -658,6 +658,37 @@ Production Plan,Planification de la prod.
 Account Code Length,Longueur du code comptable
 "If you set the value to 6 here, account '706' will appear as '706000' in exports","Si vous définissez la valeur à 6 ici, le compte '706' apparaîtra comme '706000' dans les exports"
 Leave Approver,Approbateur de note de frais,Department
+Payment Entry {0} created for SEPA line {1},L'écriture de paiement {0} a été créée pour la ligne SEPA {1}
+SEPA Bank Transaction Creation Error,Erreur de création de transaction bancaire SEPA
+Bank Transaction {0} created for SEPA line {1},La transaction bancaire {0} a été créée pour la ligne SEPA {1}
+Transaction generated from SEPA bordereau {0},Transaction générée depuis le bordereau SEPA {0}
+Payment Entry {0} created and cancelled for rejected SEPA line {1} (+ and -) ,L'écriture de paiement {0} a été créée et annulée pour la ligne SEPA rejetée {1} (+ et -)
+SEPA Mandate,Mandat SEPA
+SEPA Payment Bordereau,Bordereau de Paiement SEPA
+SEPA Payment Bordereau Line,Ligne de Bordereau de Paiement SEPA
+Payment Type,Type de paiement
+Debit,Prélèvement
+Credit,Virement
+Execution Date,Date d'exécution
+Payment Lines,Lignes de Paiement
+SEPA File,Fichier SEPA
+Download SEPA File,Télécharger le fichier SEPA
+RUM (Référence Unique de Mandat),RUM (Référence Unique de Mandat)
+Signature Date,Date de signature
+Mandate Type,Type de mandat
+Sequence Type,Type de séquence
+Rejection Reason,Motif de rejet
+End-to-End ID,Identifiant de bout en bout
+Validated,Validé
+Exported,Exporté
+Sent,Envoyé
+Partial Rejections,Rejets partiels
+Closed,Clôturé
+Pending,En attente
+Accepted,Accepté
+Rejected,Rejeté
+Active,Actif
+Cancelled,Annulé
 Update all,Tout mettre à jour,
 Cancel,Annuler,
 Updating data...,Mise à jour des données...,

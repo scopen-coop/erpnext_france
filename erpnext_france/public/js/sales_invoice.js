@@ -4,6 +4,18 @@ frappe.provide("erpnext");
 
 frappe.ui.form.on("Sales Invoice", {
   refresh: function (frm) {
+    // Add button to add invoice to SEPA bordereau if eligible
+    if (frm.doc.docstatus === 1 && frm.doc.outstanding_amount > 0 && frm.doc.customer) {
+      // Check if customer has SEPA mandate
+      frappe.db.get_value('Customer', frm.doc.customer, 'sepa_mandate', (r) => {
+        if (r && r.sepa_mandate) {
+          frm.add_custom_button(__('Add to SEPA Bordereau'), function() {
+            add_to_sepa_bordereau(frm);
+          }, __('Actions'));
+        }
+      });
+    }
+
     if (!frm.doc.is_down_payment_invoice) {
       return;
     }
@@ -79,3 +91,20 @@ frappe.ui.form.on("Sales Invoice", {
     frm.trigger("payment_terms_template");
   },
 });
+
+function add_to_sepa_bordereau(frm) {
+  frappe.call({
+    method: 'erpnext_france.regional.france.sepa_utils.add_invoice_to_sepa_bordereau',
+    args: {
+      invoice_name: frm.doc.name,
+      invoice_type: 'Sales Invoice'
+    },
+    callback: function(r) {
+      if (r.message) {
+        frappe.msgprint(__('Invoice added to SEPA Payment Bordereau {0}', [r.message]));
+        // Navigate to the bordereau
+        frappe.set_route('Form', 'SEPA Payment Bordereau', r.message);
+      }
+    }
+  });
+}
