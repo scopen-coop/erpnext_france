@@ -40,6 +40,9 @@ Manage number of "0" at the end of account code in FEC
 
 - Company type from INSEE (for customer and supplier)
 
+### Documentation
+
+[Documentation](https://www.erpnext.fr/documentation-erpnext-france/)
 
 ### Installation
 
