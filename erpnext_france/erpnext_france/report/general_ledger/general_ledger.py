@@ -44,8 +44,6 @@ def get_columns(filters):
 	acc_journal_columns = {
 		"label": _("Accounting Entry Number"),
 		"fieldname": "accounting_entry_number",
-		"fieldtype": "Link",
-		"options": "Accounting Journal",
 	}
 
 	columns.insert(0, acc_journal_columns)

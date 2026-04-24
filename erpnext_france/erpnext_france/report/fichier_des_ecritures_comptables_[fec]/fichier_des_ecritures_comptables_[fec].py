@@ -221,8 +221,12 @@ def get_gl_entries(company, fiscal_year, from_date, to_date, hide_already_export
 			employee.employee_name,
 			employee.name.as_("empName"),
 		)
-		.where((gle.company == company) & (gle.fiscal_year == fiscal_year))
-		.where((gle.posting_date >= from_date) & (gle.posting_date <= to_date))
+		.where(
+			(gle.company == company)
+			& (gle.fiscal_year == fiscal_year)
+			& (gle.posting_date >= from_date)
+			& (gle.posting_date <= to_date)
+		)
 	)
 
 	if hide_already_exported:
