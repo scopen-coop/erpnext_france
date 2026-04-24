@@ -137,7 +137,11 @@ def create_ecopart_taxes_map(doc, is_sales_doc, is_down_payment_invoice):
 	taxes_map = {}
 	taxes_itemised_map = {}
 	for doc_item in doc.items:
-		item = frappe.get_doc("Item", doc_item.item_code)
+		if doc_item.item_code:
+			item = frappe.get_doc("Item", doc_item.item_code)
+		else:
+			item = frappe.new_doc("Item")
+			item.name = doc_item.item_name
 
 		vat_accounts = init_taxes_map_and_vat_account(doc, doc_item, item, taxes_map, is_sales_doc)
 		if len(vat_accounts) > 0:
