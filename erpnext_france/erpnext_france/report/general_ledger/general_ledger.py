@@ -41,10 +41,7 @@ def execute(filters=None):
 
 def get_columns(filters):
 	columns = gl.get_columns(filters)
-	acc_journal_columns = {
-		"label": _("Accounting Entry Number"),
-		"fieldname": "accounting_entry_number",
-	}
+	acc_journal_columns = {"label": _("Accounting Entry Number"), "fieldname": "accounting_entry_number"}
 
 	columns.insert(0, acc_journal_columns)
 
