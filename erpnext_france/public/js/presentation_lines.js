@@ -60,10 +60,9 @@ function add_presentation_row(frm, display_type, label) {
     row.description = display_type;
   }
 
-  // Safe placeholders so ERPNext's UOM conversion code does not complain
-  const default_uom = frappe.defaults.get_default("stock_uom") || "Nos";
-  row.uom = default_uom;
-  row.stock_uom = default_uom;
+  row.item_code = "";
+  row.uom = "";
+  row.stock_uom = "";
   row.conversion_factor = 1;
 
   // Force everything that drives totals to 0
@@ -86,6 +85,8 @@ function add_presentation_row(frm, display_type, label) {
   ].forEach((f) => {
     if (f in row) row[f] = 0;
   });
+  row.qty = 1;
+  row.stock_qty = 1;
 
   frm.refresh_field("items");
   frm.dirty();
@@ -96,16 +97,26 @@ function on_row_flag_changed(frm, cdt, cdn) {
   if (!row.is_presentation_line) return;
 
   [
+    "item_code",
+    "uom",
+    "stock_uom",
     "qty",
+    "stock_qty",
     "rate",
     "amount",
     "net_amount",
     "discount_amount",
     "discount_percentage",
     "price_list_rate",
+    "conversion_factor",
   ].forEach((f) => {
-    if (f in row) row[f] = 0;
+    if (f in row) {
+      row[f] = ["item_code", "uom", "stock_uom"].includes(f) ? "" : 0;
+    }
   });
+  row.qty = 1;
+  row.stock_qty = 1;
+  row.conversion_factor = 1;
   frm.refresh_field("items");
 }
 

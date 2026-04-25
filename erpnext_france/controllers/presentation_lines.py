@@ -31,40 +31,31 @@ ZERO_FIELDS = (
 # ---------------------------------------------------------------------------
 # Doc events
 # ---------------------------------------------------------------------------
-def _get_default_uom():
-	uom = frappe.db.get_single_value("Stock Settings", "stock_uom")
-	if uom:
-		return uom
-	first = frappe.db.get_value("UOM", {}, "name")
-	return first or "Nos"
-
-
 def before_validate(doc, method=None):
 	"""Force qty/rate/amount = 0 on presentation rows BEFORE ERPNext's
 	validate runs (otherwise calculate_taxes_and_totals would recompute
-	them from qty*rate). Also set safe placeholders for uom/stock_uom/
-	conversion_factor so ERPNext's stock controller does not error on
-	missing UOM conversion records."""
+	them from qty*rate)."""
 	if not getattr(doc, "items", None):
 		return
-
-	default_uom = _get_default_uom()
 
 	for row in doc.items:
 		if not row.get("is_presentation_line"):
 			continue
 
-		# Same UOM on both sides -> conversion_factor=1, no lookup needed
-		if not row.get("uom"):
-			row.uom = default_uom
-		if hasattr(row, "stock_uom") and not row.get("stock_uom"):
-			row.stock_uom = row.uom or default_uom
+		row.item_code = ""
+		row.uom = ""
+		if hasattr(row, "stock_uom"):
+			row.stock_uom = ""
 		if hasattr(row, "conversion_factor"):
-			row.conversion_factor = 1.0
+			row.conversion_factor = 1
 
 		for f in ZERO_FIELDS:
 			if hasattr(row, f):
 				row.set(f, 0)
+
+		row.qty = 1
+		if hasattr(row, "stock_qty"):
+			row.stock_qty = 1
 
 		row.margin_type = ""
 
