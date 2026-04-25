@@ -145,7 +145,7 @@ def _property_setters_definition():
 	then `mandatory_depends_on` re-enforces it for normal product rows."""
 	specs = []
 	for dt in PRESENTATION_CHILD_DOCTYPES:
-		for fieldname in ("item_code", "item_name", "uom"):
+		for fieldname in ("item_code", "item_name", "uom", "income_account"):
 			specs.append(
 				dict(
 					doctype=dt,
