@@ -28,6 +28,21 @@ ZERO_FIELDS = (
 )
 
 
+def _get_default_income_account(company):
+	if not company:
+		return None
+
+	return frappe.get_cached_value("Company", company, "default_income_account") or frappe.db.get_value(
+		"Account",
+		{
+			"company": company,
+			"is_group": 0,
+			"root_type": "Income",
+		},
+		"name",
+	)
+
+
 # ---------------------------------------------------------------------------
 # Doc events
 # ---------------------------------------------------------------------------
@@ -37,6 +52,8 @@ def before_validate(doc, method=None):
 	them from qty*rate)."""
 	if not getattr(doc, "items", None):
 		return
+
+	default_income_account = _get_default_income_account(doc.get("company"))
 
 	for row in doc.items:
 		if not row.get("is_presentation_line"):
@@ -48,6 +65,8 @@ def before_validate(doc, method=None):
 			row.stock_uom = ""
 		if hasattr(row, "conversion_factor"):
 			row.conversion_factor = 1
+		if hasattr(row, "income_account"):
+			row.income_account = default_income_account
 
 		for f in ZERO_FIELDS:
 			if hasattr(row, f):
