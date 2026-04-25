@@ -103,6 +103,18 @@ fixtures = [
 					"Supplier-siren",
 					"Supplier Group-tax_category",
 					"Purchase Invoice Item-supplier_part_no",
+					"Quotation Item-is_presentation_line",
+					"Quotation Item-display_type",
+					"Quotation Item-section_label",
+					"Quotation Item-subtotal_amount",
+					"Sales Order Item-is_presentation_line",
+					"Sales Order Item-display_type",
+					"Sales Order Item-section_label",
+					"Sales Order Item-subtotal_amount",
+					"Sales Invoice Item-is_presentation_line",
+					"Sales Invoice Item-display_type",
+					"Sales Invoice Item-section_label",
+					"Sales Invoice Item-subtotal_amount",
 				),
 			],
 		],
@@ -180,6 +192,12 @@ fixtures = [
 					"Supplier Quotation Item-supplier_part_no-print_hide",
 					"Supplier Quotation Item-supplier_part_no-hidden",
 					"Supplier Quotation Item-supplier_part_no-read_only",
+					"Quotation Item-item_code-reqd",
+					"Quotation Item-item_code-mandatory_depends_on",
+					"Sales Order Item-item_code-reqd",
+					"Sales Order Item-item_code-mandatory_depends_on",
+					"Sales Invoice Item-item_code-reqd",
+					"Sales Invoice Item-item_code-mandatory_depends_on",
 				),
 			]
 		],
@@ -205,6 +223,10 @@ fixtures = [
 		],
 	},
 	{"dt": "Letter Head", "filters": [["name", "in", "France Letter Head"]]},
+	{
+		"dt": "Print Format",
+		"filters": [["name", "in", ("Sales Invoice with Presentation Lines",)]],
+	},
 	{"dt": "Variant Field", "filters": [["field_name", "in", "eco_part"]]},
 	{"dt": "List View Settings", "filters": [["name", "=", "Item Price"]]},
 	{
@@ -251,10 +273,10 @@ doctype_js = {
 	"Customer": ["public/js/party.js", "public/js/party_check_vat.js"],
 	"Customer Group": ["public/js/customer_group.js"],
 	"Supplier": ["public/js/party.js", "public/js/party_check_vat.js"],
-	"Sales Order": ["public/js/sales_order.js"],
+	"Sales Order": ["public/js/sales_order.js", "public/js/presentation_lines.js"],
 	"Purchase Invoice": ["public/js/purchase_invoice.js"],
-	"Sales Invoice": ["public/js/sales_invoice.js"],
-	"Quotation": ["public/js/quotation.js"],
+	"Sales Invoice": ["public/js/sales_invoice.js", "public/js/presentation_lines.js"],
+	"Quotation": ["public/js/quotation.js", "public/js/presentation_lines.js"],
 	"Company": ["public/js/company.js"],
 	"Item": ["public/js/item.js"],
 	"Bank Transaction": ["public/js/bank_transaction.js"],
@@ -303,6 +325,7 @@ after_migrate = [
 	"erpnext_france.install.after_install",
 	"erpnext_france.setup.setup_migrate",
 	"erpnext_france.setup.make_payment_terms_fixtures",
+	"erpnext_france.controllers.presentation_lines.setup_presentation_lines",
 ]
 
 # setup_wizard_complete = "erpnext_france.install.after_wizard"
@@ -361,11 +384,17 @@ doc_events = {
 			"erpnext_france.utils.transaction_log.create_transaction_log",
 		],
 		"before_save": "erpnext_france.controllers.taxes.before_save",
-		"validate": "erpnext_france.erpnext_france.overrides.sales_invoice.validate",
+		"before_validate": "erpnext_france.controllers.presentation_lines.before_validate",
+		"validate": [
+			"erpnext_france.erpnext_france.overrides.sales_invoice.validate",
+			"erpnext_france.controllers.presentation_lines.validate",
+		],
 	},
 	"Sales Order": {
 		"before_update_after_submit": "erpnext_france.controllers.sales_order.verify_sales_orders_terms",
 		"before_save": "erpnext_france.controllers.taxes.before_save",
+		"before_validate": "erpnext_france.controllers.presentation_lines.before_validate",
+		"validate": "erpnext_france.controllers.presentation_lines.validate",
 	},
 	"Payment Entry": {
 		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
@@ -382,7 +411,11 @@ doc_events = {
 	"Company": {"after_insert": "erpnext_france.setup.setup_company_default"},
 	"Item": {"on_update": "erpnext_france.controllers.item.on_update"},
 	"Item Price": {"on_update": "erpnext_france.controllers.item_price.before_save"},
-	"Quotation": {"before_save": "erpnext_france.controllers.taxes.before_save"},
+	"Quotation": {
+		"before_save": "erpnext_france.controllers.taxes.before_save",
+		"before_validate": "erpnext_france.controllers.presentation_lines.before_validate",
+		"validate": "erpnext_france.controllers.presentation_lines.validate",
+	},
 	"System Settings": {
 		# "on_update": 'erpnext_france.install.after_wizard'
 	},
