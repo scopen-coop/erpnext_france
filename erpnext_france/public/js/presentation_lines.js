@@ -4,6 +4,10 @@
 const PRESENTATION_PARENTS = ["Quotation", "Sales Order", "Sales Invoice"];
 const PRESENTATION_CHILDREN = ["Quotation Item", "Sales Order Item", "Sales Invoice Item"];
 
+function set_if_present(row, fieldname, value) {
+  if (fieldname in row) row[fieldname] = value;
+}
+
 function add_presentation_buttons(frm) {
   if (frm.doc.docstatus !== 0) return;
 
@@ -60,10 +64,10 @@ function add_presentation_row(frm, display_type, label) {
     row.description = display_type;
   }
 
-  row.item_code = "";
-  row.uom = "";
-  row.stock_uom = "";
-  row.conversion_factor = 1;
+  set_if_present(row, "item_code", "");
+  set_if_present(row, "uom", "");
+  set_if_present(row, "stock_uom", "");
+  set_if_present(row, "conversion_factor", 1);
 
   // Force everything that drives totals to 0
   [
@@ -85,8 +89,8 @@ function add_presentation_row(frm, display_type, label) {
   ].forEach((f) => {
     if (f in row) row[f] = 0;
   });
-  row.qty = 1;
-  row.stock_qty = 1;
+  set_if_present(row, "qty", 1);
+  set_if_present(row, "stock_qty", 1);
 
   frm.refresh_field("items");
   frm.dirty();
@@ -114,9 +118,9 @@ function on_row_flag_changed(frm, cdt, cdn) {
       row[f] = ["item_code", "uom", "stock_uom"].includes(f) ? "" : 0;
     }
   });
-  row.qty = 1;
-  row.stock_qty = 1;
-  row.conversion_factor = 1;
+  set_if_present(row, "qty", 1);
+  set_if_present(row, "stock_qty", 1);
+  set_if_present(row, "conversion_factor", 1);
   frm.refresh_field("items");
 }
 
