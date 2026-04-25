@@ -2,6 +2,7 @@
 # For license information, please see license.txt
 
 import frappe
+from frappe import _
 from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
 from frappe.custom.doctype.property_setter.property_setter import make_property_setter
 from frappe.utils import flt
@@ -32,15 +33,23 @@ def _get_default_income_account(company):
 	if not company:
 		return None
 
-	return frappe.get_cached_value("Company", company, "default_income_account") or frappe.db.get_value(
+	default_income_account = frappe.get_cached_value("Company", company, "default_income_account")
+	if default_income_account:
+		return default_income_account
+
+	income_account = frappe.db.get_all(
 		"Account",
-		{
+		filters={
 			"company": company,
 			"is_group": 0,
-			"root_type": "Income",
 		},
-		"name",
+		or_filters={
+			"account_name": ("in", [_("Sales"), _("Sales Account")]),
+			"account_type": "Income Account",
+		},
+		pluck="name",
 	)
+	return income_account[0] if income_account else None
 
 
 # ---------------------------------------------------------------------------
