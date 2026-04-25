@@ -60,6 +60,12 @@ function add_presentation_row(frm, display_type, label) {
     row.description = display_type;
   }
 
+  // Safe placeholders so ERPNext's UOM conversion code does not complain
+  const default_uom = frappe.defaults.get_default("stock_uom") || "Nos";
+  row.uom = default_uom;
+  row.stock_uom = default_uom;
+  row.conversion_factor = 1;
+
   // Force everything that drives totals to 0
   [
     "qty",
