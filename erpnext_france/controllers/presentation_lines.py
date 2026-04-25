@@ -129,29 +129,30 @@ def _custom_fields_definition():
 
 
 def _property_setters_definition():
-	"""Relax `item_code` mandatory only for presentation rows.
+	"""Relax mandatory fields only for presentation rows.
 	`reqd=0` so server-side _validate_mandatory does not enforce blindly,
 	then `mandatory_depends_on` re-enforces it for normal product rows."""
 	specs = []
 	for dt in PRESENTATION_CHILD_DOCTYPES:
-		specs.append(
-			dict(
-				doctype=dt,
-				fieldname="item_code",
-				property="reqd",
-				value="0",
-				property_type="Check",
+		for fieldname in ("item_code", "item_name", "uom"):
+			specs.append(
+				dict(
+					doctype=dt,
+					fieldname=fieldname,
+					property="reqd",
+					value="0",
+					property_type="Check",
+				)
 			)
-		)
-		specs.append(
-			dict(
-				doctype=dt,
-				fieldname="item_code",
-				property="mandatory_depends_on",
-				value="eval:!doc.is_presentation_line",
-				property_type="Data",
+			specs.append(
+				dict(
+					doctype=dt,
+					fieldname=fieldname,
+					property="mandatory_depends_on",
+					value="eval:!doc.is_presentation_line",
+					property_type="Data",
+				)
 			)
-		)
 	return specs
 
 
