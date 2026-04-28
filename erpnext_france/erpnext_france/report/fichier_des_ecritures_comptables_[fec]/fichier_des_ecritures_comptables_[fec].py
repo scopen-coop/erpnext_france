@@ -261,7 +261,6 @@ def get_result(company, fiscal_year, from_date, to_date, hide_already_exported):
 		j.journal_code: j.journal_name
 		for j in frappe.get_all("Accounting Journal", fields=["journal_code", "journal_name"])
 	}
-
 	party_data = [x for x in data if x.get("against_voucher")]
 
 	for d in data:
@@ -293,11 +292,28 @@ def get_result(company, fiscal_year, from_date, to_date, hide_already_exported):
 			)
 
 		if d.get("party_type") == "Customer":
-			CompAuxNum = d.get("cusName")
+			party_accounts = frappe.get_all(
+				"Party Account",
+				filters={"Company": company, "parent": d.get("cusName"), "parenttype": "Customer"},
+				fields=["subledger_account"],
+			)
+			if party_accounts and party_accounts[0].get("subledger_account"):
+				CompAuxNum = party_accounts[0].get("subledger_account")
+			else:
+				CompAuxNum = d.get("cusName")
+
 			CompAuxLib = d.get("customer_name")
 
 		elif d.get("party_type") == "Supplier":
-			CompAuxNum = d.get("supName")
+			party_accounts = frappe.get_all(
+				"Party Account",
+				filters={"Company": company, "parent": d.get("supName"), "parenttype": "Supplier"},
+				fields=["subledger_account"],
+			)
+			if party_accounts and party_accounts[0].get("subledger_account"):
+				CompAuxNum = party_accounts[0].get("subledger_account")
+			else:
+				CompAuxNum = d.get("supName")
 			CompAuxLib = d.get("supplier_name")
 
 		elif d.get("party_type") == "Employee":
