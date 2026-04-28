@@ -88,7 +88,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Export comptable",
-   "link_count": 2,
+   "link_count": 1,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -103,19 +103,9 @@
    "onboard": 0,
    "only_for": "France",
    "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Export Comptable",
-   "link_count": 0,
-   "link_to": "Accounting Export",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
   }
  ],
- "modified": "2026-04-28 10:30:45.021875",
+ "modified": "2026-04-28 10:47:48.735632",
  "modified_by": "simep-erpnext@scopen.fr",
  "module": "ERPNext France",
  "name": "Gestion France",
