@@ -1,4 +1,4 @@
-# Copyright (c) 2019, Frappe Technologies Pvt. Ltd. and contributors
+# Copyright (c) 2023, Scopen and contributors
 # For license information, please see license.txt
 
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2022, Erpnext France
+# Copyright (c) 2022, https
 # See license.txt
 
 import unittest
