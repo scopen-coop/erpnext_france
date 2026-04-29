@@ -298,13 +298,15 @@ doctype_list_js = {
 after_install = "erpnext_france.install.after_install"
 after_sync = "erpnext_france.setup.make_payment_terms_fixtures"
 setup_wizard_complete = "erpnext_france.setup.setup_wizard_complete"
-setup_wizard_test = "erperpnext_france.setup.setup_wizard.test_setup_wizard.run_setup_wizard_test"
+
 after_migrate = [
 	"erpnext_france.migrate.move_subledger_account_by_company",
 	"erpnext_france.install.after_install",
 	"erpnext_france.setup.setup_migrate",
 	"erpnext_france.setup.make_payment_terms_fixtures",
 ]
+
+before_tests = "erpnext_france.tests.utils.before_tests"
 
 # setup_wizard_complete = "erpnext_france.install.after_wizard"
 # Desk Notifications

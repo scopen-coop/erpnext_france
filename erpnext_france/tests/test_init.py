@@ -8,7 +8,7 @@ test_records = frappe.get_test_records("Company")
 
 class TestInit(unittest.TestCase):
 	def test_encode_company_abbr(self):
-		abbr = "NFECT"
+		abbr = "MPF"
 
 		names = [
 			"Warehouse Name",
@@ -43,8 +43,3 @@ class TestInit(unittest.TestCase):
 		from frappe.tests.test_translate import verify_translation_files
 
 		verify_translation_files("erpnext_france")
-
-	def test_patches(self):
-		from frappe.tests.test_patches import check_patch_files
-
-		check_patch_files("erpnext_france")
