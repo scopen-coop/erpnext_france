@@ -90,7 +90,7 @@ jobs:
         working-directory: /home/runner/frappe-bench
         run: |
           bench get-app --branch version-15 erpnext 
-          bench get-app --branch version-15 erpnext_france
+          bench get-app --branch version-15 https://github.com/scopen-coop/erpnext_france.git
           bench setup requirements --dev
           bench new-site --db-root-password root --admin-password admin test_site
           bench --site test_site install-app erpnext
