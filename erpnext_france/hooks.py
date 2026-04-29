@@ -302,7 +302,6 @@ setup_wizard_complete = "erpnext_france.setup.setup_wizard_complete"
 after_migrate = [
 	"erpnext_france.migrate.move_subledger_account_by_company",
 	"erpnext_france.install.after_install",
-	"erpnext_france.setup.setup_migrate",
 	"erpnext_france.setup.make_payment_terms_fixtures",
 ]
 

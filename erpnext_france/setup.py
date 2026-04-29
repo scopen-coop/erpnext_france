@@ -64,13 +64,6 @@ def setup_wizard_complete(args, action=None):
 	set_default_print_settings()
 
 
-def setup_migrate():
-	set_default_stock_settings()
-	set_default_system_settings()
-	set_default_print_settings()
-	set_default_source_letter_head()
-
-
 def setup_company_default(company, action):
 	if company.country != "France":
 		return
