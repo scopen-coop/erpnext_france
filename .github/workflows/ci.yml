@@ -4,7 +4,7 @@ name: CI
 on:
   push:
     branches:
-      - version-15
+      - version-15-test
   pull_request:
 
 concurrency:
