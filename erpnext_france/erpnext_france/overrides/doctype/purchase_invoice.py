@@ -4,7 +4,7 @@ from frappe import _
 from frappe.utils import getdate
 
 
-class PurchaseInvoiceFrance(PurchaseInvoice):
+class PurchaseInvoice(PurchaseInvoice):
 	def set_payment_schedule(self):
 		import erpnext.controllers.accounts_controller as ac
 

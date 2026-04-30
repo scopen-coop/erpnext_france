@@ -453,7 +453,7 @@ override_doctype_class = {
 	"Payment Entry": "erpnext_france.erpnext_france.overrides.doctype.payment_entry_down_payment.PaymentEntryDownPayment",
 	"Sales Invoice": "erpnext_france.erpnext_france.overrides.doctype.sales_invoice.SalesInvoice",
 	"Payment Terms Template": "erpnext_france.erpnext_france.overrides.doctype.payment_terms_template.PaymentTermsTemplateWithTermsBeforeInvoice",
-	"Purchase Invoice": "erpnext_france.erpnext_france.overrides.doctype.purchase_invoice.PurchaseInvoiceFrance",
+	"Purchase Invoice": "erpnext_france.erpnext_france.overrides.doctype.purchase_invoice.PurchaseInvoice",
 }
 
 override_doctype_dashboards = {
