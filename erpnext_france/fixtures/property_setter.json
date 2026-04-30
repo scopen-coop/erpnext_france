@@ -45,7 +45,7 @@
   "property": "depends_on",
   "property_type": "Data",
   "row_name": null,
-  "value": "eval:in_list(['Day(s) after invoice date', 'Day(s) after the end of the invoice month'], doc.due_date_based_on) || doc.date_computed_based_on == 'Delivery Date'"
+  "value": "eval:in_list(['Day(s) after invoice date', 'Day(s) after the end of the invoice month', 'Day(s) after invoice date, end of month'], doc.due_date_based_on) || doc.date_computed_based_on == 'Delivery Date'"
  },
  {
   "default_value": null,

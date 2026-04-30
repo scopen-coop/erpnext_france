@@ -432,6 +432,7 @@ override_whitelisted_methods = {
 	"erpnext.accounts.party.get_party_details": "erpnext_france.controllers.party.get_party_details",
 	"erpnext.selling.doctype.sales_order.sales_order.make_sales_invoice": "erpnext_france.controllers.sales_order.make_sales_invoice_with_payment_terms",
 	"erpnext.selling.doctype.customer.customer.make_quotation": "erpnext_france.controllers.party.make_quotation_with_payment_terms",
+	"erpnext.accounts.party.get_due_date": "erpnext_france.controllers.party.get_due_date",
 }
 
 # Regional Overrides
@@ -450,8 +451,9 @@ regional_overrides = {
 
 override_doctype_class = {
 	"Payment Entry": "erpnext_france.erpnext_france.overrides.doctype.payment_entry_down_payment.PaymentEntryDownPayment",
-	"Sales Invoice": "erpnext_france.erpnext_france.overrides.doctype.sales_invoice_down_payment.SalesInvoiceDownPayment",
+	"Sales Invoice": "erpnext_france.erpnext_france.overrides.doctype.sales_invoice.SalesInvoice",
 	"Payment Terms Template": "erpnext_france.erpnext_france.overrides.doctype.payment_terms_template.PaymentTermsTemplateWithTermsBeforeInvoice",
+	"Purchase Invoice": "erpnext_france.erpnext_france.overrides.doctype.purchase_invoice.PurchaseInvoiceFrance",
 }
 
 override_doctype_dashboards = {
