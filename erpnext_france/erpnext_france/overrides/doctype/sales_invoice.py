@@ -340,7 +340,7 @@ class SalesInvoice(SalesInvoice):
 
 		# expense account gl entries
 		if cint(self.update_stock) and is_perpetual_inventory_enabled(self.company):
-			gl_entries += super().get_gl_entries()
+			gl_entries += super(SalesInvoice, self).get_gl_entries()  # noqa: UP008
 
 	def validate_due_date(self):
 		if self.get("is_pos"):
