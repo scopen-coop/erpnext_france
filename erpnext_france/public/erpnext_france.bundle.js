@@ -1,3 +1,6 @@
+// Lignes de structure (titres de section et sous-totaux) sur les documents de vente
+import "./js/sales_section_lines.js";
+
 erpnext.TransactionController.prototype.payment_terms_template =
   async function (doc, doctype, docname) {
     if (erpnext.TransactionController) {

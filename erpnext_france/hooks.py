@@ -103,6 +103,19 @@ fixtures = [
 					"Supplier-siren",
 					"Supplier Group-tax_category",
 					"Purchase Invoice Item-supplier_part_no",
+					# Lignes de structure (titres de section et sous-totaux)
+					"Quotation Item-ef_line_type",
+					"Quotation Item-ef_section_label",
+					"Quotation Item-ef_section_amount",
+					"Sales Order Item-ef_line_type",
+					"Sales Order Item-ef_section_label",
+					"Sales Order Item-ef_section_amount",
+					"Sales Invoice Item-ef_line_type",
+					"Sales Invoice Item-ef_section_label",
+					"Sales Invoice Item-ef_section_amount",
+					"Delivery Note Item-ef_line_type",
+					"Delivery Note Item-ef_section_label",
+					"Delivery Note Item-ef_section_amount",
 				),
 			],
 		],
@@ -180,6 +193,11 @@ fixtures = [
 					"Supplier Quotation Item-supplier_part_no-print_hide",
 					"Supplier Quotation Item-supplier_part_no-hidden",
 					"Supplier Quotation Item-supplier_part_no-read_only",
+					# item_code rendu non-requis (les lignes Section Header / Subtotal n'en ont pas)
+					"Quotation Item-item_code-reqd",
+					"Sales Order Item-item_code-reqd",
+					"Sales Invoice Item-item_code-reqd",
+					"Delivery Note Item-item_code-reqd",
 				),
 			]
 		],
@@ -205,6 +223,19 @@ fixtures = [
 		],
 	},
 	{"dt": "Letter Head", "filters": [["name", "in", "France Letter Head"]]},
+	{
+		"dt": "Print Format",
+		"filters": [
+			[
+				"name",
+				"in",
+				(
+					"ERPNext France - Quotation with Sections",
+					"ERPNext France - Sales Invoice with Sections",
+				),
+			]
+		],
+	},
 	{"dt": "Variant Field", "filters": [["field_name", "in", "eco_part"]]},
 	{"dt": "List View Settings", "filters": [["name", "=", "Item Price"]]},
 	{
@@ -364,11 +395,21 @@ doc_events = {
 			"erpnext_france.utils.transaction_log.create_transaction_log",
 		],
 		"before_save": "erpnext_france.controllers.taxes.before_save",
-		"validate": "erpnext_france.erpnext_france.overrides.sales_invoice.validate",
+		"before_validate": "erpnext_france.erpnext_france.overrides.sales_section_lines.before_validate",
+		"validate": [
+			"erpnext_france.erpnext_france.overrides.sales_invoice.validate",
+			"erpnext_france.erpnext_france.overrides.sales_section_lines.validate",
+		],
 	},
 	"Sales Order": {
 		"before_update_after_submit": "erpnext_france.controllers.sales_order.verify_sales_orders_terms",
 		"before_save": "erpnext_france.controllers.taxes.before_save",
+		"before_validate": "erpnext_france.erpnext_france.overrides.sales_section_lines.before_validate",
+		"validate": "erpnext_france.erpnext_france.overrides.sales_section_lines.validate",
+	},
+	"Delivery Note": {
+		"before_validate": "erpnext_france.erpnext_france.overrides.sales_section_lines.before_validate",
+		"validate": "erpnext_france.erpnext_france.overrides.sales_section_lines.validate",
 	},
 	"Payment Entry": {
 		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
@@ -385,7 +426,11 @@ doc_events = {
 	"Company": {"after_insert": "erpnext_france.setup.setup_company_default"},
 	"Item": {"on_update": "erpnext_france.controllers.item.on_update"},
 	"Item Price": {"on_update": "erpnext_france.controllers.item_price.before_save"},
-	"Quotation": {"before_save": "erpnext_france.controllers.taxes.before_save"},
+	"Quotation": {
+		"before_save": "erpnext_france.controllers.taxes.before_save",
+		"before_validate": "erpnext_france.erpnext_france.overrides.sales_section_lines.before_validate",
+		"validate": "erpnext_france.erpnext_france.overrides.sales_section_lines.validate",
+	},
 	"System Settings": {
 		# "on_update": 'erpnext_france.install.after_wizard'
 	},
