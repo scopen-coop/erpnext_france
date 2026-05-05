@@ -193,11 +193,22 @@ fixtures = [
 					"Supplier Quotation Item-supplier_part_no-print_hide",
 					"Supplier Quotation Item-supplier_part_no-hidden",
 					"Supplier Quotation Item-supplier_part_no-read_only",
-					# item_code rendu non-requis (les lignes Section Header / Subtotal n'en ont pas)
+					# Champs rendus non-requis (les lignes Section Header / Subtotal n'en ont pas)
 					"Quotation Item-item_code-reqd",
 					"Sales Order Item-item_code-reqd",
 					"Sales Invoice Item-item_code-reqd",
 					"Delivery Note Item-item_code-reqd",
+					"Quotation Item-item_name-reqd",
+					"Sales Order Item-item_name-reqd",
+					"Sales Invoice Item-item_name-reqd",
+					"Delivery Note Item-item_name-reqd",
+					"Quotation Item-uom-reqd",
+					"Sales Order Item-uom-reqd",
+					"Sales Invoice Item-uom-reqd",
+					"Delivery Note Item-uom-reqd",
+					"Quotation Item-income_account-reqd",
+					"Sales Order Item-income_account-reqd",
+					"Sales Invoice Item-income_account-reqd",
 				),
 			]
 		],
