@@ -358,7 +358,14 @@ def get_payment_term_details(
 		term_details.due_date = get_due_date_before_invoice(term, posting_date, delivery_date)
 	else:
 		# facture standard : basé sur due_date_based_on (credit_days, etc.)
-		term_details.due_date = get_due_date_standard(term, posting_date)
+		france_due_date = get_due_date_standard(term, posting_date)
+		if france_due_date:
+			term_details.due_date = france_due_date
+		else:
+			# Laisser ERPNext calculer via sa propre get_due_date
+			from erpnext.controllers.accounts_controller import get_due_date as erpnext_get_due_date
+
+			term_details.due_date = erpnext_get_due_date(term, posting_date)
 
 	if term.get("discount_validity_based_on"):
 		term_details.discount_date = get_discount_date(term, posting_date, delivery_date)
@@ -383,20 +390,34 @@ def get_due_date_before_invoice(term, document_date, delivery_date):
 
 
 def get_due_date_from_template_france(template_name, posting_date, bill_date):
+	from erpnext.accounts.party import get_due_date_from_template as erpnext_get_due_date_from_template
 	from frappe.utils import add_days, add_months, get_last_day, getdate
 
-	due_date = getdate(bill_date or posting_date)
+	base_date = getdate(bill_date or posting_date)
 	template = frappe.get_doc("Payment Terms Template", template_name)
+
 	for term in template.terms:
-		if term.due_date_based_on == "Day(s) after invoice date":
-			due_date = max(due_date, add_days(due_date, term.credit_days))
-		elif term.due_date_based_on == "Day(s) after the end of the invoice month":
-			due_date = max(due_date, add_days(get_last_day(due_date), term.credit_days))
-		elif term.due_date_based_on == "Month(s) after the end of the invoice month":
-			due_date = max(due_date, get_last_day(add_months(due_date, term.credit_months)))
-		elif term.due_date_based_on == "Day(s) after invoice date, end of month":
-			due_date = max(due_date, get_last_day(add_days(due_date, term.credit_days)))
-	return due_date
+		pt = frappe.get_doc("Payment Term", term.payment_term)
+
+		custom_option = pt.get("custom_due_date_based_on_france")
+
+		result = compute_france_due_date(
+			custom_option, base_date, term.credit_days, pt.get("custom_end_of_month_day")
+		)
+		print(
+			"get_due_date_from_template_france result",
+			result,
+			"custom_option",
+			custom_option,
+			"base_date",
+			base_date,
+			"credit_days",
+			term.credit_days,
+		)
+		if result:
+			return result
+
+	return erpnext_get_due_date_from_template(template_name, posting_date, bill_date)
 
 
 @frappe.whitelist()
@@ -429,17 +450,35 @@ def get_due_date_standard(term, posting_date):
 	from frappe.utils import add_months, cint
 
 	date = posting_date
-	due_date_based_on = term.get("due_date_based_on")
 
-	if due_date_based_on == "Day(s) after invoice date":
-		return add_days(date, cint(term.get("credit_days")))
-	elif due_date_based_on == "Day(s) after the end of the invoice month":
-		return add_days(get_last_day(date), cint(term.get("credit_days")))
-	elif due_date_based_on == "Month(s) after the end of the invoice month":
-		return get_last_day(add_months(date, cint(term.get("credit_months"))))
-	elif due_date_based_on == "Day(s) after invoice date, end of month":
-		return get_last_day(add_days(date, cint(term.get("credit_days"))))
-	return date
+	custom_option = None
+	if term.get("payment_term"):
+		custom_option = frappe.db.get_value(
+			"Payment Term", term.get("payment_term"), "custom_due_date_based_on_france"
+		)
+
+	due_date_based_on = custom_option or term.get("due_date_based_on")
+
+	return compute_france_due_date(
+		due_date_based_on,
+		date,
+		term.get("credit_days"),
+		frappe.db.get_value("Payment Term", term.get("payment_term"), "custom_end_of_month_day"),
+	)
+
+
+def compute_france_due_date(due_date_based_on, base_date, credit_days, end_of_month_day=0):
+	from frappe.utils import add_months
+
+	if due_date_based_on == "Day(s) after invoice date, end of month":
+		return get_last_day(add_days(base_date, cint(credit_days)))
+	elif due_date_based_on == "Day(s) after invoice date, end of month, day of next month":
+		end_of_month = getdate(get_last_day(add_days(base_date, cint(credit_days))))
+		day = cint(end_of_month_day or 1)
+		first_of_month = end_of_month.replace(day=1)
+		next_month_first = getdate(add_months(first_of_month, 1))
+		return next_month_first.replace(day=day)
+	return None
 
 
 def validate_due_date(posting_date, due_date, bill_date=None, template_name=None, doctype=None):

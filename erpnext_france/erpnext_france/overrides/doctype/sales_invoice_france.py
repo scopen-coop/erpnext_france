@@ -28,7 +28,7 @@ from erpnext_france.controllers.accounts_controller import (
 )
 
 
-class SalesInvoice(SalesInvoice):
+class SalesInvoiceFrance(SalesInvoice):
 	def on_submit(self):
 		if cint(self.is_pos) == 1 or self.is_return:  # Mo
 			super().on_submit()
@@ -340,7 +340,7 @@ class SalesInvoice(SalesInvoice):
 
 		# expense account gl entries
 		if cint(self.update_stock) and is_perpetual_inventory_enabled(self.company):
-			gl_entries += super(SalesInvoice, self).get_gl_entries()  # noqa: UP008
+			gl_entries += super(SalesInvoice, self).get_gl_entries()
 
 	def validate_due_date(self):
 		if self.get("is_pos"):
@@ -359,7 +359,21 @@ class SalesInvoice(SalesInvoice):
 				posting_date, self.due_date, None, self.payment_terms_template, self.doctype
 			)
 
-	def set_due_date(self):
-		due_dates = [d.due_date for d in self.get("payment_schedule") if d.due_date]
-		if due_dates:
-			self.due_date = max(due_dates)
+	def validate_invoice_documents_schedule(self):
+		if (
+			self.is_return
+			or (self.doctype == "Purchase Invoice" and self.is_paid)
+			or (self.doctype == "Sales Invoice" and self.is_pos)
+			or self.get("is_opening") == "Yes"
+		):
+			self.payment_terms_template = ""
+			self.payment_schedule = []
+		if self.is_return:
+			return
+		self.validate_payment_schedule_dates()
+		self.set_payment_schedule()
+		self.set_due_date()
+		if not self.get("ignore_default_payment_terms_template"):
+			self.validate_payment_schedule_amount()
+			self.validate_due_date()
+		self.validate_advance_entries()

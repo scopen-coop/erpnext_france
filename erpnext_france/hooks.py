@@ -66,8 +66,14 @@ fixtures = [
 					"Payment Entry-subscription",
 					"Payment Term-payment_terms_before_invoice",
 					"Payment Term-date_computed_based_on",
+					"Payment Term-custom_due_date_based_on_france",
+					"Payment Term-custom_end_of_month_day",
 					"Payment Terms Template-template_payment_terms_before_invoice",
 					"Payment Terms Template-payment_terms_before_invoice",
+					"Payment Terms Template Detail-custom_due_date_based_on_france",
+					"Payment Terms Template Detail-custom_end_of_month_day",
+					"Payment Schedule-custom_due_date_based_on_france",
+					"Payment Schedule-custom_end_of_month_day",
 					"Purchase Order-custom_do_not_calc_france_vat",
 					"Purchase Invoice-custom_do_not_calc_france_vat",
 					"Purchase Invoice Item-supplier_part_no",
@@ -252,6 +258,8 @@ doctype_js = {
 	"Customer Group": ["public/js/customer_group.js"],
 	"Supplier": ["public/js/party.js", "public/js/party_check_vat.js"],
 	"Sales Order": ["public/js/sales_order.js"],
+	"Payment Term": ["public/js/payment_term.js"],
+	"Payment Terms Template": ["public/js/payment_terms_template.js"],
 	"Purchase Invoice": ["public/js/purchase_invoice.js"],
 	"Sales Invoice": ["public/js/sales_invoice.js"],
 	"Quotation": ["public/js/quotation.js"],
@@ -454,9 +462,9 @@ regional_overrides = {
 
 override_doctype_class = {
 	"Payment Entry": "erpnext_france.erpnext_france.overrides.doctype.payment_entry_down_payment.PaymentEntryDownPayment",
-	"Sales Invoice": "erpnext_france.erpnext_france.overrides.doctype.sales_invoice.SalesInvoice",
+	"Sales Invoice": "erpnext_france.erpnext_france.overrides.doctype.sales_invoice_france.SalesInvoiceFrance",
 	"Payment Terms Template": "erpnext_france.erpnext_france.overrides.doctype.payment_terms_template.PaymentTermsTemplateWithTermsBeforeInvoice",
-	"Purchase Invoice": "erpnext_france.erpnext_france.overrides.doctype.purchase_invoice.PurchaseInvoice",
+	"Purchase Invoice": "erpnext_france.erpnext_france.overrides.doctype.purchase_invoice_france.PurchaseInvoiceFrance",
 }
 
 override_doctype_dashboards = {

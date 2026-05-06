@@ -4,7 +4,7 @@ from frappe import _
 from frappe.utils import getdate
 
 
-class PurchaseInvoice(PurchaseInvoice):
+class PurchaseInvoiceFrance(PurchaseInvoice):
 	def set_payment_schedule(self):
 		import erpnext.controllers.accounts_controller as ac
 
@@ -29,3 +29,22 @@ class PurchaseInvoice(PurchaseInvoice):
 			validate_due_date_france(
 				posting_date, self.due_date, self.bill_date, self.payment_terms_template, self.doctype
 			)
+
+	def validate_invoice_documents_schedule(self):
+		if (
+			self.is_return
+			or (self.doctype == "Purchase Invoice" and self.is_paid)
+			or (self.doctype == "Sales Invoice" and self.is_pos)
+			or self.get("is_opening") == "Yes"
+		):
+			self.payment_terms_template = ""
+			self.payment_schedule = []
+		if self.is_return:
+			return
+		self.validate_payment_schedule_dates()
+		self.set_payment_schedule()
+		self.set_due_date()
+		if not self.get("ignore_default_payment_terms_template"):
+			self.validate_payment_schedule_amount()
+			self.validate_due_date()
+		self.validate_advance_entries()
