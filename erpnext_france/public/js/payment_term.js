@@ -1,4 +1,4 @@
-// Copyright (c) 2025, Scopen and contributors
+// Copyright (c) 2026, Scopen and contributors
 // For license information, please see license.txt
 
 frappe.ui.form.on("Payment Term", {
@@ -16,8 +16,6 @@ frappe.ui.form.on("Payment Term", {
     } else {
       frm.set_value("due_date_based_on", "Day(s) after invoice date");
       frm.set_value("credit_days", 0);
-      // laisser due_date_based_on à une valeur valide pour ERPNext
-      // le calcul réel sera fait par notre code via custom_due_date_based_on_france
     }
   },
 });
