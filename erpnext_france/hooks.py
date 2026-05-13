@@ -159,6 +159,7 @@ fixtures = [
 					"Payment Term-credit_days-depends_on",
 					"Payment Term-credit_months-depends_on",
 					"Payment Term-main-field_order",
+					"Payment Term-due_date_based_on-hidden",
 					"Payment Terms Template-terms-depends_on",
 					"Payment Terms Template-terms-mandatory_depends_on",
 					"Payment Terms Template-terms-reqd",
