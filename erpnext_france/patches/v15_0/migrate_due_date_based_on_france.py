@@ -12,4 +12,3 @@ def execute():
             AND `due_date_based_on` != '')
     """
 	)
-	frappe.db.commit()
