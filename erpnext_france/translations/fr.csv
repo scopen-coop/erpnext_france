@@ -732,3 +732,5 @@ Skip using ERPNext France VAT calculation, Ne pas utiliser le calcul de TVA de E
 On or After,Depuis le (inclus)
 On or Before,Avant le (inclus)
 Update Costing and Billing,Mettre à jour les Coûts et Facturation
+"Day(s) after invoice date, end of month","Jour(s) après la date de facture, fin du mois",
+"Day(s) after invoice date, end of month, day of next month","Jour(s) après la date de facture, fin du mois, jours du mois suivant",

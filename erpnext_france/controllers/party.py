@@ -5,7 +5,7 @@ import erpnext
 import frappe
 from erpnext import get_company_currency
 from erpnext.accounts.party import (
-	get_due_date,
+	# get_due_date,
 	get_party_gle_account,
 	get_party_gle_currency,
 	set_address_details,
@@ -17,7 +17,7 @@ from erpnext.accounts.party import (
 from erpnext.controllers.accounts_controller import get_discount_date
 from erpnext.selling.doctype.quotation.quotation import make_sales_order
 from frappe import _, scrub
-from frappe.utils import add_days, cint, flt, getdate, nowdate
+from frappe.utils import add_days, cint, flt, get_last_day, getdate, nowdate
 
 
 @frappe.whitelist()
@@ -343,12 +343,29 @@ def get_payment_term_details(
 	term_details.payment_amount = flt(term.get("invoice_portion")) * flt(grand_total) / 100
 	term_details.base_payment_amount = flt(term.get("invoice_portion")) * flt(base_grand_total) / 100
 	term_details.outstanding = term_details.get("payment_amount")
+	term_details.base_outstanding = term_details.get("base_payment_amount")
 	term_details.mode_of_payment = term.get("mode_of_payment")
-
-	term_details.due_date = get_due_date_before_invoice(term, posting_date, delivery_date)
-
+	term_details.due_date_based_on = term.get("due_date_based_on")
+	term_details.credit_days = term.get("credit_days")
+	term_details.credit_months = term.get("credit_months")
 	term_details.discount_type = term.get("discount_type")
 	term_details.discount = term.get("discount")
+	term_details.discount_validity_based_on = term.get("discount_validity_based_on")
+	term_details.discount_validity = term.get("discount_validity")
+
+	if term.get("date_computed_based_on"):
+		# avant-facture : basé sur Document Date ou Delivery Date
+		term_details.due_date = get_due_date_before_invoice(term, posting_date, delivery_date)
+	else:
+		# facture standard : basé sur due_date_based_on (credit_days, etc.)
+		france_due_date = get_due_date_standard(term, posting_date)
+		if france_due_date:
+			term_details.due_date = france_due_date
+		else:
+			# Laisser ERPNext calculer via sa propre get_due_date
+			from erpnext.controllers.accounts_controller import get_due_date as erpnext_get_due_date
+
+			term_details.due_date = erpnext_get_due_date(term, posting_date)
 
 	if term.get("discount_validity_based_on"):
 		term_details.discount_date = get_discount_date(term, posting_date, delivery_date)
@@ -370,3 +387,123 @@ def get_due_date_before_invoice(term, document_date, delivery_date):
 			return delivery_date or document_date
 		due_date = add_days(delivery_date, term.get("credit_days"))
 	return due_date
+
+
+def get_due_date_from_template_france(template_name, posting_date, bill_date):
+	from erpnext.accounts.party import get_due_date_from_template as erpnext_get_due_date_from_template
+	from frappe.utils import add_days, add_months, get_last_day, getdate
+
+	base_date = getdate(bill_date or posting_date)
+	template = frappe.get_doc("Payment Terms Template", template_name)
+
+	for term in template.terms:
+		pt = frappe.get_doc("Payment Term", term.payment_term)
+
+		custom_option = pt.get("custom_due_date_based_on_france")
+
+		result = compute_france_due_date(
+			custom_option, base_date, term.credit_days, pt.get("custom_end_of_month_day")
+		)
+		print(
+			"get_due_date_from_template_france result",
+			result,
+			"custom_option",
+			custom_option,
+			"base_date",
+			base_date,
+			"credit_days",
+			term.credit_days,
+		)
+		if result:
+			return result
+
+	return erpnext_get_due_date_from_template(template_name, posting_date, bill_date)
+
+
+@frappe.whitelist()
+def get_due_date(posting_date, party_type, party, company=None, bill_date=None, template_name=None):
+	from frappe.utils import getdate
+
+	due_date = None
+	if (bill_date or posting_date) and party:
+		due_date = bill_date or posting_date
+		if not template_name:
+			template_name = get_payment_terms_template(party, party_type, company)
+		if template_name:
+			due_date = get_due_date_from_template_france(template_name, posting_date, bill_date).strftime(
+				"%Y-%m-%d"
+			)
+		else:
+			if party_type == "Supplier":
+				supplier_group = frappe.get_cached_value(party_type, party, "supplier_group")
+				template_name = frappe.get_cached_value("Supplier Group", supplier_group, "payment_terms")
+				if template_name:
+					due_date = get_due_date_from_template_france(
+						template_name, posting_date, bill_date
+					).strftime("%Y-%m-%d")
+	if getdate(due_date) < getdate(posting_date):
+		due_date = posting_date
+	return due_date
+
+
+def get_due_date_standard(term, posting_date):
+	from frappe.utils import add_months, cint
+
+	date = posting_date
+
+	custom_option = None
+	if term.get("payment_term"):
+		custom_option = frappe.db.get_value(
+			"Payment Term", term.get("payment_term"), "custom_due_date_based_on_france"
+		)
+
+	due_date_based_on = custom_option or term.get("due_date_based_on")
+
+	return compute_france_due_date(
+		due_date_based_on,
+		date,
+		term.get("credit_days"),
+		frappe.db.get_value("Payment Term", term.get("payment_term"), "custom_end_of_month_day"),
+	)
+
+
+def compute_france_due_date(due_date_based_on, base_date, credit_days, end_of_month_day=0):
+	from frappe.utils import add_months
+
+	if due_date_based_on == "Day(s) after invoice date, end of month":
+		return get_last_day(add_days(base_date, cint(credit_days)))
+	elif due_date_based_on == "Day(s) after invoice date, end of month, day of next month":
+		end_of_month = getdate(get_last_day(add_days(base_date, cint(credit_days))))
+		day = cint(end_of_month_day or 1)
+		first_of_month = end_of_month.replace(day=1)
+		next_month_first = getdate(add_months(first_of_month, 1))
+		return next_month_first.replace(day=day)
+	return None
+
+
+def validate_due_date(posting_date, due_date, bill_date=None, template_name=None, doctype=None):
+	if getdate(due_date) < getdate(posting_date):
+		frappe.throw(_("Due Date cannot be before Posting / Supplier Invoice Date"))
+	else:
+		validate_due_date_with_template_france(posting_date, due_date, bill_date, template_name, doctype)
+
+
+def validate_due_date_with_template_france(posting_date, due_date, bill_date, template_name, doctype=None):
+	if not template_name:
+		return
+	default_due_date = get_due_date_from_template_france(template_name, posting_date, bill_date)
+	if not default_due_date:
+		return
+	default_due_date = default_due_date.strftime("%Y-%m-%d")
+	if default_due_date != posting_date and getdate(due_date) > getdate(default_due_date):
+		from frappe.utils import date_diff, formatdate
+
+		if frappe.db.get_single_value("Accounts Settings", "credit_controller") in frappe.get_roles():
+			party_type = "supplier" if doctype == "Purchase Invoice" else "customer"
+			frappe.msgprint(
+				_("Note: Due Date exceeds allowed {0} credit days by {1} day(s)").format(
+					party_type, date_diff(due_date, default_due_date)
+				)
+			)
+		else:
+			frappe.throw(_("Due / Reference Date cannot be after {0}").format(formatdate(default_due_date)))

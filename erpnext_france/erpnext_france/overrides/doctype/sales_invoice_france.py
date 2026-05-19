@@ -28,7 +28,7 @@ from erpnext_france.controllers.accounts_controller import (
 )
 
 
-class SalesInvoiceDownPayment(SalesInvoice):
+class SalesInvoiceFrance(SalesInvoice):
 	def on_submit(self):
 		if cint(self.is_pos) == 1 or self.is_return:  # Mo
 			super().on_submit()
@@ -99,6 +99,21 @@ class SalesInvoiceDownPayment(SalesInvoice):
 			self.apply_loyalty_points()
 
 		self.process_common_party_accounting()
+
+	def _validate(self):
+		super()._validate()
+
+	def set_payment_schedule(self):
+		import erpnext.controllers.accounts_controller as ac
+
+		from erpnext_france.controllers.party import get_payment_term_details as our_get_payment_term_details
+
+		original = ac.get_payment_term_details
+		ac.get_payment_term_details = our_get_payment_term_details
+		try:
+			super().set_payment_schedule()
+		finally:
+			ac.get_payment_term_details = original
 
 	def validate(self):
 		super().validate()
@@ -326,3 +341,39 @@ class SalesInvoiceDownPayment(SalesInvoice):
 		# expense account gl entries
 		if cint(self.update_stock) and is_perpetual_inventory_enabled(self.company):
 			gl_entries += super(SalesInvoice, self).get_gl_entries()
+
+	def validate_due_date(self):
+		if self.get("is_pos"):
+			return
+		from frappe.utils import getdate
+
+		from erpnext_france.controllers.party import validate_due_date as validate_due_date_france
+
+		posting_date = self.posting_date
+		if frappe.flags.in_import and getdate(self.due_date) < getdate(posting_date):
+			self.due_date = posting_date
+		elif self.doctype == "Sales Invoice":
+			if not self.due_date:
+				frappe.throw(_("Due Date is mandatory"))
+			validate_due_date_france(
+				posting_date, self.due_date, None, self.payment_terms_template, self.doctype
+			)
+
+	def validate_invoice_documents_schedule(self):
+		if (
+			self.is_return
+			or (self.doctype == "Purchase Invoice" and self.is_paid)
+			or (self.doctype == "Sales Invoice" and self.is_pos)
+			or self.get("is_opening") == "Yes"
+		):
+			self.payment_terms_template = ""
+			self.payment_schedule = []
+		if self.is_return:
+			return
+		self.validate_payment_schedule_dates()
+		self.set_payment_schedule()
+		self.set_due_date()
+		if not self.get("ignore_default_payment_terms_template"):
+			self.validate_payment_schedule_amount()
+			self.validate_due_date()
+		self.validate_advance_entries()
