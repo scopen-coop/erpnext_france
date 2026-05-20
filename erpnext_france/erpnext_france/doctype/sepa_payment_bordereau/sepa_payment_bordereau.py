@@ -19,7 +19,22 @@ class SEPAPaymentBordereau(Document):
 
 	def validate(self):
 		self.calculate_total()
+		self.validate_company_bank_account()
 		self.validate_lines()
+
+	def validate_company_bank_account(self):
+		"""Bank account on the bordereau must be a company account, not a customer/supplier one."""
+		if not self.bank_account or not self.company:
+			return
+
+		from erpnext_france.regional.france.sepa_utils import is_company_bank_account
+
+		if not is_company_bank_account(self.bank_account, self.company):
+			frappe.throw(
+				_("Bank Account {0} is not a company bank account. Please select your company's bank account.").format(
+					self.bank_account
+				)
+			)
 
 	def on_update(self):
 		status_changed_lines = False
@@ -82,6 +97,8 @@ class SEPAPaymentBordereau(Document):
 		# Check Company bank account
 		if not self.bank_account:
 			frappe.throw(_("Please select a bank account for the bordereau"))
+
+		self.validate_company_bank_account()
 
 		bank_account = frappe.get_doc("Bank Account", self.bank_account)
 		if not bank_account.iban:
