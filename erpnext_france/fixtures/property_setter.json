@@ -1047,7 +1047,7 @@
   "doctype_or_field": "DocField",
   "field_name": "due_date_based_on",
   "is_system_generated": 0,
-  "modified": "2026-05-13 10:16:19.997341",
+  "modified": "2026-05-20 10:16:19.997341",
   "module": null,
   "name": "Payment Term-due_date_based_on-hidden",
   "property": "hidden",
