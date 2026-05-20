@@ -23,7 +23,7 @@ Purchase demande,Demande d'achat
 Set Export Date,Enregistrer la date d'export
 Included already exported document,Inclure dans l'export les enregistrements déja exporté dans l'export
 Accounting Export Date,Date d'export en comptabilité
-Set empty to not update "Exported Date" on document,Mettre à vide pour ne pas mettre de date d'export sur les documents
+Set empty to not update Exported Date on document,Mettre à vide pour ne pas mettre de date d'export sur les documents
 Discount Supplier Account,Compte d'escompte et remise fournisseur
 Export Sales Invoice and Purchase Invoice,Export des facture vents et achats
 Select Payment Term,Sélectionnez un terme de paiement à facturer.
