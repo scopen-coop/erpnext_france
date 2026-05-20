@@ -109,6 +109,54 @@ def validate_invoice_for_sepa(invoice, invoice_type):
 			frappe.throw(_("Supplier {0} does not have a default bank account").format(invoice.supplier))
 
 
+def is_company_bank_account(bank_account, company):
+	"""Return whether the Bank Account belongs to the company itself."""
+	return bool(
+		bank_account
+		and frappe.db.exists(
+			"Bank Account",
+			{
+				"name": bank_account,
+				"company": company,
+				"is_company_account": 1
+			}
+		)
+	)
+
+
+def get_default_company_bank_account(company):
+	"""Get the default company-owned Bank Account for a company."""
+	company_default_account = frappe.db.get_value("Company", company, "default_bank_account")
+	default_bank_account = None
+
+	if company_default_account:
+		default_bank_account = frappe.db.get_value(
+			"Bank Account",
+			{
+				"company": company,
+				"account": company_default_account,
+				"is_company_account": 1
+			},
+			"name"
+		)
+
+	if not default_bank_account:
+		default_bank_account = frappe.db.get_value(
+			"Bank Account",
+			{
+				"company": company,
+				"is_default": 1,
+				"is_company_account": 1
+			},
+			"name"
+		)
+
+	if not default_bank_account:
+		frappe.throw(_("No default company bank account found for company {0}").format(company))
+
+	return default_bank_account
+
+
 def get_or_create_bordereau(payment_type, company):
 	"""Get existing draft bordereau or create new one"""
 
@@ -124,35 +172,16 @@ def get_or_create_bordereau(payment_type, company):
 	)
 
 	if existing:
-		return frappe.get_doc("SEPA Payment Bordereau", existing)
+		bordereau = frappe.get_doc("SEPA Payment Bordereau", existing)
+		if not is_company_bank_account(bordereau.bank_account, company):
+			bordereau.bank_account = get_default_company_bank_account(company)
+			bordereau.save()
+		return bordereau
 
 	# Create new bordereau
 	from datetime import datetime, timedelta
 
-	# Get default company bank account (prefer company's default bank account GL)
-	company_default_account = frappe.db.get_value("Company", company, "default_bank_account")
-	default_bank_account = None
-	if company_default_account:
-		default_bank_account = frappe.db.get_value(
-			"Bank Account",
-			{
-				"company": company,
-				"account": company_default_account
-			},
-			"name"
-		)
-	if not default_bank_account:
-		default_bank_account = frappe.db.get_value(
-			"Bank Account",
-			{
-				"company": company,
-				"is_default": 1
-			},
-			"name"
-		)
-
-	if not default_bank_account:
-		frappe.throw(_("No default bank account found for company {0}").format(company))
+	default_bank_account = get_default_company_bank_account(company)
 
 	bordereau = frappe.get_doc({
 		"doctype": "SEPA Payment Bordereau",
