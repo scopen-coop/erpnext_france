@@ -1344,7 +1344,7 @@
   "length": 0,
   "link_filters": null,
   "mandatory_depends_on": null,
-  "modified": "2026-05-04 16:27:32.789412",
+  "modified": "2026-05-20 12:27:32.789412",
   "module": null,
   "name": "Payment Term-custom_due_date_based_on_france",
   "no_copy": 0,
