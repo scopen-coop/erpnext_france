@@ -43,19 +43,21 @@ def fetch_company_from_sirene(data):
 			"Content-Type": "application/x-www-form-urlencoded",
 		}
 
-		response = http_post(myUrl, headers=headers, data={"q": filters, "nombre": nb_results})
+		response, response_headers = http_post(
+			myUrl, headers=headers, data={"q": filters, "nombre": nb_results}
+		)
 
 	except Exception as e:
 		return {"error": _("Error during companies data recuperation:{0}").format(e)}
 
-	return {"message": response}
+	return {"message": response}, response_headers
 
 
 def http_post(url, headers=None, body=None, data=None):
 	try:
-		response = requests.post(url=url, json=body, data=data, headers=headers)
-
-		response = json.loads(response.content)
+		raw_response = requests.post(url=url, json=body, data=data, headers=headers, timeout=10)
+		response_headers = dict(raw_response.headers)
+		response = json.loads(raw_response.content)
 		if "fault" in response:
 			frappe.throw(str(response["fault"]["description"]))
 
@@ -74,7 +76,7 @@ def http_post(url, headers=None, body=None, data=None):
 	except Exception as e:
 		frappe.throw(str(type(e).__name__))
 
-	return response
+	return response, response_headers
 
 
 def get_filters(search_values):
@@ -216,6 +218,14 @@ def execute_sirene_check():
 
 		for idx, element in enumerate(elements, 1):
 			try:
+				print(
+					f"\rProcessing {idx}/{len(elements)} {doctype['type']} - {element[doctype['field_name']]}".ljust(
+						120
+					),
+					end="",
+					flush=True,
+				)
+
 				results["processed_" + doctype["type"].lower()] += 1
 
 				siret = element.get("siret")
@@ -239,12 +249,37 @@ def execute_sirene_check():
 					"nb_results": 1,
 				}
 
-				response = fetch_company_from_sirene(json.dumps(data_to_post))
-				entity = response["message"]["etablissements"][0]
+				response, headers = fetch_company_from_sirene(json.dumps(data_to_post))
 
-				if (results["processed_customer"] + results["processed_customer"]) % 25 == 0:
-					print("Pause")
-					time.sleep(5)
+				remaining = int(headers.get("X-Rate-Limit-Remaining", 30))
+				reset_ts = int(headers.get("X-Rate-Limit-Reset", 0))
+
+				if remaining <= 2:
+					import time as time_module
+
+					wait_seconds = max(1, (reset_ts / 1000) - time_module.time()) + 1
+					print(
+						f"\rRate limit atteint, pause {int(wait_seconds)}s... {idx}/{len(elements)} {doctype['type']} - {element[doctype['field_name']]}".ljust(
+							120
+						),
+						end="",
+						flush=True,
+					)
+					time.sleep(wait_seconds)
+
+				if "error" in response:
+					print(f"API raw response: {response}")
+					results["errors_" + doctype["type"].lower()] += 1
+					results["logs"].append(f"API Error: {response['error']}")
+					continue
+
+				etablissements = response.get("message", {}).get("etablissements", [])
+				if not etablissements:
+					results["skipped"] += 1
+					results["logs"].append("No etablissements in API response")
+					continue
+
+				entity = etablissements[0]
 
 				if entity:
 					logger.info(f"{doctype['type']} {element[doctype['field_name']]} - Data found")
@@ -291,11 +326,14 @@ def execute_sirene_check():
 
 	results["logs"].append("\nSUMMARY")
 	results["logs"].append("=" * 50)
-	results["logs"].append(f"Processed: {results['processed_customer']}")
-	results["logs"].append(f"Processed: {results['processed_supplier']}")
+	results["logs"].append(f"Customers Processed: {results['processed_customer']}")
+	results["logs"].append(f"Suppliers Processed: {results['processed_supplier']}")
+	results["logs"].append(
+		f"Total Processed: {results['processed_customer'] + results['processed_supplier']}"
+	)
 	results["logs"].append(f"Skipped: {results['skipped']}")
-	results["logs"].append(f"Errors: {results['errors_customer']}")
-	results["logs"].append(f"Errors: {results['errors_supplier']}")
+	results["logs"].append(f"Customers Errors: {results['errors_customer']}")
+	results["logs"].append(f"Suppliers Errors: {results['errors_supplier']}")
 
 	total_updates = sum(len(updates) for updates in results["updates"].values())
 	results["logs"].append(f"Updates detected: {total_updates}")
