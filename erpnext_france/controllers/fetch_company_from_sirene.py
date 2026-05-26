@@ -50,7 +50,7 @@ def fetch_company_from_sirene(data):
 	except Exception as e:
 		return {"error": _("Error during companies data recuperation:{0}").format(e)}
 
-	return {"message": response}, response_headers
+	return {"message": response, "headers": response_headers}
 
 
 def http_post(url, headers=None, body=None, data=None):
@@ -249,10 +249,11 @@ def execute_sirene_check():
 					"nb_results": 1,
 				}
 
-				response, headers = fetch_company_from_sirene(json.dumps(data_to_post))
-
+				result = fetch_company_from_sirene(json.dumps(data_to_post))
+				headers = result.get("headers", {})
 				remaining = int(headers.get("X-Rate-Limit-Remaining", 30))
 				reset_ts = int(headers.get("X-Rate-Limit-Reset", 0))
+				response = result.get("message", result)
 
 				if remaining <= 2:
 					import time as time_module
