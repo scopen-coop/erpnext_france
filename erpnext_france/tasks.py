@@ -14,7 +14,6 @@ def check_sirene_update():
 	"""
 	Création du Scheduled Job Log
 	"""
-	job_log = create_job_log("check_sirene_update")
 
 	try:
 		results = execute_sirene_check()
@@ -29,15 +28,9 @@ def check_sirene_update():
 				subject=MAIL_SUBJECT,
 			)
 
-		log_message = "\n".join(results["logs"])
-
-		complete_job_log(job_log, status="Complete", details=log_message)
 		print("Task successfully completed")
 
-	except Exception as e:
-		error_details = f"Fatal Error: {e!s}\n\n{frappe.get_traceback()}"
-		complete_job_log(job_log, status="Failed", details=error_details)
-
+	except Exception:
 		frappe.log_error(frappe.get_traceback(), "SIREN Update Check - Task Failed")
 		print("SIREN Update Check - Task Failed")
 
