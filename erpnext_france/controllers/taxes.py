@@ -4,6 +4,7 @@
 import json
 
 import frappe
+from erpnext.controllers.accounts_controller import get_taxes_and_charges
 from erpnext.controllers.taxes_and_totals import get_itemised_taxable_amount
 from erpnext.stock.get_item_details import get_conversion_factor
 from frappe import _
@@ -14,6 +15,15 @@ from frappe.utils import flt
 def before_save(doc, method):
 	# Verif before update
 	if not doc.get("custom_do_not_calc_france_vat"):
+		if doc.get("taxes_and_charges") and not doc.get("taxes"):
+			is_sales_doc = doc.doctype in ("Quotation", "Sales Invoice", "Sales Order")
+			template_doctype = (
+				"Sales Taxes and Charges Template" if is_sales_doc else "Purchase Taxes and Charges Template"
+			)
+			taxes = get_taxes_and_charges(template_doctype, doc.taxes_and_charges)
+			for tax in taxes:
+				doc.append("taxes", tax)
+
 		update_ecopart_taxes_for_item(doc)
 
 
@@ -46,7 +56,7 @@ def update_ecopart_taxes_for_item(doc):
 	) = create_ecopart_taxes_map(doc, is_sales_doc, is_down_payment_invoice)
 
 	# Remove all Taxes
-	delete_taxes(doc)
+	delete_ecopart_taxes(doc)
 
 	for vat_account in used_vat_accounts:
 		if vat_account:
@@ -59,7 +69,6 @@ def update_ecopart_taxes_for_item(doc):
 				vat_account,
 				is_sales_doc,
 			)
-			create_update_vat_taxes(doc, item_wise_tax_detail_standard_tva, vat_account, is_sales_doc)
 		else:
 			create_update_ecopart_without_vat_taxes(
 				doc, item_wise_tax_detail_before_tva, taxes_map, used_ecopart_accounts, is_sales_doc
@@ -73,25 +82,20 @@ def update_ecopart_taxes_for_item(doc):
 
 	reorder_tax(doc)
 
-	taxes_rate = [tax.rate for tax in doc.taxes]
-
-	from erpnext.controllers.taxes_and_totals import calculate_taxes_and_totals
-
-	calculate_taxes_and_totals(doc)
-
-	# Because tax.rate is set to None in tax and totals if tax.charge_type is Actual
-	for i, tax in enumerate(doc.taxes):
-		tax.rate = taxes_rate[i]
-
 
 def reorder_tax(doc):
 	# Étape 1 : Séparer les taxes selon leur type
-	regular_taxes = [tax for tax in doc.taxes if tax.charge_type == "Actual" and not tax.ecotax]
+	regular_taxes = [
+		tax
+		for tax in doc.taxes
+		if tax.charge_type not in ["Actual"] and not tax.get("description", "").startswith(_("Eco Part VAT"))
+	]
 	ecopart_taxes = [tax for tax in doc.taxes if tax.charge_type == "Actual" and tax.ecotax]
-	dependent_taxes = [tax for tax in doc.taxes if tax.charge_type not in ["Actual"]]
+	vat_on_ecopart = [tax for tax in doc.taxes if tax.get("description", "").startswith(_("Eco Part VAT"))]
+	other_actual = [tax for tax in doc.taxes if tax.charge_type == "Actual" and not tax.ecotax]
 
 	# Étape 2 : Réorganiser les taxes dans le bon ordre
-	reordered_taxes = regular_taxes + ecopart_taxes + dependent_taxes
+	reordered_taxes = other_actual + regular_taxes + ecopart_taxes + vat_on_ecopart
 	# Étape 3 : Mémoriser les anciens idx avant modification
 	old_idx_map = {id(tax): tax.idx for tax in reordered_taxes}
 
@@ -426,56 +430,6 @@ def create_update_ecopart_with_vat_taxes(
 			)
 
 
-def create_update_vat_taxes(doc, item_wise_tax_detail_standard_tva, vat_account, is_sales_doc):
-	vat_tax = None
-	for tax in doc.taxes:
-		if (
-			tax.charge_type == "Actual"
-			and tax.account_head == vat_account
-			and not tax.ecotax
-			and vat_account in item_wise_tax_detail_standard_tva
-		):
-			vat_tax = tax
-
-	item_tax_wise = item_wise_tax_detail_standard_tva[vat_account]
-	taxe_description = get_taxe_description(vat_account)
-
-	tax_amount = 0
-	tax_rate = 0
-	# Update with new values
-	for item_code_vat_rate_amount in item_tax_wise.items():
-		vat_rate_amount = item_code_vat_rate_amount[1]
-		tax_rate = vat_rate_amount[0]
-		tax_amount += vat_rate_amount[1]
-
-	if vat_tax:
-		vat_tax.tax_amount = tax_amount
-		vat_tax.item_wise_tax_detail = json.dumps(item_tax_wise)
-		vat_tax.dont_recompute_tax = True
-	else:
-		company = frappe.get_cached_doc("Company", doc.company)
-		vat_tax = frappe.get_doc(
-			{
-				"doctype": "Sales Taxes and Charges" if is_sales_doc else "Purchase Taxes and Charges",
-				"charge_type": "Actual",
-				"cost_center": company.cost_center,
-				"description": taxe_description,
-				"account_head": vat_account,
-				"parent": doc.name,
-				"parenttype": doc.doctype,
-				"tax_amount": tax_amount,
-				"rate": tax_rate,
-				"item_wise_tax_detail": json.dumps(item_tax_wise),
-				"dont_recompute_tax": True,
-			}
-		)
-		if not is_sales_doc:
-			vat_tax.add_deduct_tax = "Add"
-			vat_tax.category = "Total"
-
-		doc.append("taxes", vat_tax)
-
-
 def create_update_autoliquidation_taxes(doc, item_wise_tax_detail_standard_tva, vat_account, is_sales_doc):
 	vat_tax = None
 	corresponding_vat_tax = None
@@ -561,7 +515,6 @@ def create_update_ecotax(
 		ecopart_tax.ecotax_tva_linked = json.dumps(existing_ecotax_tva_account)
 		ecopart_tax.tax_amount += total_tax
 		ecopart_tax.item_wise_tax_detail = json.dumps(existing_tax_detail)
-		ecopart_tax.dont_recompute_tax = True
 	else:
 		company = frappe.get_cached_doc("Company", doc.company)
 
@@ -634,7 +587,7 @@ def create_update_vat_on_ecotax(
 				"cost_center": company.cost_center,
 				"description": _("Eco Part VAT: {0}").format(taxe_description),
 				"account_head": vat_account,
-				"tax_amount": 0,
+				"tax_amount": flt(total_tax * tax_rate / 100),
 				"row_id": ecopart_tax_idx,
 				"rate": tax_rate,
 				"item_wise_tax_detail": json.dumps(item_tax_wise),
@@ -650,17 +603,18 @@ def create_update_vat_on_ecotax(
 		doc.append("taxes", ecopart_vat_tax)
 
 
-def delete_taxes(doc):
-	to_remove = []
-	for taxe in doc.taxes:
-		to_remove.append(taxe)
-
-	# Ensure the removal actually happens
-	for taxe in to_remove:
-		doc.taxes.remove(taxe)
-
-	if not doc.is_new():
-		doc.db_update()
+def delete_ecopart_taxes(doc):
+	to_remove = [
+		tax
+		for tax in doc.taxes
+		if tax.get("ecotax")
+		or (
+			tax.charge_type == "On Previous Row Amount"
+			and tax.get("description", "").startswith(_("Eco Part VAT"))
+		)
+	]
+	for tax in to_remove:
+		doc.taxes.remove(tax)
 
 
 def update_itemised_tax_data(doc):
