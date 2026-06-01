@@ -26,6 +26,10 @@ def before_save(doc, method):
 
 		update_ecopart_taxes_for_item(doc)
 
+		from erpnext.controllers.taxes_and_totals import calculate_taxes_and_totals
+
+		calculate_taxes_and_totals(doc)
+
 
 @frappe.whitelist()
 def recompute_ecopart_taxes(docname, doctype="Quotation"):
