@@ -372,6 +372,14 @@ class SalesInvoiceFrance(SalesInvoice):
 			return
 		self.validate_payment_schedule_dates()
 		self.set_payment_schedule()
+
+		# PATCH: BUG ERPNEXT
+		from frappe.utils import getdate
+
+		for ps in self.get("payment_schedule"):
+			if ps.due_date and isinstance(ps.due_date, str):
+				ps.due_date = getdate(ps.due_date)
+
 		self.set_due_date()
 		if not self.get("ignore_default_payment_terms_template"):
 			self.validate_payment_schedule_amount()
