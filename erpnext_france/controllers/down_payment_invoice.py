@@ -215,31 +215,25 @@ def set_paid_amount_of_linked_invoice(doc, method):
 	if doc.payment_type != "Receive":
 		return
 
-	sales_invoice = frappe.get_cached_doc("Sales Invoice", references[0].get("reference_name"))
+	sales_invoice = frappe.get_doc("Sales Invoice", references[0].get("reference_name"))
 
 	if sales_invoice.get("is_down_payment_invoice") == 1:
 		return
 
 	paid_amount = 0.0
-	base_paid_amount = 0.0
 	for data in sales_invoice.payments:
-		data.base_amount = flt(
-			data.amount * sales_invoice.conversion_rate, sales_invoice.precision("base_paid_amount")
-		)
 		paid_amount += data.amount
-		base_paid_amount += data.base_amount
 
 	for advance in sales_invoice.get("advances"):
 		if advance.reference_type == "Payment Entry":
 			paid_amount += advance.advance_amount
-			base_paid_amount += advance.advance_amount
 
-	sales_invoice.outstanding_amount = flt(
+	outstanding_amount = flt(
 		sales_invoice.rounded_total - (paid_amount + doc.paid_amount),
 		sales_invoice.precision("outstanding_amount"),
 	)
 
-	if flt(sales_invoice.outstanding_amount) == 0:
-		sales_invoice.set_status(update=True)
+	sales_invoice.db_set("outstanding_amount", outstanding_amount)
 
-	sales_invoice.save(ignore_permissions=True)
+	if flt(outstanding_amount) == 0:
+		sales_invoice.set_status(update=True)
