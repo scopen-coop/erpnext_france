@@ -454,7 +454,7 @@ def create_sepa_payment_entry(bordereau, line, gl_account):
 	return payment_entry.name
 
 
-def reconcile_sepa_line_on_status_change(bordereau, line, new_status):
+def reconcile_sepa_line_on_status_change(bordereau, line, new_status, silent=False):
 	if getattr(line, "_reconciled_status_change", False):
 		return
 
@@ -464,21 +464,23 @@ def reconcile_sepa_line_on_status_change(bordereau, line, new_status):
 
 	if new_status == "Accepted":
 		pe_name = create_sepa_payment_entry(bordereau, line, gl_account)
-		frappe.msgprint(_("Payment Entry {0} created for SEPA line {1}").format(pe_name, line.name))
-		
+		if not silent:
+			frappe.msgprint(_("Payment Entry {0} created for SEPA line {1}").format(pe_name, line.name))
+
 		# Création de la transaction bancaire associée
 		try:
 			bt_name = create_sepa_bank_transaction(pe_name, bordereau, line)
-			if bt_name:
+			if bt_name and not silent:
 				frappe.msgprint(_("Bank Transaction {0} created for SEPA line {1}").format(bt_name, line.name))
-		except Exception as e:
+		except Exception:
 			frappe.log_error(title=_("SEPA Bank Transaction Creation Error"), message=frappe.get_traceback())
 
 	elif new_status == "Rejected":
 		pe_name = create_sepa_payment_entry(bordereau, line, gl_account)
 		pe_doc = frappe.get_doc("Payment Entry", pe_name)
 		pe_doc.cancel()
-		frappe.msgprint(_("Payment Entry {0} created and cancelled for rejected SEPA line {1} (+ and -) ").format(pe_name, line.name))
+		if not silent:
+			frappe.msgprint(_("Payment Entry {0} created and cancelled for rejected SEPA line {1} (+ and -) ").format(pe_name, line.name))
 
 	line._reconciled_status_change = True
 

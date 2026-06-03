@@ -422,3 +422,66 @@ class SEPAPaymentBordereau(Document):
 		self.status = "Sent"
 		self.save()
 		frappe.msgprint(_("Bordereau marked as sent"))
+
+	@frappe.whitelist()
+	def accept_selected_lines(self, line_names):
+		"""Accept selected pending lines and create payment entries."""
+		import json
+
+		if isinstance(line_names, str):
+			line_names = json.loads(line_names)
+
+		if not line_names:
+			frappe.throw(_("Please select at least one line"))
+
+		from erpnext_france.regional.france.sepa_utils import (
+			reconcile_sepa_line_on_status_change,
+			update_bordereau_status,
+		)
+
+		line_names_set = set(line_names)
+		results = {"success": [], "failed": [], "skipped": []}
+
+		for line in self.lines:
+			if line.name not in line_names_set:
+				continue
+
+			if line.status == "Accepted":
+				results["skipped"].append({
+					"name": line.name,
+					"invoice": line.invoice,
+					"reason": _("Already accepted"),
+				})
+				continue
+
+			if line.status != "Pending":
+				results["skipped"].append({
+					"name": line.name,
+					"invoice": line.invoice,
+					"reason": _("Line is not pending"),
+				})
+				continue
+
+			savepoint = f"sepa_accept_{line.name}"
+			try:
+				frappe.db.savepoint(savepoint)
+				reconcile_sepa_line_on_status_change(self, line, "Accepted", silent=True)
+				frappe.db.set_value(
+					"SEPA Payment Bordereau Line",
+					line.name,
+					"status",
+					"Accepted",
+					update_modified=False,
+				)
+				results["success"].append({"name": line.name, "invoice": line.invoice})
+			except Exception as e:
+				frappe.db.rollback(save_point=savepoint)
+				results["failed"].append({
+					"name": line.name,
+					"invoice": line.invoice,
+					"reason": str(e),
+				})
+
+		update_bordereau_status(self.name)
+
+		return results

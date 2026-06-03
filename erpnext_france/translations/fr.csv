@@ -686,6 +686,14 @@ Partial Rejections,Rejets partiels
 Closed,Clôturé
 Pending,En attente
 Accepted,Accepté
+Accept Selection,Accepter la sélection
+Please select at least one pending line,Veuillez sélectionner au moins une ligne en attente
+Accept {0} selected line(s)?,Accepter {0} ligne(s) sélectionnée(s) ?
+Accepting selected lines...,Acceptation des lignes sélectionnées...
+Already accepted,Déjà acceptée
+Line is not pending,La ligne n'est pas en attente
+Skipped,Ignorées
+Failed,Échecs
 Rejected,Rejeté
 Active,Actif
 Cancelled,Annulé

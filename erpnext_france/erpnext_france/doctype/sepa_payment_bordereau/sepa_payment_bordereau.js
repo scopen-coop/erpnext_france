@@ -117,6 +117,16 @@ frappe.ui.form.on('SEPA Payment Bordereau', {
 			});
 		}
 
+		// Accept selected pending lines after bank execution
+		if (['Sent', 'Partial Rejections', 'Exported'].includes(frm.doc.status)) {
+			const has_pending_lines = (frm.doc.lines || []).some((line) => line.status === 'Pending');
+			if (has_pending_lines) {
+				frm.add_custom_button(__('Accept Selection'), function() {
+					accept_selected_lines(frm);
+				}, __('Actions'));
+			}
+		}
+
 		// Set color indicator based on status
 		if (frm.doc.status) {
 			var color_map = {
@@ -163,6 +173,73 @@ frappe.ui.form.on('SEPA Payment Bordereau', {
 		});
 	}
 });
+
+function get_selected_grid_rows(frm, fieldname) {
+	const grid = frm.fields_dict[fieldname].grid;
+	if (grid.get_selected_children) {
+		return grid.get_selected_children();
+	}
+
+	return (grid.grid_rows || [])
+		.filter((row) => {
+			const $checkbox = row.row_check.find('input[type="checkbox"]');
+			return $checkbox.hasClass('grid-row-check') && $checkbox.prop('checked');
+		})
+		.map((row) => row.doc);
+}
+
+function accept_selected_lines(frm) {
+	const selected = get_selected_grid_rows(frm, 'lines');
+	const pending = selected.filter((line) => line.status === 'Pending');
+
+	if (!pending.length) {
+		frappe.msgprint(__('Please select at least one pending line'));
+		return;
+	}
+
+	frappe.confirm(
+		__('Accept {0} selected line(s)?', [pending.length]),
+		() => {
+			frappe.call({
+				method: 'accept_selected_lines',
+				doc: frm.doc,
+				args: {
+					line_names: pending.map((line) => line.name),
+				},
+				freeze: true,
+				freeze_message: __('Accepting selected lines...'),
+				callback: function(r) {
+					if (r.message) {
+						show_accept_results(r.message);
+					}
+					frm.reload_doc();
+				},
+			});
+		}
+	);
+}
+
+function show_accept_results(results) {
+	const parts = [];
+
+	if (results.success.length) {
+		parts.push(`<b>${__('Accepted')}:</b> ${results.success.length}`);
+	}
+	if (results.skipped.length) {
+		parts.push(`<b>${__('Skipped')}:</b> ${results.skipped.length}`);
+	}
+	if (results.failed.length) {
+		parts.push(`<b>${__('Failed')}:</b> ${results.failed.length}`);
+		results.failed.forEach((row) => {
+			parts.push(`${row.invoice}: ${row.reason}`);
+		});
+	}
+
+	frappe.msgprint({
+		message: parts.join('<br>'),
+		indicator: results.failed.length ? 'orange' : 'green',
+	});
+}
 
 frappe.ui.form.on('SEPA Payment Bordereau Line', {
 	amount: function(frm) {
