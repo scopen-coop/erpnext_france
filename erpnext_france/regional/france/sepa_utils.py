@@ -234,6 +234,9 @@ def reconcile_bank_transaction_to_sepa_line(bank_transaction, end_to_end_id):
 		frappe.throw(_("Please link a GL Account to the Bank Account {0}").format(bordereau.bank_account))
 
 	# Create Payment Entry
+	remittance_info = get_sepa_line_remittance_info(sepa_line)
+	invoice_reference = get_sepa_line_invoice_reference(sepa_line)
+
 	payment_entry = frappe.get_doc({
 		"doctype": "Payment Entry",
 		"payment_type": "Receive" if bordereau.payment_type == "Debit" else "Pay",
@@ -241,8 +244,9 @@ def reconcile_bank_transaction_to_sepa_line(bank_transaction, end_to_end_id):
 		"party": sepa_line.party,
 		"paid_amount": abs(bank_txn.unallocated_amount),
 		"received_amount": abs(bank_txn.unallocated_amount),
-		"reference_no": end_to_end_id,
+		"reference_no": invoice_reference,
 		"reference_date": bank_txn.date,
+		"remarks": remittance_info,
 		"paid_from": gl_account if bordereau.payment_type == "Credit" else None,
 		"paid_to": gl_account if bordereau.payment_type == "Debit" else None
 	})
@@ -371,6 +375,37 @@ def add_invoices_to_sepa_bordereau_bulk(invoice_names, invoice_type="Sales Invoi
 	return results
 
 
+def get_sepa_line_invoice_reference(line):
+	"""Return the invoice reference shown to customers/suppliers on bank statements."""
+	invoice_type = getattr(line, "invoice_type", None) or (
+		"Sales Invoice" if line.party_type == "Customer" else "Purchase Invoice"
+	)
+
+	if invoice_type == "Purchase Invoice":
+		bill_no = frappe.db.get_value("Purchase Invoice", line.invoice, "bill_no")
+		if bill_no:
+			return bill_no
+
+	return line.invoice
+
+
+def get_sepa_line_remittance_info(line):
+	"""Build SEPA unstructured remittance text (max 140 chars)."""
+	invoice_ref = get_sepa_line_invoice_reference(line)
+	return _("Invoice {0}").format(invoice_ref)[:140]
+
+
+def add_pain_remittance_info(transaction_element, remittance_info):
+	"""Add RmtInf/Ustrd to a pain.008 or pain.001 transaction node."""
+	if not remittance_info:
+		return
+
+	from lxml import etree
+
+	rmt_inf = etree.SubElement(transaction_element, "RmtInf")
+	etree.SubElement(rmt_inf, "Ustrd").text = remittance_info
+
+
 def update_bordereau_status(bordereau_name):
 	"""Update bordereau status based on line statuses"""
 	bordereau = frappe.get_doc("SEPA Payment Bordereau", bordereau_name)
@@ -397,6 +432,9 @@ def update_bordereau_status(bordereau_name):
 
 
 def create_sepa_payment_entry(bordereau, line, gl_account):
+	remittance_info = get_sepa_line_remittance_info(line)
+	invoice_reference = get_sepa_line_invoice_reference(line)
+
 	payment_entry = frappe.get_doc({
 		"doctype": "Payment Entry",
 		"payment_type": "Receive" if bordereau.payment_type == "Debit" else "Pay",
@@ -404,8 +442,9 @@ def create_sepa_payment_entry(bordereau, line, gl_account):
 		"party": line.party,
 		"paid_amount": line.amount,
 		"received_amount": line.amount,
-		"reference_no": line.end_to_end_id or bordereau.name,
+		"reference_no": invoice_reference,
 		"reference_date": bordereau.execution_date,
+		"remarks": remittance_info,
 		"paid_from": gl_account if bordereau.payment_type == "Credit" else None,
 		"paid_to": gl_account if bordereau.payment_type == "Debit" else None
 	})
@@ -529,7 +568,7 @@ def create_sepa_bank_transaction(pe_name, bordereau, line):
 	bt.reference_number = doc.name
 	bt.party_type = doc.party_type
 	bt.party = doc.party
-	bt.description = doc.remarks or _("Transaction generated from SEPA bordereau {0}").format(bordereau.name)
+	bt.description = doc.remarks or get_sepa_line_remittance_info(line)
 
 	bt.insert(ignore_permissions=True)
 	

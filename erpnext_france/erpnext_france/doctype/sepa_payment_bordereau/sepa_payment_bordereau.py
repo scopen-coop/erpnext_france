@@ -176,6 +176,11 @@ class SEPAPaymentBordereau(Document):
 		"""Generate pain.008 XML for SEPA Direct Debit"""
 		from lxml import etree
 
+		from erpnext_france.regional.france.sepa_utils import (
+			add_pain_remittance_info,
+			get_sepa_line_remittance_info,
+		)
+
 		# Get bank account and company ICS
 		bank_account = frappe.get_doc("Bank Account", self.bank_account)
 		company_ics = frappe.db.get_value("Company", self.company, "sepa_ics")
@@ -282,11 +287,21 @@ class SEPAPaymentBordereau(Document):
 				dbtr_acct_id = etree.SubElement(dbtr_acct, "Id")
 				etree.SubElement(dbtr_acct_id, "IBAN").text = mandate_bank_account.iban.replace(" ", "")
 
+				add_pain_remittance_info(
+					drct_dbt_tx_inf,
+					get_sepa_line_remittance_info(line),
+				)
+
 		return etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8")
 
 	def generate_pain_001(self):
 		"""Generate pain.001 XML for SEPA Credit Transfer"""
 		from lxml import etree
+
+		from erpnext_france.regional.france.sepa_utils import (
+			add_pain_remittance_info,
+			get_sepa_line_remittance_info,
+		)
 
 		# Get bank account details
 		bank_account = frappe.get_doc("Bank Account", self.bank_account)
@@ -391,6 +406,11 @@ class SEPAPaymentBordereau(Document):
 			cdtr_acct_id = etree.SubElement(cdtr_acct, "Id")
 			cdtr_acct_iban = etree.SubElement(cdtr_acct_id, "IBAN")
 			cdtr_acct_iban.text = supplier_bank_account.iban.replace(" ", "")
+
+			add_pain_remittance_info(
+				cdt_trf_tx_inf,
+				get_sepa_line_remittance_info(line),
+			)
 
 		ns = {"ns": "urn:iso:std:iso:20022:tech:xsd:pain.001.001.03"}
 		invalid_tx_pmt_tp_inf = root.xpath(
