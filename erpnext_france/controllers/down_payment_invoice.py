@@ -208,32 +208,68 @@ def get_item_tax_template(order, order_item, item, down_payments_item_map):
 
 
 def set_paid_amount_of_linked_invoice(doc, method):
-	references = doc.get("references", [])
-	if len(references) == 0 or references[0].get("reference_doctype") != "Sales Invoice":
-		return
+	"""Recalculate Sales Invoice outstanding only for down-payment final invoices.
 
+	For regular invoices, ERPNext already updates outstanding from Payment Ledger
+	Entries on Payment Entry submit. Recomputing here double-counts the payment and
+	can drive outstanding_amount negative (e.g. after SEPA acceptance).
+	"""
 	if doc.payment_type != "Receive":
 		return
 
-	sales_invoice = frappe.get_doc("Sales Invoice", references[0].get("reference_name"))
+	for reference in doc.get("references", []):
+		if reference.reference_doctype != "Sales Invoice":
+			continue
 
-	if sales_invoice.get("is_down_payment_invoice") == 1:
-		return
+		sales_invoice = frappe.get_doc("Sales Invoice", reference.reference_name)
 
-	paid_amount = 0.0
-	for data in sales_invoice.payments:
-		paid_amount += data.amount
+		if sales_invoice.get("is_down_payment_invoice") == 1:
+			continue
 
-	for advance in sales_invoice.get("advances"):
+		if not _has_down_payment_advances(sales_invoice):
+			continue
+
+		outstanding_amount = _calculate_sales_invoice_outstanding(sales_invoice, doc, reference)
+
+		sales_invoice.outstanding_amount = outstanding_amount
+		if flt(outstanding_amount) == 0:
+			sales_invoice.set_status(update=True, update_modified=False)
+
+		# Avoid full save(): it reloads payment schedule rows and tries to reset
+		# "outstanding" from payment_amount, which is not allow_on_submit.
+		sales_invoice.db_set("outstanding_amount", outstanding_amount, update_modified=False)
+
+
+def _has_down_payment_advances(sales_invoice):
+	return any(
+		cint(advance.is_down_payment)
+		for advance in sales_invoice.get("advances") or []
+		if advance.reference_type == "Payment Entry"
+	)
+
+
+def _calculate_sales_invoice_outstanding(sales_invoice, payment_entry, reference):
+	paid_amount = sum(flt(payment.amount) for payment in sales_invoice.payments or [])
+
+	for advance in sales_invoice.get("advances") or []:
 		if advance.reference_type == "Payment Entry":
-			paid_amount += advance.advance_amount
+			paid_amount += flt(advance.allocated_amount or advance.advance_amount)
 
+	# Payment Entry allocations are not stored on the invoice advances table.
+	if not _is_payment_entry_in_advances(sales_invoice, payment_entry.name):
+		paid_amount += flt(reference.allocated_amount)
+
+	invoice_total = flt(sales_invoice.rounded_total or sales_invoice.grand_total)
 	outstanding_amount = flt(
-		sales_invoice.rounded_total - (paid_amount + doc.paid_amount),
+		invoice_total - paid_amount,
 		sales_invoice.precision("outstanding_amount"),
 	)
 
-	sales_invoice.db_set("outstanding_amount", outstanding_amount)
+	return max(0, outstanding_amount)
 
-	if flt(outstanding_amount) == 0:
-		sales_invoice.set_status(update=True)
+
+def _is_payment_entry_in_advances(sales_invoice, payment_entry_name):
+	return any(
+		advance.reference_type == "Payment Entry" and advance.reference_name == payment_entry_name
+		for advance in sales_invoice.get("advances") or []
+	)
