@@ -95,27 +95,38 @@ def reorder_tax(doc):
 		if tax.charge_type not in ["Actual"] and not tax.get("description", "").startswith(_("Eco Part VAT"))
 	]
 	ecopart_taxes = [tax for tax in doc.taxes if tax.charge_type == "Actual" and tax.ecotax]
-	vat_on_ecopart = [tax for tax in doc.taxes if tax.get("description", "").startswith(_("Eco Part VAT"))]
+	vat_on_ecopart = [
+		tax
+		for tax in doc.taxes
+		if tax.charge_type == "On Previous Row Amount"
+		and not tax.get("ecotax")
+		and tax.row_id  # référence une autre ligne
+	]
+	regular_taxes = [
+		tax for tax in doc.taxes if tax.charge_type not in ["Actual"] and tax not in vat_on_ecopart
+	]
 	other_actual = [tax for tax in doc.taxes if tax.charge_type == "Actual" and not tax.ecotax]
 
-	# Étape 2 : Réorganiser les taxes dans le bon ordre
-	reordered_taxes = other_actual + regular_taxes + ecopart_taxes + vat_on_ecopart
-	# Étape 3 : Mémoriser les anciens idx avant modification
-	old_idx_map = {id(tax): tax.idx for tax in reordered_taxes}
+	# Étape 2 : Mémoriser pour chaque vat_on_ecopart la ligne ecopart qu'elle référence (par objet)
+	ecopart_by_old_idx = {tax.idx: tax for tax in ecopart_taxes}
+	vat_ecopart_targets = {}
+	for vat_tax in vat_on_ecopart:
+		if vat_tax.row_id and vat_tax.row_id in ecopart_by_old_idx:
+			vat_ecopart_targets[id(vat_tax)] = ecopart_by_old_idx[vat_tax.row_id]
 
-	# Étape 4 : Réassigner les nouveaux idx et créer le mapping ancien_idx -> nouveau_idx
-	old_to_new_idx = {}
+	# Étape 3 : Réorganiser les taxes dans le bon ordre
+	reordered_taxes = other_actual + regular_taxes + ecopart_taxes + vat_on_ecopart
+
+	# Étape 4 : Réassigner les idx dans le nouvel ordre
 	for new_idx, tax in enumerate(reordered_taxes, start=1):
-		old_idx = old_idx_map[id(tax)]
-		old_to_new_idx[old_idx] = new_idx
 		tax.idx = new_idx
 
-	# Étape 5 : Mettre à jour les row_id pour les taxes dépendantes
-	for tax in reordered_taxes:
-		if hasattr(tax, "row_id") and tax.row_id in old_to_new_idx:
-			tax.row_id = old_to_new_idx[tax.row_id]
+	# Étape 5 : Recalculer les row_id des vat_on_ecopart depuis les objets ecopart cibles
+	for vat_tax in vat_on_ecopart:
+		target = vat_ecopart_targets.get(id(vat_tax))
+		if target:
+			vat_tax.row_id = target.idx
 
-	# Étape 6 : Réassigner la liste finale à doc.taxes
 	doc.taxes = reordered_taxes
 
 
