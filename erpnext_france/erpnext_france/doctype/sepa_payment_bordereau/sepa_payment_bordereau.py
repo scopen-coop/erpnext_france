@@ -31,12 +31,18 @@ class SEPAPaymentBordereau(Document):
 
 	def validate_company_bank_account(self):
 		"""Bank account on the bordereau must be a company account, not a customer/supplier one."""
-		if not self.bank_account or not self.company:
+		if not self.company:
 			return
 
-		from erpnext_france.regional.france.sepa_utils import is_company_bank_account
+		from erpnext_france.regional.france.sepa_utils import (
+			ensure_bordereau_bank_account,
+			is_company_bank_account,
+		)
 
-		if not is_company_bank_account(self.bank_account, self.company):
+		if self.status == "Draft" and ensure_bordereau_bank_account(self):
+			return
+
+		if self.bank_account and not is_company_bank_account(self.bank_account, self.company):
 			frappe.throw(
 				_("Bank Account {0} is not a company bank account. Please select your company's bank account.").format(
 					self.bank_account
