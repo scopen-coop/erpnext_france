@@ -71,15 +71,72 @@ class SEPAPaymentBordereau(Document):
 
 	def validate_lines(self):
 		"""Validate that all lines have required data"""
+		for line in self.lines:
+			self.sync_line_from_payment_type(line)
+
+			if self.payment_type == "Credit" and line.party:
+				supplier_bank_account = frappe.db.exists(
+					"Bank Account",
+					{"party_type": "Supplier", "party": line.party, "is_default": 1},
+				)
+				if not supplier_bank_account:
+					frappe.throw(
+						_("Row {0}: Supplier {1} does not have a default bank account").format(
+							line.idx, line.party
+						)
+					)
+
 		if self.status != "Draft":
 			for line in self.lines:
-				# Validate IBAN/BIC
 				if not line.mandate and self.payment_type == "Debit":
 					frappe.throw(_("Row {0}: SEPA Mandate is required for debit payments").format(line.idx))
 
-				# Validate amounts
 				if not line.amount or line.amount <= 0:
 					frappe.throw(_("Row {0}: Amount must be greater than zero").format(line.idx))
+
+	def sync_line_from_payment_type(self, line):
+		"""Keep line party/invoice types aligned with bordereau payment type."""
+		if self.payment_type == "Credit":
+			expected_invoice_type = "Purchase Invoice"
+			expected_party_type = "Supplier"
+			party_field = "supplier"
+		else:
+			expected_invoice_type = "Sales Invoice"
+			expected_party_type = "Customer"
+			party_field = "customer"
+
+		line.invoice_type = expected_invoice_type
+		line.party_type = expected_party_type
+
+		if not line.invoice:
+			return
+
+		invoice = frappe.db.get_value(
+			line.invoice_type,
+			line.invoice,
+			[party_field, "outstanding_amount", "company", "docstatus"],
+			as_dict=True,
+		)
+		if not invoice:
+			frappe.throw(_("Row {0}: Invoice {1} does not exist").format(line.idx, line.invoice))
+
+		if invoice.docstatus != 1:
+			frappe.throw(_("Row {0}: Invoice {1} must be submitted").format(line.idx, line.invoice))
+
+		if self.company and invoice.company != self.company:
+			frappe.throw(
+				_("Row {0}: Invoice {1} belongs to another company").format(line.idx, line.invoice)
+			)
+
+		if flt(invoice.outstanding_amount) <= 0:
+			frappe.throw(_("Row {0}: Invoice {1} has no outstanding amount").format(line.idx, line.invoice))
+
+		line.party = invoice.get(party_field)
+		if not line.amount:
+			line.amount = invoice.outstanding_amount
+
+		if self.payment_type == "Debit" and line.party and not line.mandate:
+			line.mandate = frappe.db.get_value("Customer", line.party, "sepa_mandate")
 
 	def before_submit(self):
 		"""Generate End-to-End IDs for all lines before validation"""
