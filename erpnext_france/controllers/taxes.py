@@ -623,10 +623,7 @@ def delete_ecopart_taxes(doc):
 		tax
 		for tax in doc.taxes
 		if tax.get("ecotax")
-		or (
-			tax.charge_type == "On Previous Row Amount"
-			and tax.get("description", "").startswith(_("Eco Part VAT"))
-		)
+		or (tax.charge_type == "On Previous Row Amount" and not tax.get("ecotax") and tax.get("row_id"))
 	]
 	for tax in to_remove:
 		doc.taxes.remove(tax)
