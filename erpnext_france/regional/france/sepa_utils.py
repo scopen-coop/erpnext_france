@@ -66,10 +66,61 @@ def add_invoice_to_sepa_bordereau(invoice_name, invoice_type="Sales Invoice"):
 	})
 
 	bordereau.save()
+	sync_invoice_sepa_bordereau_link(invoice_name, invoice_type)
 
 	frappe.msgprint(_("Invoice {0} added to SEPA Payment Bordereau {1}").format(invoice_name, bordereau.name))
 
 	return bordereau.name
+
+
+def get_invoice_sepa_bordereau_info(invoice_name, invoice_type="Sales Invoice"):
+	"""Return the most relevant SEPA bordereau for an invoice, if any."""
+	lines = frappe.get_all(
+		"SEPA Payment Bordereau Line",
+		filters={"invoice": invoice_name, "invoice_type": invoice_type},
+		fields=["parent", "status", "modified"],
+		order_by="modified desc",
+	)
+	if not lines:
+		return None
+
+	for line in lines:
+		bordereau_status = frappe.db.get_value("SEPA Payment Bordereau", line.parent, "status")
+		if bordereau_status != "Closed":
+			return {"bordereau": line.parent, "line_status": line.status}
+
+	return {"bordereau": lines[0].parent, "line_status": lines[0].status}
+
+
+def sync_invoice_sepa_bordereau_link(invoice_name, invoice_type="Sales Invoice"):
+	"""Update Sales Invoice fields that show SEPA bordereau membership."""
+	if invoice_type != "Sales Invoice":
+		return
+
+	if not frappe.db.has_column("Sales Invoice", "sepa_payment_bordereau"):
+		return
+
+	info = get_invoice_sepa_bordereau_info(invoice_name, invoice_type)
+	frappe.db.set_value(
+		"Sales Invoice",
+		invoice_name,
+		{
+			"sepa_payment_bordereau": info["bordereau"] if info else None,
+			"sepa_bordereau_line_status": info["line_status"] if info else None,
+		},
+		update_modified=False,
+	)
+
+
+def sync_invoices_sepa_bordereau_links(invoices):
+	"""Update SEPA bordereau link fields for multiple invoices."""
+	seen = set()
+	for invoice_name, invoice_type in invoices:
+		key = (invoice_name, invoice_type)
+		if key in seen:
+			continue
+		seen.add(key)
+		sync_invoice_sepa_bordereau_link(invoice_name, invoice_type)
 
 
 def validate_invoice_for_sepa(invoice, invoice_type):
@@ -111,50 +162,73 @@ def validate_invoice_for_sepa(invoice, invoice_type):
 
 def is_company_bank_account(bank_account, company):
 	"""Return whether the Bank Account belongs to the company itself."""
+	if not bank_account or not company:
+		return False
+
+	bank = frappe.db.get_value(
+		"Bank Account",
+		bank_account,
+		["company", "is_company_account", "party_type", "party", "disabled"],
+		as_dict=True,
+	)
+	if not bank or bank.disabled:
+		return False
+
 	return bool(
-		bank_account
-		and frappe.db.exists(
-			"Bank Account",
-			{
-				"name": bank_account,
-				"company": company,
-				"is_company_account": 1
-			}
-		)
+		bank.company == company
+		and bank.is_company_account
+		and not bank.party_type
+		and not bank.party
 	)
 
 
 def get_default_company_bank_account(company):
 	"""Get the default company-owned Bank Account for a company."""
-	company_default_account = frappe.db.get_value("Company", company, "default_bank_account")
-	default_bank_account = None
+	company_default_account = frappe.get_cached_value("Company", company, "default_bank_account")
 
 	if company_default_account:
-		default_bank_account = frappe.db.get_value(
+		for row in frappe.get_all(
 			"Bank Account",
-			{
+			filters={
 				"company": company,
 				"account": company_default_account,
-				"is_company_account": 1
+				"is_company_account": 1,
+				"disabled": 0,
 			},
-			"name"
-		)
+			fields=["name", "party_type", "party"],
+			order_by="is_default desc, modified desc",
+		):
+			if not row.party_type and not row.party:
+				return row.name
 
-	if not default_bank_account:
-		default_bank_account = frappe.db.get_value(
-			"Bank Account",
-			{
-				"company": company,
-				"is_default": 1,
-				"is_company_account": 1
-			},
-			"name"
-		)
+	for row in frappe.get_all(
+		"Bank Account",
+		filters={
+			"company": company,
+			"is_company_account": 1,
+			"is_default": 1,
+			"disabled": 0,
+		},
+		fields=["name", "party_type", "party"],
+		order_by="modified desc",
+	):
+		if not row.party_type and not row.party:
+			return row.name
 
-	if not default_bank_account:
-		frappe.throw(_("No default company bank account found for company {0}").format(company))
+	frappe.throw(_("No default company bank account found for company {0}").format(company))
 
-	return default_bank_account
+
+def ensure_bordereau_bank_account(bordereau, company=None):
+	"""Ensure a draft bordereau uses a real company bank account."""
+	company = company or bordereau.company
+	if not company:
+		return False
+
+	if is_company_bank_account(bordereau.bank_account, company):
+		return False
+
+	bordereau.bank_account = get_default_company_bank_account(company)
+	return True
 
 
 def get_or_create_bordereau(payment_type, company):
@@ -173,8 +247,7 @@ def get_or_create_bordereau(payment_type, company):
 
 	if existing:
 		bordereau = frappe.get_doc("SEPA Payment Bordereau", existing)
-		if not is_company_bank_account(bordereau.bank_account, company):
-			bordereau.bank_account = get_default_company_bank_account(company)
+		if ensure_bordereau_bank_account(bordereau, company):
 			bordereau.save()
 		return bordereau
 
@@ -236,10 +309,14 @@ def reconcile_bank_transaction_to_sepa_line(bank_transaction, end_to_end_id):
 	# Create Payment Entry
 	remittance_info = get_sepa_line_remittance_info(sepa_line)
 	invoice_reference = get_sepa_line_invoice_reference(sepa_line)
+	payment_type, account_fields = get_sepa_payment_entry_account_fields(
+		bordereau, sepa_line, gl_account
+	)
 
 	payment_entry = frappe.get_doc({
 		"doctype": "Payment Entry",
-		"payment_type": "Receive" if bordereau.payment_type == "Debit" else "Pay",
+		"payment_type": payment_type,
+		"company": bordereau.company,
 		"party_type": sepa_line.party_type,
 		"party": sepa_line.party,
 		"paid_amount": abs(bank_txn.unallocated_amount),
@@ -247,8 +324,8 @@ def reconcile_bank_transaction_to_sepa_line(bank_transaction, end_to_end_id):
 		"reference_no": invoice_reference,
 		"reference_date": bank_txn.date,
 		"remarks": remittance_info,
-		"paid_from": gl_account if bordereau.payment_type == "Credit" else None,
-		"paid_to": gl_account if bordereau.payment_type == "Debit" else None
+		"bank_account": bordereau.bank_account,
+		**account_fields,
 	})
 
 	# Add reference to invoice
@@ -299,6 +376,12 @@ def reconcile_bank_transaction_to_sepa_line(bank_transaction, end_to_end_id):
 
 	# Update SEPA line status
 	frappe.db.set_value("SEPA Payment Bordereau Line", sepa_line.name, "status", "Accepted")
+	sync_invoice_sepa_bordereau_link(
+		sepa_line.invoice,
+		sepa_line.get("invoice_type") or (
+			"Sales Invoice" if sepa_line.party_type == "Customer" else "Purchase Invoice"
+		),
+	)
 
 	# Update mandate sequence type if first debit
 	if sepa_line.mandate and bordereau.payment_type == "Debit":
@@ -431,13 +514,43 @@ def update_bordereau_status(bordereau_name):
 		bordereau.save()
 
 
+def _sepa_line_value(line, field):
+	if isinstance(line, dict):
+		return line.get(field)
+	return getattr(line, field, None)
+
+
+def get_sepa_payment_type(bordereau):
+	return "Receive" if bordereau.payment_type == "Debit" else "Pay"
+
+
+def get_sepa_party_account(line):
+	invoice_type = _sepa_line_value(line, "invoice_type") or (
+		"Sales Invoice" if _sepa_line_value(line, "party_type") == "Customer" else "Purchase Invoice"
+	)
+	account_field = "debit_to" if invoice_type == "Sales Invoice" else "credit_to"
+	return frappe.db.get_value(invoice_type, _sepa_line_value(line, "invoice"), account_field)
+
+
+def get_sepa_payment_entry_account_fields(bordereau, line, gl_account):
+	payment_type = get_sepa_payment_type(bordereau)
+	party_account = get_sepa_party_account(line)
+
+	if payment_type == "Pay":
+		return payment_type, {"paid_from": gl_account, "paid_to": party_account}
+
+	return payment_type, {"paid_from": party_account, "paid_to": gl_account}
+
+
 def create_sepa_payment_entry(bordereau, line, gl_account):
 	remittance_info = get_sepa_line_remittance_info(line)
 	invoice_reference = get_sepa_line_invoice_reference(line)
+	payment_type, account_fields = get_sepa_payment_entry_account_fields(bordereau, line, gl_account)
 
 	payment_entry = frappe.get_doc({
 		"doctype": "Payment Entry",
-		"payment_type": "Receive" if bordereau.payment_type == "Debit" else "Pay",
+		"payment_type": payment_type,
+		"company": bordereau.company,
 		"party_type": line.party_type,
 		"party": line.party,
 		"paid_amount": line.amount,
@@ -445,8 +558,8 @@ def create_sepa_payment_entry(bordereau, line, gl_account):
 		"reference_no": invoice_reference,
 		"reference_date": bordereau.execution_date,
 		"remarks": remittance_info,
-		"paid_from": gl_account if bordereau.payment_type == "Credit" else None,
-		"paid_to": gl_account if bordereau.payment_type == "Debit" else None
+		"bank_account": bordereau.bank_account,
+		**account_fields,
 	})
 
 	inv_doctype = "Sales Invoice" if line.party_type == "Customer" else "Purchase Invoice"

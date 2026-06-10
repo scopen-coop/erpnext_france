@@ -4,7 +4,9 @@
 function company_bank_account_filters(company) {
 	return {
 		company: company,
-		is_company_account: 1
+		is_company_account: 1,
+		party_type: ['in', ['', null]],
+		party: ['in', ['', null]],
 	};
 }
 
@@ -17,18 +19,18 @@ function set_default_bank_account(frm) {
 		const filters = company_bank_account_filters(frm.doc.company);
 
 		if (company && company.default_bank_account) {
-			frappe.db.get_value(
-				'Bank Account',
-				{ ...filters, account: company.default_bank_account },
-				'name',
-				function(r) {
-					if (r && r.name) {
-						frm.set_value('bank_account', r.name);
-					} else {
-						set_fallback_company_bank_account(frm, filters);
-					}
+			frappe.db.get_list('Bank Account', {
+				filters: { ...filters, account: company.default_bank_account },
+				fields: ['name', 'party_type', 'party'],
+				limit: 5,
+			}).then((rows) => {
+				const company_bank = (rows || []).find((row) => !row.party_type && !row.party);
+				if (company_bank) {
+					frm.set_value('bank_account', company_bank.name);
+				} else {
+					set_fallback_company_bank_account(frm, filters);
 				}
-			);
+			});
 		} else {
 			set_fallback_company_bank_account(frm, filters);
 		}
@@ -36,37 +38,74 @@ function set_default_bank_account(frm) {
 }
 
 function set_fallback_company_bank_account(frm, filters) {
+	frappe.db.get_list('Bank Account', {
+		filters: { ...filters, is_default: 1 },
+		fields: ['name', 'party_type', 'party'],
+		limit: 5,
+	}).then((rows) => {
+		const company_bank = (rows || []).find((row) => !row.party_type && !row.party);
+		if (company_bank) {
+			frm.set_value('bank_account', company_bank.name);
+		}
+	});
+}
+
+function is_valid_company_bank_account(bank, company) {
+	return (
+		bank
+		&& bank.is_company_account
+		&& !bank.party_type
+		&& !bank.party
+		&& bank.company === company
+	);
+}
+
+function ensure_company_bank_account(frm, show_alert = true) {
+	if (!frm.doc.bank_account || !frm.doc.company) {
+		return;
+	}
+
 	frappe.db.get_value(
 		'Bank Account',
-		{ ...filters, is_default: 1 },
-		'name',
+		frm.doc.bank_account,
+		['is_company_account', 'party_type', 'party', 'company'],
 		function(r) {
-			if (r && r.name) {
-				frm.set_value('bank_account', r.name);
+			if (is_valid_company_bank_account(r, frm.doc.company)) {
+				return;
+			}
+
+			frm.set_value('bank_account', null);
+			set_default_bank_account(frm);
+
+			if (show_alert) {
+				frappe.show_alert({
+					message: __('Customer/supplier bank account replaced with company bank account'),
+					indicator: 'orange'
+				});
 			}
 		}
 	);
 }
 
-function ensure_company_bank_account(frm) {
-	if (!frm.doc.bank_account || !frm.doc.company) {
-		return;
+function get_line_types(payment_type) {
+	if (payment_type === 'Credit') {
+		return { invoice_type: 'Purchase Invoice', party_type: 'Supplier' };
 	}
+	return { invoice_type: 'Sales Invoice', party_type: 'Customer' };
+}
 
-	frappe.db.get_value('Bank Account', frm.doc.bank_account, 'is_company_account', function(r) {
-		if (r && !r.is_company_account) {
-			frm.set_value('bank_account', null);
-			set_default_bank_account(frm);
-			frappe.show_alert({
-				message: __('Customer/supplier bank account replaced with company bank account'),
-				indicator: 'orange'
-			});
-		}
-	});
+function sync_line_types(frm, cdt, cdn) {
+	const { invoice_type, party_type } = get_line_types(frm.doc.payment_type);
+	frappe.model.set_value(cdt, cdn, 'invoice_type', invoice_type);
+	frappe.model.set_value(cdt, cdn, 'party_type', party_type);
 }
 
 frappe.ui.form.on('SEPA Payment Bordereau', {
 	refresh: function(frm) {
+		if (frm.doc.status === 'Draft') {
+			ensure_company_bank_account(frm, false);
+		}
+
 		// Add Validate button
 		if (frm.doc.status === 'Draft' && frm.doc.lines && frm.doc.lines.length > 0) {
 			frm.add_custom_button(__('Validate Bordereau'), function() {
@@ -142,11 +181,16 @@ frappe.ui.form.on('SEPA Payment Bordereau', {
 	},
 
 	payment_type: function(frm) {
-		// Update naming when payment type changes
 		frm.trigger('set_naming');
+		frm.trigger('setup_line_queries');
+	},
+
+	lines_add: function(frm, cdt, cdn) {
+		sync_line_types(frm, cdt, cdn);
 	},
 
 	onload: function(frm) {
+		frm.trigger('setup_line_queries');
 		frm.trigger('setup_bank_account_query');
 		if (frm.doc.bank_account) {
 			ensure_company_bank_account(frm);
@@ -171,7 +215,41 @@ frappe.ui.form.on('SEPA Payment Bordereau', {
 				filters: company_bank_account_filters(frm.doc.company)
 			};
 		});
-	}
+	},
+
+	set_naming: function(frm) {
+		if (frm.doc.payment_type === 'Debit') {
+			frm.set_value('naming_series', 'SEPA-DEBIT-.YYYY.-.####');
+		} else if (frm.doc.payment_type === 'Credit') {
+			frm.set_value('naming_series', 'SEPA-CREDIT-.YYYY.-.####');
+		}
+	},
+
+	setup_line_queries: function(frm) {
+		const { invoice_type, party_type } = get_line_types(frm.doc.payment_type);
+
+		frm.set_query('invoice', 'lines', function(doc, cdt, cdn) {
+			const row = locals[cdt][cdn];
+			row.invoice_type = invoice_type;
+			row.party_type = party_type;
+
+			const filters = {
+				docstatus: 1,
+				outstanding_amount: ['>', 0],
+			};
+			if (frm.doc.company) {
+				filters.company = frm.doc.company;
+			}
+			return { filters };
+		});
+
+		frm.set_query('party', 'lines', function(doc, cdt, cdn) {
+			const row = locals[cdt][cdn];
+			row.invoice_type = invoice_type;
+			row.party_type = party_type;
+			return {};
+		});
+	},
 });
 
 function get_selected_grid_rows(frm, fieldname) {
@@ -242,13 +320,39 @@ function show_accept_results(results) {
 }
 
 frappe.ui.form.on('SEPA Payment Bordereau Line', {
+	invoice: function(frm, cdt, cdn) {
+		const row = locals[cdt][cdn];
+		if (!row.invoice) {
+			return;
+		}
+
+		sync_line_types(frm, cdt, cdn);
+
+		const { invoice_type } = get_line_types(frm.doc.payment_type);
+		const party_field = invoice_type === 'Purchase Invoice' ? 'supplier' : 'customer';
+
+		frappe.db.get_value(invoice_type, row.invoice, [party_field, 'outstanding_amount'], (r) => {
+			if (!r) {
+				return;
+			}
+			frappe.model.set_value(cdt, cdn, 'party', r[party_field]);
+			frappe.model.set_value(cdt, cdn, 'amount', r.outstanding_amount);
+
+			if (frm.doc.payment_type === 'Debit' && r[party_field]) {
+				frappe.db.get_value('Customer', r[party_field], 'sepa_mandate', (customer) => {
+					if (customer && customer.sepa_mandate) {
+						frappe.model.set_value(cdt, cdn, 'mandate', customer.sepa_mandate);
+					}
+				});
+			}
+		});
+	},
+
 	amount: function(frm) {
-		// Recalculate total when line amount changes
 		frm.trigger('calculate_total');
 	},
 
 	lines_remove: function(frm) {
-		// Recalculate total when line is removed
 		frm.trigger('calculate_total');
-	}
+	},
 });

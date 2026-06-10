@@ -82,6 +82,8 @@ fixtures = [
 					"Purchase Taxes and Charges-ecotax_tva_linked",
 					"Sales Invoice-accounting_export_date",
 					"Sales Invoice-accounting_journal",
+					"Sales Invoice-sepa_payment_bordereau",
+					"Sales Invoice-sepa_bordereau_line_status",
 					"Sales Invoice-down_payment_section",
 					"Sales Invoice-down_payment_value",
 					"Sales Invoice-down_payment_type",

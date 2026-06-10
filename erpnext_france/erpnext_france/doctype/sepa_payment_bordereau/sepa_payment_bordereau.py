@@ -22,14 +22,27 @@ class SEPAPaymentBordereau(Document):
 		self.validate_company_bank_account()
 		self.validate_lines()
 
+	def on_trash(self):
+		from erpnext_france.regional.france.sepa_utils import sync_invoices_sepa_bordereau_links
+
+		sync_invoices_sepa_bordereau_links(
+			(line.invoice, line.invoice_type) for line in self.lines if line.invoice
+		)
+
 	def validate_company_bank_account(self):
 		"""Bank account on the bordereau must be a company account, not a customer/supplier one."""
-		if not self.bank_account or not self.company:
+		if not self.company:
 			return
 
-		from erpnext_france.regional.france.sepa_utils import is_company_bank_account
+		from erpnext_france.regional.france.sepa_utils import (
+			ensure_bordereau_bank_account,
+			is_company_bank_account,
+		)
 
-		if not is_company_bank_account(self.bank_account, self.company):
+		if self.status == "Draft" and ensure_bordereau_bank_account(self):
+			return
+
+		if self.bank_account and not is_company_bank_account(self.bank_account, self.company):
 			frappe.throw(
 				_("Bank Account {0} is not a company bank account. Please select your company's bank account.").format(
 					self.bank_account
@@ -38,16 +51,25 @@ class SEPAPaymentBordereau(Document):
 
 	def on_update(self):
 		status_changed_lines = False
+		invoices_to_sync = {(line.invoice, line.invoice_type) for line in self.lines if line.invoice}
+
 		if not self.is_new() and self.get_doc_before_save():
 			old_doc = self.get_doc_before_save()
 			old_statuses = {d.name: d.status for d in old_doc.lines}
+			invoices_to_sync.update(
+				(line.invoice, line.invoice_type) for line in old_doc.lines if line.invoice
+			)
 			for line in self.lines:
 				old_status = old_statuses.get(line.name)
 				if line.status != old_status and line.status in ["Accepted", "Rejected"]:
 					from erpnext_france.regional.france.sepa_utils import reconcile_sepa_line_on_status_change
 					reconcile_sepa_line_on_status_change(self, line, line.status)
 					status_changed_lines = True
-		
+
+		from erpnext_france.regional.france.sepa_utils import sync_invoices_sepa_bordereau_links
+
+		sync_invoices_sepa_bordereau_links(invoices_to_sync)
+
 		# Update overall bordereau status if needed
 		if status_changed_lines and self.lines:
 			statuses = [line.status for line in self.lines]
@@ -71,15 +93,72 @@ class SEPAPaymentBordereau(Document):
 
 	def validate_lines(self):
 		"""Validate that all lines have required data"""
+		for line in self.lines:
+			self.sync_line_from_payment_type(line)
+
+			if self.payment_type == "Credit" and line.party:
+				supplier_bank_account = frappe.db.exists(
+					"Bank Account",
+					{"party_type": "Supplier", "party": line.party, "is_default": 1},
+				)
+				if not supplier_bank_account:
+					frappe.throw(
+						_("Row {0}: Supplier {1} does not have a default bank account").format(
+							line.idx, line.party
+						)
+					)
+
 		if self.status != "Draft":
 			for line in self.lines:
-				# Validate IBAN/BIC
 				if not line.mandate and self.payment_type == "Debit":
 					frappe.throw(_("Row {0}: SEPA Mandate is required for debit payments").format(line.idx))
 
-				# Validate amounts
 				if not line.amount or line.amount <= 0:
 					frappe.throw(_("Row {0}: Amount must be greater than zero").format(line.idx))
+
+	def sync_line_from_payment_type(self, line):
+		"""Keep line party/invoice types aligned with bordereau payment type."""
+		if self.payment_type == "Credit":
+			expected_invoice_type = "Purchase Invoice"
+			expected_party_type = "Supplier"
+			party_field = "supplier"
+		else:
+			expected_invoice_type = "Sales Invoice"
+			expected_party_type = "Customer"
+			party_field = "customer"
+
+		line.invoice_type = expected_invoice_type
+		line.party_type = expected_party_type
+
+		if not line.invoice:
+			return
+
+		invoice = frappe.db.get_value(
+			line.invoice_type,
+			line.invoice,
+			[party_field, "outstanding_amount", "company", "docstatus"],
+			as_dict=True,
+		)
+		if not invoice:
+			frappe.throw(_("Row {0}: Invoice {1} does not exist").format(line.idx, line.invoice))
+
+		if invoice.docstatus != 1:
+			frappe.throw(_("Row {0}: Invoice {1} must be submitted").format(line.idx, line.invoice))
+
+		if self.company and invoice.company != self.company:
+			frappe.throw(
+				_("Row {0}: Invoice {1} belongs to another company").format(line.idx, line.invoice)
+			)
+
+		if flt(invoice.outstanding_amount) <= 0:
+			frappe.throw(_("Row {0}: Invoice {1} has no outstanding amount").format(line.idx, line.invoice))
+
+		line.party = invoice.get(party_field)
+		if not line.amount:
+			line.amount = invoice.outstanding_amount
+
+		if self.payment_type == "Debit" and line.party and not line.mandate:
+			line.mandate = frappe.db.get_value("Customer", line.party, "sepa_mandate")
 
 	def before_submit(self):
 		"""Generate End-to-End IDs for all lines before validation"""
@@ -456,6 +535,7 @@ class SEPAPaymentBordereau(Document):
 
 		from erpnext_france.regional.france.sepa_utils import (
 			reconcile_sepa_line_on_status_change,
+			sync_invoice_sepa_bordereau_link,
 			update_bordereau_status,
 		)
 
@@ -493,6 +573,7 @@ class SEPAPaymentBordereau(Document):
 					"Accepted",
 					update_modified=False,
 				)
+				sync_invoice_sepa_bordereau_link(line.invoice, line.invoice_type)
 				results["success"].append({"name": line.name, "invoice": line.invoice})
 			except Exception as e:
 				frappe.db.rollback(save_point=savepoint)

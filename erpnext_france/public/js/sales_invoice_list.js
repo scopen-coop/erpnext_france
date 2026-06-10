@@ -1,5 +1,19 @@
 frappe.listview_settings["Sales Invoice"] = frappe.listview_settings["Sales Invoice"] || {};
 
+frappe.listview_settings["Sales Invoice"].formatters =
+  frappe.listview_settings["Sales Invoice"].formatters || {};
+frappe.listview_settings["Sales Invoice"].formatters.sepa_bordereau_line_status = function (value) {
+  if (!value) {
+    return "";
+  }
+  const colors = {
+    Pending: "orange",
+    Accepted: "green",
+    Rejected: "red",
+  };
+  return `<span class="indicator-pill ${colors[value] || "grey"} filterable ellipsis">${__(value)}</span>`;
+};
+
 const _onload = frappe.listview_settings["Sales Invoice"].onload;
 
 frappe.listview_settings["Sales Invoice"].onload = function (listview) {

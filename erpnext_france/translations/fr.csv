@@ -667,6 +667,7 @@ Payment Entry {0} created and cancelled for rejected SEPA line {1} (+ and -) ,L'
 SEPA Mandate,Mandat SEPA
 SEPA Payment Bordereau,Bordereau de Paiement SEPA
 SEPA Payment Bordereau Line,Ligne de Bordereau de Paiement SEPA
+SEPA Line Status,Statut ligne SEPA
 Payment Type,Type de paiement
 Debit,Prélèvement
 Credit,Virement
