@@ -66,10 +66,61 @@ def add_invoice_to_sepa_bordereau(invoice_name, invoice_type="Sales Invoice"):
 	})
 
 	bordereau.save()
+	sync_invoice_sepa_bordereau_link(invoice_name, invoice_type)
 
 	frappe.msgprint(_("Invoice {0} added to SEPA Payment Bordereau {1}").format(invoice_name, bordereau.name))
 
 	return bordereau.name
+
+
+def get_invoice_sepa_bordereau_info(invoice_name, invoice_type="Sales Invoice"):
+	"""Return the most relevant SEPA bordereau for an invoice, if any."""
+	lines = frappe.get_all(
+		"SEPA Payment Bordereau Line",
+		filters={"invoice": invoice_name, "invoice_type": invoice_type},
+		fields=["parent", "status", "modified"],
+		order_by="modified desc",
+	)
+	if not lines:
+		return None
+
+	for line in lines:
+		bordereau_status = frappe.db.get_value("SEPA Payment Bordereau", line.parent, "status")
+		if bordereau_status != "Closed":
+			return {"bordereau": line.parent, "line_status": line.status}
+
+	return {"bordereau": lines[0].parent, "line_status": lines[0].status}
+
+
+def sync_invoice_sepa_bordereau_link(invoice_name, invoice_type="Sales Invoice"):
+	"""Update Sales Invoice fields that show SEPA bordereau membership."""
+	if invoice_type != "Sales Invoice":
+		return
+
+	if not frappe.db.has_column("Sales Invoice", "sepa_payment_bordereau"):
+		return
+
+	info = get_invoice_sepa_bordereau_info(invoice_name, invoice_type)
+	frappe.db.set_value(
+		"Sales Invoice",
+		invoice_name,
+		{
+			"sepa_payment_bordereau": info["bordereau"] if info else None,
+			"sepa_bordereau_line_status": info["line_status"] if info else None,
+		},
+		update_modified=False,
+	)
+
+
+def sync_invoices_sepa_bordereau_links(invoices):
+	"""Update SEPA bordereau link fields for multiple invoices."""
+	seen = set()
+	for invoice_name, invoice_type in invoices:
+		key = (invoice_name, invoice_type)
+		if key in seen:
+			continue
+		seen.add(key)
+		sync_invoice_sepa_bordereau_link(invoice_name, invoice_type)
 
 
 def validate_invoice_for_sepa(invoice, invoice_type):
@@ -303,6 +354,12 @@ def reconcile_bank_transaction_to_sepa_line(bank_transaction, end_to_end_id):
 
 	# Update SEPA line status
 	frappe.db.set_value("SEPA Payment Bordereau Line", sepa_line.name, "status", "Accepted")
+	sync_invoice_sepa_bordereau_link(
+		sepa_line.invoice,
+		sepa_line.get("invoice_type") or (
+			"Sales Invoice" if sepa_line.party_type == "Customer" else "Purchase Invoice"
+		),
+	)
 
 	# Update mandate sequence type if first debit
 	if sepa_line.mandate and bordereau.payment_type == "Debit":

@@ -22,6 +22,13 @@ class SEPAPaymentBordereau(Document):
 		self.validate_company_bank_account()
 		self.validate_lines()
 
+	def on_trash(self):
+		from erpnext_france.regional.france.sepa_utils import sync_invoices_sepa_bordereau_links
+
+		sync_invoices_sepa_bordereau_links(
+			(line.invoice, line.invoice_type) for line in self.lines if line.invoice
+		)
+
 	def validate_company_bank_account(self):
 		"""Bank account on the bordereau must be a company account, not a customer/supplier one."""
 		if not self.bank_account or not self.company:
@@ -38,16 +45,25 @@ class SEPAPaymentBordereau(Document):
 
 	def on_update(self):
 		status_changed_lines = False
+		invoices_to_sync = {(line.invoice, line.invoice_type) for line in self.lines if line.invoice}
+
 		if not self.is_new() and self.get_doc_before_save():
 			old_doc = self.get_doc_before_save()
 			old_statuses = {d.name: d.status for d in old_doc.lines}
+			invoices_to_sync.update(
+				(line.invoice, line.invoice_type) for line in old_doc.lines if line.invoice
+			)
 			for line in self.lines:
 				old_status = old_statuses.get(line.name)
 				if line.status != old_status and line.status in ["Accepted", "Rejected"]:
 					from erpnext_france.regional.france.sepa_utils import reconcile_sepa_line_on_status_change
 					reconcile_sepa_line_on_status_change(self, line, line.status)
 					status_changed_lines = True
-		
+
+		from erpnext_france.regional.france.sepa_utils import sync_invoices_sepa_bordereau_links
+
+		sync_invoices_sepa_bordereau_links(invoices_to_sync)
+
 		# Update overall bordereau status if needed
 		if status_changed_lines and self.lines:
 			statuses = [line.status for line in self.lines]
@@ -513,6 +529,7 @@ class SEPAPaymentBordereau(Document):
 
 		from erpnext_france.regional.france.sepa_utils import (
 			reconcile_sepa_line_on_status_change,
+			sync_invoice_sepa_bordereau_link,
 			update_bordereau_status,
 		)
 
@@ -550,6 +567,7 @@ class SEPAPaymentBordereau(Document):
 					"Accepted",
 					update_modified=False,
 				)
+				sync_invoice_sepa_bordereau_link(line.invoice, line.invoice_type)
 				results["success"].append({"name": line.name, "invoice": line.invoice})
 			except Exception as e:
 				frappe.db.rollback(save_point=savepoint)
