@@ -16,7 +16,22 @@ from frappe import _, get_hooks
 
 
 @frappe.whitelist()
-def get_item_details_account_code(args, doc=None, for_validate=False, overwrite_warehouse=True):
+def get_item_details_account_code(ctx, doc=None, for_validate=False, overwrite_warehouse=True):
+	"""
+	    ctx est normalisé automatiquement par le décorateur :
+	    - JSON string → frappe._dict
+	    - Document → frappe._dict
+	    - dict → frappe._dict
+	    Compatible v16+, plus besoin de gérer args manuellement.
+	    """
+
+	raw = ctx or args
+	if not raw:
+		frappe.throw(_("Argument manquant : ctx ou args requis"))
+	if isinstance(raw, str):
+		raw = json.loads(raw)
+	ctx = frappe._dict(raw)
+
 	# find if other apps declare these override_whitelisted_methods
 	# then get results from other hooks with this one
 	hooks = get_hooks("override_whitelisted_methods", {}).get(
@@ -28,26 +43,25 @@ def get_item_details_account_code(args, doc=None, for_validate=False, overwrite_
 			current_hook_pos = hooks.index(current_method)
 			if current_hook_pos > 0:
 				method = frappe.get_attr(hooks[current_hook_pos - 1])
-				out = method(args, doc, for_validate, overwrite_warehouse)
+				out = method(ctx, doc, for_validate, overwrite_warehouse)
 			else:
 				# standard feature
-				out = get_item_details(args, doc, for_validate, overwrite_warehouse)
+				out = get_item_details(ctx, doc, for_validate, overwrite_warehouse)
 		else:
 			# standard feature
-			out = get_item_details(args, doc, for_validate, overwrite_warehouse)
+			out = get_item_details(ctx, doc, for_validate, overwrite_warehouse)
 	else:
 		# standard feature
-		out = get_item_details(args, doc, for_validate, overwrite_warehouse)
+		out = get_item_details(ctx, doc, for_validate, overwrite_warehouse)
 
 	# ERPNEXT FRANCE: after standard execution
 
 	# return out
 	# Process arges and doc to use it as object
-	args = frappe._dict(args)
 	if isinstance(doc, str):
 		doc = json.loads(doc)
 	else:
-		doc = args
+		doc = ctx
 
 	# deal with tax code selling or buying
 	transaction_type = None
@@ -62,18 +76,18 @@ def get_item_details_account_code(args, doc=None, for_validate=False, overwrite_
 
 	# by defaut we don't know what we are working on
 	third_party = None
-	if args.customer is not None:
-		third_party = args.customer
+	if ctx.customer is not None:
+		third_party = ctx.customer
 
-	if args.supplier is not None:
-		third_party = args.supplier
+	if ctx.supplier is not None:
+		third_party = ctx.supplier
 
 	# on Quotation there is no accountancy code
 	if doc and doc.get("doctype") == "Quotation":
 		type_thirdparty = None
 
 	if type_thirdparty is not None and third_party is not None:
-		account = get_correct_default_account(third_party, type_thirdparty, args.item_code)
+		account = get_correct_default_account(third_party, type_thirdparty, ctx.item_code)
 		if transaction_type == "Vente" and account is not None:
 			out.income_account = account
 		if transaction_type == "Achat" and account is not None:
