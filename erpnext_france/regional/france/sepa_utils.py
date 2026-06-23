@@ -643,13 +643,14 @@ def create_sepa_bank_transaction(pe_name, bordereau, line):
 	if doc.payment_type not in ("Receive", "Pay"):
 		return
 	
-	bank_account_field = doc.paid_to if doc.payment_type == "Receive" else doc.paid_from
+	bank_account = doc.bank_account or bordereau.bank_account
 	payment_amount = doc.paid_amount
 
-	if not bank_account_field:
+	if not bank_account:
 		return
 
-	is_bank = frappe.db.get_value("Account", bank_account_field, "account_type") == "Bank"
+	gl_account = doc.paid_to if doc.payment_type == "Receive" else doc.paid_from
+	is_bank = frappe.db.get_value("Account", gl_account, "account_type") == "Bank"
 	if not is_bank:
 		return
 
@@ -666,7 +667,7 @@ def create_sepa_bank_transaction(pe_name, bordereau, line):
 	bt = frappe.new_doc("Bank Transaction")
 	
 	bt.date = doc.posting_date
-	bt.bank_account = bank_account_field
+	bt.bank_account = bank_account
 	bt.company = doc.company
 	
 	if doc.payment_type == "Receive":
