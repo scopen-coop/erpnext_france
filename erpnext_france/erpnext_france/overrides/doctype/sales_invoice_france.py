@@ -2,42 +2,31 @@
 # For license information, please see license.txt
 import frappe
 from erpnext import is_perpetual_inventory_enabled
-from erpnext.accounts.doctype.gl_entry.gl_entry import rename_temporarily_named_docs
+from erpnext.accounts.doctype.pricing_rule.utils import update_coupon_code_count
 from erpnext.accounts.doctype.sales_invoice.sales_invoice import (
 	SalesInvoice,
 	update_linked_doc,
 )
+from erpnext.accounts.doctype.tax_withholding_entry.tax_withholding_entry import SalesTaxWithholding
 from erpnext.accounts.general_ledger import merge_similar_entries
 from erpnext.accounts.party import get_party_account
 from erpnext.accounts.utils import get_account_currency
-from erpnext.assets.doctype.asset.depreciation import (
-	depreciate_asset,
-	get_gl_entries_on_asset_disposal,
-	get_gl_entries_on_asset_regain,
-	reset_depreciation_schedule,
-	reverse_depreciation_entry_made_after_disposal,
-)
 from erpnext.controllers.accounts_controller import validate_account_head
 from erpnext.setup.doctype.company.company import update_company_current_month_sales
 from frappe import _
 from frappe.utils import cint, flt
 
 from erpnext_france.controllers.accounts_controller import (
-	make_exchange_gain_loss_gl_entries,
 	update_against_document_in_jv,
 )
 
 
 class SalesInvoiceFrance(SalesInvoice):
 	def on_submit(self):
-		if cint(self.is_pos) == 1 or self.is_return:  # Mo
-			super().on_submit()
-			return
-
 		self.validate_pos_paid_amount()
 
 		if not self.auto_repeat:
-			frappe.get_doc("Authorization Control").validate_approving_authority(
+			frappe.get_cached_doc("Authorization Control").validate_approving_authority(
 				self.doctype, self.company, self.base_grand_total, self
 			)
 
@@ -46,6 +35,8 @@ class SalesInvoiceFrance(SalesInvoice):
 		if self.is_return and not self.update_billed_amount_in_sales_order:
 			# NOTE status updating bypassed for is_return
 			self.status_updater = []
+
+		SalesTaxWithholding(self).on_submit()
 
 		self.update_status_updater_args()
 		self.update_prevdoc_status()
@@ -63,33 +54,46 @@ class SalesInvoiceFrance(SalesInvoice):
 				self.make_bundle_for_sales_purchase_return(table_name)
 				self.make_bundle_using_old_serial_batch_fields(table_name)
 
+			self.validate_standalone_serial_nos_customer()
 			self.update_stock_reservation_entries()
 			self.update_stock_ledger()
 
+		self.split_asset_based_on_sale_qty()
+
+		self.process_asset_depreciation()
+
 		# this sequence because outstanding may get -ve
 		self.make_gl_entries()
-		rename_temporarily_named_docs("GL Entry")
 
 		if self.update_stock == 1:
 			self.repost_future_sle_and_gle()
+			self.update_pick_list_status()
 
 		if not self.is_return:
 			self.update_billing_status_for_zero_amount_refdoc("Delivery Note")
 			self.update_billing_status_for_zero_amount_refdoc("Sales Order")
 			self.check_credit_limit()
 
-		if not cint(self.is_pos) == 1 and not self.is_return:
+		if cint(self.is_pos) != 1 and not self.is_return:
 			update_against_document_in_jv(self)  # Erpnext France Modif
 
-		self.update_time_sheet(self.name)
+		self.update_time_sheet(None if (self.is_return and self.return_against) else self.name)
 
-		if frappe.db.get_single_value("Selling Settings", "sales_update_frequency") == "Each Transaction":
+		if frappe.get_single_value("Selling Settings", "sales_update_frequency") == "Each Transaction":
 			update_company_current_month_sales(self.company)
 			self.update_project()
 		update_linked_doc(self.doctype, self.name, self.inter_company_invoice_reference)
 
+		if self.coupon_code:
+			update_coupon_code_count(self.coupon_code, "used")
+
 		# create the loyalty point ledger entry if the customer is enrolled in any loyalty program
-		if not self.is_return and not self.is_consolidated and self.loyalty_program:
+		if (
+			not self.is_return
+			and not self.is_consolidated
+			and self.loyalty_program
+			and not self.dont_create_loyalty_points
+		):
 			self.make_loyalty_point_entry()
 		elif self.is_return and self.return_against and not self.is_consolidated and self.loyalty_program:
 			against_si_doc = frappe.get_doc("Sales Invoice", self.return_against)
@@ -99,6 +103,7 @@ class SalesInvoiceFrance(SalesInvoice):
 			self.apply_loyalty_points()
 
 		self.process_common_party_accounting()
+		self.update_billed_qty_in_scio()
 
 	def _validate(self):
 		super()._validate()
@@ -228,16 +233,16 @@ class SalesInvoiceFrance(SalesInvoice):
 							"credit_in_account_currency"
 						]
 
-	def get_gl_entries(self, warehouse_account=None):
+	def get_gl_entries(self, inventory_account_map=None):
 		gl_entries = []
 
 		self.make_customer_gl_entry(gl_entries)
 
 		self.make_tax_gl_entries(gl_entries)
-		make_exchange_gain_loss_gl_entries(self, gl_entries)
 		self.make_internal_transfer_gl_entries(gl_entries)
 
 		self.make_item_gl_entries(gl_entries)
+		self.make_precision_loss_gl_entry(gl_entries)
 		self.make_discount_gl_entries(gl_entries)
 
 		self.make_down_payment_final_invoice_entries(gl_entries)
@@ -250,6 +255,7 @@ class SalesInvoiceFrance(SalesInvoice):
 
 		self.make_write_off_gl_entry(gl_entries)
 		self.make_gle_for_rounding_adjustment(gl_entries)
+		self.set_transaction_currency_and_rate_in_gl_map(gl_entries)
 
 		return gl_entries
 
@@ -260,87 +266,61 @@ class SalesInvoiceFrance(SalesInvoice):
 		)
 
 		for item in self.get("items"):
-			if not flt(item.base_net_amount, item.precision("base_net_amount")):
-				continue
+			if (
+				flt(item.base_net_amount, item.precision("base_net_amount"))
+				or item.is_fixed_asset
+				or enable_discount_accounting
+			):
+				# Do not book income for transfer within same company
+				if self.is_internal_transfer():
+					continue
 
-			if item.is_fixed_asset:
-				asset = self.get_asset(item)
-
-				if self.is_return:
-					fixed_asset_gl_entries = get_gl_entries_on_asset_regain(
-						asset,
-						item.base_net_amount,
-						item.finance_book,
-						self.get("doctype"),
-						self.get("name"),
-					)
-					asset.db_set("disposal_date", None)
-
-					if asset.calculate_depreciation:
-						posting_date = frappe.db.get_value(
-							"Sales Invoice", self.return_against, "posting_date"
-						)
-						reverse_depreciation_entry_made_after_disposal(asset, posting_date)
-						reset_depreciation_schedule(asset, self.posting_date)
-
+				if item.is_fixed_asset and item.asset:
+					self.get_gl_entries_for_fixed_asset(item, gl_entries)
 				else:
-					if asset.calculate_depreciation:
-						depreciate_asset(asset, self.posting_date)
-						asset.reload()
-
-					fixed_asset_gl_entries = get_gl_entries_on_asset_disposal(
-						asset,
-						item.base_net_amount,
-						item.finance_book,
-						self.get("doctype"),
-						self.get("name"),
+					income_account = (
+						item.income_account
+						if (
+							not item.enable_deferred_revenue or self.is_return or self.is_down_payment_invoice
+						)
+						else item.deferred_revenue_account
 					)
-					asset.db_set("disposal_date", self.posting_date)
+					amount, base_amount = self.get_amount_and_base_amount(item, enable_discount_accounting)
 
-				for gle in fixed_asset_gl_entries:
-					gle["against"] = self.customer
-					gle["accounting_journal"] = self.accounting_journal
-					gl_entries.append(self.get_gl_dict(gle, item=item))
+					account_currency = get_account_currency(income_account)
+					gl_dict = self.get_gl_dict(
+						{
+							"account": income_account,
+							"against": self.customer,
+							"credit": flt(base_amount, item.precision("base_net_amount")),
+							"credit_in_account_currency": (
+								flt(base_amount, item.precision("base_net_amount"))
+								if account_currency == self.company_currency
+								else flt(amount, item.precision("net_amount"))
+							),
+							"credit_in_transaction_currency": flt(amount, item.precision("net_amount")),
+							"cost_center": item.cost_center,
+							"project": item.project or self.project,
+							"remarks": item.get("remarks")
+							or f'{_("Item")}: {item.qty} {item.item_code} - {_(item.uom)} / {_("Customer")}: {self.customer}',
+							"accounting_journal": self.accounting_journal,
+						},
+						account_currency,
+						item=item,
+					)
 
-				self.set_asset_status(asset)
-
-			elif not self.is_internal_transfer():
-				income_account = (
-					item.income_account
-					if (not item.enable_deferred_revenue or self.is_return or self.is_down_payment_invoice)
-					else item.deferred_revenue_account
-				)
-				amount, base_amount = self.get_amount_and_base_amount(item, enable_discount_accounting)
-
-				account_currency = get_account_currency(income_account)
-				gl_dict = self.get_gl_dict(
-					{
-						"account": income_account,
-						"against": self.customer,
-						"credit": flt(base_amount, item.precision("base_net_amount")),
-						"credit_in_account_currency": (
-							flt(base_amount, item.precision("base_net_amount"))
-							if account_currency == self.company_currency
-							else flt(amount, item.precision("net_amount"))
-						),
-						"cost_center": item.cost_center,
-						"project": item.project or self.project,
-						"remarks": item.get("remarks")
-						or f'{_("Item")}: {item.qty} {item.item_code} - {_(item.uom)} / {_("Customer")}: {self.customer}',
-						"accounting_journal": self.accounting_journal,
-					},
-					account_currency,
-					item=item,
-				)
-
-				# if self.is_down_payment_invoice:
-				# 	gl_dict.update({"party_type": "Customer", "party": self.customer})
-
-				gl_entries.append(gl_dict)
+					gl_entries.append(gl_dict)
 
 		# expense account gl entries
 		if cint(self.update_stock) and is_perpetual_inventory_enabled(self.company):
 			gl_entries += super(SalesInvoice, self).get_gl_entries()
+
+	def get_gl_entries_for_fixed_asset(self, item, gl_entries):
+		# Délègue à la méthode v16, puis injecte accounting_journal sur les entrées ajoutées
+		before = len(gl_entries)
+		super().get_gl_entries_for_fixed_asset(item, gl_entries)
+		for gle in gl_entries[before:]:
+			gle["accounting_journal"] = self.accounting_journal
 
 	def validate_due_date(self):
 		if self.get("is_pos"):
@@ -372,13 +352,6 @@ class SalesInvoiceFrance(SalesInvoice):
 			return
 		self.validate_payment_schedule_dates()
 		self.set_payment_schedule()
-
-		# PATCH: BUG ERPNEXT
-		from frappe.utils import getdate
-
-		for ps in self.get("payment_schedule"):
-			if ps.due_date and isinstance(ps.due_date, str):
-				ps.due_date = getdate(ps.due_date)
 
 		self.set_due_date()
 		if not self.get("ignore_default_payment_terms_template"):

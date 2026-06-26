@@ -330,7 +330,7 @@ def get_payment_terms_before_invoice(
 
 @frappe.whitelist()
 def get_payment_term_details(
-	term, posting_date=None, grand_total=None, base_grand_total=None, delivery_date=None
+	term, posting_date=None, grand_total=None, base_grand_total=None, bill_date=None
 ):
 	term_details = frappe._dict()
 	if isinstance(term, str):
@@ -355,7 +355,7 @@ def get_payment_term_details(
 
 	if term.get("date_computed_based_on"):
 		# avant-facture : basé sur Document Date ou Delivery Date
-		term_details.due_date = get_due_date_before_invoice(term, posting_date, delivery_date)
+		term_details.due_date = get_due_date_before_invoice(term, posting_date, bill_date)
 	else:
 		# facture standard : basé sur due_date_based_on (credit_days, etc.)
 		france_due_date = get_due_date_standard(term, posting_date)
@@ -368,7 +368,7 @@ def get_payment_term_details(
 			term_details.due_date = erpnext_get_due_date(term, posting_date)
 
 	if term.get("discount_validity_based_on"):
-		term_details.discount_date = get_discount_date(term, posting_date, delivery_date)
+		term_details.discount_date = get_discount_date(term, posting_date, bill_date)
 	else:
 		term_details.discount_date = None
 
@@ -451,11 +451,21 @@ def get_due_date_standard(term, posting_date):
 
 	date = posting_date
 
-	custom_option = None
 	if term.get("payment_term"):
+		# term est une ligne de Payment Terms Template Detail
 		custom_option = frappe.db.get_value(
 			"Payment Term", term.get("payment_term"), "custom_due_date_based_on_france"
 		)
+		end_of_month_day = frappe.db.get_value(
+			"Payment Term", term.get("payment_term"), "custom_end_of_month_day"
+		)
+	else:
+		# term est directement un objet Payment Term
+		# (ex : appel JS via override_whitelisted_methods → get_payment_term_details
+		#  reçoit un string, charge l'objet via frappe.get_doc — cet objet n'a
+		#  pas de champ "payment_term", contrairement à une ligne de template)
+		custom_option = term.get("custom_due_date_based_on_france")
+		end_of_month_day = term.get("custom_end_of_month_day")
 
 	due_date_based_on = custom_option or term.get("due_date_based_on")
 
@@ -463,7 +473,7 @@ def get_due_date_standard(term, posting_date):
 		due_date_based_on,
 		date,
 		term.get("credit_days"),
-		frappe.db.get_value("Payment Term", term.get("payment_term"), "custom_end_of_month_day"),
+		end_of_month_day,
 	)
 
 
