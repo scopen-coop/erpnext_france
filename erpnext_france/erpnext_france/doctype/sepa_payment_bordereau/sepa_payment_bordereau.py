@@ -93,8 +93,29 @@ class SEPAPaymentBordereau(Document):
 
 	def validate_lines(self):
 		"""Validate that all lines have required data"""
+		from erpnext_france.regional.france.sepa_utils import validate_invoice_unique_in_bordereaux
+
+		seen_invoices = set()
+
 		for line in self.lines:
 			self.sync_line_from_payment_type(line)
+
+			if line.invoice:
+				line_key = (line.invoice, line.invoice_type)
+				if line_key in seen_invoices:
+					frappe.throw(
+						_("Row {0}: Invoice {1} appears more than once in this bordereau").format(
+							line.idx, line.invoice
+						)
+					)
+				seen_invoices.add(line_key)
+
+				validate_invoice_unique_in_bordereaux(
+					line.invoice,
+					line.invoice_type,
+					current_bordereau=self.name,
+					current_line_name=line.name if line.name else None,
+				)
 
 			if self.payment_type == "Credit" and line.party:
 				supplier_bank_account = frappe.db.exists(

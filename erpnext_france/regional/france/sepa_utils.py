@@ -35,17 +35,11 @@ def add_invoice_to_sepa_bordereau(invoice_name, invoice_type="Sales Invoice"):
 	# Find or create bordereau
 	bordereau = get_or_create_bordereau(payment_type, invoice.company)
 
-	# Check if invoice already in bordereau
-	existing_line = frappe.db.exists(
-		"SEPA Payment Bordereau Line",
-		{
-			"parent": bordereau.name,
-			"invoice": invoice_name
-		}
+	validate_invoice_unique_in_bordereaux(
+		invoice_name,
+		invoice_type,
+		current_bordereau=bordereau.name,
 	)
-
-	if existing_line:
-		frappe.throw(_("Invoice {0} is already in SEPA Payment Bordereau {1}").format(invoice_name, bordereau.name))
 
 	# Get mandate if payment type is Debit
 	mandate = None
@@ -121,6 +115,37 @@ def sync_invoices_sepa_bordereau_links(invoices):
 			continue
 		seen.add(key)
 		sync_invoice_sepa_bordereau_link(invoice_name, invoice_type)
+
+
+def validate_invoice_unique_in_bordereaux(
+	invoice_name,
+	invoice_type,
+	current_bordereau=None,
+	current_line_name=None,
+):
+	"""Ensure an invoice is not already assigned to another SEPA bordereau."""
+	if not invoice_name:
+		return
+
+	lines = frappe.get_all(
+		"SEPA Payment Bordereau Line",
+		filters={"invoice": invoice_name, "invoice_type": invoice_type},
+		fields=["name", "parent"],
+	)
+
+	for line in lines:
+		if current_line_name and line.name == current_line_name:
+			continue
+
+		bordereau_status = frappe.db.get_value("SEPA Payment Bordereau", line.parent, "status")
+		if bordereau_status == "Closed":
+			continue
+
+		frappe.throw(
+			_("Invoice {0} is already in SEPA Payment Bordereau {1}").format(
+				invoice_name, line.parent
+			)
+		)
 
 
 def validate_invoice_for_sepa(invoice, invoice_type):
