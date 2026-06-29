@@ -84,12 +84,12 @@ def get_correct_default_account(third_party, type_thirdparty, item_code):
 
 	# Paramétrage global (singleton Special Item Accountancy Code Default)
 	for thirdparty_setup_categ in frappe.db.get_all(
-		doctype="Categorie comptable Tiers et code comptable Produit",
+		doctype="Categorie Comptable Tiers Et Code Comptable Produit",
 		as_list=True,
 		filters={"parent": "Special Item Accountancy Code Default"},
 	):
 		thirdparty_categ = frappe.get_doc(
-			"Categorie comptable Tiers et code comptable Produit",
+			"Categorie Comptable Tiers Et Code Comptable Produit",
 			thirdparty_setup_categ[0],
 		)
 		if thirdparty_categ.get("categorie_comptable_tiers") == categ_compta_thirdparty:
@@ -101,12 +101,12 @@ def get_correct_default_account(third_party, type_thirdparty, item_code):
 
 	# Paramétrage par Item Group
 	for item_group_categ in frappe.db.get_all(
-		doctype="Categorie comptable Tiers et code comptable Produit",
+		doctype="Categorie Comptable Tiers Et Code Comptable Produit",
 		as_list=True,
 		filters={"parent": doc_item.get("item_group"), "parenttype": "Item Group"},
 	):
 		thirdparty_categ = frappe.get_doc(
-			"Categorie comptable Tiers et code comptable Produit",
+			"Categorie Comptable Tiers Et Code Comptable Produit",
 			item_group_categ[0],
 		)
 		if thirdparty_categ.get("categorie_comptable_tiers") == categ_compta_thirdparty:

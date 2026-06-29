@@ -1,13 +1,15 @@
 {
  "actions": [],
- "creation": "2021-07-14 16:57:55.121696",
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "creation": "2026-06-26 16:27:57.660577",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "categorie_comptable_tiers",
   "compte_de_charges",
-  "compte_de_produits"
+  "compte_de_produits",
+  "categorie_comptable_tiers"
  ],
  "fields": [
   {
@@ -36,21 +38,23 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Categorie comptable tiers",
-   "options": "Categorie comptable Tiers"
+   "label": "Categorie Comptable Tiers",
+   "options": "Categorie Comptable Tiers"
   }
  ],
  "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-10-01 11:48:52.845236",
+ "modified": "2026-06-26 16:27:57.660577",
  "modified_by": "Administrator",
  "module": "ERPNext France",
- "name": "Categorie comptable Tiers et code comptable Produit",
+ "name": "Categorie Comptable Tiers Et Code Comptable Produit",
  "owner": "Administrator",
  "permissions": [],
  "quick_entry": 1,
  "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

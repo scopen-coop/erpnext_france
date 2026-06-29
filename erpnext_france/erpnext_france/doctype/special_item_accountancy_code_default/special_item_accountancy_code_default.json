@@ -11,7 +11,7 @@
    "fieldname": "default_values",
    "fieldtype": "Table",
    "label": "Valeur par d\u00e9faut",
-   "options": "Categorie comptable Tiers et code comptable Produit"
+   "options": "Categorie Comptable Tiers Et Code Comptable Produit"
   }
  ],
  "issingle": 1,
