@@ -744,3 +744,5 @@ On or Before,Avant le (inclus)
 Update Costing and Billing,Mettre à jour les Coûts et Facturation
 "Day(s) after invoice date, end of month","Jour(s) après la date de facture, fin du mois",
 "Day(s) after invoice date, end of month, day of next month","Jour(s) après la date de facture, fin du mois, jours du mois suivant",
+Missing IBAN information for {0},L'IBAN pour le compte bancaire {0} n'est pas renseigné
+Missing SWIFT information for {0},Le code SWIFT pour le compte bancaire {0} n'est pas renseigné
