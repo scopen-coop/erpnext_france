@@ -383,7 +383,7 @@ async function createNewDocWithSireneInfo(doctype, entity_chosen) {
   new_doc.address_line1 = entity_chosen.address_1;
   new_doc.city = entity_chosen.town;
   new_doc.pincode = entity_chosen.zipcode;
-  new_doc.country = entity_chosen.country;
+  new_doc.country_address = entity_chosen.country;
   new_doc.siret = entity_chosen.siret;
   new_doc.siren = entity_chosen.siren;
   new_doc.code_naf = await frappe.getCodeNaf(entity_chosen.code_naf);
