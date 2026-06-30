@@ -48,12 +48,16 @@ def fetch_company_from_sirene(data):
 		)
 
 	except Exception as e:
-		return {"error": _("Error during companies data recuperation:{0}").format(e)}
+		return {
+			"error": _("Error during companies data recuperation:{0}").format(e),
+			"headers": getattr(e, "response_headers", {}),
+		}
 
 	return {"message": response, "headers": response_headers}
 
 
 def http_post(url, headers=None, body=None, data=None):
+	response_headers = {}
 	try:
 		raw_response = requests.post(url=url, json=body, data=data, headers=headers, timeout=10)
 		response_headers = dict(raw_response.headers)
@@ -74,7 +78,9 @@ def http_post(url, headers=None, body=None, data=None):
 				frappe.throw(response["header"]["reason"], title=response["header"]["statut"])
 
 	except Exception as e:
-		frappe.throw(_("SIRENE API error: {0}").format(str(e)))
+		error = frappe.ValidationError(_("SIRENE API error: {0}").format(str(e)))
+		error.response_headers = response_headers
+		raise error
 
 	return response, response_headers
 
