@@ -74,7 +74,7 @@ def http_post(url, headers=None, body=None, data=None):
 				frappe.throw(response["header"]["reason"], title=response["header"]["statut"])
 
 	except Exception as e:
-		frappe.throw(str(type(e).__name__))
+		frappe.throw(_("SIRENE API error: {0}").format(str(e)))
 
 	return response, response_headers
 
@@ -108,8 +108,6 @@ def fetch_company_from_siret_or_siren(data):
 	if not search_value:
 		return {"error": _("Siren or Siret is required to check updates")}
 
-	search_key = next(iter(search_value.keys()))
-
 	parameters = frappe.get_doc("ERPNext France Settings")
 
 	if not parameters.api_url:
@@ -133,7 +131,7 @@ def fetch_company_from_siret_or_siren(data):
 			"Content-Type": "application/x-www-form-urlencoded",
 		}
 
-		response = http_post(myUrl, headers=headers, data={"q": filters, search_key: search_value})
+		response, response_headers = http_post(myUrl, headers=headers, data={"q": filters})
 
 	except Exception as e:
 		return {"error": _("Error during companies data recuperation:{0}").format(e)}
@@ -274,7 +272,7 @@ def execute_sirene_check():
 					results["logs"].append(f"API Error: {response['error']}")
 					continue
 
-				etablissements = response.get("message", {}).get("etablissements", [])
+				etablissements = response.get("etablissements", [])
 				if not etablissements:
 					results["skipped"] += 1
 					results["logs"].append("No etablissements in API response")
