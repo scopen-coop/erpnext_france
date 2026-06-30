@@ -149,6 +149,15 @@ class SalesInvoiceFrance(SalesInvoice):
 				advance.allocated_amount = advance.advance_amount
 
 	def make_down_payment_final_invoice_entries(self, gl_entries):
+		tva_accounting_on_down_payment = cint(
+			frappe.db.get_single_value("ERPNext France Settings", "tva_accounting_on_down_payment")
+		)
+		if tva_accounting_on_down_payment:
+			# Avec TVA sur acompte, les montants HT/taxes sont déjà nets au niveau
+			# des items (ligne ACOMPTE négative) et de taxes.py. Aucun ajustement
+			# GL supplémentaire n'est nécessaire ici.
+			return
+
 		# In the case of a down payment with multiple payments, associated entries of
 		# the gl_entries list would be credited/debited multiple times if we didn't make
 		# sure that the pair of GL Entry was not already processed.

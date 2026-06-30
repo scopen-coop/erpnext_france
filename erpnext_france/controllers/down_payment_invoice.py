@@ -30,9 +30,9 @@ def init_down_payment_invoice(order_name, values):
 	):
 		frappe.throw("Down Payment By Amount should be between 0 and total")
 
-	down_payment_invoice = frappe.get_cached_doc(
+	down_payment_invoice = frappe.new_doc("Sales Invoice")
+	down_payment_invoice.update(
 		{
-			"doctype": "Sales Invoice",
 			"customer": order.customer,
 			"customer_name": order.customer,
 			"contact_person": order.contact_person,

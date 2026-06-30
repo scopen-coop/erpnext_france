@@ -415,6 +415,7 @@ def get_advance_payment_entries(
 				pe.posting_date,
 				pe[currency_field].as_("currency"),
 				pe[exchange_rate_field].as_("exchange_rate"),
+				pe.down_payment.as_("down_payment"),
 			)
 			.where(pe[party_account_field].isin(party_account))
 			.where(pe.payment_type == payment_type)
