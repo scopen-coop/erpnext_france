@@ -40,6 +40,8 @@ def get_item_details_account_code(args, doc=None, for_validate=False, overwrite_
 
 	if isinstance(doc, str):
 		doc = json.loads(doc)
+	elif not doc:
+		doc = args
 
 	# Déterminer le type de transaction et le tiers
 	transaction_type = None
