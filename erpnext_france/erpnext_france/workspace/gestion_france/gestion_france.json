@@ -1,18 +1,39 @@
 {
+ "app": "erpnext_france",
  "charts": [],
- "content": "[{\"id\":\"pWPiOexDi2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Gestion France<br></span>\",\"col\":12}},{\"id\":\"MHUnBY7-Ya\",\"type\":\"card\",\"data\":{\"card_name\":\"Export comptable\",\"col\":4}},{\"id\":\"LOI5EfXMnY\",\"type\":\"card\",\"data\":{\"card_name\":\"Param\u00e8tres\",\"col\":4}},{\"id\":\"J-dbaB8hql\",\"type\":\"card\",\"data\":{\"card_name\":\"Rapport\",\"col\":4}}]",
+ "content": "[{\"id\":\"pWPiOexDi2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Gestion France<br></span>\",\"col\":12}},{\"id\":\"MHUnBY7-Ya\",\"type\":\"card\",\"data\":{\"card_name\":\"Export comptable au format FEC\",\"col\":4}},{\"id\":\"LOI5EfXMnY\",\"type\":\"card\",\"data\":{\"card_name\":\"Param\u00e8tres\",\"col\":4}},{\"id\":\"J-dbaB8hql\",\"type\":\"card\",\"data\":{\"card_name\":\"Rapport\",\"col\":4}}]",
  "creation": "2024-09-21 12:07:59.981532",
  "custom_blocks": [],
  "docstatus": 0,
  "doctype": "Workspace",
  "for_user": "",
  "hide_custom": 0,
- "icon": "milestone",
+ "icon": "crm",
  "idx": 0,
  "indicator_color": "",
  "is_hidden": 0,
  "label": "Gestion France",
  "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Export comptable au format FEC",
+   "link_count": 1,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Export format FEC",
+   "link_count": 0,
+   "link_to": "Fichier des Ecritures Comptables [FEC]",
+   "link_type": "Report",
+   "onboard": 0,
+   "only_for": "France",
+   "type": "Link"
+  },
   {
    "hidden": 0,
    "is_query_report": 0,
@@ -83,35 +104,15 @@
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Export comptable",
-   "link_count": 1,
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Card Break"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Export format FEC",
-   "link_count": 0,
-   "link_to": "Fichier des Ecritures Comptables [FEC]",
-   "link_type": "Report",
-   "onboard": 0,
-   "only_for": "France",
-   "type": "Link"
   }
  ],
- "modified": "2026-04-28 10:47:48.735632",
- "modified_by": "simep-erpnext@scopen.fr",
+ "modified": "2026-07-01 19:00:52.228471",
+ "modified_by": "Administrator",
  "module": "ERPNext France",
  "name": "Gestion France",
  "number_cards": [],
  "owner": "Administrator",
- "parent_page": "Accounting",
+ "parent_page": "",
  "public": 1,
  "quick_lists": [],
  "restrict_to_domain": "",
@@ -129,7 +130,8 @@
    "role": "System Manager"
   }
  ],
- "sequence_id": 6.0,
+ "sequence_id": 5.1,
  "shortcuts": [],
- "title": "Gestion France"
+ "title": "Gestion France",
+ "type": "Workspace"
 }

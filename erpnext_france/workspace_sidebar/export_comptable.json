@@ -1,0 +1,37 @@
+{
+ "app": null,
+ "docstatus": 0,
+ "doctype": "Workspace Sidebar",
+ "header_icon": "download",
+ "idx": 1,
+ "items": [
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "download",
+   "indent": 1,
+   "keep_closed": 0,
+   "label": "Export comptable",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Section Break"
+  },
+  {
+   "child": 1,
+   "collapsible": 1,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Export format FEC",
+   "link_to": "Fichier des Ecritures Comptables [FEC]",
+   "link_type": "Report",
+   "show_arrow": 0,
+   "type": "Link"
+  }
+ ],
+ "module": "ERPNext France",
+ "module_onboarding": null,
+ "name": "Export Comptable",
+ "owner": "Administrator",
+ "standard": 1,
+ "title": "Export Comptable"
+}

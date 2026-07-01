@@ -1,0 +1,37 @@
+{
+ "app": null,
+ "docstatus": 0,
+ "doctype": "Workspace Sidebar",
+ "header_icon": "file-text",
+ "idx": 1,
+ "items": [
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "file-text",
+   "indent": 1,
+   "keep_closed": 0,
+   "label": "Rapport",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Section Break"
+  },
+  {
+   "child": 1,
+   "collapsible": 1,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Journal de validation transactions de vente",
+   "link_to": "Transaction Log Report",
+   "link_type": "Report",
+   "show_arrow": 0,
+   "type": "Link"
+  }
+ ],
+ "module": "ERPNext France",
+ "module_onboarding": null,
+ "name": "Rapports France",
+ "owner": "Administrator",
+ "standard": 1,
+ "title": "Rapports France"
+}

@@ -1,0 +1,19 @@
+{
+ "app": "erpnext_france",
+ "docstatus": 0,
+ "doctype": "Desktop Icon",
+ "hidden": 0,
+ "icon": "download",
+ "icon_type": "Link",
+ "idx": 1,
+ "label": "Export Comptable",
+ "link_to": "Export Comptable",
+ "link_type": "Workspace Sidebar",
+ "modified_by": "Administrator",
+ "name": "Export Comptable",
+ "owner": "Administrator",
+ "parent_icon": "Gestion France",
+ "restrict_removal": 0,
+ "roles": [],
+ "standard": 1
+}

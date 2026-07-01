@@ -1,0 +1,22 @@
+{
+ "app": "erpnext_france",
+ "bg_color": "gray",
+ "creation": "2026-07-01 11:49:48.851141",
+ "docstatus": 0,
+ "doctype": "Desktop Icon",
+ "hidden": 0,
+ "icon_type": "Folder",
+ "idx": 11,
+ "label": "Gestion France",
+ "link_to": "",
+ "link_type": "Workspace Sidebar",
+ "modified": "2026-07-01 19:24:44.675349",
+ "modified_by": "Administrator",
+ "name": "Gestion France",
+ "owner": "Administrator",
+ "parent_icon": "",
+ "restrict_removal": 0,
+ "roles": [],
+ "sidebar": "Gestion France",
+ "standard": 1
+}
