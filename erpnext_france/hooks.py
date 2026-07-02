@@ -430,9 +430,7 @@ doc_events = {
 # 	]
 # }
 
-scheduler_events = {
-	"daily": ["erpnext_france.tasks.check_sirene_update"],
-}
+scheduler_events = {"daily": [{"method": "erpnext_france.tasks.check_sirene_update", "timeout": 7200}]}
 
 # Testing
 # -------
