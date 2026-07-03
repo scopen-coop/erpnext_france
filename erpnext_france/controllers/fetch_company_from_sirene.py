@@ -59,7 +59,7 @@ def fetch_company_from_sirene(data):
 def http_post(url, headers=None, body=None, data=None):
 	response_headers = {}
 	try:
-		raw_response = requests.post(url=url, json=body, data=data, headers=headers, timeout=10)
+		raw_response = requests.post(url=url, json=body, data=data, headers=headers, timeout=30)
 		response_headers = dict(raw_response.headers)
 		response = json.loads(raw_response.content)
 		if "fault" in response:

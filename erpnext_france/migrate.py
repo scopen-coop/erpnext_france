@@ -54,6 +54,8 @@ def migrate_due_date_based_on_france():
 
 
 def update_worker_timeout():
+	_sirene_worker_timeout = 3600
+
 	"""S'assure que le timeout worker est suffisant pour le job cron SIRENE"""
 	from frappe.installer import update_site_config
 
@@ -61,6 +63,9 @@ def update_worker_timeout():
 	workers = site_config.get("workers", {})
 	default_timeout = workers.get("default", {}).get("timeout", 300)
 
-	if default_timeout < 3600:
-		update_site_config("workers", {"default": {"timeout": 3600}, "short": {"timeout": 3600}})
+	if default_timeout < _sirene_worker_timeout:
+		update_site_config(
+			"workers",
+			{"default": {"timeout": _sirene_worker_timeout}, "short": {"timeout": _sirene_worker_timeout}},
+		)
 		print("Worker timeout mis à jour à 3600s pour le job SIRENE")
