@@ -316,6 +316,7 @@ after_migrate = [
 	"erpnext_france.install.after_install",
 	"erpnext_france.setup.make_payment_terms_fixtures",
 	"erpnext_france.migrate.migrate_due_date_based_on_france",
+	"erpnext_france.migrate.update_worker_timeout",
 ]
 
 before_tests = "erpnext_france.tests.utils.before_tests"
@@ -430,7 +431,7 @@ doc_events = {
 # 	]
 # }
 
-scheduler_events = {"daily": [{"method": "erpnext_france.tasks.check_sirene_update", "timeout": 7200}]}
+scheduler_events = {"daily": ["erpnext_france.tasks.check_sirene_update"]}
 
 # Testing
 # -------
