@@ -431,7 +431,7 @@ doc_events = {
 # 	]
 # }
 
-scheduler_events = {"daily": ["erpnext_france.tasks.check_sirene_update"]}
+scheduler_events = {"daily_long": ["erpnext_france.tasks.check_sirene_update"]}
 
 # Testing
 # -------
