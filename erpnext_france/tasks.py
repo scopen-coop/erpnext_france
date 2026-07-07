@@ -49,7 +49,7 @@ def create_job_log(method_name):
 			{
 				"doctype": "Scheduled Job Type",
 				"method": f"erpnext_france.tasks.{method_name}",
-				"frequency": "Daily",
+				"frequency": "Daily Long",
 			}
 		)
 		job_type.insert(ignore_permissions=True)
