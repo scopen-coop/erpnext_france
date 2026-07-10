@@ -49,5 +49,5 @@ const export_data = (frm) => {
     };
   };
 
-  open_url_post(get_template_url, export_params());
+  open_url_post(get_template_url, export_params(), 1);
 };
