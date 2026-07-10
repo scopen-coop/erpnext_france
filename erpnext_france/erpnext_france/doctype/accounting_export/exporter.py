@@ -155,7 +155,6 @@ class DataExporter:
 
 		gl = frappe.qb.DocType("GL Entry")
 		acc = frappe.qb.DocType("Account", alias="acc")
-		against_acc = frappe.qb.DocType("Account", alias="against_acc")
 		supp = frappe.qb.DocType("Supplier")
 		cust = frappe.qb.DocType("Customer")
 		party_acc_cust = frappe.qb.DocType("Party Account", alias="party_acc_cust")
@@ -191,8 +190,6 @@ class DataExporter:
 			)
 			.inner_join(acc)
 			.on(gl.account == acc.name)
-			.left_join(against_acc)
-			.on(gl.against == against_acc.name)
 			.left_join(supp)
 			.on((gl.party == supp.name) & (gl.party_type == 'Supplier'))
 			.left_join(party_acc_supp)
