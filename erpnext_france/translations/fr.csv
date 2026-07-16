@@ -776,6 +776,8 @@ Duplicate,Cloner
 Show Links,Voir les liens
 Create,Créer
 Comments,Commantaires
+Print,Imprimer
+Customize Quick Filters,Personnaliser les filtre rapides
 Auto reserve stock,Réservation de stock automatique
 "Upon submission of the Sales Order, Work Order, or Production Plan, the system will automatically reserve the stock.","A la validation des commande client, OF, ou plan de prod. Les quantité stock seront reservés automatiquement"
 Serial and Batch Reservation,Réservation des N° de Série et N° du Lot
