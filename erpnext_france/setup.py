@@ -132,10 +132,10 @@ def set_default_source_letter_head():
 def set_default_stock_settings():
 	frappe.reload_doctype("Stock Settings")
 	frappe.db.set_single_value("Stock Settings", "item_naming_by", "Item Code")
-	frappe.db.set_default("item_naming_by", "Item Code")
+	# frappe.db.set_default("item_naming_by", "Item Code")
 	frappe.db.set_single_value("Stock Settings", "valuation_method", "Moving Average")
 	frappe.db.set_single_value("Stock Settings", "stock_uom", "Unit")
-	frappe.db.set_default("stock_uom", "Unit")
+	# frappe.db.set_default("stock_uom", "Unit")
 	frappe.db.set_single_value("Stock Settings", "auto_insert_price_list_rate_if_missing", 1)
 
 
@@ -188,7 +188,7 @@ def set_default_accounting_journal(company_name, company_abbr):
 
 def set_default_system_settings():
 	frappe.db.set_single_value("System Settings", "first_day_of_the_week", "Monday")
-	frappe.db.set_default("first_day_of_the_week", "Monday")
+	# frappe.db.set_default("first_day_of_the_week", "Monday")
 
 
 def set_default_print_settings():
