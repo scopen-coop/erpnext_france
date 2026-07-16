@@ -744,6 +744,10 @@ On or Before,Avant le (inclus)
 Update Costing and Billing,Mettre à jour les Coûts et Facturation
 "Day(s) after invoice date, end of month","Jour(s) après la date de facture, fin du mois",
 "Day(s) after invoice date, end of month, day of next month","Jour(s) après la date de facture, fin du mois, jours du mois suivant",
+Missing IBAN information for {0},L'IBAN pour le compte bancaire {0} n'est pas renseigné
+Missing SWIFT information for {0},Le code SWIFT pour le compte bancaire {0} n'est pas renseigné
+Row {0}: Invoice {1} appears more than once in this bordereau,Ligne {0}: la facture {1} est présente plus d'une fois dans ce bordereau
+Row {0}: Supplier {1} does not have a default bank account,Ligne {0}: le fournisseur {1} n'as pas de compte bancaire par défaut
 Submit,Valider
 Attachments,Fichiers attachés
 Last Edited By {0},Dernière modification par {0}
