@@ -775,4 +775,11 @@ Serial and Batch Nos will be auto-reserved based on <b>Pick Serial / Batch Based
 Allow partial reservation,Autoriser la résevertation partiel
 "Partial stock can be reserved. For example, If you have a Sales Order of 100 units and the Available Stock is 90 units then a Stock Reservation Entry will be created for 90 units. ","Les quantité incomplètes pourront être reservées. Par exemple, si vous avez une commande client de 100 piéces et que le stock disponible est de 90 piéces alors une reservation de stock de 90 piéces sera créée."
 Auto reserve Stock for Sales Order on Purchase, Réservation de stock automatique pour les commande client depuis les achats
-Stock will be reserved on submission of <b>Purchase Receipt</b> created against Material Request for Sales Order.,Le stock sera réservé à la validation d'un <b>Reçus d'Achat</b> créer depuis une Demande de Matériel pour une commande client
+Stock will be reserved on submission of <b>Purchase Receipt</b> created against Material Request for Sales Order.,Le stock sera réservé à la validation d'un <b>Reçus d'Achat</b> créer depuis une Demande de Matériel pour une commande client.
+Download Template,Télécharger le modèle
+Attach,Téléverser
+Detect CSV type,Détecter le type de CSV
+Use if the default settings don't seem to detect your data correctly,Cocher si par défault vos données ne semble pas correctement interprétées
+Custom Delimiters,Séparateur personnalisé
+Delimiter Options,Séparateurs possibles
+"If your CSV uses a different delimiter, add that character here, ensuring no spaces or additional characters are included.","Si votre CSV utilise un séparateur différent des caractères ci dessus. Assurez-vous de ne pas avoir d'espace ou d'autres caractères inclus"
