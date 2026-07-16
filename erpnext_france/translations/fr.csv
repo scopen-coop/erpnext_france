@@ -271,7 +271,7 @@ Stock Validations,Validation de stock,
 "The percentage you are allowed to transfer more against the quantity ordered. For example, if you have ordered 100 units, and your Allowance is 10%, then you are allowed transfer 110 units.","Le pourcentage que vous êtes autorisé à transférer en plus par rapport à la quantité commandée. Par exemple, si vous avez commandé 100 unités, et que votre Allocation est de 10 %, vous pouvez transférer 110 unités."
 Quality Inspection Settings,Paramètres de l'inspection qualité,
 Stock Reservation,Réservation de stock,
-Enable Stock Reservation,Activer la réservation de stock,
+Enable stock reservation,Activer la réservation de stock,
 Allows to keep aside a specific quantity of inventory for a particular order.,Permet de garder de côté une quantité spécifique d'inventaire pour une commande particulière.,
 Serial & Batch Item,Articles gérés en lots / séries,
 Serial & Batch Item Settings,Paramètres des articles gérés en lots / séries,
@@ -764,3 +764,15 @@ Desktop,Accueil
 Search,Chercher
 Auto Email Report,Rapport par email automatique
 Account Setup,Conf. comptabilité
+Duplicate,Cloner
+Show Links,Voir les liens
+Create,Créer
+Auto reserve stock,Réservation de stock automatique
+"Upon submission of the Sales Order, Work Order, or Production Plan, the system will automatically reserve the stock.","A la validatino des commande client, OF, ou plan de prod. Les quantité stock seront reservés automatiquement"
+Serial and Batch Reservation,Réservation des N° de Série et N° du Lot
+Auto reserve Serial and Batch Nos,Réservation automatique des N° de Série et N° du Lot
+Serial and Batch Nos will be auto-reserved based on <b>Pick Serial / Batch Based On</b>,N° de Série et N° du Lot seront réservé automatiquement basé sur <b>choisir des N° de Série et N° du Lot</b>
+Allow partial reservation,Autoriser la résevertation partiel
+"Partial stock can be reserved. For example, If you have a Sales Order of 100 units and the Available Stock is 90 units then a Stock Reservation Entry will be created for 90 units.","Les quantité icomplétes pourront être reservées. Par exemple, si vous avez une commande client de 100 piéces et que le stock disponible est de 90 piéces alors une reservation de stock de 90 piéces sera créée."
+Auto reserve Stock for Sales Order on Purchase, Réservation de stock automatique pour les commande client depuis les achats
+Stock will be reserved on submission of <b>Purchase Receipt</b> created against Material Request for Sales Order.,Le stock sera réservé à la validation d'un <b>Reçus d'Achat</b> créer depuis une Demande de Matériel pour une commande client
