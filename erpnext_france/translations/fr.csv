@@ -782,4 +782,4 @@ Detect CSV type,Détecter le type de CSV
 Use if the default settings don't seem to detect your data correctly,Cocher si par défault vos données ne semble pas correctement interprétées
 Custom Delimiters,Séparateur personnalisé
 Delimiter Options,Séparateurs possibles
-"If your CSV uses a different delimiter, add that character here, ensuring no spaces or additional characters are included.","Si votre CSV utilise un séparateur différent des caractères ci dessus. Assurez-vous de ne pas avoir d'espace ou d'autres caractères inclus"
+"If your CSV uses a different delimiter, add that character here, ensuring no spaces or additional characters are included.","Si votre CSV utilise un séparateur différent des caractères ci dessus. Assurez-vous de ne pas avoir d'espace ou d'autres caractères inclus."
