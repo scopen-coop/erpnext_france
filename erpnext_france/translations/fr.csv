@@ -752,7 +752,15 @@ Submit,Valider
 Attachments,Fichiers attachés
 Last Edited By {0},Dernière modification par {0}
 Last Edited By You,Dernière modification par vous
+{0} submitted this document,{0} à valider ce document
+You submitted this document,Vous avez validé ce document
+You added 1 row to {0},Vous avez ajouté 1 ligne à {0}
+You added {0} rows to {1},Vous avez ajouté {0} ligne à {1}
+{0} added 1 row to {1},{0} a ajouté 1 ligne à {1}
+{0} added {1} rows to {2},{0} a ajouté {1} ligne à {2}
+Activity,Activité
 Created By {0},Créer par {0}
+Clear Filters,Effacer les filtres
 Settings,Paramètres
 Dashboard,Tableau de bords
 Home,Accueil
@@ -767,6 +775,7 @@ Account Setup,Conf. comptabilité
 Duplicate,Cloner
 Show Links,Voir les liens
 Create,Créer
+Comments,Commantaires
 Auto reserve stock,Réservation de stock automatique
 "Upon submission of the Sales Order, Work Order, or Production Plan, the system will automatically reserve the stock.","A la validation des commande client, OF, ou plan de prod. Les quantité stock seront reservés automatiquement"
 Serial and Batch Reservation,Réservation des N° de Série et N° du Lot
@@ -783,3 +792,18 @@ Use if the default settings don't seem to detect your data correctly,Cocher si p
 Custom Delimiters,Séparateur personnalisé
 Delimiter Options,Séparateurs possibles
 "If your CSV uses a different delimiter, add that character here, ensuring no spaces or additional characters are included.","Si votre CSV utilise un séparateur différent des caractères ci dessus. Assurez-vous de ne pas avoir d'espace ou d'autres caractères inclus."
+Unit Of Measure,UdM de l'Article
+Brand,Marque,Item
+Item to Manufacture,Article à fabriquer,BOM
+BOM Configuration,Config. Nomenclature,BOM
+Is Active,Est active,BOM
+Is Phantom BOM,Est une BOM fantôme,BOM
+Consume Components,Composant utilisé,BOM
+Based On,Basé sur,BOM
+Cost Allocation / Process Loss,Allocation des coûts / Pertes,BOM
+% Cost Allocation,% Allocation du coût,BOM
+Cost Allocation,Allocation du coût,BOM
+Quantity (Output Qty),Qté (fabriquée),BOM
+How many units of the final product this BOM makes.,Qté de l'article fabriqué par cette nomenclature,BOM
+Is Sub Assembly Item,Est un article sous-ensemble,BOM
+Is Phantom Item,Est un article phantom
