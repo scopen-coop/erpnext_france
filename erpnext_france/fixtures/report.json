@@ -3,9 +3,11 @@
   "add_total_row": 0,
   "add_translate_data": 0,
   "columns": [],
+  "disable_prepared_report_automation": 0,
   "disabled": 0,
   "docstatus": 0,
   "doctype": "Report",
+  "doctype_to_sync": [],
   "filters": [],
   "is_standard": "Yes",
   "javascript": null,
@@ -22,15 +24,18 @@
   "report_script": null,
   "report_type": "Script Report",
   "roles": [],
+  "snapshot_report": 0,
   "timeout": 0
  },
  {
   "add_total_row": 0,
   "add_translate_data": 0,
   "columns": [],
+  "disable_prepared_report_automation": 0,
   "disabled": 0,
   "docstatus": 0,
   "doctype": "Report",
+  "doctype_to_sync": [],
   "filters": [],
   "is_standard": "Yes",
   "javascript": null,
@@ -48,24 +53,16 @@
   "report_type": "Script Report",
   "roles": [
    {
-    "parent": "General Ledger",
-    "parentfield": "roles",
-    "parenttype": "Report",
     "role": "Accounts User"
    },
    {
-    "parent": "General Ledger",
-    "parentfield": "roles",
-    "parenttype": "Report",
     "role": "Accounts Manager"
    },
    {
-    "parent": "General Ledger",
-    "parentfield": "roles",
-    "parenttype": "Report",
     "role": "Auditor"
    }
   ],
+  "snapshot_report": 0,
   "timeout": 0
  }
 ]

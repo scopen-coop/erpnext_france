@@ -200,12 +200,8 @@ fixtures = [
 		],
 	},
 	{"dt": "Address Template", "filters": [["country", "in", "France"]]},
-	{
-		"dt": "Legal Form",
-	},
-	{
-		"dt": "Code Naf",
-	},
+	{"dt": "Legal Form", "filters": [["docstatus", "=", "1"]]},
+	{"dt": "Code Naf"},
 	{
 		"dt": "Report",
 		"filters": [

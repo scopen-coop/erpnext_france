@@ -5,12 +5,13 @@
   "disable_automatic_recency_filters": 0,
   "disable_comment_count": 0,
   "disable_count": 0,
+  "disable_scrolling": 0,
   "disable_sidebar_stats": 0,
   "docstatus": 0,
   "doctype": "List View Settings",
   "fields": "[{\"fieldname\":\"item_name\",\"label\":\"Nom de l'article\"},{\"fieldname\":\"item_code\",\"label\":\"Code de l'Article\"},{\"fieldname\":\"uom\",\"label\":\"UdM\"},{\"fieldname\":\"price_list\",\"label\":\"Liste de prix\"},{\"fieldname\":\"customer\",\"label\":\"Client\"},{\"fieldname\":\"supplier\",\"label\":\"Fournisseur\"},{\"fieldname\":\"price_list_rate\",\"label\":\"Prix\"},{\"fieldname\":\"valid_from\",\"label\":\"Valide à partir de\"},{\"fieldname\":\"valid_upto\",\"label\":\"Valable jusqu'au\"}]",
   "modified": "2025-06-11 16:32:26.498161",
   "name": "Item Price",
-  "total_fields": "10"
+  "show_tags": 0
  }
 ]
