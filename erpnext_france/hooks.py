@@ -216,7 +216,7 @@ fixtures = [
 		],
 	},
 	{"dt": "Letter Head", "filters": [["name", "in", "France Letter Head"]]},
-	{"dt": "Variant Field", "filters": [["field_name", "in", "eco_part"]]},
+	# {"dt": "Variant Field", "filters": [["field_name", "in", "eco_part"]]},
 	{"dt": "List View Settings", "filters": [["name", "=", "Item Price"]]},
 	{
 		"dt": "Bank Account Type",
