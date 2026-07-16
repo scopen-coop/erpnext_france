@@ -807,7 +807,7 @@ Cost Allocation / Process Loss,Allocation des coûts / Pertes,BOM
 Cost Allocation,Allocation du coût,BOM
 Quantity (Output Qty),Qté (fabriquée),BOM
 How many units of the final product this BOM makes.,Qté de l'article fabriqué par cette nomenclature.,BOM
-Is Sub Assembly Item,Est un article sous-ensemble,BOM
+Is Sub Assembly Item,Est un article sous-ensemble,BOM Item
 Production Item Info,Information sur l'article à fabriquer,BOM
 Operating Cost Per BOM Quantity,Coût des opérations par Qté (fabriquée),BOM
 Is Phantom Item,Est un article phantom
