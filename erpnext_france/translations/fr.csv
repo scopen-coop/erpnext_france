@@ -799,7 +799,7 @@ Brand,Marque,Item
 Item to Manufacture,Article à fabriquer,BOM
 BOM Configuration,Config. Nomenclature,BOM
 Is Active,Est active,BOM
-Is Phantom BOM,Est une BOM fantôme,BOM
+Is Phantom BOM,Est une nomclature fantôme,BOM
 Consume Components,Composant utilisé,BOM
 Based On,Basé sur,BOM
 Cost Allocation / Process Loss,Allocation des coûts / Pertes,BOM
@@ -808,5 +808,7 @@ Cost Allocation,Allocation du coût,BOM
 Quantity (Output Qty),Qté (fabriquée),BOM
 How many units of the final product this BOM makes.,Qté de l'article fabriqué par cette nomenclature,BOM
 Is Sub Assembly Item,Est un article sous-ensemble,BOM
+Production Item Info,Information sur l'article à fabriquer,BOM
 Is Phantom Item,Est un article phantom
 Unit,Unité
+Project,Projet
