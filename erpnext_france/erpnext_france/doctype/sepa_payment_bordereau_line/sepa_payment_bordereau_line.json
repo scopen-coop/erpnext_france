@@ -13,6 +13,7 @@
   "amount",
   "mandate",
   "end_to_end_id",
+  "payment_entry",
   "section_break_2",
   "status",
   "rejection_reason"
@@ -72,6 +73,14 @@
    "label": "End-to-End ID",
    "read_only": 1,
    "unique": 1
+  },
+  {
+   "fieldname": "payment_entry",
+   "fieldtype": "Link",
+   "label": "Payment Entry",
+   "options": "Payment Entry",
+   "read_only": 1,
+   "no_copy": 1
   },
   {
    "fieldname": "status",

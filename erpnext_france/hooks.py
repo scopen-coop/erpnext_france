@@ -63,6 +63,7 @@ fixtures = [
 					"Party Account-subledger_account",
 					"Payment Entry-down_payment",
 					"Payment Entry-accounting_journal",
+					"Payment Entry-sepa_payment_bordereau",
 					"Payment Entry-subscription",
 					"Payment Term-payment_terms_before_invoice",
 					"Payment Term-date_computed_based_on",
@@ -474,6 +475,7 @@ override_doctype_dashboards = {
 	# "Payment Term": "erpnext_france.dashboard.payment_term.get_dashboard_data.get_dashboard_data",
 	"Sales Invoice": "erpnext_france.dashboard.sales_invoice.get_dashboard_data.get_dashboard_data",
 	"Purchase Invoice": "erpnext_france.dashboard.purchase_invoice.get_dashboard_data.get_dashboard_data",
+	"Payment Entry": "erpnext_france.dashboard.payment_entry.get_dashboard_data.get_dashboard_data",
 }
 
 export_python_type_annotations = True
