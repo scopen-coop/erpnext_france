@@ -640,7 +640,7 @@ class SEPAPaymentBordereau(Document):
 		frappe.msgprint(_("Bordereau marked as sent"))
 
 	@frappe.whitelist()
-	def accept_selected_lines(self, line_names):
+	def accept_selected_lines(self, line_names: list | str):
 		"""Accept selected pending lines and create payment entries."""
 		import json
 
