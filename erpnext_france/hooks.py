@@ -472,6 +472,8 @@ override_doctype_class = {
 
 override_doctype_dashboards = {
 	# "Payment Term": "erpnext_france.dashboard.payment_term.get_dashboard_data.get_dashboard_data",
+	"Sales Invoice": "erpnext_france.dashboard.sales_invoice.get_dashboard_data.get_dashboard_data",
+	"Purchase Invoice": "erpnext_france.dashboard.purchase_invoice.get_dashboard_data.get_dashboard_data",
 }
 
 export_python_type_annotations = True
