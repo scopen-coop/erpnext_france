@@ -138,9 +138,7 @@ class SEPAPaymentBordereau(Document):
 				continue
 
 			if self.is_status_locked(old_line) and line.status != old_line.status:
-				frappe.throw(
-					_("Row {0}: Accepted lines cannot change status").format(line.idx)
-				)
+				frappe.throw(_("Row {0}: Accepted lines cannot change status").format(line.idx))
 
 			if not self.is_line_locked(old_line):
 				continue
@@ -161,17 +159,13 @@ class SEPAPaymentBordereau(Document):
 
 			# rejection_reason stays editable on Rejected lines
 			if old_line.status == "Accepted" and line.rejection_reason != old_line.rejection_reason:
-				frappe.throw(
-					_("Row {0}: Accepted lines cannot be modified").format(line.idx)
-				)
+				frappe.throw(_("Row {0}: Accepted lines cannot be modified").format(line.idx))
 
 		# Prevent deletion of locked lines
 		current_names = {line.name for line in self.lines if line.name}
 		for name, old_line in old_lines.items():
 			if name not in current_names and self.is_line_locked(old_line):
-				frappe.throw(
-					_("Accepted/Rejected lines linked to a Payment Entry cannot be removed")
-				)
+				frappe.throw(_("Accepted/Rejected lines linked to a Payment Entry cannot be removed"))
 
 	def validate_lines(self):
 		"""Validate that all lines have required data"""

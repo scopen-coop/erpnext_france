@@ -110,7 +110,10 @@ function get_line_types(payment_type) {
 }
 
 function is_line_locked(line) {
-  return Boolean(line.payment_entry) || ["Accepted", "Rejected"].includes(line.status);
+  return (
+    Boolean(line.payment_entry) ||
+    ["Accepted", "Rejected"].includes(line.status)
+  );
 }
 
 function is_status_locked(line) {

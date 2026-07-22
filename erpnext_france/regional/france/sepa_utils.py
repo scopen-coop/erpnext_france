@@ -733,7 +733,7 @@ def reconcile_sepa_line_on_status_change(bordereau, line, new_status, silent=Fal
 	elif new_status == "Rejected":
 		outstanding = _get_sepa_line_invoice_outstanding(line)
 		if flt(outstanding) <= 0:
-			# Already paid: no +/− Payment Entry pair to create
+			# Already paid: no +/- Payment Entry pair to create
 			if not silent:
 				frappe.msgprint(
 					_(
