@@ -109,6 +109,84 @@ function get_line_types(payment_type) {
   return { invoice_type: "Sales Invoice", party_type: "Customer" };
 }
 
+function is_line_locked(line) {
+  return Boolean(line.payment_entry) || ["Accepted", "Rejected"].includes(line.status);
+}
+
+function is_status_locked(line) {
+  return line.status === "Accepted";
+}
+
+function set_grid_field_read_only(grid_row, fieldname, read_only) {
+  if (!grid_row) {
+    return;
+  }
+
+  if (typeof grid_row.toggle_editable === "function") {
+    grid_row.toggle_editable(fieldname, !read_only);
+    return;
+  }
+
+  if (grid_row.on_grid_fields_dict && grid_row.on_grid_fields_dict[fieldname]) {
+    const field = grid_row.on_grid_fields_dict[fieldname];
+    field.df.read_only = read_only ? 1 : 0;
+    if (typeof field.refresh === "function") {
+      field.refresh();
+    }
+  }
+
+  if (
+    grid_row.grid_form &&
+    grid_row.grid_form.fields_dict &&
+    grid_row.grid_form.fields_dict[fieldname]
+  ) {
+    const form_field = grid_row.grid_form.fields_dict[fieldname];
+    form_field.df.read_only = read_only ? 1 : 0;
+    if (typeof form_field.refresh === "function") {
+      form_field.refresh();
+    }
+  }
+}
+
+function lock_processed_lines(frm) {
+  const grid = frm.fields_dict.lines && frm.fields_dict.lines.grid;
+  if (!grid) {
+    return;
+  }
+
+  const data_fields = ["invoice", "party", "amount", "mandate"];
+
+  (frm.doc.lines || []).forEach((line) => {
+    if (!line.name) {
+      return;
+    }
+
+    const grid_row = grid.grid_rows_by_docname[line.name];
+    if (!grid_row) {
+      return;
+    }
+
+    const data_locked = is_line_locked(line);
+    data_fields.forEach((fieldname) => {
+      set_grid_field_read_only(grid_row, fieldname, data_locked);
+    });
+
+    // Pending / Rejected: status (and rejection reason) remain editable
+    set_grid_field_read_only(grid_row, "status", is_status_locked(line));
+    set_grid_field_read_only(
+      grid_row,
+      "rejection_reason",
+      line.status === "Accepted"
+    );
+
+    if (grid_row.wrapper) {
+      grid_row.wrapper
+        .find(".grid-delete-row, .grid-duplicate-row")
+        .toggle(!data_locked);
+    }
+  });
+}
+
 function sync_line_types(frm, cdt, cdn) {
   const { invoice_type, party_type } = get_line_types(frm.doc.payment_type);
   frappe.model.set_value(cdt, cdn, "invoice_type", invoice_type);
@@ -120,6 +198,10 @@ frappe.ui.form.on("SEPA Payment Bordereau", {
     if (frm.doc.status === "Draft") {
       ensure_company_bank_account(frm, false);
     }
+
+    lock_processed_lines(frm);
+    // Grid rows may finish rendering after refresh
+    setTimeout(() => lock_processed_lines(frm), 200);
 
     // Add Validate button
     if (
@@ -348,9 +430,16 @@ function show_accept_results(results) {
 }
 
 frappe.ui.form.on("SEPA Payment Bordereau Line", {
+  form_render: function (frm, cdt, cdn) {
+    const row = locals[cdt][cdn];
+    if (is_line_locked(row)) {
+      lock_processed_lines(frm);
+    }
+  },
+
   invoice: function (frm, cdt, cdn) {
     const row = locals[cdt][cdn];
-    if (!row.invoice) {
+    if (!row.invoice || is_line_locked(row)) {
       return;
     }
 

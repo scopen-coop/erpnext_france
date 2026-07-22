@@ -126,18 +126,26 @@ def validate_invoice_unique_in_bordereaux(
 	current_bordereau=None,
 	current_line_name=None,
 ):
-	"""Ensure an invoice is not already assigned to another SEPA bordereau."""
+	"""Ensure an invoice is not already assigned to another active SEPA bordereau."""
 	if not invoice_name:
 		return
 
 	lines = frappe.get_all(
 		"SEPA Payment Bordereau Line",
 		filters={"invoice": invoice_name, "invoice_type": invoice_type},
-		fields=["name", "parent"],
+		fields=["name", "parent", "status"],
 	)
 
 	for line in lines:
 		if current_line_name and line.name == current_line_name:
+			continue
+
+		# Rejected lines free the invoice for another bordereau
+		if line.status == "Rejected":
+			continue
+
+		if current_bordereau and line.parent == current_bordereau:
+			# Same bordereau duplicate is handled by validate_lines seen_invoices
 			continue
 
 		bordereau_status = frappe.db.get_value("SEPA Payment Bordereau", line.parent, "status")
@@ -565,6 +573,13 @@ def get_sepa_payment_entry_account_fields(bordereau, line, gl_account):
 
 
 def create_sepa_payment_entry(bordereau, line, gl_account):
+	existing_pe = line.get("payment_entry")
+	if existing_pe and frappe.db.exists("Payment Entry", existing_pe):
+		# Reuse submitted PE; allow recreating after a cancelled (reject) entry
+		if frappe.db.get_value("Payment Entry", existing_pe, "docstatus") == 1:
+			return existing_pe
+		line.payment_entry = None
+
 	remittance_info = get_sepa_line_remittance_info(line)
 	invoice_reference = get_sepa_line_invoice_reference(line)
 	payment_type, account_fields = get_sepa_payment_entry_account_fields(bordereau, line, gl_account)
@@ -645,16 +660,63 @@ def create_sepa_payment_entry(bordereau, line, gl_account):
 	return payment_entry.name
 
 
+def _get_sepa_line_invoice_outstanding(line):
+	"""Return outstanding amount for the invoice linked to a SEPA bordereau line."""
+	if not line.invoice:
+		return 0
+	invoice_type = line.invoice_type or (
+		"Sales Invoice" if line.party_type == "Customer" else "Purchase Invoice"
+	)
+	return flt(frappe.db.get_value(invoice_type, line.invoice, "outstanding_amount") or 0)
+
+
 def reconcile_sepa_line_on_status_change(bordereau, line, new_status, silent=False):
 	if getattr(line, "_reconciled_status_change", False):
 		return
+
+	existing_pe = line.get("payment_entry")
+	existing_docstatus = None
+	if existing_pe and frappe.db.exists("Payment Entry", existing_pe):
+		existing_docstatus = frappe.db.get_value("Payment Entry", existing_pe, "docstatus")
+
+	# Submitted PE already linked: do not recreate on partial re-validation
+	if existing_docstatus == 1:
+		line._reconciled_status_change = True
+		return
+
+	# Cancelled PE (typical after Reject): clear link so Accept can create a new one
+	if existing_docstatus == 2:
+		if new_status == "Rejected":
+			line._reconciled_status_change = True
+			return
+		line.payment_entry = None
+		frappe.db.set_value(
+			"SEPA Payment Bordereau Line",
+			line.name,
+			"payment_entry",
+			None,
+			update_modified=False,
+		)
 
 	gl_account = frappe.db.get_value("Bank Account", bordereau.bank_account, "account")
 	if not gl_account:
 		frappe.throw(_("Please link a GL Account to the Bank Account {0}").format(bordereau.bank_account))
 
 	if new_status == "Accepted":
+		outstanding = _get_sepa_line_invoice_outstanding(line)
+		if flt(outstanding) <= 0:
+			# Invoice already settled (external payment / previous PE): close the line without PE
+			if not silent:
+				frappe.msgprint(
+					_(
+						"Invoice {0} has no outstanding amount; SEPA line {1} marked as accepted without Payment Entry"
+					).format(line.invoice, line.name)
+				)
+			line._reconciled_status_change = True
+			return
+
 		pe_name = create_sepa_payment_entry(bordereau, line, gl_account)
+		line.payment_entry = pe_name
 		if not silent:
 			frappe.msgprint(_("Payment Entry {0} created for SEPA line {1}").format(pe_name, line.name))
 
@@ -669,7 +731,20 @@ def reconcile_sepa_line_on_status_change(bordereau, line, new_status, silent=Fal
 			frappe.log_error(title=_("SEPA Bank Transaction Creation Error"), message=frappe.get_traceback())
 
 	elif new_status == "Rejected":
+		outstanding = _get_sepa_line_invoice_outstanding(line)
+		if flt(outstanding) <= 0:
+			# Already paid: no +/− Payment Entry pair to create
+			if not silent:
+				frappe.msgprint(
+					_(
+						"Invoice {0} has no outstanding amount; SEPA line {1} marked as rejected without Payment Entry"
+					).format(line.invoice, line.name)
+				)
+			line._reconciled_status_change = True
+			return
+
 		pe_name = create_sepa_payment_entry(bordereau, line, gl_account)
+		line.payment_entry = pe_name
 		pe_doc = frappe.get_doc("Payment Entry", pe_name)
 		pe_doc.cancel()
 		if not silent:
