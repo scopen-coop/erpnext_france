@@ -7,7 +7,7 @@ from frappe.utils import flt
 
 
 @frappe.whitelist()
-def add_invoice_to_sepa_bordereau(invoice_name, invoice_type="Sales Invoice"):
+def add_invoice_to_sepa_bordereau(invoice_name: str, invoice_type: str = "Sales Invoice"):
 	"""
 	Add an invoice to a SEPA Payment Bordereau.
 	If a draft bordereau exists, add to it. Otherwise, create a new one.
@@ -287,7 +287,7 @@ def get_or_create_bordereau(payment_type, company):
 
 
 @frappe.whitelist()
-def reconcile_bank_transaction_to_sepa_line(bank_transaction, end_to_end_id):
+def reconcile_bank_transaction_to_sepa_line(bank_transaction: str, end_to_end_id: str):
 	"""
 	Reconcile a bank transaction to a SEPA Payment Bordereau Line
 	and create Payment Entry
@@ -449,7 +449,7 @@ def auto_reconcile_sepa_transaction(doc, method):
 
 
 @frappe.whitelist()
-def add_invoices_to_sepa_bordereau_bulk(invoice_names, invoice_type="Sales Invoice"):
+def add_invoices_to_sepa_bordereau_bulk(invoice_names: list | str, invoice_type: str = "Sales Invoice"):
 	"""
 	Add multiple invoices to a SEPA Payment Bordereau.
 	Returns a report with successes and failures.
@@ -658,7 +658,7 @@ def reconcile_sepa_line_on_status_change(bordereau, line, new_status, silent=Fal
 		pe_doc.cancel()
 		if not silent:
 			frappe.msgprint(
-				_("Payment Entry {0} created and cancelled for rejected SEPA line {1} (+ and -) ").format(
+				_("Payment Entry {0} created and cancelled for rejected SEPA line {1} (+ and -)").format(
 					pe_name, line.name
 				)
 			)
