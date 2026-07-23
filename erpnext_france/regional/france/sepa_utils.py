@@ -13,8 +13,8 @@ def add_invoice_to_sepa_bordereau(invoice_name, invoice_type="Sales Invoice"):
 	If a draft bordereau exists, add to it. Otherwise, create a new one.
 
 	Args:
-		invoice_name: Name of the invoice
-		invoice_type: Type of invoice (Sales Invoice or Purchase Invoice)
+	        invoice_name: Name of the invoice
+	        invoice_type: Type of invoice (Sales Invoice or Purchase Invoice)
 	"""
 	# Get invoice
 	invoice = frappe.get_doc(invoice_type, invoice_name)
@@ -37,15 +37,13 @@ def add_invoice_to_sepa_bordereau(invoice_name, invoice_type="Sales Invoice"):
 
 	# Check if invoice already in bordereau
 	existing_line = frappe.db.exists(
-		"SEPA Payment Bordereau Line",
-		{
-			"parent": bordereau.name,
-			"invoice": invoice_name
-		}
+		"SEPA Payment Bordereau Line", {"parent": bordereau.name, "invoice": invoice_name}
 	)
 
 	if existing_line:
-		frappe.throw(_("Invoice {0} is already in SEPA Payment Bordereau {1}").format(invoice_name, bordereau.name))
+		frappe.throw(
+			_("Invoice {0} is already in SEPA Payment Bordereau {1}").format(invoice_name, bordereau.name)
+		)
 
 	# Get mandate if payment type is Debit
 	mandate = None
@@ -55,15 +53,18 @@ def add_invoice_to_sepa_bordereau(invoice_name, invoice_type="Sales Invoice"):
 			frappe.throw(_("Customer {0} does not have an active SEPA Mandate").format(party))
 
 	# Add line to bordereau
-	bordereau.append("lines", {
-		"invoice_type": invoice_type,
-		"invoice": invoice_name,
-		"party_type": party_type,
-		"party": party,
-		"amount": invoice.outstanding_amount,
-		"mandate": mandate,
-		"status": "Pending"
-	})
+	bordereau.append(
+		"lines",
+		{
+			"invoice_type": invoice_type,
+			"invoice": invoice_name,
+			"party_type": party_type,
+			"party": party,
+			"amount": invoice.outstanding_amount,
+			"mandate": mandate,
+			"status": "Pending",
+		},
+	)
 
 	bordereau.save()
 	sync_invoice_sepa_bordereau_link(invoice_name, invoice_type)
@@ -148,12 +149,7 @@ def validate_invoice_for_sepa(invoice, invoice_type):
 	# For Purchase Invoice, check supplier has bank account
 	if invoice_type == "Purchase Invoice":
 		supplier_bank_account = frappe.db.exists(
-			"Bank Account",
-			{
-				"party_type": "Supplier",
-				"party": invoice.supplier,
-				"is_default": 1
-			}
+			"Bank Account", {"party_type": "Supplier", "party": invoice.supplier, "is_default": 1}
 		)
 
 		if not supplier_bank_account:
@@ -175,10 +171,7 @@ def is_company_bank_account(bank_account, company):
 		return False
 
 	return bool(
-		bank.company == company
-		and bank.is_company_account
-		and not bank.party_type
-		and not bank.party
+		bank.company == company and bank.is_company_account and not bank.party_type and not bank.party
 	)
 
 
@@ -237,12 +230,8 @@ def get_or_create_bordereau(payment_type, company):
 	# Find draft bordereau for this payment type
 	existing = frappe.db.get_value(
 		"SEPA Payment Bordereau",
-		{
-			"payment_type": payment_type,
-			"company": company,
-			"status": "Draft"
-		},
-		"name"
+		{"payment_type": payment_type, "company": company, "status": "Draft"},
+		"name",
 	)
 
 	if existing:
@@ -256,14 +245,16 @@ def get_or_create_bordereau(payment_type, company):
 
 	default_bank_account = get_default_company_bank_account(company)
 
-	bordereau = frappe.get_doc({
-		"doctype": "SEPA Payment Bordereau",
-		"payment_type": payment_type,
-		"company": company,
-		"bank_account": default_bank_account,
-		"execution_date": (datetime.now() + timedelta(days=2)).strftime("%Y-%m-%d"),
-		"status": "Draft"
-	})
+	bordereau = frappe.get_doc(
+		{
+			"doctype": "SEPA Payment Bordereau",
+			"payment_type": payment_type,
+			"company": company,
+			"bank_account": default_bank_account,
+			"execution_date": (datetime.now() + timedelta(days=2)).strftime("%Y-%m-%d"),
+			"status": "Draft",
+		}
+	)
 
 	bordereau.insert()
 
@@ -277,15 +268,15 @@ def reconcile_bank_transaction_to_sepa_line(bank_transaction, end_to_end_id):
 	and create Payment Entry
 
 	Args:
-		bank_transaction: Name of Bank Transaction
-		end_to_end_id: End-to-End ID from SEPA
+	        bank_transaction: Name of Bank Transaction
+	        end_to_end_id: End-to-End ID from SEPA
 	"""
 	# Get SEPA line
 	sepa_line = frappe.db.get_value(
 		"SEPA Payment Bordereau Line",
 		{"end_to_end_id": end_to_end_id},
 		["name", "parent", "invoice", "party", "party_type", "amount", "mandate", "status"],
-		as_dict=1
+		as_dict=1,
 	)
 
 	if not sepa_line:
@@ -309,51 +300,55 @@ def reconcile_bank_transaction_to_sepa_line(bank_transaction, end_to_end_id):
 	# Create Payment Entry
 	remittance_info = get_sepa_line_remittance_info(sepa_line)
 	invoice_reference = get_sepa_line_invoice_reference(sepa_line)
-	payment_type, account_fields = get_sepa_payment_entry_account_fields(
-		bordereau, sepa_line, gl_account
-	)
+	payment_type, account_fields = get_sepa_payment_entry_account_fields(bordereau, sepa_line, gl_account)
 
-	payment_entry = frappe.get_doc({
-		"doctype": "Payment Entry",
-		"payment_type": payment_type,
-		"company": bordereau.company,
-		"party_type": sepa_line.party_type,
-		"party": sepa_line.party,
-		"paid_amount": abs(bank_txn.unallocated_amount),
-		"received_amount": abs(bank_txn.unallocated_amount),
-		"reference_no": invoice_reference,
-		"reference_date": bank_txn.date,
-		"remarks": remittance_info,
-		"bank_account": bordereau.bank_account,
-		**account_fields,
-	})
+	payment_entry = frappe.get_doc(
+		{
+			"doctype": "Payment Entry",
+			"payment_type": payment_type,
+			"company": bordereau.company,
+			"party_type": sepa_line.party_type,
+			"party": sepa_line.party,
+			"paid_amount": abs(bank_txn.unallocated_amount),
+			"received_amount": abs(bank_txn.unallocated_amount),
+			"reference_no": invoice_reference,
+			"reference_date": bank_txn.date,
+			"remarks": remittance_info,
+			"bank_account": bordereau.bank_account,
+			**account_fields,
+		}
+	)
 
 	# Add reference to invoice
 	inv_doctype = "Sales Invoice" if sepa_line.party_type == "Customer" else "Purchase Invoice"
 	invoice_doc = frappe.get_doc(inv_doctype, sepa_line.invoice)
-	
+
 	reference = {
 		"reference_doctype": inv_doctype,
 		"reference_name": sepa_line.invoice,
-		"allocated_amount": sepa_line.amount
+		"allocated_amount": sepa_line.amount,
 	}
 
 	# Check if Payment Terms are used and required
 	# Logic similar to PaymentEntry.term_based_allocation_enabled_for_reference
 	is_term_based = False
 	if invoice_doc.payment_terms_template:
-		is_term_based = frappe.db.get_value("Payment Terms Template", invoice_doc.payment_terms_template, "allocate_payment_based_on_payment_terms")
-	
+		is_term_based = frappe.db.get_value(
+			"Payment Terms Template",
+			invoice_doc.payment_terms_template,
+			"allocate_payment_based_on_payment_terms",
+		)
+
 	if is_term_based and invoice_doc.get("payment_schedule"):
 		payment_term_id = None
-		
+
 		# 1. Try to match by Exact Amount
 		for term in invoice_doc.payment_schedule:
 			outstanding = flt(term.get("outstanding"))
 			if abs(flt(term.payment_amount) - flt(sepa_line.amount)) < 0.01 and outstanding > 0:
 				payment_term_id = term.payment_term
 				break
-		
+
 		# 2. Fallback: Find first term with outstanding amount
 		if not payment_term_id:
 			for term in invoice_doc.payment_schedule:
@@ -361,7 +356,7 @@ def reconcile_bank_transaction_to_sepa_line(bank_transaction, end_to_end_id):
 				if outstanding > 0:
 					payment_term_id = term.payment_term
 					break
-		
+
 		# 3. Last Resort: Just take the first one (corner case where maybe all are paid but we are overpaying?)
 		if not payment_term_id and invoice_doc.payment_schedule:
 			payment_term_id = invoice_doc.payment_schedule[0].payment_term
@@ -378,9 +373,8 @@ def reconcile_bank_transaction_to_sepa_line(bank_transaction, end_to_end_id):
 	frappe.db.set_value("SEPA Payment Bordereau Line", sepa_line.name, "status", "Accepted")
 	sync_invoice_sepa_bordereau_link(
 		sepa_line.invoice,
-		sepa_line.get("invoice_type") or (
-			"Sales Invoice" if sepa_line.party_type == "Customer" else "Purchase Invoice"
-		),
+		sepa_line.get("invoice_type")
+		or ("Sales Invoice" if sepa_line.party_type == "Customer" else "Purchase Invoice"),
 	)
 
 	# Update mandate sequence type if first debit
@@ -392,7 +386,9 @@ def reconcile_bank_transaction_to_sepa_line(bank_transaction, end_to_end_id):
 	# Check if all lines are accepted and update bordereau status
 	update_bordereau_status(sepa_line.parent)
 
-	frappe.msgprint(_("Payment Entry {0} created and SEPA line marked as accepted").format(payment_entry.name))
+	frappe.msgprint(
+		_("Payment Entry {0} created and SEPA line marked as accepted").format(payment_entry.name)
+	)
 
 	return payment_entry.name
 
@@ -408,16 +404,14 @@ def auto_reconcile_sepa_transaction(doc, method):
 	# We search for any 8-digit date-like string followed by a dash and 8 hex-like chars
 	# This is a bit specific to our generation, but flexible enough.
 	pattern = r"[A-Z0-9]{1,10}-\d{8,14}-[A-Z0-9]{8}"
-	
+
 	search_text = f"{doc.description or ''} {doc.reference_number or ''} {doc.transaction_id or ''} {doc.bank_party_name or ''}"
 	matches = re.findall(pattern, search_text)
 
 	for end_to_end_id in matches:
 		# Check if this ID exists in a SEPA line
 		sepa_line = frappe.db.get_value(
-			"SEPA Payment Bordereau Line",
-			{"end_to_end_id": end_to_end_id, "status": "Pending"},
-			"name"
+			"SEPA Payment Bordereau Line", {"end_to_end_id": end_to_end_id, "status": "Pending"}, "name"
 		)
 
 		if sepa_line:
@@ -425,7 +419,7 @@ def auto_reconcile_sepa_transaction(doc, method):
 				reconcile_bank_transaction_to_sepa_line(doc.name, end_to_end_id)
 				# If successful, we can stop searching for this transaction
 				break
-			except Exception as e:
+			except Exception:
 				frappe.log_error(frappe.get_traceback(), _("SEPA Auto-Reconciliation Error"))
 
 
@@ -437,12 +431,10 @@ def add_invoices_to_sepa_bordereau_bulk(invoice_names, invoice_type="Sales Invoi
 	"""
 	if isinstance(invoice_names, str):
 		import json
+
 		invoice_names = json.loads(invoice_names)
 
-	results = {
-		"success": [],
-		"failed": []
-	}
+	results = {"success": [], "failed": []}
 
 	for name in invoice_names:
 		try:
@@ -547,34 +539,40 @@ def create_sepa_payment_entry(bordereau, line, gl_account):
 	invoice_reference = get_sepa_line_invoice_reference(line)
 	payment_type, account_fields = get_sepa_payment_entry_account_fields(bordereau, line, gl_account)
 
-	payment_entry = frappe.get_doc({
-		"doctype": "Payment Entry",
-		"payment_type": payment_type,
-		"company": bordereau.company,
-		"party_type": line.party_type,
-		"party": line.party,
-		"paid_amount": line.amount,
-		"received_amount": line.amount,
-		"reference_no": invoice_reference,
-		"reference_date": bordereau.execution_date,
-		"remarks": remittance_info,
-		"bank_account": bordereau.bank_account,
-		**account_fields,
-	})
+	payment_entry = frappe.get_doc(
+		{
+			"doctype": "Payment Entry",
+			"payment_type": payment_type,
+			"company": bordereau.company,
+			"party_type": line.party_type,
+			"party": line.party,
+			"paid_amount": line.amount,
+			"received_amount": line.amount,
+			"reference_no": invoice_reference,
+			"reference_date": bordereau.execution_date,
+			"remarks": remittance_info,
+			"bank_account": bordereau.bank_account,
+			**account_fields,
+		}
+	)
 
 	inv_doctype = "Sales Invoice" if line.party_type == "Customer" else "Purchase Invoice"
 	invoice_doc = frappe.get_doc(inv_doctype, line.invoice)
-	
+
 	reference = {
 		"reference_doctype": inv_doctype,
 		"reference_name": line.invoice,
-		"allocated_amount": line.amount
+		"allocated_amount": line.amount,
 	}
 
 	is_term_based = False
 	if invoice_doc.payment_terms_template:
-		is_term_based = frappe.db.get_value("Payment Terms Template", invoice_doc.payment_terms_template, "allocate_payment_based_on_payment_terms")
-	
+		is_term_based = frappe.db.get_value(
+			"Payment Terms Template",
+			invoice_doc.payment_terms_template,
+			"allocate_payment_based_on_payment_terms",
+		)
+
 	if is_term_based and invoice_doc.get("payment_schedule"):
 		payment_term_id = None
 		for term in invoice_doc.payment_schedule:
@@ -623,7 +621,9 @@ def reconcile_sepa_line_on_status_change(bordereau, line, new_status, silent=Fal
 		try:
 			bt_name = create_sepa_bank_transaction(pe_name, bordereau, line)
 			if bt_name and not silent:
-				frappe.msgprint(_("Bank Transaction {0} created for SEPA line {1}").format(bt_name, line.name))
+				frappe.msgprint(
+					_("Bank Transaction {0} created for SEPA line {1}").format(bt_name, line.name)
+				)
 		except Exception:
 			frappe.log_error(title=_("SEPA Bank Transaction Creation Error"), message=frappe.get_traceback())
 
@@ -632,17 +632,21 @@ def reconcile_sepa_line_on_status_change(bordereau, line, new_status, silent=Fal
 		pe_doc = frappe.get_doc("Payment Entry", pe_name)
 		pe_doc.cancel()
 		if not silent:
-			frappe.msgprint(_("Payment Entry {0} created and cancelled for rejected SEPA line {1} (+ and -) ").format(pe_name, line.name))
+			frappe.msgprint(
+				_("Payment Entry {0} created and cancelled for rejected SEPA line {1} (+ and -) ").format(
+					pe_name, line.name
+				)
+			)
 
 	line._reconciled_status_change = True
 
 
 def create_sepa_bank_transaction(pe_name, bordereau, line):
 	doc = frappe.get_doc("Payment Entry", pe_name)
-	
+
 	if doc.payment_type not in ("Receive", "Pay"):
 		return
-	
+
 	bank_account = doc.bank_account or bordereau.bank_account
 	payment_amount = doc.paid_amount
 
@@ -654,22 +658,16 @@ def create_sepa_bank_transaction(pe_name, bordereau, line):
 	if not is_bank:
 		return
 
-	bt_exists = frappe.db.exists(
-		"Bank Transaction",
-		{
-			"reference_number": doc.name,
-			"company": doc.company
-		}
-	)
+	bt_exists = frappe.db.exists("Bank Transaction", {"reference_number": doc.name, "company": doc.company})
 	if bt_exists:
 		return
 
 	bt = frappe.new_doc("Bank Transaction")
-	
+
 	bt.date = doc.posting_date
 	bt.bank_account = bank_account
 	bt.company = doc.company
-	
+
 	if doc.payment_type == "Receive":
 		bt.deposit = payment_amount
 		bt.withdrawal = 0.0
@@ -685,8 +683,8 @@ def create_sepa_bank_transaction(pe_name, bordereau, line):
 	bt.description = doc.remarks or get_sepa_line_remittance_info(line)
 
 	bt.insert(ignore_permissions=True)
-	
-	if getattr(bt, 'docstatus', 0) == 0 and frappe.get_meta("Bank Transaction").is_submittable:
+
+	if getattr(bt, "docstatus", 0) == 0 and frappe.get_meta("Bank Transaction").is_submittable:
 		bt.submit()
 
 	return bt.name

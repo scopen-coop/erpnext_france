@@ -20,13 +20,15 @@ class SEPAMandate(Document):
 					"customer": self.customer,
 					"bank_account": self.bank_account,
 					"status": "Active",
-					"name": ["!=", self.name]
-				}
+					"name": ["!=", self.name],
+				},
 			)
 
 			if existing:
 				frappe.throw(
-					_("An active SEPA Mandate already exists for this customer and bank account. Please cancel the existing mandate before activating a new one.")
+					_(
+						"An active SEPA Mandate already exists for this customer and bank account. Please cancel the existing mandate before activating a new one."
+					)
 				)
 
 	def validate_bank_account(self):
@@ -53,11 +55,7 @@ class SEPAMandate(Document):
 
 def backfill_customer_mandates():
 	"""One-time script: link active mandates to their customers"""
-	mandates = frappe.get_all(
-		"SEPA Mandate",
-		filters={"status": "Active"},
-		fields=["name", "customer"]
-	)
+	mandates = frappe.get_all("SEPA Mandate", filters={"status": "Active"}, fields=["name", "customer"])
 	for m in mandates:
 		frappe.db.set_value("Customer", m.customer, "sepa_mandate", m.name)
 	frappe.db.commit()

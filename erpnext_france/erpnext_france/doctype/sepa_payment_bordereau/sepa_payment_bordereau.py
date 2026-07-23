@@ -1,12 +1,13 @@
 # Copyright (c) 2025, Scopen and Contributors
 # See license.txt
 
+import uuid
+from datetime import datetime
+
 import frappe
 from frappe import _
 from frappe.model.document import Document
-from frappe.utils import now_datetime, get_datetime, flt
-import uuid
-from datetime import datetime
+from frappe.utils import flt, get_datetime, now_datetime
 
 
 class SEPAPaymentBordereau(Document):
@@ -44,9 +45,9 @@ class SEPAPaymentBordereau(Document):
 
 		if self.bank_account and not is_company_bank_account(self.bank_account, self.company):
 			frappe.throw(
-				_("Bank Account {0} is not a company bank account. Please select your company's bank account.").format(
-					self.bank_account
-				)
+				_(
+					"Bank Account {0} is not a company bank account. Please select your company's bank account."
+				).format(self.bank_account)
 			)
 
 	def on_update(self):
@@ -63,6 +64,7 @@ class SEPAPaymentBordereau(Document):
 				old_status = old_statuses.get(line.name)
 				if line.status != old_status and line.status in ["Accepted", "Rejected"]:
 					from erpnext_france.regional.france.sepa_utils import reconcile_sepa_line_on_status_change
+
 					reconcile_sepa_line_on_status_change(self, line, line.status)
 					status_changed_lines = True
 
@@ -80,7 +82,7 @@ class SEPAPaymentBordereau(Document):
 				new_status = "Partial Rejections"
 			elif all(status == "Rejected" for status in statuses):
 				new_status = "Exported"
-				
+
 			if new_status != self.status:
 				self.db_set("status", new_status)
 
@@ -146,9 +148,7 @@ class SEPAPaymentBordereau(Document):
 			frappe.throw(_("Row {0}: Invoice {1} must be submitted").format(line.idx, line.invoice))
 
 		if self.company and invoice.company != self.company:
-			frappe.throw(
-				_("Row {0}: Invoice {1} belongs to another company").format(line.idx, line.invoice)
-			)
+			frappe.throw(_("Row {0}: Invoice {1} belongs to another company").format(line.idx, line.invoice))
 
 		if flt(invoice.outstanding_amount) <= 0:
 			frappe.throw(_("Row {0}: Invoice {1} has no outstanding amount").format(line.idx, line.invoice))
@@ -183,13 +183,17 @@ class SEPAPaymentBordereau(Document):
 		if not bank_account.iban:
 			frappe.throw(_("Company bank account {0} must have an IBAN").format(self.bank_account))
 		if not bank_account.swift_number:
-			frappe.throw(_("Company bank account {0} must have a BIC (Swift Number)").format(self.bank_account))
+			frappe.throw(
+				_("Company bank account {0} must have a BIC (Swift Number)").format(self.bank_account)
+			)
 
 		# Check ICS for direct debit
 		if self.payment_type == "Debit":
 			company_ics = frappe.db.get_value("Company", self.company, "sepa_ics")
 			if not company_ics:
-				frappe.throw(_("Please set the SEPA Creditor Identifier (ICS) on company {0}").format(self.company))
+				frappe.throw(
+					_("Please set the SEPA Creditor Identifier (ICS) on company {0}").format(self.company)
+				)
 
 		# Perform all validations
 		for line in self.lines:
@@ -235,13 +239,10 @@ class SEPAPaymentBordereau(Document):
 
 		# Save the XML file
 		from frappe.utils.file_manager import save_file
+
 		file_name = f"{self.name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xml"
 		file_doc = save_file(
-			fname=file_name,
-			content=xml_content,
-			dt=self.doctype,
-			dn=self.name,
-			is_private=1
+			fname=file_name, content=xml_content, dt=self.doctype, dn=self.name, is_private=1
 		)
 
 		self.sepa_file = file_doc.file_url
@@ -264,7 +265,9 @@ class SEPAPaymentBordereau(Document):
 		bank_account = frappe.get_doc("Bank Account", self.bank_account)
 		company_ics = frappe.db.get_value("Company", self.company, "sepa_ics")
 		if not company_ics:
-			frappe.throw(_("Please set the SEPA Creditor Identifier (ICS) on company {0}").format(self.company))
+			frappe.throw(
+				_("Please set the SEPA Creditor Identifier (ICS) on company {0}").format(self.company)
+			)
 
 		# Group lines by (mandate_type, sequence_type) — pain.008 requires one PmtInf per SeqTp
 		groups = {}
@@ -277,7 +280,7 @@ class SEPAPaymentBordereau(Document):
 
 		nsmap = {
 			None: "urn:iso:std:iso:20022:tech:xsd:pain.008.001.02",
-			"xsi": "http://www.w3.org/2001/XMLSchema-instance"
+			"xsi": "http://www.w3.org/2001/XMLSchema-instance",
 		}
 
 		root = etree.Element("Document", nsmap=nsmap)
@@ -388,7 +391,7 @@ class SEPAPaymentBordereau(Document):
 		# Create XML structure
 		nsmap = {
 			None: "urn:iso:std:iso:20022:tech:xsd:pain.001.001.03",
-			"xsi": "http://www.w3.org/2001/XMLSchema-instance"
+			"xsi": "http://www.w3.org/2001/XMLSchema-instance",
 		}
 
 		root = etree.Element("Document", nsmap=nsmap)
@@ -451,7 +454,7 @@ class SEPAPaymentBordereau(Document):
 				"Bank Account",
 				{"party_type": "Supplier", "party": line.party, "is_default": 1},
 				["name", "iban", "swift_number"],
-				as_dict=1
+				as_dict=1,
 			)
 
 			if not supplier_bank_account:
@@ -498,16 +501,17 @@ class SEPAPaymentBordereau(Document):
 		)
 		if invalid_tx_pmt_tp_inf:
 			frappe.throw(
-				_("Invalid pain.001.001.03: PmtTpInf is forbidden at transaction level "
-				"(/Document/CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf/PmtTpInf).")
+				_(
+					"Invalid pain.001.001.03: PmtTpInf is forbidden at transaction level "
+					"(/Document/CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf/PmtTpInf)."
+				)
 			)
 
 		pmt_inf_nodes = root.xpath("/ns:Document/ns:CstmrCdtTrfInitn/ns:PmtInf", namespaces=ns)
 		lot_pmt_tp_inf = root.xpath("/ns:Document/ns:CstmrCdtTrfInitn/ns:PmtInf/ns:PmtTpInf", namespaces=ns)
 		if len(lot_pmt_tp_inf) != len(pmt_inf_nodes):
 			frappe.throw(
-				_("Invalid pain.001.001.03: each PmtInf must contain exactly one "
-				"PmtTpInf at lot level.")
+				_("Invalid pain.001.001.03: each PmtInf must contain exactly one " "PmtTpInf at lot level.")
 			)
 
 		return etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8")
@@ -547,19 +551,23 @@ class SEPAPaymentBordereau(Document):
 				continue
 
 			if line.status == "Accepted":
-				results["skipped"].append({
-					"name": line.name,
-					"invoice": line.invoice,
-					"reason": _("Already accepted"),
-				})
+				results["skipped"].append(
+					{
+						"name": line.name,
+						"invoice": line.invoice,
+						"reason": _("Already accepted"),
+					}
+				)
 				continue
 
 			if line.status != "Pending":
-				results["skipped"].append({
-					"name": line.name,
-					"invoice": line.invoice,
-					"reason": _("Line is not pending"),
-				})
+				results["skipped"].append(
+					{
+						"name": line.name,
+						"invoice": line.invoice,
+						"reason": _("Line is not pending"),
+					}
+				)
 				continue
 
 			savepoint = f"sepa_accept_{line.name}"
@@ -577,11 +585,13 @@ class SEPAPaymentBordereau(Document):
 				results["success"].append({"name": line.name, "invoice": line.invoice})
 			except Exception as e:
 				frappe.db.rollback(save_point=savepoint)
-				results["failed"].append({
-					"name": line.name,
-					"invoice": line.invoice,
-					"reason": str(e),
-				})
+				results["failed"].append(
+					{
+						"name": line.name,
+						"invoice": line.invoice,
+						"reason": str(e),
+					}
+				)
 
 		update_bordereau_status(self.name)
 

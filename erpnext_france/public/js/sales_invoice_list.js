@@ -1,8 +1,11 @@
-frappe.listview_settings["Sales Invoice"] = frappe.listview_settings["Sales Invoice"] || {};
+frappe.listview_settings["Sales Invoice"] =
+  frappe.listview_settings["Sales Invoice"] || {};
 
 frappe.listview_settings["Sales Invoice"].formatters =
   frappe.listview_settings["Sales Invoice"].formatters || {};
-frappe.listview_settings["Sales Invoice"].formatters.sepa_bordereau_line_status = function (value) {
+frappe.listview_settings[
+  "Sales Invoice"
+].formatters.sepa_bordereau_line_status = function (value) {
   if (!value) {
     return "";
   }
@@ -11,7 +14,9 @@ frappe.listview_settings["Sales Invoice"].formatters.sepa_bordereau_line_status 
     Accepted: "green",
     Rejected: "red",
   };
-  return `<span class="indicator-pill ${colors[value] || "grey"} filterable ellipsis">${__(value)}</span>`;
+  return `<span class="indicator-pill ${
+    colors[value] || "grey"
+  } filterable ellipsis">${__(value)}</span>`;
 };
 
 const _onload = frappe.listview_settings["Sales Invoice"].onload;
@@ -25,9 +30,14 @@ frappe.listview_settings["Sales Invoice"].onload = function (listview) {
     const invoice_names = selected_items.map((item) => item.name);
 
     frappe.call({
-      method: "erpnext_france.regional.france.sepa_utils.add_invoices_to_sepa_bordereau_bulk", args: {
-        invoice_names, invoice_type: "Sales Invoice",
-      }, freeze: true, callback: function (r) {
+      method:
+        "erpnext_france.regional.france.sepa_utils.add_invoices_to_sepa_bordereau_bulk",
+      args: {
+        invoice_names,
+        invoice_type: "Sales Invoice",
+      },
+      freeze: true,
+      callback: function (r) {
         if (r.message) {
           show_sepa_summary_report(r.message);
           listview.refresh();
@@ -43,7 +53,9 @@ function show_sepa_summary_report(report) {
   message += `<p><b>${__("Failed")}:</b> ${report.failed.length}</p>`;
 
   if (report.failed.length > 0) {
-    message += `<hr><h5>${__("Details of Failures")}</h5><div style="max-height: 200px; overflow-y: auto;"><ul>`;
+    message += `<hr><h5>${__(
+      "Details of Failures"
+    )}</h5><div style="max-height: 200px; overflow-y: auto;"><ul>`;
     report.failed.forEach((item) => {
       message += `<li><b>${item.name}:</b> ${item.reason}</li>`;
     });
@@ -51,6 +63,9 @@ function show_sepa_summary_report(report) {
   }
 
   frappe.msgprint({
-    title: __("SEPA Bulk Generation"), message, indicator: report.failed.length > 0 ? "orange" : "green", wide: true,
+    title: __("SEPA Bulk Generation"),
+    message,
+    indicator: report.failed.length > 0 ? "orange" : "green",
+    wide: true,
   });
 }
