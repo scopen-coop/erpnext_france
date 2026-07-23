@@ -126,6 +126,6 @@
 		"extend_cscript": true,
 		"localforage": true,
 		"Plaid": true,
-    "display_dialog_create_down_payment_item":true,
+    	"display_dialog_create_down_payment_item":true
 	}
 }

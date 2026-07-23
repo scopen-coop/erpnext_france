@@ -469,9 +469,7 @@ def get_due_date_standard(term, posting_date, bill_date=None):
 
 	end_of_month_day = term.get("custom_end_of_month_day")
 	if end_of_month_day is None and payment_term_name:
-		end_of_month_day = frappe.db.get_value(
-			"Payment Term", payment_term_name, "custom_end_of_month_day"
-		)
+		end_of_month_day = frappe.db.get_value("Payment Term", payment_term_name, "custom_end_of_month_day")
 
 	return compute_france_due_date(
 		due_date_based_on,
