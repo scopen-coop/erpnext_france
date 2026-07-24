@@ -4,17 +4,19 @@
 from frappe import _
 
 SEPA_BORDEREAU = "SEPA Payment Bordereau"
+# Placeholder fieldname: never set on the invoice, so get_open_count falls back to the
+# external child-table query while still hiding the create (+) button (internal_links).
+_SEPA_HIDE_CREATE = "__sepa_hide_create__"
 
 
 def add_sepa_bordereau_connection(data, invoice_type):
-	"""Link SEPA Payment Bordereau in invoice connections without the create (+) button.
+	"""Link all SEPA Payment Bordereaux that contain this invoice, without the create (+) button.
 
-	Uses internal_links to hide the + button. When the denormalized field is empty
-	(or missing on Purchase Invoice), get_open_count falls back to an external query
-	on SEPA Payment Bordereau Line.invoice.
+	Uses a stub internal_links entry only to hide the + button. Counts and list filters
+	come from the external query on SEPA Payment Bordereau Line.invoice (all parents).
 	"""
 	data.setdefault("internal_links", {})
-	data["internal_links"][SEPA_BORDEREAU] = "sepa_payment_bordereau"
+	data["internal_links"][SEPA_BORDEREAU] = _SEPA_HIDE_CREATE
 
 	data.setdefault("non_standard_fieldnames", {})
 	data["non_standard_fieldnames"][SEPA_BORDEREAU] = "invoice"
