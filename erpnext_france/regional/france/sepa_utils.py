@@ -193,10 +193,10 @@ def get_invoice_sepa_available_amount(
 
 @frappe.whitelist()
 def get_invoice_sepa_available_amount_for_ui(
-	invoice_name,
-	invoice_type="Sales Invoice",
-	current_bordereau=None,
-	current_line_name=None,
+	invoice_name: str,
+	invoice_type: str = "Sales Invoice",
+	current_bordereau: str | None = None,
+	current_line_name: str | None = None,
 ):
 	"""Whitelist wrapper for bordereau form default amount."""
 	return get_invoice_sepa_available_amount(
@@ -236,29 +236,55 @@ def validate_invoice_amount_in_bordereaux(
 		return
 
 	reserving = sorted({line.parent for line in pending_lines})
-	prefix = _("Row {0}: ").format(row_idx) if row_idx else ""
+	amount_fmt = frappe.format_value(amount, {"fieldtype": "Currency"})
+	available_fmt = frappe.format_value(max(available, 0), {"fieldtype": "Currency"})
+	outstanding_fmt = frappe.format_value(outstanding, {"fieldtype": "Currency"})
+	reserved_fmt = frappe.format_value(reserved, {"fieldtype": "Currency"})
+
 	if reserving:
+		if row_idx:
+			frappe.throw(
+				_(
+					"Row {0}: Amount {1} for invoice {2} exceeds remaining available {3}"
+					" (outstanding {4} minus {5} reserved on {6})"
+				).format(
+					row_idx,
+					amount_fmt,
+					invoice_name,
+					available_fmt,
+					outstanding_fmt,
+					reserved_fmt,
+					", ".join(reserving),
+				)
+			)
 		frappe.throw(
 			_(
-				"{0}Amount {1} for invoice {2} exceeds remaining available {3}"
-				" (outstanding {4} minus {5} reserved on {6})"
+				"Amount {0} for invoice {1} exceeds remaining available {2}"
+				" (outstanding {3} minus {4} reserved on {5})"
 			).format(
-				prefix,
-				frappe.format_value(amount, {"fieldtype": "Currency"}),
+				amount_fmt,
 				invoice_name,
-				frappe.format_value(max(available, 0), {"fieldtype": "Currency"}),
-				frappe.format_value(outstanding, {"fieldtype": "Currency"}),
-				frappe.format_value(reserved, {"fieldtype": "Currency"}),
+				available_fmt,
+				outstanding_fmt,
+				reserved_fmt,
 				", ".join(reserving),
 			)
 		)
 
+	if row_idx:
+		frappe.throw(
+			_("Row {0}: Amount {1} for invoice {2} exceeds outstanding {3}").format(
+				row_idx,
+				amount_fmt,
+				invoice_name,
+				outstanding_fmt,
+			)
+		)
 	frappe.throw(
-		_("{0}Amount {1} for invoice {2} exceeds outstanding {3}").format(
-			prefix,
-			frappe.format_value(amount, {"fieldtype": "Currency"}),
+		_("Amount {0} for invoice {1} exceeds outstanding {2}").format(
+			amount_fmt,
 			invoice_name,
-			frappe.format_value(outstanding, {"fieldtype": "Currency"}),
+			outstanding_fmt,
 		)
 	)
 
