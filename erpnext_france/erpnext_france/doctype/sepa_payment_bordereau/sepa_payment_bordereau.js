@@ -452,36 +452,46 @@ frappe.ui.form.on("SEPA Payment Bordereau Line", {
     const party_field =
       invoice_type === "Purchase Invoice" ? "supplier" : "customer";
 
-    frappe.db.get_value(
-      invoice_type,
-      row.invoice,
-      [party_field, "outstanding_amount"],
-      (r) => {
-        if (!r) {
-          return;
-        }
-        frappe.model.set_value(cdt, cdn, "party", r[party_field]);
-        frappe.model.set_value(cdt, cdn, "amount", r.outstanding_amount);
-
-        if (frm.doc.payment_type === "Debit" && r[party_field]) {
-          frappe.db.get_value(
-            "Customer",
-            r[party_field],
-            "sepa_mandate",
-            (customer) => {
-              if (customer && customer.sepa_mandate) {
-                frappe.model.set_value(
-                  cdt,
-                  cdn,
-                  "mandate",
-                  customer.sepa_mandate
-                );
-              }
-            }
-          );
-        }
+    frappe.db.get_value(invoice_type, row.invoice, [party_field], (r) => {
+      if (!r) {
+        return;
       }
-    );
+      frappe.model.set_value(cdt, cdn, "party", r[party_field]);
+
+      if (frm.doc.payment_type === "Debit" && r[party_field]) {
+        frappe.db.get_value(
+          "Customer",
+          r[party_field],
+          "sepa_mandate",
+          (customer) => {
+            if (customer && customer.sepa_mandate) {
+              frappe.model.set_value(
+                cdt,
+                cdn,
+                "mandate",
+                customer.sepa_mandate
+              );
+            }
+          }
+        );
+      }
+    });
+
+    frappe.call({
+      method:
+        "erpnext_france.regional.france.sepa_utils.get_invoice_sepa_available_amount_for_ui",
+      args: {
+        invoice_name: row.invoice,
+        invoice_type: invoice_type,
+        current_bordereau: frm.doc.name,
+        current_line_name: row.name,
+      },
+      callback: function (r) {
+        if (r.message !== undefined && r.message !== null) {
+          frappe.model.set_value(cdt, cdn, "amount", r.message);
+        }
+      },
+    });
   },
 
   amount: function (frm) {

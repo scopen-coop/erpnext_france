@@ -169,7 +169,7 @@ class SEPAPaymentBordereau(Document):
 
 	def validate_lines(self):
 		"""Validate that all lines have required data"""
-		from erpnext_france.regional.france.sepa_utils import validate_invoice_unique_in_bordereaux
+		from erpnext_france.regional.france.sepa_utils import validate_invoice_amount_in_bordereaux
 
 		seen_invoices = set()
 
@@ -186,12 +186,15 @@ class SEPAPaymentBordereau(Document):
 					)
 				seen_invoices.add(line_key)
 
-				validate_invoice_unique_in_bordereaux(
-					line.invoice,
-					line.invoice_type,
-					current_bordereau=self.name,
-					current_line_name=line.name if line.name else None,
-				)
+				if self.status == "Draft" and not self.is_line_locked(line):
+					validate_invoice_amount_in_bordereaux(
+						line.invoice,
+						line.invoice_type,
+						line.amount,
+						current_bordereau=self.name,
+						current_line_name=line.name if line.name else None,
+						row_idx=line.idx,
+					)
 
 			if self.payment_type == "Credit" and line.party:
 				supplier_bank_account = frappe.db.exists(
@@ -215,6 +218,8 @@ class SEPAPaymentBordereau(Document):
 
 	def sync_line_from_payment_type(self, line):
 		"""Keep line party/invoice types aligned with bordereau payment type."""
+		from erpnext_france.regional.france.sepa_utils import get_invoice_sepa_available_amount
+
 		if self.payment_type == "Credit":
 			expected_invoice_type = "Purchase Invoice"
 			expected_party_type = "Supplier"
@@ -254,15 +259,27 @@ class SEPAPaymentBordereau(Document):
 		if self.company and invoice.company != self.company:
 			frappe.throw(_("Row {0}: Invoice {1} belongs to another company").format(line.idx, line.invoice))
 
+		available = get_invoice_sepa_available_amount(
+			line.invoice,
+			line.invoice_type,
+			current_bordereau=self.name,
+			current_line_name=line.name if line.name else None,
+			outstanding_amount=invoice.outstanding_amount,
+		)
+
 		# Outstanding is only enforced while composing the bordereau.
 		# After export/send, invoices may already be paid (partial accept or external payment)
 		# and must not block status updates on remaining pending lines.
-		if self.status == "Draft" and flt(invoice.outstanding_amount) <= 0:
-			frappe.throw(_("Row {0}: Invoice {1} has no outstanding amount").format(line.idx, line.invoice))
+		if self.status == "Draft" and flt(available) <= 0:
+			frappe.throw(
+				_("Row {0}: Invoice {1} has no remaining amount available for SEPA").format(
+					line.idx, line.invoice
+				)
+			)
 
 		line.party = invoice.get(party_field)
 		if not line.amount:
-			line.amount = invoice.outstanding_amount
+			line.amount = available
 
 		if self.payment_type == "Debit" and line.party and not line.mandate:
 			line.mandate = frappe.db.get_value("Customer", line.party, "sepa_mandate")

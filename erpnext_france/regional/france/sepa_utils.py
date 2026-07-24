@@ -35,11 +35,15 @@ def add_invoice_to_sepa_bordereau(invoice_name: str, invoice_type: str = "Sales 
 	# Find or create bordereau
 	bordereau = get_or_create_bordereau(payment_type, invoice.company)
 
-	validate_invoice_unique_in_bordereaux(
+	available = get_invoice_sepa_available_amount(
 		invoice_name,
 		invoice_type,
 		current_bordereau=bordereau.name,
 	)
+	if flt(available) <= 0:
+		frappe.throw(
+			_("Invoice {0} has no remaining amount available for SEPA bordereaux").format(invoice_name)
+		)
 
 	# Get mandate if payment type is Debit
 	mandate = None
@@ -56,7 +60,7 @@ def add_invoice_to_sepa_bordereau(invoice_name: str, invoice_type: str = "Sales 
 			"invoice": invoice_name,
 			"party_type": party_type,
 			"party": party,
-			"amount": invoice.outstanding_amount,
+			"amount": available,
 			"mandate": mandate,
 			"status": "Pending",
 		},
@@ -120,41 +124,143 @@ def sync_invoices_sepa_bordereau_links(invoices):
 		sync_invoice_sepa_bordereau_link(invoice_name, invoice_type)
 
 
-def validate_invoice_unique_in_bordereaux(
+def get_invoice_pending_sepa_lines(
 	invoice_name,
 	invoice_type,
-	current_bordereau=None,
 	current_line_name=None,
 ):
-	"""Ensure an invoice is not already assigned to another active SEPA bordereau."""
+	"""Return Pending SEPA lines that reserve amount for an invoice (non-Closed bordereaux)."""
 	if not invoice_name:
-		return
+		return []
 
 	lines = frappe.get_all(
 		"SEPA Payment Bordereau Line",
-		filters={"invoice": invoice_name, "invoice_type": invoice_type},
-		fields=["name", "parent", "status"],
+		filters={"invoice": invoice_name, "invoice_type": invoice_type, "status": "Pending"},
+		fields=["name", "parent", "amount", "status"],
 	)
 
+	pending = []
 	for line in lines:
 		if current_line_name and line.name == current_line_name:
-			continue
-
-		# Rejected lines free the invoice for another bordereau
-		if line.status == "Rejected":
-			continue
-
-		if current_bordereau and line.parent == current_bordereau:
-			# Same bordereau duplicate is handled by validate_lines seen_invoices
 			continue
 
 		bordereau_status = frappe.db.get_value("SEPA Payment Bordereau", line.parent, "status")
 		if bordereau_status == "Closed":
 			continue
 
+		pending.append(line)
+
+	return pending
+
+
+def get_invoice_amount_reserved_in_sepa(
+	invoice_name,
+	invoice_type,
+	current_bordereau=None,
+	current_line_name=None,
+):
+	"""Sum of Pending amounts reserved for an invoice on non-Closed SEPA bordereaux."""
+	lines = get_invoice_pending_sepa_lines(
+		invoice_name,
+		invoice_type,
+		current_line_name=current_line_name,
+	)
+	return sum(flt(line.amount) for line in lines)
+
+
+def get_invoice_sepa_available_amount(
+	invoice_name,
+	invoice_type="Sales Invoice",
+	current_bordereau=None,
+	current_line_name=None,
+	outstanding_amount=None,
+):
+	"""Outstanding left after Pending SEPA reservations (excluding current line)."""
+	if not invoice_name:
+		return 0
+
+	if outstanding_amount is None:
+		outstanding_amount = frappe.db.get_value(invoice_type, invoice_name, "outstanding_amount") or 0
+
+	reserved = get_invoice_amount_reserved_in_sepa(
+		invoice_name,
+		invoice_type,
+		current_bordereau=current_bordereau,
+		current_line_name=current_line_name,
+	)
+	return max(flt(outstanding_amount) - flt(reserved), 0)
+
+
+@frappe.whitelist()
+def get_invoice_sepa_available_amount_for_ui(
+	invoice_name,
+	invoice_type="Sales Invoice",
+	current_bordereau=None,
+	current_line_name=None,
+):
+	"""Whitelist wrapper for bordereau form default amount."""
+	return get_invoice_sepa_available_amount(
+		invoice_name,
+		invoice_type,
+		current_bordereau=current_bordereau or None,
+		current_line_name=current_line_name or None,
+	)
+
+
+def validate_invoice_amount_in_bordereaux(
+	invoice_name,
+	invoice_type,
+	amount,
+	current_bordereau=None,
+	current_line_name=None,
+	row_idx=None,
+):
+	"""Ensure line amount does not exceed remaining SEPA-available outstanding."""
+	if not invoice_name:
+		return
+
+	amount = flt(amount)
+	if amount <= 0:
+		return
+
+	outstanding = flt(frappe.db.get_value(invoice_type, invoice_name, "outstanding_amount") or 0)
+	pending_lines = get_invoice_pending_sepa_lines(
+		invoice_name,
+		invoice_type,
+		current_line_name=current_line_name,
+	)
+	reserved = sum(flt(line.amount) for line in pending_lines)
+	available = outstanding - reserved
+
+	if amount <= available + 0.00001:
+		return
+
+	reserving = sorted({line.parent for line in pending_lines})
+	prefix = _("Row {0}: ").format(row_idx) if row_idx else ""
+	if reserving:
 		frappe.throw(
-			_("Invoice {0} is already in SEPA Payment Bordereau {1}").format(invoice_name, line.parent)
+			_(
+				"{0}Amount {1} for invoice {2} exceeds remaining available {3}"
+				" (outstanding {4} minus {5} reserved on {6})"
+			).format(
+				prefix,
+				frappe.format_value(amount, {"fieldtype": "Currency"}),
+				invoice_name,
+				frappe.format_value(max(available, 0), {"fieldtype": "Currency"}),
+				frappe.format_value(outstanding, {"fieldtype": "Currency"}),
+				frappe.format_value(reserved, {"fieldtype": "Currency"}),
+				", ".join(reserving),
+			)
 		)
+
+	frappe.throw(
+		_("{0}Amount {1} for invoice {2} exceeds outstanding {3}").format(
+			prefix,
+			frappe.format_value(amount, {"fieldtype": "Currency"}),
+			invoice_name,
+			frappe.format_value(outstanding, {"fieldtype": "Currency"}),
+		)
+	)
 
 
 def validate_invoice_for_sepa(invoice, invoice_type):
