@@ -449,8 +449,9 @@ def reconcile_bank_transaction_to_sepa_line(bank_transaction: str, end_to_end_id
 		"party": sepa_line.party,
 		"paid_amount": abs(bank_txn.unallocated_amount),
 		"received_amount": abs(bank_txn.unallocated_amount),
+		"posting_date": bank_txn.date or bordereau.execution_date,
 		"reference_no": invoice_reference,
-		"reference_date": bank_txn.date,
+		"reference_date": bank_txn.date or bordereau.execution_date,
 		"remarks": remittance_info,
 		"bank_account": bordereau.bank_account,
 		**account_fields,
@@ -698,6 +699,7 @@ def create_sepa_payment_entry(bordereau, line, gl_account):
 		"party": line.party,
 		"paid_amount": line.amount,
 		"received_amount": line.amount,
+		"posting_date": bordereau.execution_date,
 		"reference_no": invoice_reference,
 		"reference_date": bordereau.execution_date,
 		"remarks": remittance_info,
@@ -886,7 +888,7 @@ def create_sepa_bank_transaction(pe_name, bordereau, line):
 
 	bt = frappe.new_doc("Bank Transaction")
 
-	bt.date = doc.posting_date
+	bt.date = doc.posting_date or bordereau.execution_date
 	bt.bank_account = bank_account
 	bt.company = doc.company
 
