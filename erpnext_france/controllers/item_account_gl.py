@@ -3,45 +3,62 @@
 
 import json
 
+import erpnext
 import frappe
-from erpnext.stock.get_item_details import (
-	get_item_details,
-	purchase_doctypes,
-	sales_doctypes,
+from erpnext.accounts.doctype.pricing_rule.pricing_rule import (
+	set_transaction_type,
 )
+from erpnext.stock.get_item_details import get_item_code, get_item_details, purchase_doctypes, sales_doctypes
 from frappe import _, get_hooks
+
+ItemDetailsCtx = frappe._dict
+
+
+def _preprocess_ctx(ctx):
+	if not ctx.price_list:
+		ctx.price_list = ctx.selling_price_list or ctx.buying_price_list
+
+	if not ctx.item_code and ctx.barcode:
+		ctx.item_code = get_item_code(barcode=ctx.barcode)
+	elif not ctx.item_code and ctx.serial_no:
+		ctx.item_code = get_item_code(serial_no=ctx.serial_no)
+
+	set_transaction_type(ctx)
 
 
 @frappe.whitelist()
-def get_item_details_account_code(args, doc=None, for_validate=False, overwrite_warehouse=True):
+@erpnext.normalize_ctx_input(ItemDetailsCtx)
+def get_item_details_account_code(ctx, doc=None, for_validate=False, overwrite_warehouse=True):
 	# Chaînage avec d'éventuels autres hooks override_whitelisted_methods sur get_item_details
 	hooks = get_hooks("override_whitelisted_methods", {}).get(
 		"erpnext.stock.get_item_details.get_item_details", []
 	)
+	_preprocess_ctx(ctx)
 	if hooks:
 		current_method = __name__ + "." + get_item_details_account_code.__name__
 		if current_method in hooks:
 			current_hook_pos = hooks.index(current_method)
 			if current_hook_pos > 0:
 				method = frappe.get_attr(hooks[current_hook_pos - 1])
-				out = method(args, doc, for_validate, overwrite_warehouse)
+				out = method(ctx, doc, for_validate, overwrite_warehouse)
 			else:
-				out = get_item_details(args, doc, for_validate, overwrite_warehouse)
+				out = get_item_details(ctx, doc, for_validate, overwrite_warehouse)
 		else:
-			out = get_item_details(args, doc, for_validate, overwrite_warehouse)
+			out = get_item_details(ctx, doc, for_validate, overwrite_warehouse)
 	else:
-		out = get_item_details(args, doc, for_validate, overwrite_warehouse)
+		out = get_item_details(ctx, doc, for_validate, overwrite_warehouse)
 
+	print(ctx)
 	# Normalisation de args (process_args supprimé en v16 — remplacé par normalize_ctx_input)
-	if isinstance(args, str):
-		args = frappe.parse_json(args)
-	if not isinstance(args, frappe._dict):
-		args = frappe._dict(args)
+	if isinstance(ctx, str):
+		ctx = frappe.parse_json(ctx)
+	if not isinstance(ctx, frappe._dict):
+		ctx = frappe._dict(ctx)
 
 	if isinstance(doc, str):
 		doc = json.loads(doc)
 	elif not doc:
-		doc = args
+		doc = ctx
 
 	# Déterminer le type de transaction et le tiers
 	transaction_type = None
@@ -55,17 +72,17 @@ def get_item_details_account_code(args, doc=None, for_validate=False, overwrite_
 			type_thirdparty = "Customer"
 
 	third_party = None
-	if args.customer is not None:
-		third_party = args.customer
-	if args.supplier is not None:
-		third_party = args.supplier
+	if ctx.customer is not None:
+		third_party = ctx.customer
+	if ctx.supplier is not None:
+		third_party = ctx.supplier
 
 	# Sur Quotation il n'y a pas de code comptable
 	if doc and doc.get("doctype") == "Quotation":
 		type_thirdparty = None
 
 	if type_thirdparty is not None and third_party is not None:
-		account = get_correct_default_account(third_party, type_thirdparty, args.item_code)
+		account = get_correct_default_account(third_party, type_thirdparty, ctx.item_code)
 		if transaction_type == "Vente" and account is not None:
 			out.income_account = account
 		if transaction_type == "Achat" and account is not None:
