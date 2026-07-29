@@ -21,7 +21,13 @@ from frappe.utils import add_days, cint, flt, get_last_day, getdate, nowdate
 
 
 @frappe.whitelist()
-def get_party_account(party_type, party=None, company=None, include_advance=False, down_payment=None):
+def get_party_account(
+	party_type: str,
+	party: str | None = None,
+	company: str | None = None,
+	include_advance: bool = False,
+	down_payment: bool | None = None,
+):
 	"""Returns the account for the given `party`.
 	Will first search in party (Customer / Supplier) record, if not found,
 	will search in group (Customer Group / Supplier Group),
@@ -95,22 +101,22 @@ def get_party_advance_account(party_type, party, company):
 
 @frappe.whitelist()
 def get_party_details(
-	party=None,
-	account=None,
-	party_type="Customer",
-	company=None,
-	posting_date=None,
-	bill_date=None,
-	price_list=None,
-	currency=None,
-	doctype=None,
-	ignore_permissions=False,
-	fetch_payment_terms_template=True,
-	party_address=None,
-	company_address=None,
-	shipping_address=None,
-	pos_profile=None,
-	down_payment=None,
+	party: str | None = None,
+	account: str | None = None,
+	party_type: str = "Customer",
+	company: str | None = None,
+	posting_date: str | None = None,
+	bill_date: str | None = None,
+	price_list: str | None = None,
+	currency: str | None = None,
+	doctype: str | None = None,
+	ignore_permissions: bool = False,
+	fetch_payment_terms_template: bool = True,
+	party_address: str | None = None,
+	company_address: str | None = None,
+	shipping_address: str | None = None,
+	pos_profile: str | None = None,
+	down_payment: bool | None = None,
 ):
 	if not party:
 		return {}
@@ -280,7 +286,7 @@ def get_payment_terms_template(party_name, party_type, doctype, company=None):
 
 
 @frappe.whitelist()
-def make_quotation_with_payment_terms(source_name, target_doc=None):
+def make_quotation_with_payment_terms(source_name: str, target_doc: object | None = None):
 	from erpnext.selling.doctype.customer.customer import make_quotation
 
 	target_doc = make_quotation(source_name, target_doc=None)
@@ -299,12 +305,12 @@ def make_quotation_with_payment_terms(source_name, target_doc=None):
 
 @frappe.whitelist()
 def get_payment_terms_before_invoice(
-	doctype,
-	grand_total=None,
-	base_grand_total=None,
-	posting_date=None,
-	delivery_date=None,
-	payment_terms_template=None,
+	doctype: str,
+	grand_total: float | None = None,
+	base_grand_total: float | None = None,
+	posting_date: str | None = None,
+	delivery_date: str | None = None,
+	payment_terms_template: str | None = None,
 ):
 	if doctype not in ("Quotation", "Sales Order"):
 		return
@@ -334,7 +340,12 @@ def _get_payment_term_name(term):
 
 @frappe.whitelist()
 def get_payment_term_details(
-	term, posting_date=None, grand_total=None, base_grand_total=None, bill_date=None, delivery_date=None
+	term: object | str,
+	posting_date: str | None = None,
+	grand_total: float | None = None,
+	base_grand_total: float | None = None,
+	bill_date: str | None = None,
+	delivery_date: str | None = None,
 ):
 	term_details = frappe._dict()
 	if isinstance(term, str):
@@ -430,7 +441,14 @@ def get_due_date_from_template_france(template_name, posting_date, bill_date):
 
 
 @frappe.whitelist()
-def get_due_date(posting_date, party_type, party, company=None, bill_date=None, template_name=None):
+def get_due_date(
+	posting_date: str,
+	party_type: str,
+	party: str,
+	company: str | None = None,
+	bill_date: str | None = None,
+	template_name: str | None = None,
+):
 	from frappe.utils import getdate
 
 	due_date = None

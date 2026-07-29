@@ -21,7 +21,18 @@ class SEPAPaymentBordereau(Document):
 	def validate(self):
 		self.calculate_total()
 		self.validate_company_bank_account()
+		self.validate_locked_lines()
 		self.validate_lines()
+
+	@staticmethod
+	def is_line_locked(line):
+		"""Invoice/amount/etc. locked once Accepted/Rejected or linked to a Payment Entry."""
+		return bool(line.get("payment_entry")) or line.get("status") in ("Accepted", "Rejected")
+
+	@staticmethod
+	def is_status_locked(line):
+		"""Status stays editable while Pending or Rejected; only Accepted is frozen."""
+		return line.get("status") == "Accepted"
 
 	def on_trash(self):
 		from erpnext_france.regional.france.sepa_utils import sync_invoices_sepa_bordereau_links
@@ -93,9 +104,72 @@ class SEPAPaymentBordereau(Document):
 			total += flt(line.amount)
 		self.total_amount = total
 
+	def validate_locked_lines(self):
+		"""Prevent edits on processed lines, while still allowing status changes on Pending/Rejected."""
+		if self.is_new() or not self.get_doc_before_save():
+			return
+
+		old_lines = {d.name: d for d in self.get_doc_before_save().lines}
+		immutable_data_fields = (
+			"invoice",
+			"invoice_type",
+			"party",
+			"party_type",
+			"amount",
+			"mandate",
+			"end_to_end_id",
+			"payment_entry",
+		)
+
+		for line in self.lines:
+			old_line = old_lines.get(line.name)
+			if not old_line:
+				continue
+
+			# Allow unlocking Accepted lines when their Payment Entry was cancelled
+			unlocked_accepted = (
+				old_line.status == "Accepted"
+				and old_line.payment_entry
+				and frappe.db.get_value("Payment Entry", old_line.payment_entry, "docstatus") == 2
+				and not line.payment_entry
+				and line.status == "Pending"
+			)
+			if unlocked_accepted:
+				continue
+
+			if self.is_status_locked(old_line) and line.status != old_line.status:
+				frappe.throw(_("Row {0}: Accepted lines cannot change status").format(line.idx))
+
+			if not self.is_line_locked(old_line):
+				continue
+
+			for fieldname in immutable_data_fields:
+				old_value = old_line.get(fieldname)
+				new_value = line.get(fieldname)
+				if fieldname == "amount":
+					changed = flt(old_value) != flt(new_value)
+				else:
+					changed = new_value != old_value
+				if changed:
+					frappe.throw(
+						_(
+							"Row {0}: Accepted/Rejected lines linked to a Payment Entry cannot be modified"
+						).format(line.idx)
+					)
+
+			# rejection_reason stays editable on Rejected lines
+			if old_line.status == "Accepted" and line.rejection_reason != old_line.rejection_reason:
+				frappe.throw(_("Row {0}: Accepted lines cannot be modified").format(line.idx))
+
+		# Prevent deletion of locked lines
+		current_names = {line.name for line in self.lines if line.name}
+		for name, old_line in old_lines.items():
+			if name not in current_names and self.is_line_locked(old_line):
+				frappe.throw(_("Accepted/Rejected lines linked to a Payment Entry cannot be removed"))
+
 	def validate_lines(self):
 		"""Validate that all lines have required data"""
-		from erpnext_france.regional.france.sepa_utils import validate_invoice_unique_in_bordereaux
+		from erpnext_france.regional.france.sepa_utils import validate_invoice_amount_in_bordereaux
 
 		seen_invoices = set()
 
@@ -112,12 +186,15 @@ class SEPAPaymentBordereau(Document):
 					)
 				seen_invoices.add(line_key)
 
-				validate_invoice_unique_in_bordereaux(
-					line.invoice,
-					line.invoice_type,
-					current_bordereau=self.name,
-					current_line_name=line.name if line.name else None,
-				)
+				if self.status == "Draft" and not self.is_line_locked(line):
+					validate_invoice_amount_in_bordereaux(
+						line.invoice,
+						line.invoice_type,
+						line.amount,
+						current_bordereau=self.name,
+						current_line_name=line.name if line.name else None,
+						row_idx=line.idx,
+					)
 
 			if self.payment_type == "Credit" and line.party:
 				supplier_bank_account = frappe.db.exists(
@@ -141,6 +218,8 @@ class SEPAPaymentBordereau(Document):
 
 	def sync_line_from_payment_type(self, line):
 		"""Keep line party/invoice types aligned with bordereau payment type."""
+		from erpnext_france.regional.france.sepa_utils import get_invoice_sepa_available_amount
+
 		if self.payment_type == "Credit":
 			expected_invoice_type = "Purchase Invoice"
 			expected_party_type = "Supplier"
@@ -149,6 +228,15 @@ class SEPAPaymentBordereau(Document):
 			expected_invoice_type = "Sales Invoice"
 			expected_party_type = "Customer"
 			party_field = "customer"
+
+		# Already processed lines keep their stored values; do not re-check outstanding
+		# (partial validation would fail on invoices already paid by a previous accept).
+		if self.is_line_locked(line):
+			if not line.invoice_type:
+				line.invoice_type = expected_invoice_type
+			if not line.party_type:
+				line.party_type = expected_party_type
+			return
 
 		line.invoice_type = expected_invoice_type
 		line.party_type = expected_party_type
@@ -171,12 +259,27 @@ class SEPAPaymentBordereau(Document):
 		if self.company and invoice.company != self.company:
 			frappe.throw(_("Row {0}: Invoice {1} belongs to another company").format(line.idx, line.invoice))
 
-		if flt(invoice.outstanding_amount) <= 0:
-			frappe.throw(_("Row {0}: Invoice {1} has no outstanding amount").format(line.idx, line.invoice))
+		available = get_invoice_sepa_available_amount(
+			line.invoice,
+			line.invoice_type,
+			current_bordereau=self.name,
+			current_line_name=line.name if line.name else None,
+			outstanding_amount=invoice.outstanding_amount,
+		)
+
+		# Outstanding is only enforced while composing the bordereau.
+		# After export/send, invoices may already be paid (partial accept or external payment)
+		# and must not block status updates on remaining pending lines.
+		if self.status == "Draft" and flt(available) <= 0:
+			frappe.throw(
+				_("Row {0}: Invoice {1} has no remaining amount available for SEPA").format(
+					line.idx, line.invoice
+				)
+			)
 
 		line.party = invoice.get(party_field)
 		if not line.amount:
-			line.amount = invoice.outstanding_amount
+			line.amount = available
 
 		if self.payment_type == "Debit" and line.party and not line.mandate:
 			line.mandate = frappe.db.get_value("Customer", line.party, "sepa_mandate")
@@ -554,7 +657,7 @@ class SEPAPaymentBordereau(Document):
 		frappe.msgprint(_("Bordereau marked as sent"))
 
 	@frappe.whitelist()
-	def accept_selected_lines(self, line_names):
+	def accept_selected_lines(self, line_names: list | str):
 		"""Accept selected pending lines and create payment entries."""
 		import json
 
@@ -586,6 +689,18 @@ class SEPAPaymentBordereau(Document):
 					}
 				)
 				continue
+
+			if line.payment_entry:
+				pe_docstatus = frappe.db.get_value("Payment Entry", line.payment_entry, "docstatus")
+				if pe_docstatus == 1:
+					results["skipped"].append(
+						{
+							"name": line.name,
+							"invoice": line.invoice,
+							"reason": _("Payment Entry already linked"),
+						}
+					)
+					continue
 
 			if line.status != "Pending":
 				results["skipped"].append(

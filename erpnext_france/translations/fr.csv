@@ -663,7 +663,7 @@ Invoice {0},Facture {0}
 SEPA Bank Transaction Creation Error,Erreur de création de transaction bancaire SEPA
 Bank Transaction {0} created for SEPA line {1},La transaction bancaire {0} a été créée pour la ligne SEPA {1}
 Transaction generated from SEPA bordereau {0},Transaction générée depuis le bordereau SEPA {0}
-Payment Entry {0} created and cancelled for rejected SEPA line {1} (+ and -) ,L'écriture de paiement {0} a été créée et annulée pour la ligne SEPA rejetée {1} (+ et -)
+Payment Entry {0} created and cancelled for rejected SEPA line {1} (+ and -),L'écriture de paiement {0} a été créée et annulée pour la ligne SEPA rejetée {1} (+ et -)
 SEPA Mandate,Mandat SEPA
 SEPA Payment Bordereau,Bordereau de Paiement SEPA
 SEPA Payment Bordereau Line,Ligne de Bordereau de Paiement SEPA

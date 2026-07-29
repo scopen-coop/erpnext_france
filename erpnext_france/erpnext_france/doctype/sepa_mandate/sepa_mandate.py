@@ -58,8 +58,9 @@ def backfill_customer_mandates():
 	mandates = frappe.get_all("SEPA Mandate", filters={"status": "Active"}, fields=["name", "customer"])
 	for m in mandates:
 		frappe.db.set_value("Customer", m.customer, "sepa_mandate", m.name)
-	frappe.db.commit()
-	print(f"{len(mandates)} customer(s) updated")
+	# Script helper: commit once after bulk customer updates
+	frappe.db.commit()  # nosemgrep
+	frappe.msgprint(f"{len(mandates)} customer(s) updated")
 
 
 def sync_mandate_to_customer(doc, method=None):
