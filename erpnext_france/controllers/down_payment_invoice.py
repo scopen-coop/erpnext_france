@@ -10,7 +10,7 @@ from erpnext_france.controllers.taxes import find_item_tax_template
 
 
 @frappe.whitelist()
-def init_down_payment_invoice(order_name, values):
+def init_down_payment_invoice(order_name: str, values):
 	if isinstance(values, str):
 		values = frappe.parse_json(values)
 

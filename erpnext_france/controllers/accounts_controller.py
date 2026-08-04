@@ -18,7 +18,7 @@ from frappe.utils import cint, flt, fmt_money
 
 
 @frappe.whitelist()
-def get_down_payment(doc):
+def get_down_payment(doc: str):
 	"""Returns list of advances against Account, Party, Reference"""
 	doc = json.loads(doc)
 
@@ -93,7 +93,7 @@ def get_down_payment(doc):
 
 
 @frappe.whitelist()
-def get_down_payment_item_default(item_code):
+def get_down_payment_item_default(item_code: str):
 	item = frappe.get_doc("Item", item_code)
 
 	if not item or len(item.item_defaults) == 0:

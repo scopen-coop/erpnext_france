@@ -9,3 +9,5 @@ __pycache__
 /erpnext_france/regional/france/nbproject/
 /erpnext_france/public/dist/
 /frappe-semgrep-rules
+uv.lock
+semgrep.txt
