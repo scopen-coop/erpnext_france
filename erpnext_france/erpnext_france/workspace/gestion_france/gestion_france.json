@@ -145,8 +145,8 @@
    "type": "Link"
   }
  ],
- "modified": "2026-08-04 14:05:51.213410",
- "modified_by": "Administrator",
+ "modified": "2026-08-05 08:48:07.994572",
+ "modified_by": "technique@scopen.fr",
  "module": "ERPNext France",
  "name": "Gestion France",
  "number_cards": [],
@@ -169,7 +169,7 @@
    "role": "System Manager"
   }
  ],
- "sequence_id": 5.1,
+ "sequence_id": 20.0,
  "shortcuts": [],
  "title": "Gestion France",
  "type": "Workspace"

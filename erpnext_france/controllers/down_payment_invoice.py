@@ -10,9 +10,8 @@ from erpnext_france.controllers.taxes import find_item_tax_template
 
 
 @frappe.whitelist()
-def init_down_payment_invoice(order_name: str, values):
-	if isinstance(values, str):
-		values = frappe.parse_json(values)
+def init_down_payment_invoice(order_name: str, values: str):
+	values = frappe.parse_json(values)
 
 	order = frappe.get_cached_doc("Sales Order", order_name)
 
@@ -61,7 +60,7 @@ def init_down_payment_invoice(order_name: str, values):
 		down_payment_invoice.disable_rounded_total = 1
 
 	# Insère le down_payment_invoice dans la base de données
-	down_payment_invoice.insert()
+	down_payment_invoice.save()
 	return down_payment_invoice.name
 
 
