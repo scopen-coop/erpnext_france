@@ -6,3 +6,4 @@ erpnext_france.patches.v15_0.migrate_naf
 erpnext_france.patches.v15_0.migrate_legalform
 erpnext_france.patches.v15_0.sync_sales_invoice_sepa_bordereau
 erpnext_france.patches.v15_0.migrate_incoterm
+erpnext_france.patches.v15_0.migrate_categorie_comptable_tiers
