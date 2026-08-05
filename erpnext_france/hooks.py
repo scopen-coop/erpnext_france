@@ -446,6 +446,7 @@ scheduler_events = {"daily_long": ["erpnext_france.tasks.check_sirene_update"]}
 #
 override_whitelisted_methods = {
 	"erpnext.controllers.accounts_controller.get_payment_term_details": "erpnext_france.controllers.party.get_payment_term_details",
+	"erpnext.controllers.accounts_controller.get_payment_terms": "erpnext_france.controllers.party.get_payment_terms",
 	"erpnext.accounts.party.get_party_details": "erpnext_france.controllers.party.get_party_details",
 	"erpnext.selling.doctype.sales_order.sales_order.make_sales_invoice": "erpnext_france.controllers.sales_order.make_sales_invoice_with_payment_terms",
 	"erpnext.selling.doctype.customer.customer.make_quotation": "erpnext_france.controllers.party.make_quotation_with_payment_terms",

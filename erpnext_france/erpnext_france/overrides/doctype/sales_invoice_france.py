@@ -113,12 +113,15 @@ class SalesInvoiceFrance(SalesInvoice):
 
 		from erpnext_france.controllers.party import get_payment_term_details as our_get_payment_term_details
 
+		frappe.flags.current_doctype = self.doctype
+
 		original = ac.get_payment_term_details
 		ac.get_payment_term_details = our_get_payment_term_details
 		try:
 			super().set_payment_schedule()
 		finally:
 			ac.get_payment_term_details = original
+			frappe.flags.current_doctype
 
 	def validate(self):
 		super().validate()

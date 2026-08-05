@@ -329,6 +329,20 @@ def get_payment_terms_before_invoice(
 
 
 @frappe.whitelist()
+def get_payment_terms(
+	terms_template, posting_date=None, grand_total=None, base_grand_total=None, bill_date=None
+):
+	if not terms_template:
+		return
+	terms_doc = frappe.get_doc("Payment Terms Template", terms_template)
+	schedule = []
+	for d in terms_doc.get("terms"):
+		term_details = get_payment_term_details(d, posting_date, grand_total, base_grand_total, bill_date)
+		schedule.append(term_details)
+	return schedule
+
+
+@frappe.whitelist()
 def get_payment_term_details(
 	term, posting_date=None, grand_total=None, base_grand_total=None, bill_date=None
 ):
@@ -353,7 +367,11 @@ def get_payment_term_details(
 	term_details.discount_validity_based_on = term.get("discount_validity_based_on")
 	term_details.discount_validity = term.get("discount_validity")
 
-	if term.get("date_computed_based_on"):
+	INVOICE_DOCTYPES = ("Sales Invoice", "Purchase Invoice", "POS Invoice")
+	current_doctype = frappe.flags.get("current_doctype")
+	is_invoice = current_doctype in INVOICE_DOCTYPES
+
+	if term.get("date_computed_based_on") and is_invoice:
 		# avant-facture : basé sur Document Date ou Delivery Date
 		term_details.due_date = get_due_date_before_invoice(term, posting_date, bill_date)
 	else:
@@ -362,10 +380,15 @@ def get_payment_term_details(
 		if france_due_date:
 			term_details.due_date = france_due_date
 		else:
-			# Laisser ERPNext calculer via sa propre get_due_date
-			from erpnext.controllers.accounts_controller import get_due_date as erpnext_get_due_date
+			if term.get("due_date_based_on"):
+				from erpnext.controllers.accounts_controller import get_due_date as erpnext_get_due_date
 
-			term_details.due_date = erpnext_get_due_date(term, posting_date)
+				if bill_date:
+					term_details.due_date = erpnext_get_due_date(term, bill_date)
+				else:
+					term_details.due_date = erpnext_get_due_date(term, posting_date)
+			else:
+				term_details.due_date = add_days(posting_date, cint(term.get("credit_days") or 0))
 
 	if term.get("discount_validity_based_on"):
 		term_details.discount_date = get_discount_date(term, posting_date, bill_date)
@@ -379,14 +402,26 @@ def get_payment_term_details(
 
 
 def get_due_date_before_invoice(term, document_date, delivery_date):
-	due_date = None
+	# Déterminer la date de base
 	if term.get("date_computed_based_on") == "Document Date":
-		due_date = document_date
+		base_date = document_date
 	elif term.get("date_computed_based_on") == "Delivery Date":
-		if not term.get("credit_days"):
-			return delivery_date or document_date
-		due_date = add_days(delivery_date, term.get("credit_days"))
-	return due_date
+		base_date = delivery_date or document_date
+	else:
+		return None
+
+	custom_option = term.get("custom_due_date_based_on_france") or term.get("due_date_based_on")
+	end_of_month_day = term.get("custom_end_of_month_day")
+
+	france_due_date = compute_france_due_date(
+		custom_option, base_date, term.get("credit_days"), end_of_month_day
+	)
+
+	# Fallback si pas de règle France : base_date + credit_days
+	if not france_due_date:
+		return add_days(base_date, term.get("credit_days") or 0)
+
+	return france_due_date
 
 
 def get_due_date_from_template_france(template_name, posting_date, bill_date):

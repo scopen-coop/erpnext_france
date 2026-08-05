@@ -1,100 +1,100 @@
-Journal Code,Code Journal
-Journal Label,Libellé Journal
-Tax ID,Numéro de TVA Intracommunautaire
-Accounting Export,Export Comptable
-Accounting Document,Pièce Comptable
-From Date,Date de Début
-To Date,Date de Fin
-Please select an accounting document,Sélectionnez une pièce comptable
-Please enter from date,Entrez s'il vous plaît une date de début
-Please enter to date,Entrez s'il vous plaît une date de fin
-Selling Journal Code,Code Journal de Vente
-Buying Journal Code,Code Journal d'Achat
-Export File Format,Format du Fichier d'Export
-Subledger Account,Compte Auxiliaire
-Select a payment term to invoice.,Sélectionnez un terme de paiement à facturer.
-ERPNext France Settings,Paramètres de ERPNext France
-Default Payable Account,Compte fournisseur par défaut
-Informations sur la fête,Information sur la partie
-Salutation,Civilité
-Type de Référence,Type d’éléments
-Terminé par,Date d'échéance
-Purchase demande,Demande d'achat
-Set Export Date,Enregistrer la date d'export
-Included already exported document,Inclure dans l'export les enregistrements déja exporté dans l'export
-Accounting Export Date,Date d'export en comptabilité
-Set empty to not update Exported Date on document,Mettre à vide pour ne pas mettre de date d'export sur les documents
-Discount Supplier Account,Compte d'escompte et remise fournisseur
-Export Sales Invoice and Purchase Invoice,Export des facture vents et achats
-Select Payment Term,Sélectionnez un terme de paiement à facturer.
-You should configure Journal Code in your Company first,Vous devez d'abord configurer vos codes journaux dans la Société
-choose the 'Naming Series' option.,choisissez l'option 'Masque de numérotation'.
-EU Country Only,Pays Zone EU uniquement
-Check VAT,Vérification code TVA
-Invalid VAT number,Numéro de TVA invalide
-Invalid country code,Code pays non valide
-VAT Check OK,Numéro de TVA valide
-Name: {0},Nom: {0}
-Adress: {0},Adresse: {0}
-ERPNext France Setup,Paramétrage d'ERPNext France
-Deposit Setup,Gestion des acomptes
-Accountancy Export,Export journaux vente et achat
-Export FEC,Export ecriture FEC
-API Url,Url d'accès à l'API généré depuis le compte de Sirene
+Journal Code,Code Journal,
+Journal Label,Libellé Journal,
+Tax ID,Numéro de TVA Intracommunautaire,
+Accounting Export,Export Comptable,
+Accounting Document,Pièce Comptable,
+From Date,Date de Début,
+To Date,Date de Fin,
+Please select an accounting document,Sélectionnez une pièce comptable,
+Please enter from date,Entrez s'il vous plaît une date de début,
+Please enter to date,Entrez s'il vous plaît une date de fin,
+Selling Journal Code,Code Journal de Vente,
+Buying Journal Code,Code Journal d'Achat,
+Export File Format,Format du Fichier d'Export,
+Subledger Account,Compte Auxiliaire,
+Select a payment term to invoice.,Sélectionnez un terme de paiement à facturer.,
+ERPNext France Settings,Paramètres de ERPNext France,
+Default Payable Account,Compte fournisseur par défaut,
+Informations sur la fête,Information sur la partie,
+Salutation,Civilité,
+Type de Référence,Type d’éléments,
+Terminé par,Date d'échéance,
+Purchase demande,Demande d'achat,
+Set Export Date,Enregistrer la date d'export,
+Included already exported document,Inclure dans l'export les enregistrements déja exporté dans l'export,
+Accounting Export Date,Date d'export en comptabilité,
+Set empty to not update Exported Date on document,Mettre à vide pour ne pas mettre de date d'export sur les documents,
+Discount Supplier Account,Compte d'escompte et remise fournisseur,
+Export Sales Invoice and Purchase Invoice,Export des facture vents et achats,
+Select Payment Term,Sélectionnez un terme de paiement à facturer.,
+You should configure Journal Code in your Company first,Vous devez d'abord configurer vos codes journaux dans la Société,
+choose the 'Naming Series' option.,choisissez l'option 'Masque de numérotation'.,
+EU Country Only,Pays Zone EU uniquement,
+Check VAT,Vérification code TVA,
+Invalid VAT number,Numéro de TVA invalide,
+Invalid country code,Code pays non valide,
+VAT Check OK,Numéro de TVA valide,
+Name: {0},Nom: {0},
+Adress: {0},Adresse: {0},
+ERPNext France Setup,Paramétrage d'ERPNext France,
+Deposit Setup,Gestion des acomptes,
+Accountancy Export,Export journaux vente et achat,
+Export FEC,Export ecriture FEC,
+API Url,Url d'accès à l'API généré depuis le compte de Sirene,
 API Token,Token d'accès à l'API généré via le compte de Sirene (Authorization : Bearer),
-API Timeout,Délai d'attente maximum d'une requête vers l'API (en secondes par defaut 2)
-Import supplier from SIRENE,Importer un fournisseur depuis SIRENE
-Import customer from SIRENE,Importer un client depuis SIRENE
-Enter entity details,Veuillez saisir les details de l'entité à récuperer
-Company name,Raison sociale
-SIREN,SIREN
-SIRET,SIRET
-NAF,NAF
-Zipcode,Code Postal
-Nb of displayed results,Nombre de résultats affichés
-You have to specify an url for SIRENE API,Vous devez spécifier une url vers l'API Sirene
-You have to specify a token for SIRENE API,Vous devez spécifier un token pour l'API Sirene
-You have to specify Erpnext France Parameters,Les paramètres du module ERPNext France n'ont pas été spécifiés veuillez les remplir ou demander à l'administrateur.
-You have to specify at least a filter for searching,Vous devez spécifier au moins une valeur de filtre
-No Entity Found With Those Info,Aucune entité n'a été trouvée avec ces informations
-Select Entity,Sélectionnez l'entité que vous recherchez
-Error during companies data recuperation:{0},Une erreur est survenue durant la récupération des données: {0}
+API Timeout,Délai d'attente maximum d'une requête vers l'API (en secondes par defaut 2),
+Import supplier from SIRENE,Importer un fournisseur depuis SIRENE,
+Import customer from SIRENE,Importer un client depuis SIRENE,
+Enter entity details,Veuillez saisir les details de l'entité à récuperer,
+Company name,Raison sociale,
+SIREN,SIREN,
+SIRET,SIRET,
+NAF,NAF,
+Zipcode,Code Postal,
+Nb of displayed results,Nombre de résultats affichés,
+You have to specify an url for SIRENE API,Vous devez spécifier une url vers l'API Sirene,
+You have to specify a token for SIRENE API,Vous devez spécifier un token pour l'API Sirene,
+You have to specify Erpnext France Parameters,Les paramètres du module ERPNext France n'ont pas été spécifiés veuillez les remplir ou demander à l'administrateur.,
+You have to specify at least a filter for searching,Vous devez spécifier au moins une valeur de filtre,
+No Entity Found With Those Info,Aucune entité n'a été trouvée avec ces informations,
+Select Entity,Sélectionnez l'entité que vous recherchez,
+Error during companies data recuperation:{0},Une erreur est survenue durant la récupération des données: {0},
 SIRENE Error - Not Found,Erreur Sirene - Élément non trouvé,
 SIRENE Error - Unauthorized,Erreur Sirene - Non autorisé,
 SIRENE Error - Access Denied,Erreur Sirene - Accès refusé,
-No of Employees,Nb de salarié(e)s
-No. of Employees,Nb de salarié(e)s
-Annual Revenue,CA annuel
-Qualified By,Qualifié par
-Qualified on,Qualifié le
-Open Tasks,Tâche à faire ouverte
-No open task,Pas de Tâche à faire ouverte
-Open Events,Evénements ouvert
-No open event,Pas Evénements ouvert
-New Task,Nv. Tâche à faire
-No Notes,Pas de note
-New Note,Nouvelle Note
-Prospect Owner,Resp. du Prospect
-Deal Owner,Resp. de l'opportunité
-Stage,Etape
-Probability,Probabilité
-Closing,Clôture
-Allow Sales,Autoriser à la vente
-Subcontracting Order,Ordre de fab. sous traité
-Subcontracting Receipt,Reception d'ordre de fab. sous traité
-Subcontracting Purchase Order,Commande d'achat de sous traitance
-Service Items,Prestations de sous traitance acheter
-Available Qty For Consumption,Quantité dispo. pour consommation
-% Returned,% retourné
-Discount (%) on Price List Rate with Margin,Remise (%) sur prix de la liste de prix
+No of Employees,Nb de salarié(e)s,
+No. of Employees,Nb de salarié(e)s,
+Annual Revenue,CA annuel,
+Qualified By,Qualifié par,
+Qualified on,Qualifié le,
+Open Tasks,Tâche à faire ouverte,
+No open task,Pas de Tâche à faire ouverte,
+Open Events,Evénements ouvert,
+No open event,Pas Evénements ouvert,
+New Task,Nv. Tâche à faire,
+No Notes,Pas de note,
+New Note,Nouvelle Note,
+Prospect Owner,Resp. du Prospect,
+Deal Owner,Resp. de l'opportunité,
+Stage,Etape,
+Probability,Probabilité,
+Closing,Clôture,
+Allow Sales,Autoriser à la vente,
+Subcontracting Order,Ordre de fab. sous traité,
+Subcontracting Receipt,Reception d'ordre de fab. sous traité,
+Subcontracting Purchase Order,Commande d'achat de sous traitance,
+Service Items,Prestations de sous traitance acheter,
+Available Qty For Consumption,Quantité dispo. pour consommation,
+% Returned,% retourné,
+Discount (%) on Price List Rate with Margin,Remise (%) sur prix de la liste de prix,
 Creation Date,Date de création,
 Legal Form,Forme Juridique,
-Opportunity Owner,Responsable de l'opportunité
+Opportunity Owner,Responsable de l'opportunité,
 Transactions Tax Summary,Récapitulatif des taxes liées aux transactions,
 Base Grand Total,Total général de base,
 Base Net Amount,Montant net de base,
 Monthly Recurring Revenue,Revenu mensuel récurrent,
-Bank Transaction Categories,Transactions bancaires par catégorie
+Bank Transaction Categories,Transactions bancaires par catégorie,
 Accounting Journal Adjustment,Ajustement de journal comptable,
 Accounting Journal Rule,Règle de journal comptable,
 Accounting Journal adjustment in progress,Ajustement de journal comptable en cours,
@@ -108,7 +108,7 @@ Advance Payments,Acomptes et avances,
 Advance account currency should be same as company currency {0},La devise du compte d'acompte doit être la même que la devise de la société {0},
 Advance amount cannot be greater than {0} {1},Montant de l'acompte ne peut être supérieur à {0} {1},
 Advance amount,Montant de l'acompte,
-"Advance paid against {0} {1} cannot be greater than Grand Total {2}",L'acompte versée pour {0} {1} ne peut être supérieure \ au total général {2},
+Advance paid against {0} {1} cannot be greater than Grand Total {2},L'acompte versée pour {0} {1} ne peut être supérieure \ au total général {2},
 Advance paid against {0} {1} cannot be greater than Grand Total {2},L'avance payée pour {0} {1} ne peut pas être supérieure au total général {2},
 Advance,Acompte,
 Advances,Acomptes,
@@ -223,7 +223,7 @@ Payment Reconciliations,Rapprochement des paiements,
 Stock Reconciliation,Inventaire,
 Auto Reconcile Payments,Rapprocher automatiquement des paiements,
 Ignore Account Closing Balance,Ignorer le solde de clôture du compte,
-Financial reports will be generated using GL Entry doctypes (should be enabled if Period Closing Voucher is not posted for all years sequentially or missing),Les rapports financiers seront générés à l'aide des écriture GL (à activer si la pièce justificative de clôture de période n'est pas comptabilisée pour toutes les années de manière séquentielle ou si elle est manquante).
+Financial reports will be generated using GL Entry doctypes (should be enabled if Period Closing Voucher is not posted for all years sequentially or missing),Les rapports financiers seront générés à l'aide des écriture GL (à activer si la pièce justificative de clôture de période n'est pas comptabilisée pour toutes les années de manière séquentielle ou si elle est manquante).,
 Chart Of Accounts,Plan Comptable,
 Enable Automatic Party Matching,Activer l'appariement automatique des Tiers,
 Auto match and set the Party in Bank Transactions,Correspondance automatique et définition du tiers dans les transactions bancaires,
@@ -240,9 +240,9 @@ First Day of the Week,Premier jour de la semaine,
 Disable Document Sharing,Désactiver le partage de documents,
 Type a reply / comment,Écrire une réponse / commentaire,
 Session Expiry (idle timeout),Expiration de la session (temps d'attente inactif),
-Example: Setting this to 24:00 will log out a user if they are not active for 24:00 hours.,Exemple : Si vous réglez ce paramètre sur 24:00 un utilisateur sera déconnecté s'il n'est pas actif pendant 24:00 heures.
+Example: Setting this to 24:00 will log out a user if they are not active for 24:00 hours.,Exemple : Si vous réglez ce paramètre sur 24:00 un utilisateur sera déconnecté s'il n'est pas actif pendant 24:00 heures.,
 Document Share Key Expiry (in Days),Expiration de la clé de partage de document (en jours),
-Number of days after which the document Web View link shared on email will be expired,Nombre de jours après lesquels le lien Web du document partagé par e-mail expirera
+Number of days after which the document Web View link shared on email will be expired,Nombre de jours après lesquels le lien Web du document partagé par e-mail expirera,
 Disable Username/Password Login,Désactiver la connexion par nom d'utilisateur/mot de passe,
 Make sure to configure a Social Login Key before disabling to prevent lockout,Assurez-vous de configurer une clé de connexion avant de désactiver cette option pour éviter le verrouillage de l'application,
 Login with email link,Se connecter avec le lien e-mail,
@@ -252,23 +252,23 @@ Reset Password Link Expiry Duration,Réinitialiser la durée d'expiration du lie
 Email Retry Limit,Limite de tentatives d'envoi d'e-mails,
 Reset Password Template,Réinitialiser le modèle de mot de passe,
 Force Web Capture Mode for Uploads,Forcer le mode de capture Web pour les téléversements,
-"When uploading files, force the use of the web-based image capture. If this is unchecked,the default behavior is to use the mobile native camera when use from a mobile is detected.","Lors du téléversement de fichiers, forcer l'utilisation de la capture d'image basée sur le Web. Si cette option n'est pas cochée, le comportement par défaut est d'utiliser la caméra native mobile lorsque l'utilisation à partir d'un mobile est détectée."
+"When uploading files, force the use of the web-based image capture. If this is unchecked,the default behavior is to use the mobile native camera when use from a mobile is detected.","Lors du téléversement de fichiers, forcer l'utilisation de la capture d'image basée sur le Web. Si cette option n'est pas cochée, le comportement par défaut est d'utiliser la caméra native mobile lorsque l'utilisation à partir d'un mobile est détectée.",
 Strip EXIF tags from uploaded images,Retirer les balises EXIF des images téléchargées,
 Allowed File Extensions,Extensions de fichier autorisées,
-"Provide a list of allowed file extensions for file uploads. Each line should contain one allowed file type. If unset, all file extensions are allowed. Example: <br>CSV<br>JPG<br>PNG","Fournir une liste des extensions autorisées pour le téléchargement de fichiers. Chaque ligne doit contenir un type de fichier autorisé. Si non défini, toutes les extensions de fichier sont autorisées. Exemple: <br>CSV<br>JPG<br>PNG"
+"Provide a list of allowed file extensions for file uploads. Each line should contain one allowed file type. If unset, all file extensions are allowed. Example: <br>CSV<br>JPG<br>PNG","Fournir une liste des extensions autorisées pour le téléchargement de fichiers. Chaque ligne doit contenir un type de fichier autorisé. Si non défini, toutes les extensions de fichier sont autorisées. Exemple: <br>CSV<br>JPG<br>PNG",
 Updates,Mises à jour,
-Disable System Update Notification,Désactiver la notification de mise à jour du système
+Disable System Update Notification,Désactiver la notification de mise à jour du système,
 Disable Change Log Notification,Désactiver la notification du journal des modifications,
 Encrypt Backups,Chiffrer les sauvegardes,
 Max auto email report per user,Nombre maximum de rapports par email par utilisateur,
 Allow Sending Usage Data for Improving Applications,Autoriser l'envoi de données d'utilisation pour améliorer les applications,
-Allow Older Web View Links (Insecure),Autoriser les anciens liens d'affichage Web (non sécurisé)
+Allow Older Web View Links (Insecure),Autoriser les anciens liens d'affichage Web (non sécurisé),
 Price List Defaults,Paramètre par défaults des listes de prix,
 Stock UOM Quantity,Quantité UdM en stock,
 Allow to Edit Stock UOM Qty for Sales Documents,Autoriser la modification de la quantité UdM de stock pour les documents de vente,
 Allow to Edit Stock UOM Qty for Purchase Documents,Autoriser la modification de la quantité UdM de stock pour les documents d'achat,
 Stock Validations,Validation de stock,
-"The percentage you are allowed to transfer more against the quantity ordered. For example, if you have ordered 100 units, and your Allowance is 10%, then you are allowed transfer 110 units.","Le pourcentage que vous êtes autorisé à transférer en plus par rapport à la quantité commandée. Par exemple, si vous avez commandé 100 unités, et que votre Allocation est de 10 %, vous pouvez transférer 110 unités."
+"The percentage you are allowed to transfer more against the quantity ordered. For example, if you have ordered 100 units, and your Allowance is 10%, then you are allowed transfer 110 units.","Le pourcentage que vous êtes autorisé à transférer en plus par rapport à la quantité commandée. Par exemple, si vous avez commandé 100 unités, et que votre Allocation est de 10 %, vous pouvez transférer 110 unités.",
 Quality Inspection Settings,Paramètres de l'inspection qualité,
 Stock Reservation,Réservation de stock,
 Enable stock reservation,Activer la réservation de stock,
@@ -280,7 +280,7 @@ Pick Serial / Batch Based On,Choisir un numéro de série / un lot en fonction d
 Stock Planning,Planification des stocks,
 Stock Closing,Clôture des stocks,
 Book Advance Payments in Separate Party Account,Réservez des paiements anticipés dans un compte séparé,
-Enabling this option will allow you to record - <br><br> 1. Advances Received in a <b>Liability Account</b> instead of the <b>Asset Account</b><br><br>2. Advances Paid in an <b>Asset Account</b> instead of the <b> Liability Account</b>,L'activation de cette option vous permet d'enregistrer: <br><br> 1. Les avances reçues dans un compte de passif <b></b> au lieu du compte d'actif <b></b><br><br>2. Les avances payées dans un <b>Compte d'actif</b> au lieu du <b> Compte de passif</b>
+Enabling this option will allow you to record - <br><br> 1. Advances Received in a <b>Liability Account</b> instead of the <b>Asset Account</b><br><br>2. Advances Paid in an <b>Asset Account</b> instead of the <b> Liability Account</b>,L'activation de cette option vous permet d'enregistrer: <br><br> 1. Les avances reçues dans un compte de passif <b></b> au lieu du compte d'actif <b></b><br><br>2. Les avances payées dans un <b>Compte d'actif</b> au lieu du <b> Compte de passif</b>,
 Exchange Rate Revaluation Settings,Paramètres de réévaluation du taux de change,
 Auto Create Exchange Rate Revaluation,Créer automatiquement une réévaluation du taux de change,
 Submit ERR Journals?,Soumettre des journaux ERR ?,
@@ -291,21 +291,21 @@ Default Provisional Account,Compte de provision par défaut,
 Default In-Transit Warehouse,Entrepôt de transit par défaut,
 Manage,Gérer,
 Connections,Connexions,
-Repeat Header and Footer,Répeter l'entête et le pied de page sur chaque page
-Percentage you are allowed to order beyond the Blanket Order quantity.,Pourcentage que vous êtes autorisé à vendre au-delà de la quantité de la commande globale.
+Repeat Header and Footer,Répeter l'entête et le pied de page sur chaque page,
+Percentage you are allowed to order beyond the Blanket Order quantity.,Pourcentage que vous êtes autorisé à vendre au-delà de la quantité de la commande globale.,
 Update frequency of Project,Fréquence de mise à jour du projet,
 How often should Project be updated of Total Purchase Cost ?,À quelle fréquence le projet doit-il être mis à jour en ce qui concerne le coût total d'achat ?,
-"If checked, Rejected Quantity will be included while making Purchase Invoice from Purchase Receipt.","Si cette case est cochée, la quantité rejetée sera incluse lors de la facture d'achat à partir du reçu d'achat."
+"If checked, Rejected Quantity will be included while making Purchase Invoice from Purchase Receipt.","Si cette case est cochée, la quantité rejetée sera incluse lors de la facture d'achat à partir du reçu d'achat.",
 Show Pay Button in Purchase Order Portal,Afficher le bouton Payer dans le portail des bons de commande,
 Use Transaction Date Exchange Rate,Utiliser le taux de change de la date de la transaction,
-"While making Purchase Invoice from Purchase Order, use Exchange Rate on Invoice's transaction date rather than inheriting it from Purchase Order. Only applies for Purchase Invoice.","Lorsque vous créez une facture à partir de la commande d'achat, il faut utiliser le taux de change à la date de transaction de la facture plutôt que de l'hériter de la commande d'achat. Ne s'applique qu'à la facture d'achat."
+"While making Purchase Invoice from Purchase Order, use Exchange Rate on Invoice's transaction date rather than inheriting it from Purchase Order. Only applies for Purchase Invoice.","Lorsque vous créez une facture à partir de la commande d'achat, il faut utiliser le taux de change à la date de transaction de la facture plutôt que de l'hériter de la commande d'achat. Ne s'applique qu'à la facture d'achat.",
 Auto Create Subcontracting Order,Création automatique d'une commande de sous-traitance,
 Subcontracting Order (Draft) will be auto-created on submission of Purchase Order.,La commande de sous-traitance (brouillon) sera automatiquement créée lors de la soumission du bon de commande.,
 Auto Create Purchase Receipt,Création automatique d'un reçu d'achat,
 Purchase Receipt (Draft) will be auto-created on submission of Subcontracting Receipt.,Le reçu d'achat (brouillon) sera automatiquement créé lors de la soumission du reçu de sous-traitance.,
 Set Operating Cost / Scrape Items From Sub-assemblies,Définir le coût de fonctionnement / article de rebut à partir des sous-ensembles,
-"In the case of 'Use Multi-Level BOM' in a work order, if the user wishes to add sub-assembly costs to Finished Goods items without using a job card as well the scrap items, then this option needs to be enable.","Dans le cas de 'Utiliser des BOMS à plusieurs niveaux' dans un ordre de travail, si l'utilisateur souhaite ajouter des coûts de sous-assemblage aux articles finis ainsi que les articles de rebuts sans utiliser de carte de travail, alors cette option doit être activée."
-"Link that is the website home page. Standard Links (home, login, products, blog, about, contact)","Lien de la page d'accueil du site. Liens standards (domicile, login, produits, blog, sujet, contact)"
+"In the case of 'Use Multi-Level BOM' in a work order, if the user wishes to add sub-assembly costs to Finished Goods items without using a job card as well the scrap items, then this option needs to be enable.","Dans le cas de 'Utiliser des BOMS à plusieurs niveaux' dans un ordre de travail, si l'utilisateur souhaite ajouter des coûts de sous-assemblage aux articles finis ainsi que les articles de rebuts sans utiliser de carte de travail, alors cette option doit être activée.",
+"Link that is the website home page. Standard Links (home, login, products, blog, about, contact)","Lien de la page d'accueil du site. Liens standards (domicile, login, produits, blog, sujet, contact)",
 Login Page,Page de connexion,
 Disable signups,Désactiver les inscriptions,
 New users will have to be manually registered by system managers.,Les nouveaux utilisateurs devront être enregistrés manuellement par les gestionnaires du système.,
@@ -322,7 +322,7 @@ Google Analytics anonymise IP,Anonymiser l'IP pour Google Analytics,
 Account Deletion Settings,Paramètres de suppression de compte,
 Automatically delete account within (hours),Supprimer automatiquement le compte dans les (heures),
 Show account deletion link in My Account,Afficher le lien de suppression de compte dans la page Mon Compte,
-"Header, Robots","En-tête, Robots"
+"Header, Robots","En-tête, Robots",
 Redirects,Redirections,
 Route Redirects,Redirections de la route,
 Clear Cache,Vider le cache,
@@ -350,8 +350,8 @@ You changed the value of {0},Vous avez changé la valeur de {0},
 No {0} found with matching filters. Clear filters to see all {0}.,Aucun {0} trouvé avec les filtres correspondants. Effacer les filtres pour voir toutes les {0}.,
 Terms & Conditions,Termes et Conditions,
 Additional Info,Infos supplémentaires,
-"<span class=\"h4\"><b>Your Shortcuts</b></span>","<span class=\"h4\"><b>Vos Raccourcis</b></span>",
-<span class="h4"><b>Your Shortcuts</b></span>,<span class="h4"><b>Vos Raccourcis</b></span>,
+"""<span class=\""h4\""><b>Your Shortcuts</b></span>""","""<span class=\""h4\""><b>Vos Raccourcis</b></span>""",
+"<span class=""h4""><b>Your Shortcuts</b></span>","<span class=""h4""><b>Vos Raccourcis</b></span>",
 Your Shortcuts,Vos Raccourcis,
 Let's Set Up Your Accounts and Taxes.,Veuillez configurer les paramètres de vos comptes et taxes.,
 "Accounts, Invoices, Taxation, and more.","Comptes, factures, taxes etc.",
@@ -376,7 +376,7 @@ Learn Project Management,Comprendre la gestion des projets,
 Learn Manufacturing,Comprendre la gestion de la production,
 Let's Set Up the Selling Module.,Configurez le module de vente.,
 "Products, Sales, Analysis, and more.","Produits, ventes, analyse, etc.",
-"Let’s walk-through Selling Settings","Parcourez les paramètres de ventes",
+Let’s walk-through Selling Settings,Parcourez les paramètres de ventes,
 Sales Partner Target Variance Based On Item Group,Variance du partenaire commercial cible basée sur les groupes d'articles,
 Let's Set Up the Stock Module.,Configurez le module Stock.,
 "Inventory, Warehouses, Analysis, and more.","Inventaire, Entrepôts, Analyses etc.",
@@ -426,7 +426,7 @@ Asset Capitalization,Capitalisation de l'actif,
 {0} changed the value of {1} {2},{0} a changé la valeur de {1} {2},
 Log out,Se déconnecter,
 Let's set up your account,Configurer le premier compte utilisateur,
-Email Address (Will be your login ID),"Adresse email (sera le login de ce compte)"
+Email Address (Will be your login ID),Adresse email (sera le login de ce compte),
 Updating global settings,Mise à jour des paramètres globaux,
 "If checked, we will create demo data for you to explore the system. This demo data can be erased later.","Si cette case est cochée, nous créerons des données de démonstration pour vous permettre d'explorer le système. Ces données de démonstration peuvent être effacées ultérieurement.",
 Generate Demo Data for Exploration,Générer des données de démo pour explorer ERPNext,
@@ -435,7 +435,7 @@ Merge Similar Account Heads,Fusionner les lignes ayants des codes comptables sim
 Rows with Same Account heads will be merged on Ledger,Les lignes associées aux mêmes codes comptables seront fusionnées dans le grand livre,
 Setup Global Settings,Configuration des paramètres globaux,
 ERPNext France - Please Set Accounting Jounal For Purchases and Sales,ERPNext France - Veuillez définir les journaux comptables pour les achats et les ventes,
-ERPNext France - Please configure an accounting journal for this transaction type and account: {0},ERPNext France - Veuillez configurer le compte comptable pour ce type de transaction et compte: {0}
+ERPNext France - Please configure an accounting journal for this transaction type and account: {0},ERPNext France - Veuillez configurer le compte comptable pour ce type de transaction et compte: {0},
 ERPNext France - Accounting Export Not Possible,ERPNext France - L'export comptable ne peut pas être effectué,
 Footer might not be visible as {0} option is disabled</div>,Le pied de page n'est peut être pas visible car l'option {0} est désactivée,
 France Letter Head,En tête et pied de page pour les documents Français,
@@ -457,10 +457,10 @@ Make Attachments Public by Default,Rendre les PJ publique par defaut,
 Show Title in Link Fields,Afficher le champ titre dans les liens plutôt que le nom,
 Translate Link Fields,Traduire les liens,
 Default View,Vue par defaut,
-Special Filter Parent Task,Filtre spéciale sur tâche parente par projet
-Filter On Parent Task By Project,Filter la liste par projet et tâche parente du projet
-Apply Filter,Appliquer le filtre
-"Check request sent to EU web site, please wait","Demande de vérification transmise au site de l'EU, veuillez patientez..."
+Special Filter Parent Task,Filtre spéciale sur tâche parente par projet,
+Filter On Parent Task By Project,Filter la liste par projet et tâche parente du projet,
+Apply Filter,Appliquer le filtre,
+"Check request sent to EU web site, please wait","Demande de vérification transmise au site de l'EU, veuillez patientez...",
 Type Export FEC,Type d'export FEC,
 Standard FEC Export,Export FEC standard,
 Inverted Dates FEC Export,Export FEC date inversée,
@@ -483,60 +483,60 @@ Opening Stock Entry,Ouverture de stock,
 Frappe Support,Support Frappe,
 Show Preview,Afficher l'aperçu,
 Deferred Accounting,Comptabilité différée,
-"Cannot find Deposit Item, may be missing Item with checkbox Is Down Payment","Aucun article utilisable pour une facture d'acompte, vérifiez si il existe un article avec Article d'acompte coché"
-"Cannot find Deposit Item, may be missing Default Accountancy table","Aucun article utilisable pour une facture d'acompte, vérifiez si il existe un article avec Article d'acompte coché et qu'il y a une bien une ligne dans Comptabilité"
-"Cannot find Deposit Item, may be missing Default Accountancy table with Income Account","Aucun article utilisable pour une facture d'acompte, vérifiez si il existe un article avec Article d'acompte coché et qu'il y a une bien une ligne dans Comptabilité avec un code comptable pour Compte de produit (vente) par défaut"
+"Cannot find Deposit Item, may be missing Item with checkbox Is Down Payment","Aucun article utilisable pour une facture d'acompte, vérifiez si il existe un article avec Article d'acompte coché",
+"Cannot find Deposit Item, may be missing Default Accountancy table","Aucun article utilisable pour une facture d'acompte, vérifiez si il existe un article avec Article d'acompte coché et qu'il y a une bien une ligne dans Comptabilité",
+"Cannot find Deposit Item, may be missing Default Accountancy table with Income Account","Aucun article utilisable pour une facture d'acompte, vérifiez si il existe un article avec Article d'acompte coché et qu'il y a une bien une ligne dans Comptabilité avec un code comptable pour Compte de produit (vente) par défaut",
 Left,Gauche,alignment
 Right,Droite,alignment
-Discount Amount,Remise en montant
-Named Place,Lieu Incoterm
-ERPNext France - Create Tax Template,ERPNext France - Créer les modéles de taxes
-Portal Users,Utilisateurs Portail
-Supplier Portal Users,Utilisateurs du portail Fournisseurs
-"Percentage you are allowed to transfer more against the quantity ordered. For example: If you have ordered 100 units. and your Allowance is 10% then you are allowed to transfer 110 units.","Pourcentage que vous êtes autorisé à transférer en plus de la quantité commandée. Par exemple, si vous avez commandé 100 unités et que votre tolérance est de 10 %, vous êtes autorisé à transférer 110 unités."
-Percentage you are allowed to order beyond the Blanket Order quantity.,Pourcentage que vous êtes autorisé à commander au-delà de la quantité de la commande globale.
-Is Purchase Order Required for Purchase Invoice & Receipt Creation?,Le bon de commande est-il nécessaire pour la création d'une facture d'achat et d'un bon de réception ?
-Configure the action to stop the transaction or just warn if the same rate is not maintained.,Configurez l'action pour arrêter la transaction ou simplement avertir si le même tarif n'est pas maintenu.
-Action If Same Rate is Not Maintained,Mesures à prendre si le tarif évolue
-company,société
-All companies,Toutes les sociétés
-Abbr,Abréviation
-Commentaire sur la performance des employés,Evaluation des critères
-Employee Performance Feedback,Evaluation des critères
-Employee Feedback Criteria,Critères d'Evaluation des Employés
-KRA,Domaines de résultats clés (KRA)
-Submitted,Validé
-Appraisal,Evaluation Globale
-Appraisal template,Grilles d'évaluation
-ERPNext France - Company accounting auto setup cannot be done with chart of account without code,ERPNext France - Le paramétrage de comptabilité de la société n'a pas être fait automatiquement avec le plan comptable sans code
-Tree View,Vue arborescente
-List View,Vue en liste
-Report View,Vue rapport
-Dashboard View,Vue KPI
-Kanban View,Vue kanban
-Add Row,Nv. ligne
-Supplier Invoice,Facture fournisseur
-Get Outstanding Orders,Obtenir les commandes en cours
-Draft,Brouillon
-Bulk Salary Structure Assignment,Affectation en masse aux grilles de salaires
-Salary Payout,Gestion des payes
-Tax & Benefits,Taxes et bénéfices
-Income Tax Computation,Calcul des taxes entrantes
-Payroll Reports,Rapport des paies
-Deduction Reports,Rapport des deductions
-Salary Withholding,Retenue sur salaire
-Search or type a command ({0}),Recherche globale (Ctrl + G)
-Get Customer Group Details,Appliquer les informations depuis le Groupe de client
-Leave Control Panel,Assistant de politique de congés en masse
-Leave Policy Assignment,Politique de congés appliqué aux employés
-Leaves Pending Approval,Congés en attente d'approbation
-Expired Leaves,Demandes de congés expirées
-New Leaves Allocated,Nb Jours de congés à attribuer
-Shift & Attendance,Quart et présence
-Décalage par défaut,Quart par défaut
-Shift Schedule,Planification des quarts
-Shift Schedule Assignment,Affect. plan. des quarts
-Shift Assignment Tool,Affect. planning des quarts en masse
+Discount Amount,Remise en montant,
+Named Place,Lieu Incoterm,
+ERPNext France - Create Tax Template,ERPNext France - Créer les modéles de taxes,
+Portal Users,Utilisateurs Portail,
+Supplier Portal Users,Utilisateurs du portail Fournisseurs,
+Percentage you are allowed to transfer more against the quantity ordered. For example: If you have ordered 100 units. and your Allowance is 10% then you are allowed to transfer 110 units.,"Pourcentage que vous êtes autorisé à transférer en plus de la quantité commandée. Par exemple, si vous avez commandé 100 unités et que votre tolérance est de 10 %, vous êtes autorisé à transférer 110 unités.",
+Percentage you are allowed to order beyond the Blanket Order quantity.,Pourcentage que vous êtes autorisé à commander au-delà de la quantité de la commande globale.,
+Is Purchase Order Required for Purchase Invoice & Receipt Creation?,Le bon de commande est-il nécessaire pour la création d'une facture d'achat et d'un bon de réception ?,
+Configure the action to stop the transaction or just warn if the same rate is not maintained.,Configurez l'action pour arrêter la transaction ou simplement avertir si le même tarif n'est pas maintenu.,
+Action If Same Rate is Not Maintained,Mesures à prendre si le tarif évolue,
+company,société,
+All companies,Toutes les sociétés,
+Abbr,Abréviation,
+Commentaire sur la performance des employés,Evaluation des critères,
+Employee Performance Feedback,Evaluation des critères,
+Employee Feedback Criteria,Critères d'Evaluation des Employés,
+KRA,Domaines de résultats clés (KRA),
+Submitted,Validé,
+Appraisal,Evaluation Globale,
+Appraisal template,Grilles d'évaluation,
+ERPNext France - Company accounting auto setup cannot be done with chart of account without code,ERPNext France - Le paramétrage de comptabilité de la société n'a pas être fait automatiquement avec le plan comptable sans code,
+Tree View,Vue arborescente,
+List View,Vue en liste,
+Report View,Vue rapport,
+Dashboard View,Vue KPI,
+Kanban View,Vue kanban,
+Add Row,Nv. ligne,
+Supplier Invoice,Facture fournisseur,
+Get Outstanding Orders,Obtenir les commandes en cours,
+Draft,Brouillon,
+Bulk Salary Structure Assignment,Affectation en masse aux grilles de salaires,
+Salary Payout,Gestion des payes,
+Tax & Benefits,Taxes et bénéfices,
+Income Tax Computation,Calcul des taxes entrantes,
+Payroll Reports,Rapport des paies,
+Deduction Reports,Rapport des deductions,
+Salary Withholding,Retenue sur salaire,
+Search or type a command ({0}),Recherche globale (Ctrl + G),
+Get Customer Group Details,Appliquer les informations depuis le Groupe de client,
+Leave Control Panel,Assistant de politique de congés en masse,
+Leave Policy Assignment,Politique de congés appliqué aux employés,
+Leaves Pending Approval,Congés en attente d'approbation,
+Expired Leaves,Demandes de congés expirées,
+New Leaves Allocated,Nb Jours de congés à attribuer,
+Shift & Attendance,Quart et présence,
+Décalage par défaut,Quart par défaut,
+Shift Schedule,Planification des quarts,
+Shift Schedule Assignment,Affect. plan. des quarts,
+Shift Assignment Tool,Affect. planning des quarts en masse,
 Payment Term Before Invoice, Terme de paiement avant facture,
 Payment Terms Before Invoice, Termes de paiements avant facture,
 Template Payment Terms Before Invoice, Modèle de termes de paiement avant facture,
@@ -550,7 +550,7 @@ Cannot Delete term {0} because its on a payment, Vous ne pouvez pas supprimer le
 Cannot Modify term {0} because its on a payment, Vous ne pouvez pas modifier le terme de paiement {0} car celui çi a déjà été payé,
 Eco Part, Eco Participation,
 Buy Account, Code Comptable Achat,
-Sell Account, Code Comptable Vente
+Sell Account, Code Comptable Vente,
 Item EcoTax, Ecotaxe sur l'article,
 Cannot Update EcoPart because there is no conversion factor between units, Le nouveau montant de l’Eco participation (onglet Taxe) ne peux être calculé car les conversions d’unités ne sont pas disponibles,
 Eco Part VAT: {0}, Eco Part TVA: {0},
@@ -560,19 +560,19 @@ Unit Price, Prix Unitaire,
 Item {0} does not has default settings, Les paramètres par défaut de l'article {0} n'ont pas été remplis,
 Missing Default Income Account On Item {0}, Il manque le Compte de produit (vente) par défaut dans les paramètre par défaut de l'article {0},
 Subcontracting BOM,Nomenclature en sous-traitance,
-Leaves,Congés
+Leaves,Congés,
 Left,Parti,Employee
-Leave Control Panel,Assistant de politique de congés en masse
-Attendance,Absences et Présences
-Shift Tools,Outils des gest. des quarts
-Save Filter,Sauv. filtre
-Filter By,Filtrer avec
-From Prospect,Depuis le Prospect
-No contacts added yet.,Pas de contact existant
-Mention if non-standard Receivable account,Précisez les si ce n'est pas les comptes standard
-Customer Portal Users,Utilisateur du portail
-Create User Permission,Ne voir que ses propres informations
-This will restrict user access to other employee records,Cela empêche l'utilisateur d'accéder aux informations des autres employés
+Leave Control Panel,Assistant de politique de congés en masse,
+Attendance,Absences et Présences,
+Shift Tools,Outils des gest. des quarts,
+Save Filter,Sauv. filtre,
+Filter By,Filtrer avec,
+From Prospect,Depuis le Prospect,
+No contacts added yet.,Pas de contact existant,
+Mention if non-standard Receivable account,Précisez les si ce n'est pas les comptes standard,
+Customer Portal Users,Utilisateur du portail,
+Create User Permission,Ne voir que ses propres informations,
+This will restrict user access to other employee records,Cela empêche l'utilisateur d'accéder aux informations des autres employés,
 Series,Masque de numérotation,Quotation
 Series,Masque de numérotation,Sales Order
 Series,Masque de numérotation,Sales Invoice
@@ -581,17 +581,17 @@ Series,Masque de numérotation,Purchase Order
 Series,Masque de numérotation,Work Order
 Series,Masque de numérotation,Material Request
 Series,Masque de numérotation,BOM
-Putaway Rule,Règle de routage d'entrée en stock
-Disable Comment Count,Désactivé le nb de commantaire
-Leave Approver,Approbateur de congés
-Disassemble,Désassemblage
+Putaway Rule,Règle de routage d'entrée en stock,
+Disable Comment Count,Désactivé le nb de commantaire,
+Leave Approver,Approbateur de congés,
+Disassemble,Désassemblage,
 Credit Limit,Termes de paiement par défaut,Supplier Group
 Update Item Supplier Part No, Mettre à jour la référence fournisseur de l'article automatiquement,
-VAT {0}%,TVA {0}%
-Against Blanket Order,Depuis une Commande avec limites
-Reset to default,Réinitialiser
-Delete All,Tous supprimer
-In House,Sur place
+VAT {0}%,TVA {0}%,
+Against Blanket Order,Depuis une Commande avec limites,
+Reset to default,Réinitialiser,
+Delete All,Tous supprimer,
+In House,Sur place,
 Manufacturing Type,Type de production,Production Plan Sub Assembly Item
 Get Finished Goods for Manufacture,Obtenir les produits à fabriquer,Production Plan
 Assembly Items,Articles à fabriquer,Production Plan
@@ -616,7 +616,7 @@ Download Required Materials,Télécharger CSV,Production Plan
 From Delivery Date,Date de livraison (début),Production Plan
 To Delivery Date,Date de livraison (fin),Production Plan
 Sales Order Status,Statut de la commande client,Production Plan
-Select Warehouses to get Stock for Materials Planning,Selectionner les entrepot source pour les matières premiéres (les entrepots fils seront inclus)
+Select Warehouses to get Stock for Materials Planning,Selectionner les entrepot source pour les matières premiéres (les entrepots fils seront inclus),
 ERPNext France - Create Down Payment Item,ERPNext France - Créer Article Acompte,
 Down Payment Item Successfully created,Article d'acompte à été correctement créé,
 Down Payment Item,Article d'acompte,
@@ -641,64 +641,64 @@ Down payment invoices can only be made against a single sales order., Les factur
 Please Save your doc before getting down payment, Veuillez sauvegarder le document avant de récupérer les acomptes,
 Down Payment is already included in this document, Les acomptes on déjà été récupéré sur ce document.,
 Down Payment {0} {1} on Sales Order {2} {3} € HT, Acompte {0} {1} de la commande {2}: {3} HT,
-"Down Payment Retribution {0} {1} {2} on Sales Order {3} {4} € HT","Soustraction de l'acompte {0} {1} {2} de la commande {3} {4} HT",
+Down Payment Retribution {0} {1} {2} on Sales Order {3} {4} € HT,Soustraction de l'acompte {0} {1} {2} de la commande {3} {4} HT,
 Allocate Leaves,Allouer des congés manuellement,
 Manual Leave Allocation,Affectation manuel de congés,
 New Leaves to be Allocated,Nouveau nombre de jours de congés à allouer,
-"Warning: Rounding Issue when creating down payment invoice {0} instead of {1}","Attention: Une erreur d'arrondi est survenue lors de la création de la facture d'acompte, le total est de {0} € au lieu de {1} €, nous vous invitons à revoir cet acompte (Recomandé: changer pour un acompte en pourcentage)",
+Warning: Rounding Issue when creating down payment invoice {0} instead of {1},"Attention: Une erreur d'arrondi est survenue lors de la création de la facture d'acompte, le total est de {0} € au lieu de {1} €, nous vous invitons à revoir cet acompte (Recomandé: changer pour un acompte en pourcentage)",
 Down Payment By Percent should be between 0 and 100, La valeur de l'acompte en pourcentage doit être un nombre entier compris entre 0 et 100,
 Down Payment By Percent should be an integer, La valeur de l'acompte en pourcentage doit être un nombre entier,
 Down Payment By Amount should be between 0 and total, La valeur de l'acompte en montant doit être un nombre entier compris entre 0 et le total de la commande,
-Disassembled Qty,Quantité de désassemblage
+Disassembled Qty,Quantité de désassemblage,
 Rate,Taux,Expense Taxes and Charges
-Clear & Add Template,Appliquer le modèle
-Prepend the template to the email message,Ajouter le contenu du modèle à la suite
-Clear the email message and add the template,Remplacer par le contenu du modèle
-Production Plan,Planification de la prod.
-Account Code Length,Longueur du code comptable
-"If you set the value to 6 here, account '706' will appear as '706000' in exports","Si vous définissez la valeur à 6 ici, le compte '706' apparaîtra comme '706000' dans les exports"
+Clear & Add Template,Appliquer le modèle,
+Prepend the template to the email message,Ajouter le contenu du modèle à la suite,
+Clear the email message and add the template,Remplacer par le contenu du modèle,
+Production Plan,Planification de la prod.,
+Account Code Length,Longueur du code comptable,
+"If you set the value to 6 here, account '706' will appear as '706000' in exports","Si vous définissez la valeur à 6 ici, le compte '706' apparaîtra comme '706000' dans les exports",
 Leave Approver,Approbateur de note de frais,Department
-Payment Entry {0} created for SEPA line {1},L'écriture de paiement {0} a été créée pour la ligne SEPA {1}
-Invoice {0},Facture {0}
-SEPA Bank Transaction Creation Error,Erreur de création de transaction bancaire SEPA
-Bank Transaction {0} created for SEPA line {1},La transaction bancaire {0} a été créée pour la ligne SEPA {1}
-Transaction generated from SEPA bordereau {0},Transaction générée depuis le bordereau SEPA {0}
-Payment Entry {0} created and cancelled for rejected SEPA line {1} (+ and -) ,L'écriture de paiement {0} a été créée et annulée pour la ligne SEPA rejetée {1} (+ et -)
-SEPA Mandate,Mandat SEPA
-SEPA Payment Bordereau,Bordereau de Paiement SEPA
-SEPA Payment Bordereau Line,Ligne de Bordereau de Paiement SEPA
-SEPA Line Status,Statut ligne SEPA
-Payment Type,Type de paiement
-Debit,Prélèvement
-Credit,Virement
-Execution Date,Date d'exécution
-Payment Lines,Lignes de Paiement
-SEPA File,Fichier SEPA
-Download SEPA File,Télécharger le fichier SEPA
-RUM (Référence Unique de Mandat),RUM (Référence Unique de Mandat)
-Signature Date,Date de signature
-Mandate Type,Type de mandat
-Sequence Type,Type de séquence
-Rejection Reason,Motif de rejet
-End-to-End ID,Identifiant de bout en bout
-Validated,Validé
-Exported,Exporté
-Sent,Envoyé
-Partial Rejections,Rejets partiels
-Closed,Clôturé
-Pending,En attente
-Accepted,Accepté
-Accept Selection,Accepter la sélection
-Please select at least one pending line,Veuillez sélectionner au moins une ligne en attente
-Accept {0} selected line(s)?,Accepter {0} ligne(s) sélectionnée(s) ?
-Accepting selected lines...,Acceptation des lignes sélectionnées...
-Already accepted,Déjà acceptée
-Line is not pending,La ligne n'est pas en attente
-Skipped,Ignorées
-Failed,Échecs
-Rejected,Rejeté
-Active,Actif
-Cancelled,Annulé
+Payment Entry {0} created for SEPA line {1},L'écriture de paiement {0} a été créée pour la ligne SEPA {1},
+Invoice {0},Facture {0},
+SEPA Bank Transaction Creation Error,Erreur de création de transaction bancaire SEPA,
+Bank Transaction {0} created for SEPA line {1},La transaction bancaire {0} a été créée pour la ligne SEPA {1},
+Transaction generated from SEPA bordereau {0},Transaction générée depuis le bordereau SEPA {0},
+Payment Entry {0} created and cancelled for rejected SEPA line {1} (+ and -) ,L'écriture de paiement {0} a été créée et annulée pour la ligne SEPA rejetée {1} (+ et -),
+SEPA Mandate,Mandat SEPA,
+SEPA Payment Bordereau,Bordereau de Paiement SEPA,
+SEPA Payment Bordereau Line,Ligne de Bordereau de Paiement SEPA,
+SEPA Line Status,Statut ligne SEPA,
+Payment Type,Type de paiement,
+Debit,Prélèvement,
+Credit,Virement,
+Execution Date,Date d'exécution,
+Payment Lines,Lignes de Paiement,
+SEPA File,Fichier SEPA,
+Download SEPA File,Télécharger le fichier SEPA,
+RUM (Référence Unique de Mandat),RUM (Référence Unique de Mandat),
+Signature Date,Date de signature,
+Mandate Type,Type de mandat,
+Sequence Type,Type de séquence,
+Rejection Reason,Motif de rejet,
+End-to-End ID,Identifiant de bout en bout,
+Validated,Validé,
+Exported,Exporté,
+Sent,Envoyé,
+Partial Rejections,Rejets partiels,
+Closed,Clôturé,
+Pending,En attente,
+Accepted,Accepté,
+Accept Selection,Accepter la sélection,
+Please select at least one pending line,Veuillez sélectionner au moins une ligne en attente,
+Accept {0} selected line(s)?,Accepter {0} ligne(s) sélectionnée(s) ?,
+Accepting selected lines...,Acceptation des lignes sélectionnées...,
+Already accepted,Déjà acceptée,
+Line is not pending,La ligne n'est pas en attente,
+Skipped,Ignorées,
+Failed,Échecs,
+Rejected,Rejeté,
+Active,Actif,
+Cancelled,Annulé,
 Update all,Tout mettre à jour,
 Cancel,Annuler,
 Updating data...,Mise à jour des données...,
@@ -737,64 +737,64 @@ Update all with Sirene's values,Tout mettre à jour avec les valeurs Sirene,
 Save current values,Sauvegarder les valeurs actuelles,
 Siren or Siret is required to check updates,Sirene ou Siret nécessaire pour vérifier les mises à jour.,
 "We can see {0} is made against {1}. If you want {1}'s outstanding to be updated, uncheck the '{2}' checkbox.","Cette Avoir {0} est fait en correspondance de la facture {1}, si vous mettre le montant restant du à 0 de la facture {1} vous pouvez décoché '{2}' (non recommandé)",
-"You can use {0} to reconcile against {1} later.","Sinon vous pourrez utiliser l'outil {0} pour {1} plus tard.",
+You can use {0} to reconcile against {1} later.,Sinon vous pourrez utiliser l'outil {0} pour {1} plus tard.,
 Skip using ERPNext France VAT calculation, Ne pas utiliser le calcul de TVA de ERPNext France,
-On or After,Depuis le (inclus)
-On or Before,Avant le (inclus)
-Update Costing and Billing,Mettre à jour les Coûts et Facturation
+On or After,Depuis le (inclus),
+On or Before,Avant le (inclus),
+Update Costing and Billing,Mettre à jour les Coûts et Facturation,
 "Day(s) after invoice date, end of month","Jour(s) après la date de facture, fin du mois",
 "Day(s) after invoice date, end of month, day of next month","Jour(s) après la date de facture, fin du mois, jours du mois suivant",
-Missing IBAN information for {0},L'IBAN pour le compte bancaire {0} n'est pas renseigné
-Missing SWIFT information for {0},Le code SWIFT pour le compte bancaire {0} n'est pas renseigné
-Row {0}: Invoice {1} appears more than once in this bordereau,Ligne {0}: la facture {1} est présente plus d'une fois dans ce bordereau
-Row {0}: Supplier {1} does not have a default bank account,Ligne {0}: le fournisseur {1} n'as pas de compte bancaire par défaut
-Submit,Valider
-Attachments,Fichiers attachés
-Last Edited By {0},Dernière modification par {0}
-Last Edited By You,Dernière modification par vous
-{0} submitted this document,{0} à valider ce document
-You submitted this document,Vous avez validé ce document
-You added 1 row to {0},Vous avez ajouté 1 ligne à {0}
-You added {0} rows to {1},Vous avez ajouté {0} ligne à {1}
-{0} added 1 row to {1},{0} a ajouté 1 ligne à {1}
-{0} added {1} rows to {2},{0} a ajouté {1} ligne à {2}
-Activity,Activité
-Created By {0},Créer par {0}
-Clear Filters,Effacer les filtres
-Settings,Paramètres
-Dashboard,Tableau de bords
-Home,Accueil
-More Info,Info. Complémentaire
-Additional Costs (as per BOM),Coûts aditionnel (par Nomenclature)
-Secondary Items (as per BOM),Articles secondraire (par Nomenclature)
-Subcontracting,Sous-traitance
-Desktop,Accueil
-Search,Chercher
-Auto Email Report,Rapport par email automatique
-Account Setup,Conf. comptabilité
-Duplicate,Cloner
-Show Links,Voir les liens
-Create,Créer
-Comments,Commantaires
-Print,Imprimer
-Customize Quick Filters,Personnaliser les filtre rapides
-Auto reserve stock,Réservation de stock automatique
-"Upon submission of the Sales Order, Work Order, or Production Plan, the system will automatically reserve the stock.","A la validation des commande client, OF, ou plan de prod. Les quantité stock seront reservés automatiquement"
-Serial and Batch Reservation,Réservation des N° de Série et N° du Lot
-Auto reserve Serial and Batch Nos,Réservation automatique des N° de Série et N° du Lot
-Serial and Batch Nos will be auto-reserved based on <b>Pick Serial / Batch Based On</b>,N° de Série et N° du Lot seront réservé automatiquement basé sur <b>choisir des N° de Série et N° du Lot</b>
-Allow partial reservation,Autoriser la résevertation partiel
-"Partial stock can be reserved. For example, If you have a Sales Order of 100 units and the Available Stock is 90 units then a Stock Reservation Entry will be created for 90 units. ","Les quantité incomplètes pourront être reservées. Par exemple, si vous avez une commande client de 100 piéces et que le stock disponible est de 90 piéces alors une reservation de stock de 90 piéces sera créée."
-Auto reserve Stock for Sales Order on Purchase, Réservation de stock automatique pour les commande client depuis les achats
-Stock will be reserved on submission of <b>Purchase Receipt</b> created against Material Request for Sales Order.,Le stock sera réservé à la validation d'un <b>Reçus d'Achat</b> créer depuis une Demande de Matériel pour une commande client.
-Download Template,Télécharger le modèle
-Attach,Téléverser
-Detect CSV type,Détecter le type de CSV
-Use if the default settings don't seem to detect your data correctly,Cocher si par défault vos données ne semble pas correctement interprétées
-Custom Delimiters,Séparateur personnalisé
-Delimiter Options,Séparateurs possibles
-"If your CSV uses a different delimiter, add that character here, ensuring no spaces or additional characters are included.","Si votre CSV utilise un séparateur différent des caractères ci dessus. Assurez-vous de ne pas avoir d'espace ou d'autres caractères inclus."
-Unit Of Measure,UdM de l'Article
+Missing IBAN information for {0},L'IBAN pour le compte bancaire {0} n'est pas renseigné,
+Missing SWIFT information for {0},Le code SWIFT pour le compte bancaire {0} n'est pas renseigné,
+Row {0}: Invoice {1} appears more than once in this bordereau,Ligne {0}: la facture {1} est présente plus d'une fois dans ce bordereau,
+Row {0}: Supplier {1} does not have a default bank account,Ligne {0}: le fournisseur {1} n'as pas de compte bancaire par défaut,
+Submit,Valider,
+Attachments,Fichiers attachés,
+Last Edited By {0},Dernière modification par {0},
+Last Edited By You,Dernière modification par vous,
+{0} submitted this document,{0} à valider ce document,
+You submitted this document,Vous avez validé ce document,
+You added 1 row to {0},Vous avez ajouté 1 ligne à {0},
+You added {0} rows to {1},Vous avez ajouté {0} ligne à {1},
+{0} added 1 row to {1},{0} a ajouté 1 ligne à {1},
+{0} added {1} rows to {2},{0} a ajouté {1} ligne à {2},
+Activity,Activité,
+Created By {0},Créer par {0},
+Clear Filters,Effacer les filtres,
+Settings,Paramètres,
+Dashboard,Tableau de bords,
+Home,Accueil,
+More Info,Info. Complémentaire,
+Additional Costs (as per BOM),Coûts aditionnel (par Nomenclature),
+Secondary Items (as per BOM),Articles secondraire (par Nomenclature),
+Subcontracting,Sous-traitance,
+Desktop,Accueil,
+Search,Chercher,
+Auto Email Report,Rapport par email automatique,
+Account Setup,Conf. comptabilité,
+Duplicate,Cloner,
+Show Links,Voir les liens,
+Create,Créer,
+Comments,Commantaires,
+Print,Imprimer,
+Customize Quick Filters,Personnaliser les filtre rapides,
+Auto reserve stock,Réservation de stock automatique,
+"Upon submission of the Sales Order, Work Order, or Production Plan, the system will automatically reserve the stock.","A la validation des commande client, OF, ou plan de prod. Les quantité stock seront reservés automatiquement",
+Serial and Batch Reservation,Réservation des N° de Série et N° du Lot,
+Auto reserve Serial and Batch Nos,Réservation automatique des N° de Série et N° du Lot,
+Serial and Batch Nos will be auto-reserved based on <b>Pick Serial / Batch Based On</b>,N° de Série et N° du Lot seront réservé automatiquement basé sur <b>choisir des N° de Série et N° du Lot</b>,
+Allow partial reservation,Autoriser la résevertation partiel,
+"Partial stock can be reserved. For example, If you have a Sales Order of 100 units and the Available Stock is 90 units then a Stock Reservation Entry will be created for 90 units. ","Les quantité incomplètes pourront être reservées. Par exemple, si vous avez une commande client de 100 piéces et que le stock disponible est de 90 piéces alors une reservation de stock de 90 piéces sera créée.",
+Auto reserve Stock for Sales Order on Purchase, Réservation de stock automatique pour les commande client depuis les achats,
+Stock will be reserved on submission of <b>Purchase Receipt</b> created against Material Request for Sales Order.,Le stock sera réservé à la validation d'un <b>Reçus d'Achat</b> créer depuis une Demande de Matériel pour une commande client.,
+Download Template,Télécharger le modèle,
+Attach,Téléverser,
+Detect CSV type,Détecter le type de CSV,
+Use if the default settings don't seem to detect your data correctly,Cocher si par défault vos données ne semble pas correctement interprétées,
+Custom Delimiters,Séparateur personnalisé,
+Delimiter Options,Séparateurs possibles,
+"If your CSV uses a different delimiter, add that character here, ensuring no spaces or additional characters are included.",Si votre CSV utilise un séparateur différent des caractères ci dessus. Assurez-vous de ne pas avoir d'espace ou d'autres caractères inclus.,
+Unit Of Measure,UdM de l'Article,
 Brand,Marque,Item
 Item to Manufacture,Article à fabriquer,BOM
 BOM Configuration,Config. Nomenclature,BOM
@@ -810,6 +810,6 @@ How many units of the final product this BOM makes.,Qté de l'article fabriqué 
 Is Sub Assembly Item,Est un article sous-ensemble,BOM Item
 Production Item Info,Information sur l'article à fabriquer,BOM
 Operating Cost Per BOM Quantity,Coût des opérations par Qté (fabriquée),BOM
-Is Phantom Item,Est un article phantom
-Unit,Unité
-Project,Projet
+Is Phantom Item,Est un article phantom,
+Unit,Unité,
+Project,Projet,
