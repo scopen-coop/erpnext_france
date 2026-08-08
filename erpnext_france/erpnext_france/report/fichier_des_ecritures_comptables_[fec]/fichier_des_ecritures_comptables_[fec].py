@@ -67,6 +67,12 @@ COLUMNS = [
 		"width": 90,
 	},
 	{
+		"label": _("PieceDate"),
+		"fieldname": "PieceDate",
+		"fieldtype": "Data",
+		"width": 90,
+	},
+	{
 		"label": _("EcritureLib"),
 		"fieldname": "EcritureLib",
 		"fieldtype": "Data",
@@ -337,6 +343,11 @@ def get_result(company, fiscal_year, from_date, to_date, hide_already_exported):
 		PieceRef = d.get("voucher_no") or "Sans Reference"
 		# PieceRefType = d.get("voucher_type") or "Sans Reference"
 
+		# PieceDate = date de la piece justificative (champ 10 obligatoire DGFiP).
+		# Minimal : date comptable de la piece (posting_date du document, porte par la GL entry).
+		# A affiner : date propre du document source (ex. bill_date d'une facture fournisseur) si differente.
+		PieceDate = format_datetime(d.get("GlPostDate"), "yyyyMMdd")
+
 		# EcritureLib is the reference title unless it is an opening entry
 		if d.get("is_opening") == "Yes":
 			EcritureLib = _("Opening Entry Journal")
@@ -391,6 +402,7 @@ def get_result(company, fiscal_year, from_date, to_date, hide_already_exported):
 			CompAuxNum,
 			CompAuxLib,
 			PieceRef,
+			PieceDate,
 			EcritureLib,
 			debit,
 			credit,
