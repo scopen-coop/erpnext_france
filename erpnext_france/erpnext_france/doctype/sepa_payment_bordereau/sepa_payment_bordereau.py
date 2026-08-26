@@ -69,6 +69,7 @@ class SEPAPaymentBordereau(Document):
 		if not self.is_new() and self.get_doc_before_save():
 			old_doc = self.get_doc_before_save()
 			old_statuses = {d.name: d.status for d in old_doc.lines}
+			old_manual_statuses = {d.name: d.status for d in (old_doc.get("manual_lines") or [])}
 			invoices_to_sync.update(
 				(line.invoice, line.invoice_type) for line in old_doc.lines if line.invoice
 			)
@@ -80,26 +81,35 @@ class SEPAPaymentBordereau(Document):
 					reconcile_sepa_line_on_status_change(self, line, line.status)
 					status_changed_lines = True
 
+			for line in self.get_manual_lines():
+				old_status = old_manual_statuses.get(line.name)
+				if line.status != old_status and line.status in ["Accepted", "Rejected"]:
+					from erpnext_france.regional.france.sepa_utils import (
+						reconcile_sepa_manual_line_on_status_change,
+					)
+
+					reconcile_sepa_manual_line_on_status_change(self, line, line.status)
+					status_changed_lines = True
+
 		from erpnext_france.regional.france.sepa_utils import sync_invoices_sepa_bordereau_links
 
 		sync_invoices_sepa_bordereau_links(invoices_to_sync)
 
 		# Update overall bordereau status if needed
-		if status_changed_lines and self.lines:
-			statuses = [line.status for line in self.lines]
+		if status_changed_lines:
+			from erpnext_france.regional.france.sepa_utils import get_bordereau_line_statuses
+
+			statuses = get_bordereau_line_statuses(self)
 			new_status = self.status
-			if all(status == "Accepted" for status in statuses):
+			if statuses and all(status == "Accepted" for status in statuses):
 				new_status = "Closed"
 			elif "Accepted" in statuses and "Rejected" in statuses:
 				new_status = "Partial Rejections"
-			elif all(status == "Rejected" for status in statuses):
+			elif statuses and all(status == "Rejected" for status in statuses):
 				new_status = "Exported"
 
 			if new_status != self.status:
 				self.db_set("status", new_status)
-
-		if self.status == "Closed":
-			self.create_manual_line_payment_entries()
 
 	def get_manual_lines(self):
 		return self.get("manual_lines") or []
@@ -485,7 +495,9 @@ class SEPAPaymentBordereau(Document):
 			group_total = sum(flt(line.amount) for line, _ in group_lines)
 
 			pmt_inf = etree.SubElement(cstmr_drct_dbt_initn, "PmtInf")
-			etree.SubElement(pmt_inf, "PmtInfId").text = f"{self.name}-{mandate_type}-{sequence_type}{suffix}"
+			etree.SubElement(pmt_inf, "PmtInfId").text = self._pain_008_pmt_inf_id(
+				mandate_type, sequence_type, suffix
+			)
 			etree.SubElement(pmt_inf, "PmtMtd").text = "DD"
 			etree.SubElement(pmt_inf, "NbOfTxs").text = str(len(group_lines))
 			etree.SubElement(pmt_inf, "CtrlSum").text = f"{group_total:.2f}"
@@ -707,10 +719,16 @@ class SEPAPaymentBordereau(Document):
 
 		return etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8")
 
+	def _pain_008_pmt_inf_id(self, mandate_type, sequence_type, suffix=""):
+		"""PmtInfId must be unique in the file and at most 35 characters (ISO 20022)."""
+		tail = f"-{mandate_type}-{sequence_type}{suffix}"
+		prefix = (self.name or "")[: max(1, 35 - len(tail))]
+		return f"{prefix}{tail}"[:35]
+
 	def _ordered_pain_008_groups(self):
 		"""Group debit lines by mandate type/sequence, invoice lines first then manuals."""
 		ordered = []
-		for lines, suffix in ((self.lines or [], ""), (self.get_manual_lines(), "-MANUAL")):
+		for lines, suffix in ((self.lines or [], ""), (self.get_manual_lines(), "-M")):
 			groups = {}
 			for line in lines:
 				if not line.mandate:
@@ -721,57 +739,6 @@ class SEPAPaymentBordereau(Document):
 			for key, group_lines in groups.items():
 				ordered.append((key, group_lines, suffix))
 		return ordered
-
-	def create_manual_line_payment_entries(self):
-		"""Create unallocated payment entries for manual lines when the bordereau is closed."""
-		from erpnext_france.regional.france.sepa_utils import (
-			create_sepa_bank_transaction,
-			create_sepa_manual_line_payment_entry,
-		)
-
-		if self.status != "Closed":
-			return
-
-		gl_account = frappe.db.get_value("Bank Account", self.bank_account, "account")
-		if not gl_account and self.get_manual_lines():
-			frappe.throw(_("Please link a GL Account to the Bank Account {0}").format(self.bank_account))
-
-		for line in self.get_manual_lines():
-			if line.payment_entry:
-				existing_status = frappe.db.get_value("Payment Entry", line.payment_entry, "docstatus")
-				if existing_status == 1:
-					continue
-
-			pe_name = create_sepa_manual_line_payment_entry(self, line, gl_account)
-			frappe.db.set_value(
-				"SEPA Payment Bordereau Manual Line",
-				line.name,
-				"payment_entry",
-				pe_name,
-				update_modified=False,
-			)
-			line.payment_entry = pe_name
-
-			try:
-				create_sepa_bank_transaction(pe_name, self, line)
-			except Exception:
-				frappe.log_error(
-					title=_("SEPA Bank Transaction Creation Error"), message=frappe.get_traceback()
-				)
-
-	@frappe.whitelist()
-	def close_bordereau(self):
-		"""Close the bordereau and create payment entries for manual lines."""
-		if self.status not in ["Sent", "Exported", "Partial Rejections"]:
-			frappe.throw(_("Only sent or exported bordereaux can be closed"))
-
-		pending_lines = [line for line in (self.lines or []) if line.status == "Pending"]
-		if pending_lines:
-			frappe.throw(_("Please accept or reject pending invoice lines before closing"))
-
-		self.status = "Closed"
-		self.save()
-		frappe.msgprint(_("Bordereau closed successfully"))
 
 	@frappe.whitelist()
 	def mark_as_sent(self):
@@ -796,6 +763,7 @@ class SEPAPaymentBordereau(Document):
 
 		from erpnext_france.regional.france.sepa_utils import (
 			reconcile_sepa_line_on_status_change,
+			reconcile_sepa_manual_line_on_status_change,
 			sync_invoice_sepa_bordereau_link,
 			update_bordereau_status,
 		)
@@ -861,6 +829,47 @@ class SEPAPaymentBordereau(Document):
 						"reason": str(e),
 					}
 				)
+
+		for line in self.get_manual_lines():
+			if line.name not in line_names_set:
+				continue
+
+			label = line.document_ref or line.party
+			if line.status == "Accepted":
+				results["skipped"].append(
+					{"name": line.name, "invoice": label, "reason": _("Already accepted")}
+				)
+				continue
+
+			if line.payment_entry:
+				pe_docstatus = frappe.db.get_value("Payment Entry", line.payment_entry, "docstatus")
+				if pe_docstatus == 1:
+					results["skipped"].append(
+						{"name": line.name, "invoice": label, "reason": _("Payment Entry already linked")}
+					)
+					continue
+
+			if line.status != "Pending":
+				results["skipped"].append(
+					{"name": line.name, "invoice": label, "reason": _("Line is not pending")}
+				)
+				continue
+
+			savepoint = f"sepa_accept_manual_{line.name}"
+			try:
+				frappe.db.savepoint(savepoint)
+				reconcile_sepa_manual_line_on_status_change(self, line, "Accepted", silent=True)
+				frappe.db.set_value(
+					"SEPA Payment Bordereau Manual Line",
+					line.name,
+					"status",
+					"Accepted",
+					update_modified=False,
+				)
+				results["success"].append({"name": line.name, "invoice": label})
+			except Exception as e:
+				frappe.db.rollback(save_point=savepoint)
+				results["failed"].append({"name": line.name, "invoice": label, "reason": str(e)})
 
 		update_bordereau_status(self.name)
 

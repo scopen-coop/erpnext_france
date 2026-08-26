@@ -664,14 +664,20 @@ def add_pain_remittance_info(transaction_element, remittance_info):
 	etree.SubElement(rmt_inf, "Ustrd").text = remittance_info
 
 
+def get_bordereau_line_statuses(bordereau):
+	"""Return statuses of invoice lines and manual lines."""
+	statuses = [line.status for line in (bordereau.lines or [])]
+	statuses.extend(line.status for line in (bordereau.get("manual_lines") or []))
+	return statuses
+
+
 def update_bordereau_status(bordereau_name):
-	"""Update bordereau status based on line statuses"""
+	"""Update bordereau status based on invoice and manual line statuses"""
 	bordereau = frappe.get_doc("SEPA Payment Bordereau", bordereau_name)
 
-	if not bordereau.lines:
+	statuses = get_bordereau_line_statuses(bordereau)
+	if not statuses:
 		return
-
-	statuses = [line.status for line in bordereau.lines]
 
 	# If all accepted, mark as Closed
 	if all(status == "Accepted" for status in statuses):
@@ -857,6 +863,67 @@ def create_sepa_manual_line_payment_entry(bordereau, line, gl_account):
 	payment_entry.submit()
 
 	return payment_entry.name
+
+
+def reconcile_sepa_manual_line_on_status_change(bordereau, line, new_status, silent=False):
+	if getattr(line, "_reconciled_status_change", False):
+		return
+
+	existing_pe = line.get("payment_entry")
+	existing_docstatus = None
+	if existing_pe and frappe.db.exists("Payment Entry", existing_pe):
+		existing_docstatus = frappe.db.get_value("Payment Entry", existing_pe, "docstatus")
+
+	if existing_docstatus == 1:
+		line._reconciled_status_change = True
+		return
+
+	if existing_docstatus == 2:
+		if new_status == "Rejected":
+			line._reconciled_status_change = True
+			return
+		line.payment_entry = None
+		frappe.db.set_value(
+			"SEPA Payment Bordereau Manual Line",
+			line.name,
+			"payment_entry",
+			None,
+			update_modified=False,
+		)
+
+	gl_account = frappe.db.get_value("Bank Account", bordereau.bank_account, "account")
+	if not gl_account:
+		frappe.throw(_("Please link a GL Account to the Bank Account {0}").format(bordereau.bank_account))
+
+	if new_status in ("Accepted", "Rejected"):
+		pe_name = create_sepa_manual_line_payment_entry(bordereau, line, gl_account)
+		line.payment_entry = pe_name
+		frappe.db.set_value(
+			"SEPA Payment Bordereau Manual Line",
+			line.name,
+			"payment_entry",
+			pe_name,
+			update_modified=False,
+		)
+		if new_status == "Rejected":
+			frappe.get_doc("Payment Entry", pe_name).cancel()
+			if not silent:
+				frappe.msgprint(
+					_("Payment Entry {0} created and cancelled for rejected SEPA line {1} (+ and -)").format(
+						pe_name, line.name
+					)
+				)
+		else:
+			if not silent:
+				frappe.msgprint(_("Payment Entry {0} created for SEPA line {1}").format(pe_name, line.name))
+			try:
+				create_sepa_bank_transaction(pe_name, bordereau, line)
+			except Exception:
+				frappe.log_error(
+					title=_("SEPA Bank Transaction Creation Error"), message=frappe.get_traceback()
+				)
+
+	line._reconciled_status_change = True
 
 
 def _get_sepa_line_invoice_outstanding(line):

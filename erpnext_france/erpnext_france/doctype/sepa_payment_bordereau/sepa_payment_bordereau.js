@@ -208,10 +208,11 @@ function lock_manual_lines(frm) {
       return;
     }
 
-    const locked = Boolean(line.payment_entry);
+    const locked = is_line_locked(line);
     data_fields.forEach((fieldname) => {
       set_grid_field_read_only(grid_row, fieldname, locked);
     });
+    set_grid_field_read_only(grid_row, "status", is_status_locked(line));
 
     if (grid_row.wrapper) {
       grid_row.wrapper
@@ -302,9 +303,9 @@ frappe.ui.form.on("SEPA Payment Bordereau", {
 
     // Accept selected pending lines after bank execution
     if (["Sent", "Partial Rejections", "Exported"].includes(frm.doc.status)) {
-      const has_pending_lines = (frm.doc.lines || []).some(
-        (line) => line.status === "Pending"
-      );
+      const has_pending_lines =
+        (frm.doc.lines || []).some((line) => line.status === "Pending") ||
+        (frm.doc.manual_lines || []).some((line) => line.status === "Pending");
       if (has_pending_lines) {
         frm.add_custom_button(
           __("Accept Selection"),
@@ -313,20 +314,6 @@ frappe.ui.form.on("SEPA Payment Bordereau", {
           },
           __("Actions")
         );
-      }
-
-      if (!has_pending_lines) {
-        frm.add_custom_button(__("Close Bordereau"), function () {
-          frappe.call({
-            method: "close_bordereau",
-            doc: frm.doc,
-            freeze: true,
-            freeze_message: __("Closing bordereau..."),
-            callback: function () {
-              frm.reload_doc();
-            },
-          });
-        });
       }
     }
 
@@ -364,6 +351,7 @@ frappe.ui.form.on("SEPA Payment Bordereau", {
   manual_lines_add: function (frm, cdt, cdn) {
     const { party_type } = get_line_types(frm.doc.payment_type);
     frappe.model.set_value(cdt, cdn, "party_type", party_type);
+    frappe.model.set_value(cdt, cdn, "status", "Pending");
   },
 
   calculate_total: function (frm) {
@@ -455,7 +443,11 @@ frappe.ui.form.on("SEPA Payment Bordereau", {
 });
 
 function get_selected_grid_rows(frm, fieldname) {
-  const grid = frm.fields_dict[fieldname].grid;
+  const field = frm.fields_dict[fieldname];
+  if (!field || !field.grid) {
+    return [];
+  }
+  const grid = field.grid;
   if (grid.get_selected_children) {
     return grid.get_selected_children();
   }
@@ -469,8 +461,10 @@ function get_selected_grid_rows(frm, fieldname) {
 }
 
 function accept_selected_lines(frm) {
-  const selected = get_selected_grid_rows(frm, "lines");
-  const pending = selected.filter((line) => line.status === "Pending");
+  const pending = [
+    ...get_selected_grid_rows(frm, "lines"),
+    ...get_selected_grid_rows(frm, "manual_lines"),
+  ].filter((line) => line.status === "Pending");
 
   if (!pending.length) {
     frappe.msgprint(__("Please select at least one pending line"));
