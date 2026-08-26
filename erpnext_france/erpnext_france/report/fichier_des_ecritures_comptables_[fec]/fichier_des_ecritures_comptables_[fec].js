@@ -88,7 +88,7 @@ let fec_export = function (query_report, mark_exported) {
         // Remove unwanted columns in CSV Export
         const column_row = query_report.columns
           .filter((col) => !["ExportDate", "GlName"].includes(col.fieldname))
-          .map((col) => col.label);
+          .map((col) => col.fieldname);
         const column_data = query_report.get_data_for_csv(false);
 
         let gl_entries = [];
