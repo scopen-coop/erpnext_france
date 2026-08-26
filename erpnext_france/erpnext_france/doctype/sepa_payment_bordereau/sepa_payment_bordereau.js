@@ -190,6 +190,37 @@ function lock_processed_lines(frm) {
   });
 }
 
+function lock_manual_lines(frm) {
+  const grid = frm.fields_dict.manual_lines && frm.fields_dict.manual_lines.grid;
+  if (!grid) {
+    return;
+  }
+
+  const data_fields = ["document_ref", "party", "amount", "mandate"];
+
+  (frm.doc.manual_lines || []).forEach((line) => {
+    if (!line.name) {
+      return;
+    }
+
+    const grid_row = grid.grid_rows_by_docname[line.name];
+    if (!grid_row) {
+      return;
+    }
+
+    const locked = Boolean(line.payment_entry);
+    data_fields.forEach((fieldname) => {
+      set_grid_field_read_only(grid_row, fieldname, locked);
+    });
+
+    if (grid_row.wrapper) {
+      grid_row.wrapper
+        .find(".grid-delete-row, .grid-duplicate-row")
+        .toggle(!locked);
+    }
+  });
+}
+
 function sync_line_types(frm, cdt, cdn) {
   const { invoice_type, party_type } = get_line_types(frm.doc.payment_type);
   frappe.model.set_value(cdt, cdn, "invoice_type", invoice_type);
@@ -203,15 +234,18 @@ frappe.ui.form.on("SEPA Payment Bordereau", {
     }
 
     lock_processed_lines(frm);
+    lock_manual_lines(frm);
     // Grid rows may finish rendering after refresh
-    setTimeout(() => lock_processed_lines(frm), 200);
+    setTimeout(() => {
+      lock_processed_lines(frm);
+      lock_manual_lines(frm);
+    }, 200);
 
     // Add Validate button
-    if (
-      frm.doc.status === "Draft" &&
-      frm.doc.lines &&
-      frm.doc.lines.length > 0
-    ) {
+    const has_lines =
+      (frm.doc.lines && frm.doc.lines.length > 0) ||
+      (frm.doc.manual_lines && frm.doc.manual_lines.length > 0);
+    if (frm.doc.status === "Draft" && has_lines) {
       frm
         .add_custom_button(__("Validate Bordereau"), function () {
           frappe.call({
@@ -280,6 +314,20 @@ frappe.ui.form.on("SEPA Payment Bordereau", {
           __("Actions")
         );
       }
+
+      if (!has_pending_lines) {
+        frm.add_custom_button(__("Close Bordereau"), function () {
+          frappe.call({
+            method: "close_bordereau",
+            doc: frm.doc,
+            freeze: true,
+            freeze_message: __("Closing bordereau..."),
+            callback: function () {
+              frm.reload_doc();
+            },
+          });
+        });
+      }
     }
 
     // Set color indicator based on status
@@ -299,10 +347,42 @@ frappe.ui.form.on("SEPA Payment Bordereau", {
   payment_type: function (frm) {
     frm.trigger("set_naming");
     frm.trigger("setup_line_queries");
+    const { party_type } = get_line_types(frm.doc.payment_type);
+    (frm.doc.manual_lines || []).forEach((line) => {
+      if (line.party_type !== party_type) {
+        frappe.model.set_value(line.doctype, line.name, "party_type", party_type);
+        frappe.model.set_value(line.doctype, line.name, "party", null);
+        frappe.model.set_value(line.doctype, line.name, "mandate", null);
+      }
+    });
   },
 
   lines_add: function (frm, cdt, cdn) {
     sync_line_types(frm, cdt, cdn);
+  },
+
+  manual_lines_add: function (frm, cdt, cdn) {
+    const { party_type } = get_line_types(frm.doc.payment_type);
+    frappe.model.set_value(cdt, cdn, "party_type", party_type);
+  },
+
+  calculate_total: function (frm) {
+    let total = 0;
+    (frm.doc.lines || []).forEach((line) => {
+      total += flt(line.amount);
+    });
+    (frm.doc.manual_lines || []).forEach((line) => {
+      total += flt(line.amount);
+    });
+    frm.set_value("total_amount", total);
+  },
+
+  manual_lines_remove: function (frm) {
+    frm.trigger("calculate_total");
+  },
+
+  lines_remove: function (frm) {
+    frm.trigger("calculate_total");
   },
 
   onload: function (frm) {
@@ -362,6 +442,12 @@ frappe.ui.form.on("SEPA Payment Bordereau", {
     frm.set_query("party", "lines", function (doc, cdt, cdn) {
       const row = locals[cdt][cdn];
       row.invoice_type = invoice_type;
+      row.party_type = party_type;
+      return {};
+    });
+
+    frm.set_query("party", "manual_lines", function (doc, cdt, cdn) {
+      const row = locals[cdt][cdn];
       row.party_type = party_type;
       return {};
     });
@@ -499,6 +585,26 @@ frappe.ui.form.on("SEPA Payment Bordereau Line", {
   },
 
   lines_remove: function (frm) {
+    frm.trigger("calculate_total");
+  },
+});
+
+frappe.ui.form.on("SEPA Payment Bordereau Manual Line", {
+  party: function (frm, cdt, cdn) {
+    const row = locals[cdt][cdn];
+    const { party_type } = get_line_types(frm.doc.payment_type);
+    frappe.model.set_value(cdt, cdn, "party_type", party_type);
+
+    if (frm.doc.payment_type === "Debit" && row.party) {
+      frappe.db.get_value("Customer", row.party, "sepa_mandate", (customer) => {
+        if (customer && customer.sepa_mandate) {
+          frappe.model.set_value(cdt, cdn, "mandate", customer.sepa_mandate);
+        }
+      });
+    }
+  },
+
+  amount: function (frm) {
     frm.trigger("calculate_total");
   },
 });

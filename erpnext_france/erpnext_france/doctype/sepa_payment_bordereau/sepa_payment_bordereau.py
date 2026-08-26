@@ -23,6 +23,7 @@ class SEPAPaymentBordereau(Document):
 		self.validate_company_bank_account()
 		self.validate_locked_lines()
 		self.validate_lines()
+		self.validate_manual_lines()
 
 	@staticmethod
 	def is_line_locked(line):
@@ -97,10 +98,21 @@ class SEPAPaymentBordereau(Document):
 			if new_status != self.status:
 				self.db_set("status", new_status)
 
+		if self.status == "Closed":
+			self.create_manual_line_payment_entries()
+
+	def get_manual_lines(self):
+		return self.get("manual_lines") or []
+
+	def get_sepa_transaction_count(self):
+		return len(self.lines or []) + len(self.get_manual_lines())
+
 	def calculate_total(self):
-		"""Calculate total amount from all lines"""
+		"""Calculate total amount from invoice lines and manual lines"""
 		total = 0
-		for line in self.lines:
+		for line in self.lines or []:
+			total += flt(line.amount)
+		for line in self.get_manual_lines():
 			total += flt(line.amount)
 		self.total_amount = total
 
@@ -216,6 +228,42 @@ class SEPAPaymentBordereau(Document):
 				if not line.amount or line.amount <= 0:
 					frappe.throw(_("Row {0}: Amount must be greater than zero").format(line.idx))
 
+	def validate_manual_lines(self):
+		"""Validate manual / advance lines (no invoice)."""
+		expected_party_type = "Supplier" if self.payment_type == "Credit" else "Customer"
+
+		for line in self.get_manual_lines():
+			line.party_type = expected_party_type
+
+			if not line.party:
+				frappe.throw(_("Manual row {0}: Party is required").format(line.idx))
+
+			if not line.document_ref:
+				frappe.throw(_("Manual row {0}: Document Reference is required").format(line.idx))
+
+			if self.payment_type == "Debit" and line.party and not line.mandate:
+				line.mandate = frappe.db.get_value("Customer", line.party, "sepa_mandate")
+
+			if self.payment_type == "Credit" and line.party:
+				supplier_bank_account = frappe.db.exists(
+					"Bank Account",
+					{"party_type": "Supplier", "party": line.party, "is_default": 1},
+				)
+				if not supplier_bank_account:
+					frappe.throw(
+						_("Manual row {0}: Supplier {1} does not have a default bank account").format(
+							line.idx, line.party
+						)
+					)
+
+			if self.status != "Draft":
+				if self.payment_type == "Debit" and not line.mandate:
+					frappe.throw(
+						_("Manual row {0}: SEPA Mandate is required for debit payments").format(line.idx)
+					)
+				if not line.amount or line.amount <= 0:
+					frappe.throw(_("Manual row {0}: Amount must be greater than zero").format(line.idx))
+
 	def sync_line_from_payment_type(self, line):
 		"""Keep line party/invoice types aligned with bordereau payment type."""
 		from erpnext_france.regional.france.sepa_utils import get_invoice_sepa_available_amount
@@ -319,6 +367,9 @@ class SEPAPaymentBordereau(Document):
 					_("Please set the SEPA Creditor Identifier (ICS) on company {0}").format(self.company)
 				)
 
+		if not (self.lines or self.get_manual_lines()):
+			frappe.throw(_("Please add at least one payment line"))
+
 		# Perform all validations
 		for line in self.lines:
 			# Check IBAN/BIC
@@ -335,26 +386,42 @@ class SEPAPaymentBordereau(Document):
 			if not line.amount or line.amount <= 0:
 				frappe.throw(_("Row {0}: Amount must be greater than zero").format(line.idx))
 
+		for line in self.get_manual_lines():
+			if self.payment_type == "Debit":
+				if not line.mandate:
+					frappe.throw(
+						_("Manual row {0}: SEPA Mandate is required for debit payments").format(line.idx)
+					)
+				mandate = frappe.get_doc("SEPA Mandate", line.mandate)
+				if mandate.status != "Active":
+					frappe.throw(_("Manual row {0}: SEPA Mandate must be active").format(line.idx))
+			if not line.amount or line.amount <= 0:
+				frappe.throw(_("Manual row {0}: Amount must be greater than zero").format(line.idx))
+
 		# Update status
 		self.status = "Validated"
 		self.save()
 		frappe.msgprint(_("Bordereau validated successfully"))
 
+	def _new_end_to_end_id(self):
+		# Format: COMPANY-YYYYMMDD-UUID (max 35 chars for SEPA)
+		timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+		unique_id = str(uuid.uuid4())[:8].upper()
+		return f"{self.company[:10]}-{timestamp}-{unique_id}"
+
 	def generate_end_to_end_ids(self):
-		"""Generate unique End-to-End IDs for all lines"""
-		for line in self.lines:
+		"""Generate unique End-to-End IDs for invoice and manual lines"""
+		for line in list(self.lines or []) + list(self.get_manual_lines()):
 			if not line.end_to_end_id:
-				# Generate unique End-to-End ID
-				# Format: COMPANY-YYYYMMDD-UUID (max 35 chars for SEPA)
-				timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-				unique_id = str(uuid.uuid4())[:8].upper()
-				line.end_to_end_id = f"{self.company[:10]}-{timestamp}-{unique_id}"
+				line.end_to_end_id = self._new_end_to_end_id()
 
 	@frappe.whitelist()
 	def generate_sepa_file(self):
 		"""Generate SEPA XML file (pain.008 for debit, pain.001 for credit)"""
 		if self.status not in ["Validated", "Exported"]:
 			frappe.throw(_("Bordereau must be validated before generating SEPA file"))
+
+		self.generate_end_to_end_ids()
 
 		if self.payment_type == "Debit":
 			xml_content = self.generate_pain_008()
@@ -393,14 +460,8 @@ class SEPAPaymentBordereau(Document):
 				_("Please set the SEPA Creditor Identifier (ICS) on company {0}").format(self.company)
 			)
 
-		# Group lines by (mandate_type, sequence_type) — pain.008 requires one PmtInf per SeqTp
-		groups = {}
-		for line in self.lines:
-			mandate = frappe.get_doc("SEPA Mandate", line.mandate)
-			key = (mandate.mandate_type, mandate.sequence_type)
-			if key not in groups:
-				groups[key] = []
-			groups[key].append((line, mandate))
+		# Invoice groups first, then manual lines at the end of the file
+		ordered_groups = self._ordered_pain_008_groups()
 
 		nsmap = {
 			None: "urn:iso:std:iso:20022:tech:xsd:pain.008.001.02",
@@ -414,17 +475,17 @@ class SEPAPaymentBordereau(Document):
 		grp_hdr = etree.SubElement(cstmr_drct_dbt_initn, "GrpHdr")
 		etree.SubElement(grp_hdr, "MsgId").text = self.name
 		etree.SubElement(grp_hdr, "CreDtTm").text = now_datetime().strftime("%Y-%m-%dT%H:%M:%S")
-		etree.SubElement(grp_hdr, "NbOfTxs").text = str(len(self.lines))
+		etree.SubElement(grp_hdr, "NbOfTxs").text = str(self.get_sepa_transaction_count())
 		etree.SubElement(grp_hdr, "CtrlSum").text = f"{self.total_amount:.2f}"
 		initg_pty = etree.SubElement(grp_hdr, "InitgPty")
 		etree.SubElement(initg_pty, "Nm").text = self.company
 
 		# One PmtInf per (mandate_type, sequence_type) group
-		for (mandate_type, sequence_type), group_lines in groups.items():
+		for (mandate_type, sequence_type), group_lines, suffix in ordered_groups:
 			group_total = sum(flt(line.amount) for line, _ in group_lines)
 
 			pmt_inf = etree.SubElement(cstmr_drct_dbt_initn, "PmtInf")
-			etree.SubElement(pmt_inf, "PmtInfId").text = f"{self.name}-{mandate_type}-{sequence_type}"
+			etree.SubElement(pmt_inf, "PmtInfId").text = f"{self.name}-{mandate_type}-{sequence_type}{suffix}"
 			etree.SubElement(pmt_inf, "PmtMtd").text = "DD"
 			etree.SubElement(pmt_inf, "NbOfTxs").text = str(len(group_lines))
 			etree.SubElement(pmt_inf, "CtrlSum").text = f"{group_total:.2f}"
@@ -534,7 +595,7 @@ class SEPAPaymentBordereau(Document):
 		cre_dt_tm = etree.SubElement(grp_hdr, "CreDtTm")
 		cre_dt_tm.text = now_datetime().strftime("%Y-%m-%dT%H:%M:%S")
 		nb_of_txs = etree.SubElement(grp_hdr, "NbOfTxs")
-		nb_of_txs.text = str(len(self.lines))
+		nb_of_txs.text = str(self.get_sepa_transaction_count())
 		ctrl_sum = etree.SubElement(grp_hdr, "CtrlSum")
 		ctrl_sum.text = f"{self.total_amount:.2f}"
 
@@ -577,8 +638,8 @@ class SEPAPaymentBordereau(Document):
 		bic = etree.SubElement(fin_instn_id, "BIC")
 		bic.text = bank_account.swift_number
 
-		# Credit Transfer Transaction Information for each line
-		for line in self.lines:
+		# Credit Transfer Transaction Information: invoice lines first, manual lines at the end
+		for line in list(self.lines or []) + list(self.get_manual_lines()):
 			# Get supplier bank account
 			supplier_bank_account = frappe.db.get_value(
 				"Bank Account",
@@ -645,6 +706,72 @@ class SEPAPaymentBordereau(Document):
 			)
 
 		return etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8")
+
+	def _ordered_pain_008_groups(self):
+		"""Group debit lines by mandate type/sequence, invoice lines first then manuals."""
+		ordered = []
+		for lines, suffix in ((self.lines or [], ""), (self.get_manual_lines(), "-MANUAL")):
+			groups = {}
+			for line in lines:
+				if not line.mandate:
+					frappe.throw(_("SEPA Mandate is required for debit payments"))
+				mandate = frappe.get_doc("SEPA Mandate", line.mandate)
+				key = (mandate.mandate_type, mandate.sequence_type)
+				groups.setdefault(key, []).append((line, mandate))
+			for key, group_lines in groups.items():
+				ordered.append((key, group_lines, suffix))
+		return ordered
+
+	def create_manual_line_payment_entries(self):
+		"""Create unallocated payment entries for manual lines when the bordereau is closed."""
+		from erpnext_france.regional.france.sepa_utils import (
+			create_sepa_bank_transaction,
+			create_sepa_manual_line_payment_entry,
+		)
+
+		if self.status != "Closed":
+			return
+
+		gl_account = frappe.db.get_value("Bank Account", self.bank_account, "account")
+		if not gl_account and self.get_manual_lines():
+			frappe.throw(_("Please link a GL Account to the Bank Account {0}").format(self.bank_account))
+
+		for line in self.get_manual_lines():
+			if line.payment_entry:
+				existing_status = frappe.db.get_value("Payment Entry", line.payment_entry, "docstatus")
+				if existing_status == 1:
+					continue
+
+			pe_name = create_sepa_manual_line_payment_entry(self, line, gl_account)
+			frappe.db.set_value(
+				"SEPA Payment Bordereau Manual Line",
+				line.name,
+				"payment_entry",
+				pe_name,
+				update_modified=False,
+			)
+			line.payment_entry = pe_name
+
+			try:
+				create_sepa_bank_transaction(pe_name, self, line)
+			except Exception:
+				frappe.log_error(
+					title=_("SEPA Bank Transaction Creation Error"), message=frappe.get_traceback()
+				)
+
+	@frappe.whitelist()
+	def close_bordereau(self):
+		"""Close the bordereau and create payment entries for manual lines."""
+		if self.status not in ["Sent", "Exported", "Partial Rejections"]:
+			frappe.throw(_("Only sent or exported bordereaux can be closed"))
+
+		pending_lines = [line for line in (self.lines or []) if line.status == "Pending"]
+		if pending_lines:
+			frappe.throw(_("Please accept or reject pending invoice lines before closing"))
+
+		self.status = "Closed"
+		self.save()
+		frappe.msgprint(_("Bordereau closed successfully"))
 
 	@frappe.whitelist()
 	def mark_as_sent(self):

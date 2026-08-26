@@ -622,21 +622,33 @@ def add_invoices_to_sepa_bordereau_bulk(invoice_names: list | str, invoice_type:
 
 
 def get_sepa_line_invoice_reference(line):
-	"""Return the invoice reference shown to customers/suppliers on bank statements."""
-	invoice_type = getattr(line, "invoice_type", None) or (
-		"Sales Invoice" if line.party_type == "Customer" else "Purchase Invoice"
+	"""Return the document reference shown to customers/suppliers on bank statements."""
+	document_ref = _sepa_line_value(line, "document_ref")
+	invoice = _sepa_line_value(line, "invoice")
+	if document_ref and not invoice:
+		return document_ref
+
+	invoice_type = _sepa_line_value(line, "invoice_type") or (
+		"Sales Invoice"
+		if _sepa_line_value(line, "party_type") == "Customer"
+		else "Purchase Invoice"
 	)
 
-	if invoice_type == "Purchase Invoice":
-		bill_no = frappe.db.get_value("Purchase Invoice", line.invoice, "bill_no")
+	if invoice_type == "Purchase Invoice" and invoice:
+		bill_no = frappe.db.get_value("Purchase Invoice", invoice, "bill_no")
 		if bill_no:
 			return bill_no
 
-	return line.invoice
+	return invoice
 
 
 def get_sepa_line_remittance_info(line):
 	"""Build SEPA unstructured remittance text (max 140 chars)."""
+	document_ref = _sepa_line_value(line, "document_ref")
+	invoice = _sepa_line_value(line, "invoice")
+	if document_ref and not invoice:
+		return document_ref[:140]
+
 	invoice_ref = get_sepa_line_invoice_reference(line)
 	return _("Invoice {0}").format(invoice_ref)[:140]
 
@@ -687,17 +699,34 @@ def get_sepa_payment_type(bordereau):
 	return "Receive" if bordereau.payment_type == "Debit" else "Pay"
 
 
-def get_sepa_party_account(line):
-	invoice_type = _sepa_line_value(line, "invoice_type") or (
-		"Sales Invoice" if _sepa_line_value(line, "party_type") == "Customer" else "Purchase Invoice"
+def get_sepa_party_account(line, company=None):
+	invoice = _sepa_line_value(line, "invoice")
+	if invoice:
+		invoice_type = _sepa_line_value(line, "invoice_type") or (
+			"Sales Invoice" if _sepa_line_value(line, "party_type") == "Customer" else "Purchase Invoice"
+		)
+		account_field = "debit_to" if invoice_type == "Sales Invoice" else "credit_to"
+		return frappe.db.get_value(invoice_type, invoice, account_field)
+
+	from erpnext.accounts.party import get_party_account
+
+	return get_party_account(
+		_sepa_line_value(line, "party_type"),
+		_sepa_line_value(line, "party"),
+		company,
 	)
-	account_field = "debit_to" if invoice_type == "Sales Invoice" else "credit_to"
-	return frappe.db.get_value(invoice_type, _sepa_line_value(line, "invoice"), account_field)
 
 
 def get_sepa_payment_entry_account_fields(bordereau, line, gl_account):
 	payment_type = get_sepa_payment_type(bordereau)
-	party_account = get_sepa_party_account(line)
+	party_account = get_sepa_party_account(line, bordereau.company)
+
+	if not party_account:
+		frappe.throw(
+			_("No party account found for {0} {1}").format(
+				_sepa_line_value(line, "party_type"), _sepa_line_value(line, "party")
+			)
+		)
 
 	if payment_type == "Pay":
 		return payment_type, {"paid_from": gl_account, "paid_to": party_account}
@@ -790,6 +819,42 @@ def create_sepa_payment_entry(bordereau, line, gl_account):
 		mandate = frappe.get_doc("SEPA Mandate", line.mandate)
 		if mandate.sequence_type == "FRST":
 			mandate.update_to_recurring()
+
+	return payment_entry.name
+
+
+def create_sepa_manual_line_payment_entry(bordereau, line, gl_account):
+	"""Create an unallocated Payment Entry (advance) for a manual SEPA line."""
+	existing_pe = line.get("payment_entry")
+	if existing_pe and frappe.db.exists("Payment Entry", existing_pe):
+		if frappe.db.get_value("Payment Entry", existing_pe, "docstatus") == 1:
+			return existing_pe
+		line.payment_entry = None
+
+	document_ref = _sepa_line_value(line, "document_ref") or bordereau.name
+	payment_type, account_fields = get_sepa_payment_entry_account_fields(bordereau, line, gl_account)
+
+	pe_data = {
+		"doctype": "Payment Entry",
+		"payment_type": payment_type,
+		"company": bordereau.company,
+		"party_type": line.party_type,
+		"party": line.party,
+		"paid_amount": line.amount,
+		"received_amount": line.amount,
+		"posting_date": bordereau.execution_date,
+		"reference_no": document_ref,
+		"reference_date": bordereau.execution_date,
+		"remarks": document_ref,
+		"bank_account": bordereau.bank_account,
+		**account_fields,
+	}
+	if frappe.db.has_column("Payment Entry", "sepa_payment_bordereau"):
+		pe_data["sepa_payment_bordereau"] = bordereau.name
+
+	payment_entry = frappe.get_doc(pe_data)
+	payment_entry.insert()
+	payment_entry.submit()
 
 	return payment_entry.name
 

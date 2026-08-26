@@ -15,6 +15,8 @@
   "status",
   "section_break_2",
   "lines",
+  "section_manual_lines",
+  "manual_lines",
   "section_break_3",
   "total_amount",
   "column_break_4",
@@ -95,6 +97,17 @@
    "label": "Payment Lines"
   },
   {
+   "fieldname": "section_manual_lines",
+   "fieldtype": "Section Break",
+   "label": "Manual Payment Lines"
+  },
+  {
+   "fieldname": "manual_lines",
+   "fieldtype": "Table",
+   "label": "Manual Payment Lines",
+   "options": "SEPA Payment Bordereau Manual Line"
+  },
+  {
    "fieldname": "section_break_3",
    "fieldtype": "Section Break"
   },
@@ -104,7 +117,7 @@
   }
  ],
  "links": [],
- "modified": "2026-01-15 00:00:00.000000",
+ "modified": "2026-08-26 10:00:00.000000",
  "modified_by": "Administrator",
  "module": "ERPNext France",
  "name": "SEPA Payment Bordereau",
