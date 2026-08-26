@@ -116,14 +116,8 @@
    "fieldtype": "Column Break"
   }
  ],
- "links": [
-  {
-   "group": "Payments",
-   "link_doctype": "Payment Entry",
-   "link_fieldname": "sepa_payment_bordereau"
-  }
- ],
- "modified": "2026-08-26 12:40:00.000000",
+ "links": [],
+ "modified": "2026-08-26 15:25:00.000000",
  "modified_by": "Administrator",
  "module": "ERPNext France",
  "name": "SEPA Payment Bordereau",
