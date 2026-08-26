@@ -659,6 +659,8 @@ Account Code Length,Longueur du code comptable
 "If you set the value to 6 here, account '706' will appear as '706000' in exports","Si vous définissez la valeur à 6 ici, le compte '706' apparaîtra comme '706000' dans les exports"
 Leave Approver,Approbateur de note de frais,Department
 Payment Entry {0} created for SEPA line {1},L'écriture de paiement {0} a été créée pour la ligne SEPA {1}
+Could not create Payment Entry for {0} (ref {1}): {2},Impossible de créer l'écriture de paiement pour {0} (ref {1}) : {2}
+SEPA Manual Line Payment Entry Error,Erreur de création d'écriture pour une ligne manuelle SEPA
 Invoice {0},Facture {0}
 SEPA Bank Transaction Creation Error,Erreur de création de transaction bancaire SEPA
 Bank Transaction {0} created for SEPA line {1},La transaction bancaire {0} a été créée pour la ligne SEPA {1}

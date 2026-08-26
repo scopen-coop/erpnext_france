@@ -837,31 +837,42 @@ def create_sepa_manual_line_payment_entry(bordereau, line, gl_account):
 			return existing_pe
 		line.payment_entry = None
 
+	expected_party_type = "Supplier" if bordereau.payment_type == "Credit" else "Customer"
+	if isinstance(line, dict):
+		line["party_type"] = expected_party_type
+	else:
+		line.party_type = expected_party_type
+
+	party = _sepa_line_value(line, "party")
+	amount = flt(_sepa_line_value(line, "amount"))
 	document_ref = _sepa_line_value(line, "document_ref") or bordereau.name
 	if frappe.db.has_column("Payment Entry", "sepa_payment_bordereau"):
 		linked_pe = frappe.db.exists(
 			"Payment Entry",
 			{
 				"sepa_payment_bordereau": bordereau.name,
-				"party": _sepa_line_value(line, "party"),
+				"party": party,
 				"reference_no": document_ref,
 				"docstatus": 1,
-				"paid_amount": line.amount,
+				"paid_amount": amount,
 			},
 		)
 		if linked_pe:
 			return linked_pe
 
 	payment_type, account_fields = get_sepa_payment_entry_account_fields(bordereau, line, gl_account)
+	cost_center = frappe.db.get_value("Company", bordereau.company, "cost_center")
 
 	pe_data = {
 		"doctype": "Payment Entry",
 		"payment_type": payment_type,
 		"company": bordereau.company,
-		"party_type": line.party_type,
-		"party": line.party,
-		"paid_amount": line.amount,
-		"received_amount": line.amount,
+		"party_type": expected_party_type,
+		"party": party,
+		"paid_amount": amount,
+		"received_amount": amount,
+		"source_exchange_rate": 1,
+		"target_exchange_rate": 1,
 		"posting_date": bordereau.execution_date,
 		"reference_no": document_ref,
 		"reference_date": bordereau.execution_date,
@@ -869,12 +880,21 @@ def create_sepa_manual_line_payment_entry(bordereau, line, gl_account):
 		"bank_account": bordereau.bank_account,
 		**account_fields,
 	}
+	if cost_center:
+		pe_data["cost_center"] = cost_center
 	if frappe.db.has_column("Payment Entry", "sepa_payment_bordereau"):
 		pe_data["sepa_payment_bordereau"] = bordereau.name
 
-	payment_entry = frappe.get_doc(pe_data)
-	payment_entry.insert()
-	payment_entry.submit()
+	try:
+		payment_entry = frappe.get_doc(pe_data)
+		payment_entry.flags.ignore_permissions = True
+		payment_entry.insert()
+		payment_entry.submit()
+	except Exception as e:
+		frappe.log_error(title=_("SEPA Manual Line Payment Entry Error"), message=frappe.get_traceback())
+		frappe.throw(
+			_("Could not create Payment Entry for {0} (ref {1}): {2}").format(party, document_ref, str(e))
+		)
 
 	return payment_entry.name
 
