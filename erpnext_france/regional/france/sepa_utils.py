@@ -838,6 +838,20 @@ def create_sepa_manual_line_payment_entry(bordereau, line, gl_account):
 		line.payment_entry = None
 
 	document_ref = _sepa_line_value(line, "document_ref") or bordereau.name
+	if frappe.db.has_column("Payment Entry", "sepa_payment_bordereau"):
+		linked_pe = frappe.db.exists(
+			"Payment Entry",
+			{
+				"sepa_payment_bordereau": bordereau.name,
+				"party": _sepa_line_value(line, "party"),
+				"reference_no": document_ref,
+				"docstatus": 1,
+				"paid_amount": line.amount,
+			},
+		)
+		if linked_pe:
+			return linked_pe
+
 	payment_type, account_fields = get_sepa_payment_entry_account_fields(bordereau, line, gl_account)
 
 	pe_data = {

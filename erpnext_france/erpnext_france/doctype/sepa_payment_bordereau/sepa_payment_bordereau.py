@@ -65,11 +65,10 @@ class SEPAPaymentBordereau(Document):
 	def on_update(self):
 		status_changed_lines = False
 		invoices_to_sync = {(line.invoice, line.invoice_type) for line in self.lines if line.invoice}
+		old_doc = None if self.is_new() else self.get_doc_before_save()
 
-		if not self.is_new() and self.get_doc_before_save():
-			old_doc = self.get_doc_before_save()
+		if old_doc:
 			old_statuses = {d.name: d.status for d in old_doc.lines}
-			old_manual_statuses = {d.name: d.status for d in (old_doc.get("manual_lines") or [])}
 			invoices_to_sync.update(
 				(line.invoice, line.invoice_type) for line in old_doc.lines if line.invoice
 			)
@@ -81,17 +80,25 @@ class SEPAPaymentBordereau(Document):
 					reconcile_sepa_line_on_status_change(self, line, line.status)
 					status_changed_lines = True
 
-			for line in self.get_manual_lines():
-				old_status = old_manual_statuses.get(line.name)
-				if line.status != old_status and line.status in ["Accepted", "Rejected"]:
-					from erpnext_france.regional.france.sepa_utils import (
-						reconcile_sepa_manual_line_on_status_change,
-					)
+		from erpnext_france.regional.france.sepa_utils import (
+			reconcile_sepa_manual_line_on_status_change,
+			sync_invoices_sepa_bordereau_links,
+		)
 
-					reconcile_sepa_manual_line_on_status_change(self, line, line.status)
-					status_changed_lines = True
+		old_manual_statuses = {}
+		if old_doc:
+			old_manual_statuses = {d.name: d.status for d in (old_doc.get("manual_lines") or [])}
 
-		from erpnext_france.regional.france.sepa_utils import sync_invoices_sepa_bordereau_links
+		# Create missing Payment Entries for Accepted/Rejected manual lines, even if
+		# the status change was not detected (grid edit, catch-up after a failed save).
+		for line in self.get_manual_lines():
+			if line.status not in ("Accepted", "Rejected"):
+				continue
+			old_status = old_manual_statuses.get(line.name)
+			if line.status == old_status and self._manual_line_has_submitted_payment_entry(line):
+				continue
+			reconcile_sepa_manual_line_on_status_change(self, line, line.status)
+			status_changed_lines = True
 
 		sync_invoices_sepa_bordereau_links(invoices_to_sync)
 
@@ -110,6 +117,13 @@ class SEPAPaymentBordereau(Document):
 
 			if new_status != self.status:
 				self.db_set("status", new_status)
+
+	@staticmethod
+	def _manual_line_has_submitted_payment_entry(line):
+		payment_entry = line.get("payment_entry")
+		if not payment_entry:
+			return False
+		return frappe.db.get_value("Payment Entry", payment_entry, "docstatus") == 1
 
 	def get_manual_lines(self):
 		return self.get("manual_lines") or []
@@ -866,7 +880,13 @@ class SEPAPaymentBordereau(Document):
 					"Accepted",
 					update_modified=False,
 				)
-				results["success"].append({"name": line.name, "invoice": label})
+				results["success"].append(
+					{
+						"name": line.name,
+						"invoice": label,
+						"payment_entry": line.payment_entry,
+					}
+				)
 			except Exception as e:
 				frappe.db.rollback(save_point=savepoint)
 				results["failed"].append({"name": line.name, "invoice": label, "reason": str(e)})

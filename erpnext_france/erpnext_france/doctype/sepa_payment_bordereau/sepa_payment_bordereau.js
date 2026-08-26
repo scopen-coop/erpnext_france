@@ -495,6 +495,11 @@ function show_accept_results(results) {
 
   if (results.success.length) {
     parts.push(`<b>${__("Accepted")}:</b> ${results.success.length}`);
+    results.success.forEach((row) => {
+      if (row.payment_entry) {
+        parts.push(`${row.invoice}: ${row.payment_entry}`);
+      }
+    });
   }
   if (results.skipped.length) {
     parts.push(`<b>${__("Skipped")}:</b> ${results.skipped.length}`);
