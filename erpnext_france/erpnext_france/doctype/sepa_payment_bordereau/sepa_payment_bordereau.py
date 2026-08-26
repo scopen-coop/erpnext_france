@@ -95,11 +95,11 @@ class SEPAPaymentBordereau(Document):
 
 		sync_invoices_sepa_bordereau_links(invoices_to_sync)
 
-		# Update overall bordereau status if needed
+		# Update overall bordereau status if needed (read from DB: children are already written)
 		if status_changed_lines:
 			from erpnext_france.regional.france.sepa_utils import get_bordereau_line_statuses
 
-			statuses = get_bordereau_line_statuses(self)
+			statuses = get_bordereau_line_statuses(self.name)
 			new_status = self.status
 			if statuses and all(status == "Accepted" for status in statuses):
 				new_status = "Closed"
@@ -818,6 +818,7 @@ class SEPAPaymentBordereau(Document):
 					"Accepted",
 					update_modified=False,
 				)
+				line.status = "Accepted"
 				sync_invoice_sepa_bordereau_link(line.invoice, line.invoice_type)
 				results["success"].append({"name": line.name, "invoice": line.invoice})
 			except Exception as e:
@@ -866,6 +867,7 @@ class SEPAPaymentBordereau(Document):
 					"Accepted",
 					update_modified=False,
 				)
+				line.status = "Accepted"
 				results["success"].append({"name": line.name, "invoice": label})
 			except Exception as e:
 				frappe.db.rollback(save_point=savepoint)

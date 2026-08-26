@@ -665,34 +665,44 @@ def add_pain_remittance_info(transaction_element, remittance_info):
 
 
 def get_bordereau_line_statuses(bordereau):
-	"""Return statuses of invoice lines and manual lines."""
-	statuses = [line.status for line in (bordereau.lines or [])]
-	statuses.extend(line.status for line in (bordereau.get("manual_lines") or []))
+	"""Return invoice and manual line statuses from the database.
+
+	Accept Selection updates child rows with db.set_value, so in-memory / cached
+	parent documents often still show Pending and would skip auto-close.
+	"""
+	name = bordereau if isinstance(bordereau, str) else bordereau.name
+	statuses = frappe.get_all(
+		"SEPA Payment Bordereau Line",
+		filters={"parent": name},
+		pluck="status",
+	)
+	statuses.extend(
+		frappe.get_all(
+			"SEPA Payment Bordereau Manual Line",
+			filters={"parent": name},
+			pluck="status",
+		)
+	)
 	return statuses
 
 
 def update_bordereau_status(bordereau_name):
-	"""Update bordereau status based on invoice and manual line statuses"""
-	bordereau = frappe.get_doc("SEPA Payment Bordereau", bordereau_name)
-
-	statuses = get_bordereau_line_statuses(bordereau)
+	"""Update bordereau status based on invoice and manual line statuses."""
+	statuses = get_bordereau_line_statuses(bordereau_name)
 	if not statuses:
 		return
 
-	# If all accepted, mark as Closed
 	if all(status == "Accepted" for status in statuses):
-		bordereau.status = "Closed"
-		bordereau.save()
-
-	# If some accepted and some rejected, mark as Partial Rejections
+		new_status = "Closed"
 	elif "Accepted" in statuses and "Rejected" in statuses:
-		bordereau.status = "Partial Rejections"
-		bordereau.save()
-
-	# If all rejected, keep as Exported (can be re-sent)
+		new_status = "Partial Rejections"
 	elif all(status == "Rejected" for status in statuses):
-		bordereau.status = "Exported"
-		bordereau.save()
+		new_status = "Exported"
+	else:
+		return
+
+	if frappe.db.get_value("SEPA Payment Bordereau", bordereau_name, "status") != new_status:
+		frappe.db.set_value("SEPA Payment Bordereau", bordereau_name, "status", new_status)
 
 
 def _sepa_line_value(line, field):
