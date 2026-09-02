@@ -239,8 +239,13 @@ class SEPAPaymentBordereau(Document):
 					frappe.throw(_("Row {0}: Amount must be greater than zero").format(line.idx))
 
 	def validate_manual_lines(self):
-		"""Validate manual / advance lines (no invoice)."""
-		expected_party_type = "Supplier" if self.payment_type == "Credit" else "Customer"
+		"""Validate manual / advance lines (no invoice). Credit (transfer) only."""
+		if self.payment_type != "Credit":
+			if self.status == "Draft" and self.get_manual_lines():
+				self.set("manual_lines", [])
+			return
+
+		expected_party_type = "Supplier"
 
 		for line in self.get_manual_lines():
 			line.party_type = expected_party_type
@@ -251,10 +256,7 @@ class SEPAPaymentBordereau(Document):
 			if not line.document_ref:
 				frappe.throw(_("Manual row {0}: Document Reference is required").format(line.idx))
 
-			if self.payment_type == "Debit" and line.party and not line.mandate:
-				line.mandate = frappe.db.get_value("Customer", line.party, "sepa_mandate")
-
-			if self.payment_type == "Credit" and line.party:
+			if line.party:
 				supplier_bank_account = frappe.db.exists(
 					"Bank Account",
 					{"party_type": "Supplier", "party": line.party, "is_default": 1},
@@ -267,10 +269,6 @@ class SEPAPaymentBordereau(Document):
 					)
 
 			if self.status != "Draft":
-				if self.payment_type == "Debit" and not line.mandate:
-					frappe.throw(
-						_("Manual row {0}: SEPA Mandate is required for debit payments").format(line.idx)
-					)
 				if not line.amount or line.amount <= 0:
 					frappe.throw(_("Manual row {0}: Amount must be greater than zero").format(line.idx))
 

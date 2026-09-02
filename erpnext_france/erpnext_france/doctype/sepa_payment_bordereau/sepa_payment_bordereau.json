@@ -97,11 +97,13 @@
    "label": "Payment Lines"
   },
   {
+   "depends_on": "eval:doc.payment_type=='Credit'",
    "fieldname": "section_manual_lines",
    "fieldtype": "Section Break",
    "label": "Manual Payment Lines"
   },
   {
+   "depends_on": "eval:doc.payment_type=='Credit'",
    "fieldname": "manual_lines",
    "fieldtype": "Table",
    "label": "Manual Payment Lines",
@@ -117,7 +119,7 @@
   }
  ],
  "links": [],
- "modified": "2026-08-26 15:25:00.000000",
+ "modified": "2026-09-02 16:30:00.000000",
  "modified_by": "Administrator",
  "module": "ERPNext France",
  "name": "SEPA Payment Bordereau",

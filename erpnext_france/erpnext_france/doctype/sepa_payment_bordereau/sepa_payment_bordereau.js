@@ -236,6 +236,7 @@ frappe.ui.form.on("SEPA Payment Bordereau", {
 
     lock_processed_lines(frm);
     lock_manual_lines(frm);
+    frm.trigger("toggle_manual_lines");
     // Grid rows may finish rendering after refresh
     setTimeout(() => {
       lock_processed_lines(frm);
@@ -334,6 +335,15 @@ frappe.ui.form.on("SEPA Payment Bordereau", {
   payment_type: function (frm) {
     frm.trigger("set_naming");
     frm.trigger("setup_line_queries");
+    frm.trigger("toggle_manual_lines");
+    if (frm.doc.payment_type !== "Credit") {
+      if ((frm.doc.manual_lines || []).length) {
+        frm.clear_table("manual_lines");
+        frm.refresh_field("manual_lines");
+        frm.trigger("calculate_total");
+      }
+      return;
+    }
     const { party_type } = get_line_types(frm.doc.payment_type);
     (frm.doc.manual_lines || []).forEach((line) => {
       if (line.party_type !== party_type) {
@@ -342,6 +352,12 @@ frappe.ui.form.on("SEPA Payment Bordereau", {
         frappe.model.set_value(line.doctype, line.name, "mandate", null);
       }
     });
+  },
+
+  toggle_manual_lines: function (frm) {
+    const show = frm.doc.payment_type === "Credit";
+    frm.toggle_display("section_manual_lines", show);
+    frm.toggle_display("manual_lines", show);
   },
 
   lines_add: function (frm, cdt, cdn) {
