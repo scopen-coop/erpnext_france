@@ -659,6 +659,8 @@ Account Code Length,Longueur du code comptable
 "If you set the value to 6 here, account '706' will appear as '706000' in exports","Si vous définissez la valeur à 6 ici, le compte '706' apparaîtra comme '706000' dans les exports"
 Leave Approver,Approbateur de note de frais,Department
 Payment Entry {0} created for SEPA line {1},L'écriture de paiement {0} a été créée pour la ligne SEPA {1}
+Could not create Payment Entry for {0} (ref {1}): {2},Impossible de créer l'écriture de paiement pour {0} (ref {1}) : {2}
+SEPA Manual Line Payment Entry Error,Erreur de création d'écriture pour une ligne manuelle SEPA
 Invoice {0},Facture {0}
 SEPA Bank Transaction Creation Error,Erreur de création de transaction bancaire SEPA
 Bank Transaction {0} created for SEPA line {1},La transaction bancaire {0} a été créée pour la ligne SEPA {1}
@@ -667,6 +669,22 @@ Payment Entry {0} created and cancelled for rejected SEPA line {1} (+ and -),L'�
 SEPA Mandate,Mandat SEPA
 SEPA Payment Bordereau,Bordereau de Paiement SEPA
 SEPA Payment Bordereau Line,Ligne de Bordereau de Paiement SEPA
+SEPA Payment Bordereau Manual Line,Ligne manuelle de Bordereau de Paiement SEPA
+Manual Payment Lines,Lignes manuelles
+Document Reference,Ref du document
+Close Bordereau,Clôturer le bordereau
+Closing bordereau...,Clôture du bordereau...
+Bordereau closed successfully,Bordereau clôturé avec succès
+Please add at least one payment line,Veuillez ajouter au moins une ligne de paiement
+Manual row {0}: Party is required,Ligne manuelle {0} : le tiers est obligatoire
+Manual row {0}: Document Reference is required,Ligne manuelle {0} : la ref du document est obligatoire
+Manual row {0}: Supplier {1} does not have a default bank account,Ligne manuelle {0} : le fournisseur {1} n'a pas de compte bancaire par défaut
+Manual row {0}: SEPA Mandate is required for debit payments,Ligne manuelle {0} : un mandat SEPA est obligatoire pour les prélèvements
+Manual row {0}: Amount must be greater than zero,Ligne manuelle {0} : le montant doit être supérieur à zéro
+Manual row {0}: SEPA Mandate must be active,Ligne manuelle {0} : le mandat SEPA doit être actif
+Only sent or exported bordereaux can be closed,Seuls les bordereaux envoyés ou exportés peuvent être clôturés
+Please accept or reject pending invoice lines before closing,Veuillez accepter ou rejeter les lignes de facture en attente avant de clôturer
+No party account found for {0} {1},Aucun compte de tiers trouvé pour {0} {1}
 SEPA Line Status,Statut ligne SEPA
 Payment Type,Type de paiement
 Debit,Prélèvement
