@@ -38,6 +38,8 @@ def copy_subledger_account(doctype):
 
 
 def migrate_due_date_based_on_france():
+	if not frappe.db.has_column("Payment Term", "custom_due_date_based_on_france"):
+		return
 	payment_terms = frappe.get_all(
 		"Payment Term", fields=["name", "due_date_based_on", "custom_due_date_based_on_france"]
 	)
