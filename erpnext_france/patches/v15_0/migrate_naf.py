@@ -8,7 +8,7 @@ import frappe
 def execute():
 	if "erpnext_france" in frappe.get_installed_apps():
 		try:
-			frappe.db.sql("delete from `tabCode Naf` WHERE creation<'2024-08-26'")
+			frappe.db.sql("delete from `tabCode Naf` WHERE modified<'2024-08-26'")
 
 			for tabName in ["tabCompany", "tabCustomer", "tabSupplier"]:
 				frappe.db.sql(f"""update {tabName} set code_naf='0111Z' WHERE code_naf='1'""")
