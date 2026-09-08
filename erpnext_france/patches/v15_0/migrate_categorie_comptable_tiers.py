@@ -50,7 +50,15 @@ def _merge_and_drop(old_name, new_name, dry_run):
 		return
 
 	# Copier les lignes manquantes
-	frappe.db.sql(f"INSERT IGNORE INTO `{new_table}` SELECT * FROM `{old_table}`")
+	frappe.db.sql(
+		f"""
+	    INSERT IGNORE INTO `{new_table}`
+	        (name, creation, modified, modified_by, owner, docstatus, idx, nom, is_actif, _user_tags, _comments, _assign, _liked_by)
+	    SELECT
+	        name, creation, modified, modified_by, owner, docstatus, idx, nom, is_actif, _user_tags, _comments, _assign, _liked_by
+	    FROM `{old_table}`
+	"""
+	)
 	inserted = frappe.db.sql("SELECT ROW_COUNT()")[0][0]
 	frappe.logger().info(f"Fusion : {inserted}/{count} lignes copiées")
 
