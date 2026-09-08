@@ -39,6 +39,14 @@ def _merge_and_drop(old_name, new_name, dry_run):
 	old_table = f"tab{old_name}"
 	new_table = f"tab{new_name}"
 
+	if not frappe.db.table_exists(old_table):
+		frappe.logger().info(f"Table `{old_table}` inexistante, skip.")
+		return
+
+	old_cols = {r[0] for r in frappe.db.sql(f"SHOW COLUMNS FROM `{old_table}`")}
+	new_cols = {r[0] for r in frappe.db.sql(f"SHOW COLUMNS FROM `{new_table}`")}
+	common_cols = ", ".join(f"`{c}`" for c in sorted(old_cols & new_cols))
+
 	count = frappe.db.sql(f"SELECT COUNT(*) FROM `{old_table}`")[0][0]
 
 	if dry_run:
@@ -52,13 +60,11 @@ def _merge_and_drop(old_name, new_name, dry_run):
 	# Copier les lignes manquantes
 	frappe.db.sql(
 		f"""
-	    INSERT IGNORE INTO `{new_table}`
-	        (name, creation, modified, modified_by, owner, docstatus, idx, nom, is_actif, _user_tags, _comments, _assign, _liked_by)
-	    SELECT
-	        name, creation, modified, modified_by, owner, docstatus, idx, nom, is_actif, _user_tags, _comments, _assign, _liked_by
-	    FROM `{old_table}`
-	"""
+	        INSERT IGNORE INTO `{new_table}` ({common_cols})
+	        SELECT {common_cols} FROM `{old_table}`
+	    """
 	)
+
 	inserted = frappe.db.sql("SELECT ROW_COUNT()")[0][0]
 	frappe.logger().info(f"Fusion : {inserted}/{count} lignes copiées")
 
