@@ -814,6 +814,7 @@ Is Phantom Item,Est un article phantom
 Unit,Unité
 Project,Projet
 Special Item Accountancy Code,Code comptable produit spécifiques
+Special Item Accountancy Code Default,Code comptable produit spécifiques par défaut
 Default Buying Cost Center,Centre de cout par défaut à l'achat,Item
 Default Expense Account,Compte de charge (achat) par défaut,Item
 Tools,Outils

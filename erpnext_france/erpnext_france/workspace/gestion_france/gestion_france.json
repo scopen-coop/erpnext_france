@@ -1,39 +1,19 @@
 {
  "app": "erpnext_france",
  "charts": [],
- "content": "[{\"id\":\"pWPiOexDi2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Gestion France<br></span>\",\"col\":12}},{\"id\":\"MHUnBY7-Ya\",\"type\":\"card\",\"data\":{\"card_name\":\"Export comptable au format FEC\",\"col\":4}},{\"id\":\"LOI5EfXMnY\",\"type\":\"card\",\"data\":{\"card_name\":\"Param\u00e8tres\",\"col\":4}},{\"id\":\"J-dbaB8hql\",\"type\":\"card\",\"data\":{\"card_name\":\"Rapport\",\"col\":4}},{\"id\":\"JX0qKS6Ry_\",\"type\":\"card\",\"data\":{\"card_name\":\"Special Item Accountancy Code\",\"col\":4}}]",
+ "content": "[{\"id\":\"pWPiOexDi2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Gestion France<br></span>\",\"col\":12}},{\"id\":\"MHUnBY7-Ya\",\"type\":\"card\",\"data\":{\"card_name\":\"Export comptable\",\"col\":4}},{\"id\":\"LOI5EfXMnY\",\"type\":\"card\",\"data\":{\"card_name\":\"Param\u00e8tres\",\"col\":4}},{\"id\":\"J-dbaB8hql\",\"type\":\"card\",\"data\":{\"card_name\":\"Rapport\",\"col\":4}},{\"id\":\"gAQ5rZUf_O\",\"type\":\"card\",\"data\":{\"card_name\":\"Special Item Accountancy Code\",\"col\":4}}]",
  "creation": "2024-09-21 12:07:59.981532",
  "custom_blocks": [],
  "docstatus": 0,
  "doctype": "Workspace",
  "for_user": "",
  "hide_custom": 0,
- "icon": "crm",
+ "icon": "milestone",
  "idx": 0,
  "indicator_color": "",
  "is_hidden": 0,
  "label": "Gestion France",
  "links": [
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Export comptable au format FEC",
-   "link_count": 1,
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Card Break"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Export format FEC",
-   "link_count": 0,
-   "link_to": "Fichier des Ecritures Comptables [FEC]",
-   "link_type": "Report",
-   "onboard": 0,
-   "only_for": "France",
-   "type": "Link"
-  },
   {
    "hidden": 0,
    "is_query_report": 0,
@@ -108,11 +88,51 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Special Item Accountancy Code",
-   "link_count": 3,
+   "label": "Export comptable",
+   "link_count": 1,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Export format FEC",
+   "link_count": 0,
+   "link_to": "Fichier des Ecritures Comptables [FEC]",
+   "link_type": "Report",
+   "onboard": 0,
+   "only_for": "France",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Cat\u00e8gorie comptable de tiers",
+   "link_count": 0,
+   "link_to": "Categorie Comptable Tiers",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Special Item Accountancy Code",
+   "link_count": 2,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Special Item Accountancy Code Default",
+   "link_count": 0,
+   "link_to": "Special Item Accountancy Code Default",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   },
   {
    "hidden": 0,
@@ -123,35 +143,15 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Item Group",
-   "link_count": 0,
-   "link_to": "Item Group",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Item",
-   "link_count": 0,
-   "link_to": "Item",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
   }
  ],
- "modified": "2026-08-04 14:05:51.213410",
+ "modified": "2026-09-10 12:56:40.889824",
  "modified_by": "Administrator",
  "module": "ERPNext France",
  "name": "Gestion France",
  "number_cards": [],
  "owner": "Administrator",
- "parent_page": "",
+ "parent_page": "Gestion France",
  "public": 1,
  "quick_lists": [],
  "restrict_to_domain": "",
@@ -169,7 +169,7 @@
    "role": "System Manager"
   }
  ],
- "sequence_id": 5.1,
+ "sequence_id": 6.0,
  "shortcuts": [],
  "title": "Gestion France",
  "type": "Workspace"
