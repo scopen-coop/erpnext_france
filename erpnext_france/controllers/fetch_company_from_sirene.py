@@ -596,8 +596,11 @@ def send_sirene_report(results, recipients_customer, recipients_supplier, site_u
 
 def local_compare(text):
 	"""Remove accents from text"""
-	nfkd = unicodedata.normalize("NFKD", text)
-	return "".join([c for c in nfkd if not unicodedata.combining(c)])
+	if text:
+		nfkd = unicodedata.normalize("NFKD", text)
+		return "".join([c for c in nfkd if not unicodedata.combining(c)])
+	else:
+		return ""
 
 
 def left_fill_num(num, target_length):
