@@ -43,9 +43,9 @@ def _merge_and_drop(old_name, new_name, dry_run):
 		frappe.logger().info(f"Table `{old_table}` inexistante, skip.")
 		return
 
-	old_cols = {r[0] for r in frappe.db.sql(f"SHOW COLUMNS FROM `{old_table}`")}
+	old_cols_ordered = [r[0] for r in frappe.db.sql(f"SHOW COLUMNS FROM `{old_table}`")]
 	new_cols = {r[0] for r in frappe.db.sql(f"SHOW COLUMNS FROM `{new_table}`")}
-	common_cols = ", ".join(f"`{c}`" for c in sorted(old_cols & new_cols))
+	common_cols = ", ".join(f"`{c}`" for c in old_cols_ordered if c in new_cols)
 
 	count = frappe.db.sql(f"SELECT COUNT(*) FROM `{old_table}`")[0][0]
 
@@ -60,15 +60,15 @@ def _merge_and_drop(old_name, new_name, dry_run):
 	# Copier les lignes manquantes
 	frappe.db.sql(
 		f"""
-	        INSERT IGNORE INTO `{new_table}` ({common_cols})
-	        SELECT {common_cols} FROM `{old_table}`
-	    """
+		INSERT IGNORE INTO `{new_table}` ({common_cols})
+		SELECT {common_cols} FROM `{old_table}`
+		"""
 	)
 
 	inserted = frappe.db.sql("SELECT ROW_COUNT()")[0][0]
 	frappe.logger().info(f"Fusion : {inserted}/{count} lignes copiées")
 
-	# Commiter avant le DROP TABLE (DDL = implicit commit dans MariaDB)
+	# Commiter avant le DROP TABLE
 	frappe.db.commit()
 
 	# Supprimer l'ancienne table
