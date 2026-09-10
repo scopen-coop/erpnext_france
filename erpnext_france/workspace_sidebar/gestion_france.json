@@ -131,6 +131,18 @@
   {
    "child": 1,
    "collapsible": 1,
+   "icon": "blocks",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Special Item Accountancy Code Default",
+   "link_to": "Special Item Accountancy Code Default",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 1,
    "icon": "align-horizontal-distribute-end",
    "indent": 0,
    "keep_closed": 0,
@@ -141,7 +153,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-08-04 14:10:30.333658",
+ "modified": "2026-09-10 14:26:18.844006",
  "modified_by": "Administrator",
  "module": "ERPNext France",
  "name": "Gestion France",
