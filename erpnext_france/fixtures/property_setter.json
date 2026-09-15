@@ -957,7 +957,7 @@
   "property": "depends_on",
   "property_type": "Data",
   "row_name": null,
-  "value": "eval:!doc.payment_terms_before_invoice && doc.due_date_based_on=='Month(s) after the end of the invoice month'"
+  "value": "eval:!doc.payment_terms_before_invoice && doc.custom_due_date_based_on_france=='Month(s) after the end of the invoice month'"
  },
  {
   "default_value": null,
@@ -1021,7 +1021,7 @@
   "property": "depends_on",
   "property_type": "Data",
   "row_name": null,
-  "value": "eval:(in_list(['Day(s) after invoice date', 'Day(s) after the end of the invoice month', 'Day(s) after invoice date, end of month', 'Day(s) after invoice date, end of month, day of next month'], doc.custom_due_date_based_on_france) || doc.date_computed_based_on == 'Delivery Date')"
+  "value": "eval:(!doc.payment_terms_before_invoice && in_list(['Day(s) after invoice date', 'Day(s) after the end of the invoice month', 'Day(s) after invoice date, end of month', 'Day(s) after invoice date, end of month, day of next month'], doc.custom_due_date_based_on_france)) || (doc.payment_terms_before_invoice && doc.date_computed_based_on == 'Delivery Date')"
  },
  {
   "default_value": null,

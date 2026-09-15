@@ -56,3 +56,20 @@ def verify_sales_orders_terms(doc, method):
 			or new_term.base_payment_amount != term.base_payment_amount
 		):
 			frappe.throw(_(f"Cannot Modify term {term.payment_term} because its on a payment"))
+
+
+def set_payment_schedule_before_invoice(doc, method=None):
+	from erpnext_france.controllers.party import get_payment_terms_before_invoice
+
+	if not doc.get("payment_terms_template"):
+		return
+	schedule = get_payment_terms_before_invoice(
+		doctype=doc.doctype,
+		grand_total=doc.grand_total,
+		base_grand_total=doc.base_grand_total,
+		posting_date=doc.transaction_date,
+		delivery_date=doc.get("delivery_date"),
+		payment_terms_template=doc.payment_terms_template,
+	)
+	if schedule is not None:
+		doc.set("payment_schedule", schedule)

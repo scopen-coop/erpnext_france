@@ -13,8 +13,30 @@ frappe.ui.form.on("Quotation", "onload", function (frm) {
       },
     };
   });
+});
 
-  // Hide Due Date on quotation
-  //  let payment_schedule_grid = frm.get_field("payment_schedule").grid;
-  //  payment_schedule_grid.set_column_disp("due_date", false);
+frappe.ui.form.on("Quotation", {
+  payment_terms_template: function (frm) {
+    if (!frm.doc.payment_terms_template) {
+      frm.set_value("payment_schedule", []);
+      return;
+    }
+    frappe.call({
+      method:
+        "erpnext_france.controllers.party.get_payment_terms_before_invoice",
+      args: {
+        doctype: frm.doc.doctype,
+        grand_total: frm.doc.grand_total,
+        base_grand_total: frm.doc.base_grand_total,
+        posting_date: frm.doc.transaction_date,
+        delivery_date: frm.doc.delivery_date,
+        payment_terms_template: frm.doc.payment_terms_template,
+      },
+      callback: function (r) {
+        if (r.message) {
+          frm.set_value("payment_schedule", r.message);
+        }
+      },
+    });
+  },
 });

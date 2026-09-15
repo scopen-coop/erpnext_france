@@ -818,3 +818,4 @@ Special Item Accountancy Code Default,Code comptable produit spécifiques par d�
 Default Buying Cost Center,Centre de cout par défaut à l'achat,Item
 Default Expense Account,Compte de charge (achat) par défaut,Item
 Tools,Outils
+"If no Delivery Date is set (e.g. on a Quotation), the due date will be the document date + Credit Days","En l'absence de Delivery Date (ex : Devis), la date calculée sera la date du document + Crédit Days"

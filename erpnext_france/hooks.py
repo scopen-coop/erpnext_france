@@ -384,7 +384,10 @@ doc_events = {
 	},
 	"Sales Order": {
 		"before_update_after_submit": "erpnext_france.controllers.sales_order.verify_sales_orders_terms",
-		"before_save": "erpnext_france.controllers.taxes.before_save",
+		"before_save": [
+			"erpnext_france.controllers.taxes.before_save",
+			"erpnext_france.controllers.sales_order.set_payment_schedule_before_invoice",
+		],
 	},
 	"Payment Entry": {
 		"on_trash": "erpnext_france.utils.transaction_log.check_deletion_permission",
@@ -401,7 +404,12 @@ doc_events = {
 	"Company": {"after_insert": "erpnext_france.setup.setup_company_default"},
 	"Item": {"on_update": "erpnext_france.controllers.item.on_update"},
 	"Item Price": {"on_update": "erpnext_france.controllers.item_price.before_save"},
-	"Quotation": {"before_save": "erpnext_france.controllers.taxes.before_save"},
+	"Quotation": {
+		"before_save": [
+			"erpnext_france.controllers.taxes.before_save",
+			"erpnext_france.controllers.sales_order.set_payment_schedule_before_invoice",
+		],
+	},
 	"System Settings": {
 		# "on_update": 'erpnext_france.install.after_wizard'
 	},
