@@ -67,19 +67,25 @@ COLUMNS = [
 		"width": 90,
 	},
 	{
+		"label": _("PieceDate"),
+		"fieldname": "PieceDate",
+		"fieldtype": "Date",
+		"width": 90,
+	},
+	{
 		"label": _("EcritureLib"),
 		"fieldname": "EcritureLib",
 		"fieldtype": "Data",
 		"width": 90,
 	},
 	{
-		"label": _("Debit"),
+		"label": "Débit",
 		"fieldname": "Debit",
 		"fieldtype": "Data",
 		"width": 90,
 	},
 	{
-		"label": _("Credit"),
+		"label": "Crédit",
 		"fieldname": "Credit",
 		"fieldtype": "Data",
 		"width": 90,
@@ -111,6 +117,18 @@ COLUMNS = [
 	{
 		"label": _("Idevise"),
 		"fieldname": "Idevise",
+		"fieldtype": "Data",
+		"width": 90,
+	},
+	{
+		"label": _("Due Date"),
+		"fieldname": "DateLimitReglmt",
+		"fieldtype": "Date",
+		"width": 90,
+	},
+	{
+		"label": _("Num Facture"),
+		"fieldname": "NumFacture",
 		"fieldtype": "Data",
 		"width": 90,
 	},
@@ -205,9 +223,11 @@ def get_gl_entries(company, fiscal_year, from_date, to_date, hide_already_export
 			sales_invoice.name.as_("InvName"),
 			sales_invoice.title.as_("InvTitle"),
 			sales_invoice.posting_date.as_("InvPostDate"),
+			sales_invoice.due_date.as_("InvDueDate"),
 			purchase_invoice.name.as_("PurName"),
 			purchase_invoice.title.as_("PurTitle"),
 			purchase_invoice.posting_date.as_("PurPostDate"),
+			purchase_invoice.due_date.as_("PurDueDate"),
 			journal_entry.cheque_no.as_("JnlRef"),
 			journal_entry.posting_date.as_("JnlPostDate"),
 			journal_entry.title.as_("JnlTitle"),
@@ -268,8 +288,11 @@ def get_result(company, fiscal_year, from_date, to_date, hide_already_exported):
 		EcritureNum = d.get("accounting_entry_number")
 		GlName = d.get("GlName")
 
+		DateLimitReglmt = ""
+		NumFacture = ""
 		EcritureDate = format_datetime(d.get("GlPostDate"), "yyyyMMdd")
 		ExportDate = format_datetime(d.get("ExportDate"), "yyyy-MM-dd HH:mm")
+		PieceDate = EcritureDate
 
 		account_number = [
 			{"account_number": account.account_number, "account_name": account.account_name}
@@ -337,6 +360,16 @@ def get_result(company, fiscal_year, from_date, to_date, hide_already_exported):
 		PieceRef = d.get("voucher_no") or "Sans Reference"
 		# PieceRefType = d.get("voucher_type") or "Sans Reference"
 
+		if d.get("voucher_type") == "Sales Invoice":
+			NumFacture = d.get("voucher_no")
+			DateLimitReglmt = format_datetime(d.get("InvDueDate"), "yyyyMMdd")
+			PieceDate = format_datetime(d.get("InvPostDate"), "yyyyMMdd")
+
+		if d.get("voucher_type") == "Purchase Invoice":
+			NumFacture = d.get("voucher_no")
+			DateLimitReglmt = format_datetime(d.get("PurDueDate"), "yyyyMMdd")
+			PieceDate = format_datetime(d.get("PurPostDate"), "yyyyMMdd")
+
 		# EcritureLib is the reference title unless it is an opening entry
 		if d.get("is_opening") == "Yes":
 			EcritureLib = _("Opening Entry Journal")
@@ -391,6 +424,7 @@ def get_result(company, fiscal_year, from_date, to_date, hide_already_exported):
 			CompAuxNum,
 			CompAuxLib,
 			PieceRef,
+			PieceDate,
 			EcritureLib,
 			debit,
 			credit,
@@ -399,6 +433,8 @@ def get_result(company, fiscal_year, from_date, to_date, hide_already_exported):
 			ValidDate,
 			Montantdevise,
 			Idevise,
+			DateLimitReglmt,
+			NumFacture,
 			ExportDate,
 			GlName,
 		]
