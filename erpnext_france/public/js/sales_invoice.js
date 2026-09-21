@@ -3,6 +3,15 @@
 frappe.provide("erpnext");
 
 frappe.ui.form.on("Sales Invoice", {
+  onload: function (frm) {
+    frm.set_query("payment_terms_template", function () {
+      return {
+        filters: {
+          template_payment_terms_before_invoice: 0,
+        },
+      };
+    });
+  },
   refresh: function (frm) {
     // Add button to add invoice to SEPA bordereau if eligible
     if (

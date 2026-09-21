@@ -2,6 +2,15 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Purchase Invoice", {
+  onload: function (frm) {
+    frm.set_query("payment_terms_template", function () {
+      return {
+        filters: {
+          template_payment_terms_before_invoice: 0,
+        },
+      };
+    });
+  },
   refresh: function (frm) {
     // @dokos
     if (frm.doc.docstatus === 1) {

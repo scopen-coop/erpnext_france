@@ -497,6 +497,12 @@ def compute_france_due_date(due_date_based_on, base_date, credit_days, end_of_mo
 
 	if due_date_based_on == "Day(s) after invoice date, end of month":
 		return get_last_day(add_days(base_date, cint(credit_days)))
+	elif due_date_based_on == "Day(s) after the end of the invoice month":
+		return add_days(get_last_day(base_date), cint(credit_days))
+	elif due_date_based_on == "Month(s) after the end of the invoice month":
+		from frappe.utils import add_months
+
+		return get_last_day(add_months(get_last_day(base_date), cint(credit_days)))
 	elif due_date_based_on == "Day(s) after invoice date, end of month, day of next month":
 		end_of_month = getdate(get_last_day(add_days(base_date, cint(credit_days))))
 		day = cint(end_of_month_day or 1)
