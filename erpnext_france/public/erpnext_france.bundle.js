@@ -23,7 +23,6 @@ erpnext.TransactionController.prototype.payment_terms_template =
         doc.payment_terms_template
       );
     } else if (doctype == "Sales Invoice") {
-      let posting_date = null;
       if (doc.items.length > 0 && doc.items[0].sales_order) {
         let sales_order = doc.items[0].sales_order;
         frappe.call({
@@ -44,6 +43,27 @@ erpnext.TransactionController.prototype.payment_terms_template =
                 transaction_date,
                 doc.posting_date,
                 doc.payment_terms_template
+              );
+            }
+          },
+        });
+      } else {
+        frappe.call({
+          method: "erpnext.controllers.accounts_controller.get_payment_terms",
+          args: {
+            terms_template: doc.payment_terms_template,
+            posting_date: doc.posting_date,
+            grand_total: doc.rounded_total || doc.grand_total,
+            base_grand_total: doc.base_rounded_total || doc.base_grand_total,
+            bill_date: doc.bill_date,
+          },
+          callback: function (r) {
+            if (r.message && !r.exc) {
+              me.frm.set_value("payment_schedule", r.message);
+              const company_currency =
+                me.frm.transaction_controller.get_company_currency();
+              me.frm.transaction_controller.update_payment_schedule_grid_labels(
+                company_currency
               );
             }
           },
