@@ -339,6 +339,20 @@ def _get_payment_term_name(term):
 
 
 @frappe.whitelist()
+def get_payment_terms(
+	terms_template, posting_date=None, grand_total=None, base_grand_total=None, bill_date=None
+):
+	if not terms_template:
+		return
+	terms_doc = frappe.get_doc("Payment Terms Template", terms_template)
+	schedule = []
+	for d in terms_doc.get("terms"):
+		term_details = get_payment_term_details(d, posting_date, grand_total, base_grand_total, bill_date)
+		schedule.append(term_details)
+	return schedule
+
+
+@frappe.whitelist()
 def get_payment_term_details(
 	term: object | str,
 	posting_date: str | None = None,
@@ -369,9 +383,20 @@ def get_payment_term_details(
 	term_details.discount_validity = term.get("discount_validity")
 	term_details.custom_due_date_based_on_france = term.get("custom_due_date_based_on_france")
 
-	if term.get("date_computed_based_on"):
-		# avant-facture : basé sur Document Date ou Delivery Date
-		term_details.due_date = get_due_date_before_invoice(term, posting_date, delivery_date)
+	if term.get("payment_terms_before_invoice") is not None:
+		is_before_invoice = cint(term.get("payment_terms_before_invoice"))
+	else:
+		is_before_invoice = cint(
+			frappe.db.get_value("Payment Term", term.get("payment_term"), "payment_terms_before_invoice")
+		)
+
+	if is_before_invoice:
+		pt = (
+			term
+			if term.get("date_computed_based_on") is not None
+			else frappe.get_doc("Payment Term", term.get("payment_term"))
+		)
+		term_details.due_date = get_due_date_before_invoice(pt, posting_date, delivery_date)
 	else:
 		# facture standard : basé sur due_date_based_on (credit_days, etc.)
 		france_due_date = get_due_date_standard(term, posting_date, bill_date)
@@ -399,14 +424,11 @@ def get_payment_term_details(
 
 
 def get_due_date_before_invoice(term, document_date, delivery_date):
-	due_date = None
-	if term.get("date_computed_based_on") == "Document Date":
-		due_date = document_date
-	elif term.get("date_computed_based_on") == "Delivery Date":
-		if not term.get("credit_days"):
-			return delivery_date or document_date
-		due_date = add_days(delivery_date, term.get("credit_days"))
-	return due_date
+	if term.get("date_computed_based_on") == "Delivery Date":
+		if delivery_date:
+			return delivery_date
+		return add_days(document_date, term.get("credit_days") or 0)
+	return document_date
 
 
 def get_due_date_from_template_france(template_name, posting_date, bill_date):
