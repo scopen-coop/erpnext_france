@@ -321,11 +321,15 @@ def get_payment_terms_before_invoice(
 				posting_date,
 				grand_total,
 				base_grand_total,
-				delivery_date,
+				delivery_date=delivery_date,
 			)
 			schedule.append(term_details)
 
 	return schedule
+
+
+def _get_payment_term_name(term):
+	return term.get("payment_term") or term.get("name")
 
 
 @frappe.whitelist()
@@ -344,7 +348,7 @@ def get_payment_terms(
 
 @frappe.whitelist()
 def get_payment_term_details(
-	term, posting_date=None, grand_total=None, base_grand_total=None, bill_date=None
+	term, posting_date=None, grand_total=None, base_grand_total=None, bill_date=None, delivery_date=None
 ):
 	term_details = frappe._dict()
 	if isinstance(term, str):
@@ -366,6 +370,7 @@ def get_payment_term_details(
 	term_details.discount = term.get("discount")
 	term_details.discount_validity_based_on = term.get("discount_validity_based_on")
 	term_details.discount_validity = term.get("discount_validity")
+	term_details.custom_due_date_based_on_france = term.get("custom_due_date_based_on_france")
 
 	if term.get("payment_terms_before_invoice") is not None:
 		is_before_invoice = cint(term.get("payment_terms_before_invoice"))
@@ -380,9 +385,9 @@ def get_payment_term_details(
 			if term.get("date_computed_based_on") is not None
 			else frappe.get_doc("Payment Term", term.get("payment_term"))
 		)
-		term_details.due_date = get_due_date_before_invoice(pt, posting_date, bill_date)
+		term_details.due_date = get_due_date_before_invoice(pt, posting_date, delivery_date)
 	else:
-		france_due_date = get_due_date_standard(term, posting_date)
+		france_due_date = get_due_date_standard(term, posting_date, bill_date)
 		if france_due_date:
 			term_details.due_date = france_due_date
 		else:
@@ -397,11 +402,12 @@ def get_payment_term_details(
 				term_details.due_date = add_days(posting_date, cint(term.get("credit_days") or 0))
 
 	if term.get("discount_validity_based_on"):
-		term_details.discount_date = get_discount_date(term, posting_date, bill_date)
+		discount_base_date = bill_date or posting_date
+		term_details.discount_date = get_discount_date(term, discount_base_date, delivery_date)
 	else:
 		term_details.discount_date = None
 
-	if getdate(term_details.due_date) < getdate(posting_date):
+	if term_details.due_date and getdate(term_details.due_date) < getdate(posting_date):
 		term_details.due_date = posting_date
 
 	return term_details
@@ -462,28 +468,25 @@ def get_due_date(posting_date, party_type, party, company=None, bill_date=None, 
 	return due_date
 
 
-def get_due_date_standard(term, posting_date):
-	from frappe.utils import add_months, cint
+def get_due_date_standard(term, posting_date, bill_date=None):
+	payment_term_name = _get_payment_term_name(term)
+	base_date = getdate(bill_date or posting_date)
 
-	date = posting_date
-
-	if term.get("payment_term"):
-		# term est une ligne de Payment Terms Template Detail
+	custom_option = term.get("custom_due_date_based_on_france")
+	if custom_option is None and payment_term_name:
 		custom_option = frappe.db.get_value(
-			"Payment Term", term.get("payment_term"), "custom_due_date_based_on_france"
+			"Payment Term", payment_term_name, "custom_due_date_based_on_france"
 		)
-		end_of_month_day = frappe.db.get_value(
-			"Payment Term", term.get("payment_term"), "custom_end_of_month_day"
-		)
-	else:
-		custom_option = term.get("custom_due_date_based_on_france")
-		end_of_month_day = term.get("custom_end_of_month_day")
 
 	due_date_based_on = custom_option or term.get("due_date_based_on")
 
+	end_of_month_day = term.get("custom_end_of_month_day")
+	if end_of_month_day is None and payment_term_name:
+		end_of_month_day = frappe.db.get_value("Payment Term", payment_term_name, "custom_end_of_month_day")
+
 	return compute_france_due_date(
 		due_date_based_on,
-		date,
+		base_date,
 		term.get("credit_days"),
 		end_of_month_day,
 	)
