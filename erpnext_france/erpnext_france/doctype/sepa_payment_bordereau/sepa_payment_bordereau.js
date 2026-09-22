@@ -190,6 +190,38 @@ function lock_processed_lines(frm) {
   });
 }
 
+function lock_manual_lines(frm) {
+  const grid = frm.fields_dict.manual_lines && frm.fields_dict.manual_lines.grid;
+  if (!grid) {
+    return;
+  }
+
+  const data_fields = ["document_ref", "party", "amount", "mandate"];
+
+  (frm.doc.manual_lines || []).forEach((line) => {
+    if (!line.name) {
+      return;
+    }
+
+    const grid_row = grid.grid_rows_by_docname[line.name];
+    if (!grid_row) {
+      return;
+    }
+
+    const locked = is_line_locked(line);
+    data_fields.forEach((fieldname) => {
+      set_grid_field_read_only(grid_row, fieldname, locked);
+    });
+    set_grid_field_read_only(grid_row, "status", is_status_locked(line));
+
+    if (grid_row.wrapper) {
+      grid_row.wrapper
+        .find(".grid-delete-row, .grid-duplicate-row")
+        .toggle(!locked);
+    }
+  });
+}
+
 function sync_line_types(frm, cdt, cdn) {
   const { invoice_type, party_type } = get_line_types(frm.doc.payment_type);
   frappe.model.set_value(cdt, cdn, "invoice_type", invoice_type);
@@ -203,15 +235,19 @@ frappe.ui.form.on("SEPA Payment Bordereau", {
     }
 
     lock_processed_lines(frm);
+    lock_manual_lines(frm);
+    frm.trigger("toggle_manual_lines");
     // Grid rows may finish rendering after refresh
-    setTimeout(() => lock_processed_lines(frm), 200);
+    setTimeout(() => {
+      lock_processed_lines(frm);
+      lock_manual_lines(frm);
+    }, 200);
 
     // Add Validate button
-    if (
-      frm.doc.status === "Draft" &&
-      frm.doc.lines &&
-      frm.doc.lines.length > 0
-    ) {
+    const has_lines =
+      (frm.doc.lines && frm.doc.lines.length > 0) ||
+      (frm.doc.manual_lines && frm.doc.manual_lines.length > 0);
+    if (frm.doc.status === "Draft" && has_lines) {
       frm
         .add_custom_button(__("Validate Bordereau"), function () {
           frappe.call({
@@ -268,9 +304,9 @@ frappe.ui.form.on("SEPA Payment Bordereau", {
 
     // Accept selected pending lines after bank execution
     if (["Sent", "Partial Rejections", "Exported"].includes(frm.doc.status)) {
-      const has_pending_lines = (frm.doc.lines || []).some(
-        (line) => line.status === "Pending"
-      );
+      const has_pending_lines =
+        (frm.doc.lines || []).some((line) => line.status === "Pending") ||
+        (frm.doc.manual_lines || []).some((line) => line.status === "Pending");
       if (has_pending_lines) {
         frm.add_custom_button(
           __("Accept Selection"),
@@ -299,10 +335,58 @@ frappe.ui.form.on("SEPA Payment Bordereau", {
   payment_type: function (frm) {
     frm.trigger("set_naming");
     frm.trigger("setup_line_queries");
+    frm.trigger("toggle_manual_lines");
+    if (frm.doc.payment_type !== "Credit") {
+      if ((frm.doc.manual_lines || []).length) {
+        frm.clear_table("manual_lines");
+        frm.refresh_field("manual_lines");
+        frm.trigger("calculate_total");
+      }
+      return;
+    }
+    const { party_type } = get_line_types(frm.doc.payment_type);
+    (frm.doc.manual_lines || []).forEach((line) => {
+      if (line.party_type !== party_type) {
+        frappe.model.set_value(line.doctype, line.name, "party_type", party_type);
+        frappe.model.set_value(line.doctype, line.name, "party", null);
+        frappe.model.set_value(line.doctype, line.name, "mandate", null);
+      }
+    });
+  },
+
+  toggle_manual_lines: function (frm) {
+    const show = frm.doc.payment_type === "Credit";
+    frm.toggle_display("section_manual_lines", show);
+    frm.toggle_display("manual_lines", show);
   },
 
   lines_add: function (frm, cdt, cdn) {
     sync_line_types(frm, cdt, cdn);
+  },
+
+  manual_lines_add: function (frm, cdt, cdn) {
+    const { party_type } = get_line_types(frm.doc.payment_type);
+    frappe.model.set_value(cdt, cdn, "party_type", party_type);
+    frappe.model.set_value(cdt, cdn, "status", "Pending");
+  },
+
+  calculate_total: function (frm) {
+    let total = 0;
+    (frm.doc.lines || []).forEach((line) => {
+      total += flt(line.amount);
+    });
+    (frm.doc.manual_lines || []).forEach((line) => {
+      total += flt(line.amount);
+    });
+    frm.set_value("total_amount", total);
+  },
+
+  manual_lines_remove: function (frm) {
+    frm.trigger("calculate_total");
+  },
+
+  lines_remove: function (frm) {
+    frm.trigger("calculate_total");
   },
 
   onload: function (frm) {
@@ -365,11 +449,21 @@ frappe.ui.form.on("SEPA Payment Bordereau", {
       row.party_type = party_type;
       return {};
     });
+
+    frm.set_query("party", "manual_lines", function (doc, cdt, cdn) {
+      const row = locals[cdt][cdn];
+      row.party_type = party_type;
+      return {};
+    });
   },
 });
 
 function get_selected_grid_rows(frm, fieldname) {
-  const grid = frm.fields_dict[fieldname].grid;
+  const field = frm.fields_dict[fieldname];
+  if (!field || !field.grid) {
+    return [];
+  }
+  const grid = field.grid;
   if (grid.get_selected_children) {
     return grid.get_selected_children();
   }
@@ -383,8 +477,10 @@ function get_selected_grid_rows(frm, fieldname) {
 }
 
 function accept_selected_lines(frm) {
-  const selected = get_selected_grid_rows(frm, "lines");
-  const pending = selected.filter((line) => line.status === "Pending");
+  const pending = [
+    ...get_selected_grid_rows(frm, "lines"),
+    ...get_selected_grid_rows(frm, "manual_lines"),
+  ].filter((line) => line.status === "Pending");
 
   if (!pending.length) {
     frappe.msgprint(__("Please select at least one pending line"));
@@ -499,6 +595,26 @@ frappe.ui.form.on("SEPA Payment Bordereau Line", {
   },
 
   lines_remove: function (frm) {
+    frm.trigger("calculate_total");
+  },
+});
+
+frappe.ui.form.on("SEPA Payment Bordereau Manual Line", {
+  party: function (frm, cdt, cdn) {
+    const row = locals[cdt][cdn];
+    const { party_type } = get_line_types(frm.doc.payment_type);
+    frappe.model.set_value(cdt, cdn, "party_type", party_type);
+
+    if (frm.doc.payment_type === "Debit" && row.party) {
+      frappe.db.get_value("Customer", row.party, "sepa_mandate", (customer) => {
+        if (customer && customer.sepa_mandate) {
+          frappe.model.set_value(cdt, cdn, "mandate", customer.sepa_mandate);
+        }
+      });
+    }
+  },
+
+  amount: function (frm) {
     frm.trigger("calculate_total");
   },
 });
