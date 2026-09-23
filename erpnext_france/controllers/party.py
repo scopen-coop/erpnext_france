@@ -22,10 +22,10 @@ from frappe.utils import add_days, cint, flt, get_last_day, getdate, nowdate
 
 @frappe.whitelist()
 def get_party_account(
-	party_type: str,
+	party_type: str | None,
 	party: str | None = None,
 	company: str | None = None,
-	include_advance: bool = False,
+	include_advance: bool | None = False,
 	down_payment: bool | None = None,
 ):
 	"""Returns the account for the given `party`.
