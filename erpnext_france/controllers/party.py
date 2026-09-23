@@ -409,13 +409,15 @@ def get_payment_term_details(
 		if france_due_date:
 			term_details.due_date = france_due_date
 		else:
-			# Laisser ERPNext calculer via sa propre get_due_date
-			from erpnext.controllers.accounts_controller import get_due_date as erpnext_get_due_date
+			if term.get("due_date_based_on"):
+				from erpnext.controllers.accounts_controller import get_due_date as erpnext_get_due_date
 
-			if bill_date:
-				term_details.due_date = erpnext_get_due_date(term, bill_date)
+				if bill_date:
+					term_details.due_date = erpnext_get_due_date(term, bill_date)
+				else:
+					term_details.due_date = erpnext_get_due_date(term, posting_date)
 			else:
-				term_details.due_date = erpnext_get_due_date(term, posting_date)
+				term_details.due_date = add_days(posting_date, cint(term.get("credit_days") or 0))
 
 	if term.get("discount_validity_based_on"):
 		discount_base_date = bill_date or posting_date
