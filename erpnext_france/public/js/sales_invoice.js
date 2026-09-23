@@ -100,15 +100,6 @@ frappe.ui.form.on("Sales Invoice Item", {
   },
 });
 
-frappe.ui.form.on("Sales Invoice", {
-  customer: function (frm) {
-    frm.trigger("payment_terms_template");
-  },
-  due_date: function (frm) {
-    frm.trigger("payment_terms_template");
-  },
-});
-
 function add_to_sepa_bordereau(frm) {
   frappe.call({
     method:
