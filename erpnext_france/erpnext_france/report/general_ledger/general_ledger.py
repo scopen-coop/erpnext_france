@@ -197,19 +197,19 @@ def get_conditions(filters, gle, gl_entries):
 				)
 			else:
 				filters_query = filters_query.where(
-					(gle.finance_book.isin(filters.finance_book)) | (gle.finance_book.isnull())
+					(gle.finance_book == filters.finance_book) | (gle.finance_book.isnull())
 				)
 		else:
 			filters_query = filters_query.where(
-				(gle.finance_book.isin(("", filters.company_fb))) | (gle.finance_book.isnull())
+				(gle.finance_book.isin(["", filters.company_fb])) | (gle.finance_book.isnull())
 			)
 	else:
 		if filters.get("finance_book"):
 			filters_query = filters_query.where(
-				(gle.finance_book.isin(filters.finance_book)) | (gle.finance_book.isnull())
+				(gle.finance_book == filters.finance_book) | (gle.finance_book.isnull())
 			)
 		else:
-			filters_query = filters_query.where((gle.finance_book.isin("")) | (gle.finance_book.isnull()))
+			filters_query = filters_query.where((gle.finance_book == "") | (gle.finance_book.isnull()))
 
 	if not filters.get("show_cancelled_entries"):
 		filters_query = filters_query.where(gle.is_cancelled == 0)
