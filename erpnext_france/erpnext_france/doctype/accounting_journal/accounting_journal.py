@@ -38,11 +38,29 @@ class AccountingJournal(Document):
 		journal_code: DF.Data
 		journal_name: DF.Data
 		type: DF.Literal["Sales", "Purchase", "Cash", "Bank", "Miscellaneous"]
-
 	# end: auto-generated types
+
 	def validate(self):
+		self.validate_duplicate_journal_code()
 		if self.conditions:
 			self.validate_conditions()
+
+	def validate_duplicate_journal_code(self):
+		duplicate = frappe.db.exists(
+			"Accounting Journal",
+			{
+				"journal_code": self.journal_code,
+				"company": self.company,
+				"name": ("!=", self.name),
+			},
+		)
+		if duplicate:
+			frappe.throw(
+				_("Accounting Journal code {0} already exists for the company {1}").format(
+					frappe.bold(self.journal_code), frappe.bold(self.company)
+				),
+				title=_("Duplicate Journal Code"),
+			)
 
 	def validate_conditions(self):
 		for condition in self.conditions:

@@ -820,3 +820,4 @@ Default Expense Account,Compte de charge (achat) par défaut,Item
 Tools,Outils
 "If no Delivery Date is set (e.g. on a Quotation), the due date will be the document date + Credit Days","En l'absence de Delivery Date (ex : Devis), la date calculée sera la date du document + Crédit Days"
 Item,Article
+Accounting Journal code {0} already exists for the company {1},Le code journal {0} existe déja utilisé dans la société {1}

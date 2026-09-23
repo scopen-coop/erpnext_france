@@ -122,14 +122,14 @@ class DataExporter:
 			if self.accounting_document == "Purchase Invoice":
 				accounting_journal = frappe.db.get_value(
 					"Accounting Journal",
-					{"type": "Purchase"},
+					{"type": "Purchase", "company": self.company},
 					["journal_code"],
 					as_dict=True,
 				)
 			else:
 				accounting_journal = frappe.db.get_value(
 					"Accounting Journal",
-					{"type": "Sales"},
+					{"type": "Sales", "company": self.company},
 					["journal_code"],
 					as_dict=True,
 				)

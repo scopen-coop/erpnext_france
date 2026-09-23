@@ -279,7 +279,9 @@ def get_result(company, fiscal_year, from_date, to_date, hide_already_exported):
 	)
 	journals = {
 		j.journal_code: j.journal_name
-		for j in frappe.get_all("Accounting Journal", fields=["journal_code", "journal_name"])
+		for j in frappe.get_all(
+			"Accounting Journal", filters={"company": company}, fields=["journal_code", "journal_name"]
+		)
 	}
 	party_data = [x for x in data if x.get("against_voucher")]
 
