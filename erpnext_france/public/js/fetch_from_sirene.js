@@ -504,11 +504,11 @@ function update_thirdparty_from_sirene(frm) {
   let currentDoc = frm.doc;
 
   let data = null;
-  const { sirene, siret } = frm.doc;
-  if (siret !== null) {
+  const { siren, siret } = frm.doc;
+  if (siret) {
     data = { siret };
-  } else if (sirene !== null) {
-    data = { sirene };
+  } else if (siren) {
+    data = { siren };
   } else {
     frappe.throw(
       __("SIRET or SIRENE must be specified to retrieve a third party")
