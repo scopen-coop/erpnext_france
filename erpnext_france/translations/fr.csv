@@ -729,6 +729,8 @@ Perfect Match,Correspondance parfaite,
 City,Ville,
 Customer successfully updated,Client mis à jour avec succès,
 Supplier successfully updated,Fournisseur mis à jour avec succès,
+No primary address,Pas d'addresse principale,
+No primary address linked to this {0}.,Aucune adresse principale liée à ce document: {0}.
 Warning: No primary address found to update,Attention : Aucune adresse principale à mettre à jour n'a été trouvée ,
 No fields selected for update,Aucun champs selectionné à mettre à jour,
 SIRET or SIREN must be specified to retrieve a third party,Le SIRET ou le SIREN doivent être spécifié pour la récupération d'un tiers ,
@@ -766,3 +768,4 @@ Missing IBAN information for {0},L'IBAN pour le compte bancaire {0} n'est pas re
 Missing SWIFT information for {0},Le code SWIFT pour le compte bancaire {0} n'est pas renseigné
 Row {0}: Invoice {1} appears more than once in this bordereau,Ligne {0}: la facture {1} est présente plus d'une fois dans ce bordereau
 Row {0}: Supplier {1} does not have a default bank account,Ligne {0}: le fournisseur {1} n'as pas de compte bancaire par défaut
+Could not load primary address:,Impossible de charger l'adresse principale :
