@@ -574,6 +574,17 @@ async function selectFields(frm, currentDoc, etablissement) {
   let entity = response.message;
 
   let AddressDoc = await getAddressDoctype(currentDoc);
+  if (!AddressDoc) {
+    frappe.msgprint({
+      title: __("No primary address"),
+      indicator: "orange",
+      message: __("No primary address linked to this {0}.").replace(
+        "{0}",
+        currentDoc.doctype
+      ),
+    });
+    return;
+  }
 
   let doctype;
 
@@ -763,7 +774,7 @@ async function selectFields(frm, currentDoc, etablissement) {
         "legal_form",
         "Link",
         currentDoc.legal_form,
-        entity.legal_form,
+        entity.legal_form_label || entity.legal_form,
         "",
         "",
         "Legal Form"
@@ -819,7 +830,8 @@ async function selectFields(frm, currentDoc, etablissement) {
             dialog3,
             frm,
             doctype.type,
-            AddressDoc
+            AddressDoc,
+            entity
           );
           frappe.dom.unfreeze();
           dialog3.hide();
@@ -1017,7 +1029,13 @@ function separateAndMapFields(fields, baseDoctype) {
   return { doctypeFields, addressFields };
 }
 
-async function collectSelectedFields(dialog3, doctype) {
+async function collectSelectedFields(dialog3, doctype, entity) {
+  const legalFormValue = dialog3.get_value("legal_form");
+  const legalFormName =
+    legalFormValue === entity.legal_form_label
+      ? entity.legal_form
+      : legalFormValue;
+
   return {
     [doctype.toLowerCase() + "_name"]: dialog3.get_value(
       doctype.toLowerCase() + "_name"
@@ -1030,13 +1048,19 @@ async function collectSelectedFields(dialog3, doctype) {
     siret: dialog3.get_value("siret"),
     code_naf: dialog3.get_value("code_naf"),
     tax_id: dialog3.get_value("tax_id"),
-    legal_form: dialog3.get_value("legal_form"),
+    legal_form: legalFormName,
   };
 }
 
-async function updateFieldsWithSireneInfo(dialog3, frm, doctype) {
+async function updateFieldsWithSireneInfo(
+  dialog3,
+  frm,
+  doctype,
+  AddressDoc,
+  entity
+) {
   try {
-    const allFields = await collectSelectedFields(dialog3, doctype);
+    const allFields = await collectSelectedFields(dialog3, doctype, entity);
     if (Object.keys(allFields).length === 0) {
       frappe.msgprint(__("No fields selected for update"));
       return;
@@ -1052,13 +1076,8 @@ async function updateFieldsWithSireneInfo(dialog3, frm, doctype) {
     }
 
     if (Object.keys(addressFields).length > 0) {
-      const addressName =
-        doctype === "Customer"
-          ? frm.doc.customer_primary_address
-          : frm.doc.supplier_primary_address;
-
-      if (addressName) {
-        await frappe.updateDoctype("Address", addressName, addressFields);
+      if (AddressDoc && AddressDoc.name) {
+        await frappe.updateDoctype("Address", AddressDoc.name, addressFields);
       } else {
         frappe.show_alert(
           {
@@ -1092,32 +1111,20 @@ async function updateFieldsWithSireneInfo(dialog3, frm, doctype) {
 }
 
 async function getAddressDoctype(currentDoc) {
-  let doctypeMethod =
-    currentDoc.doctype === "Customer"
-      ? "frappe.client.get"
-      : "frappe.client.get";
-  let doctypePrimaryAddress =
-    currentDoc.doctype === "Customer"
-      ? currentDoc.customer_primary_address
-      : currentDoc.supplier_primary_address;
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     frappe.call({
-      method: doctypeMethod,
+      method:
+        "erpnext_france.controllers.fetch_company_from_sirene.get_primary_address",
       args: {
-        doctype: "Address",
-        name: doctypePrimaryAddress,
+        doctype: currentDoc.doctype,
+        name: currentDoc.name,
       },
       callback: function (r) {
-        if (r.message) {
-          resolve(r.message);
-        } else {
-          resolve(null);
-        }
+        resolve(r.message || null);
       },
       error: function (r) {
-        console.log("Error:", r);
-        frappe.throw(__(r));
-        reject(r);
+        console.warn("Could not load primary address:", r);
+        resolve(null);
       },
     });
   });
@@ -1126,8 +1133,9 @@ async function getAddressDoctype(currentDoc) {
 function checkValue(datas) {
   let match = true;
   $.map(datas, function (item, idx) {
-    match &&=
-      item.dval.localeCompare(item.sval, "fr", { sensitivity: "accent" }) === 0;
+    const dval = item.dval != null ? String(item.dval) : "";
+    const sval = item.sval != null ? String(item.sval) : "";
+    match &&= dval.localeCompare(sval, "fr", { sensitivity: "accent" }) === 0;
   });
   return match;
 }

@@ -367,17 +367,17 @@ def compare_values(doctype, element, address, entity_info):
 		entity_info = json.loads(entity_info)
 
 	match = True
-	match &= match and compare_value(element[doctype["field_name"]], entity_info["company_name"])
-	match &= match and compare_value(element[doctype["field_type"]], entity_info["entity_type"])
-	match &= match and compare_value(address["address_line1"], entity_info["address_1"])
-	match &= match and compare_value(address["pincode"], entity_info["zipcode"])
-	match &= match and compare_value(address["city"], entity_info["town"])
-	match &= match and compare_value(address["country"], entity_info["country"])
-	match &= match and compare_value(element["siren"], entity_info["siren"])
-	match &= match and compare_value(element["siret"], entity_info["siret"])
-	match &= match and compare_value(element["code_naf"], entity_info["code_naf"])
-	match &= match and compare_value(element["tax_id"], entity_info["tax_id"])
-	match &= match and compare_value(element["legal_form"], entity_info["legal_form"])
+	match &= match and compare_value(element.get(doctype["field_name"], ""), entity_info["company_name"])
+	match &= match and compare_value(element.get(doctype["field_type"], ""), entity_info["entity_type"])
+	match &= match and compare_value(address.get("address_line1", ""), entity_info["address_1"])
+	match &= match and compare_value(address.get("pincode", ""), entity_info["zipcode"])
+	match &= match and compare_value(address.get("city", ""), entity_info["town"])
+	match &= match and compare_value(address.get("country", ""), entity_info["country"])
+	match &= match and compare_value(element.get("siren", ""), entity_info["siren"])
+	match &= match and compare_value(element.get("siret", ""), entity_info["siret"])
+	match &= match and compare_value(element.get("code_naf", ""), entity_info["code_naf"])
+	match &= match and compare_value(element.get("tax_id", ""), entity_info["tax_id"])
+	match &= match and compare_value(element.get("legal_form", ""), entity_info["legal_form"])
 
 	return match
 
@@ -503,6 +503,8 @@ def get_entity_info(entity, i):
 	if is_not_null(entity["uniteLegale"]["categorieJuridiqueUniteLegale"]):
 		legal_form = entity["uniteLegale"]["categorieJuridiqueUniteLegale"]
 
+	legal_form_label = frappe.db.get_value("Legal Form", legal_form, "label") if legal_form else ""
+
 	# intra - community vat number calculation (12 + 3 * (SIREN modulo 97)) modulo 97
 	coef = 97
 	vat_intra_calc = int(siren) % coef
@@ -521,11 +523,41 @@ def get_entity_info(entity, i):
 		"siret": siret,
 		"code_naf": code_naf,
 		"legal_form": legal_form,
+		"legal_form_label": legal_form_label,
 		"tax_id": tva_intra,
 		"id": i,
 	}
 
 	return entity_info
+
+
+@frappe.whitelist()
+def get_primary_address(doctype, name):
+	field = "customer_primary_address" if doctype == "Customer" else "supplier_primary_address"
+
+	address_name = frappe.db.get_value(doctype, name, field)
+
+	if not address_name:
+		# Fallback via Dynamic Link
+		links = frappe.get_all(
+			"Dynamic Link",
+			filters={
+				"link_doctype": doctype,
+				"link_name": name,
+				"parenttype": "Address",
+			},
+			fields=["parent"],
+		)
+		for link in links:
+			is_primary = frappe.db.get_value("Address", link.parent, "is_primary_address")
+			if is_primary:
+				address_name = link.parent
+				break
+
+	if not address_name:
+		return None
+
+	return frappe.get_doc("Address", address_name).as_dict()
 
 
 def send_sirene_report(results, recipients_customer, recipients_supplier, site_url, subject=None):
