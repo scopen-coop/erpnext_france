@@ -575,15 +575,17 @@ async function selectFields(frm, currentDoc, etablissement) {
 
   let AddressDoc = await getAddressDoctype(currentDoc);
   if (!AddressDoc) {
-    frappe.msgprint({
-      title: __("No primary address"),
-      indicator: "orange",
-      message: __("No primary address linked to this {0}.").replace(
-        "{0}",
-        currentDoc.doctype
-      ),
-    });
-    return;
+    frappe.show_alert(
+      {
+        indicator: "orange",
+        message: __("No primary address linked to this {0}.").replace(
+          "{0}",
+          currentDoc.doctype
+        ),
+      },
+      5
+    );
+    AddressDoc = { address_line1: "", pincode: "", city: "", country: "" };
   }
 
   let doctype;
