@@ -1,6 +1,8 @@
 # Copyright (c) 2023, Scopen and contributors
 # For license information, please see license.txt
 
+from datetime import date
+
 import erpnext
 import frappe
 from erpnext import get_company_currency
@@ -308,8 +310,8 @@ def get_payment_terms_before_invoice(
 	doctype: str,
 	grand_total: float | None = None,
 	base_grand_total: float | None = None,
-	posting_date: str | None = None,
-	delivery_date: str | None = None,
+	posting_date: str | date | None = None,
+	delivery_date: str | date | None = None,
 	payment_terms_template: str | None = None,
 ):
 	if doctype not in ("Quotation", "Sales Order"):
@@ -355,11 +357,11 @@ def get_payment_terms(
 @frappe.whitelist()
 def get_payment_term_details(
 	term: object | str,
-	posting_date: str | None = None,
+	posting_date: str | date | None = None,
 	grand_total: float | None = None,
 	base_grand_total: float | None = None,
-	bill_date: str | None = None,
-	delivery_date: str | None = None,
+	bill_date: str | date | None = None,
+	delivery_date: str | date | None = None,
 ):
 	term_details = frappe._dict()
 	if isinstance(term, str):
@@ -454,6 +456,7 @@ def get_due_date_from_template_france(template_name, posting_date, bill_date):
 		result = compute_france_due_date(
 			custom_option, base_date, term.credit_days, pt.get("custom_end_of_month_day")
 		)
+
 		if result:
 			return result
 
@@ -462,11 +465,11 @@ def get_due_date_from_template_france(template_name, posting_date, bill_date):
 
 @frappe.whitelist()
 def get_due_date(
-	posting_date: str,
+	posting_date: str | date,
 	party_type: str,
 	party: str,
 	company: str | None = None,
-	bill_date: str | None = None,
+	bill_date: str | date | None = None,
 	template_name: str | None = None,
 ):
 	from frappe.utils import getdate
