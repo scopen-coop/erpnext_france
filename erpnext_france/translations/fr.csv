@@ -821,3 +821,4 @@ Tools,Outils
 "If no Delivery Date is set (e.g. on a Quotation), the due date will be the document date + Credit Days","En l'absence de Delivery Date (ex : Devis), la date calculée sera la date du document + Crédit Days"
 Item,Article
 Accounting Journal code {0} already exists for the company {1},Le code journal {0} existe déja utilisé dans la société {1}
+"<strong>Total qty</strong> of the rows (<strong>{0}</strong>) does not match the <strong>Qty to Fetch</strong> (<strong>{1}</strong>). Qty of the item will be changed to <strong>{0}</strong>. Are you sure want to proceed?","<strong>Qté Total</strong> de la ligne (<strong>{0}</strong>) ne correspond pas à la quantité <strong>Qté saisie</strong> (<strong>{1}</strong>). La qté. de l'article va être changé à <strong>{0}</strong>. Voulez vous continuer ?"
