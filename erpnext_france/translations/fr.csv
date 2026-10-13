@@ -687,8 +687,8 @@ Please accept or reject pending invoice lines before closing,Veuillez accepter o
 No party account found for {0} {1},Aucun compte de tiers trouvé pour {0} {1}
 SEPA Line Status,Statut ligne SEPA
 Payment Type,Type de paiement
-Debit,Prélèvement
-Credit,Virement
+Debit,Prélèvement,Sepa Payment Bordereau
+Credit,Virement,Sepa Payment Bordereau
 Execution Date,Date d'exécution
 Payment Lines,Lignes de Paiement
 SEPA File,Fichier SEPA
