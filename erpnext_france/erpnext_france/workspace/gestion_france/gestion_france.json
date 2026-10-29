@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\": \"pWPiOexDi2\", \"type\": \"header\", \"data\": {\"text\": \"\\u003cspan class=\\\"h4\\\"\\u003eGestion France\\u003cbr\\u003e\\u003c/span\\u003e\", \"col\": 12}}, {\"id\": \"MHUnBY7-Ya\", \"type\": \"card\", \"data\": {\"card_name\": \"Export comptable\", \"col\": 4}}, {\"id\": \"LOI5EfXMnY\", \"type\": \"card\", \"data\": {\"card_name\": \"Param\\u00e8tres\", \"col\": 4}}, {\"id\": \"J-dbaB8hql\", \"type\": \"card\", \"data\": {\"card_name\": \"Rapport\", \"col\": 4}}, {\"id\": \"gAQ5rZUf_O\", \"type\": \"card\", \"data\": {\"card_name\": \"Special Item Accountancy Code\", \"col\": 4}}]",
+ "content": "[{\"id\": \"pWPiOexDi2\", \"type\": \"header\", \"data\": {\"text\": \"\\u003cspan class=\\\"h4\\\"\\u003eGestion France\\u003cbr\\u003e\\u003c/span\\u003e\", \"col\": 12}}, {\"id\": \"MHUnBY7-Ya\", \"type\": \"card\", \"data\": {\"card_name\": \"Export comptable\", \"col\": 4}}, {\"id\": \"LOI5EfXMnY\", \"type\": \"card\", \"data\": {\"card_name\": \"Param\\u00e8tres\", \"col\": 4}}, {\"id\": \"J-dbaB8hql\", \"type\": \"card\", \"data\": {\"card_name\": \"Rapport\", \"col\": 4}}]",
  "creation": "2024-09-21 12:07:59.981532",
  "custom_blocks": [],
  "docstatus": 0,
@@ -87,8 +87,18 @@
   {
    "hidden": 0,
    "is_query_report": 0,
+   "label": "Cat\u00e8gorie comptable de tiers",
+   "link_count": 0,
+   "link_to": "Categorie Comptable Tiers",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
    "label": "Export comptable",
-   "link_count": 1,
+   "link_count": 3,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -107,36 +117,17 @@
   {
    "hidden": 0,
    "is_query_report": 0,
+   "label": "Export comptable sp\u00e9cifique",
+   "link_count": 0,
+   "link_to": "Accounting Export",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
    "label": "Cat\u00e8gorie comptable de tiers",
-   "link_count": 0,
-   "link_to": "Categorie Comptable Tiers",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Code comptable produit sp\u00e9cifiques",
-   "link_count": 2,
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Card Break"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Code comptable produit sp\u00e9cifiques par d\u00e9faut",
-   "link_count": 0,
-   "link_to": "Special Item Accountancy Code Default",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Categorie Comptable Tiers",
    "link_count": 0,
    "link_to": "Categorie Comptable Tiers",
    "link_type": "DocType",
@@ -144,7 +135,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-10-29 11:15:58.666090",
+ "modified": "2026-10-29 11:33:01.129006",
  "modified_by": "Administrator",
  "module": "ERPNext France",
  "name": "Gestion France",
