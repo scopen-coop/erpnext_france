@@ -7,8 +7,8 @@ frappe.ui.form.on("Accounting Export", {
     frm.page.set_primary_action("Export", () => {
       can_export(frm) ? export_data(frm) : null;
     });
-    if (frm.doc.export_date === undefined) {
-      frm.set_value("export_date", new Date());
+    if (!frm.doc.export_date) {
+      frm.set_value("export_date", frappe.datetime.now_datetime());
     }
   },
 });
