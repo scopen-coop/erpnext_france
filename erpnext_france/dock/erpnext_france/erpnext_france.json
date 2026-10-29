@@ -1,0 +1,24 @@
+{
+ "app": "erpnext_france",
+ "creation": "2026-10-29 11:23:35.546353",
+ "docstatus": 0,
+ "doctype": "Dock",
+ "idx": 0,
+ "items": [
+  {
+   "added": 0,
+   "hidden": 0,
+   "icon": "badge-euro",
+   "link_to": "Gestion France",
+   "link_type": "Workspace",
+   "title": "Gestion France"
+  }
+ ],
+ "modified": "2026-10-29 11:31:51.777611",
+ "modified_by": "Administrator",
+ "mount_on": "erpnext",
+ "name": "erpnext_france",
+ "owner": "Administrator",
+ "standard": 1,
+ "user": ""
+}

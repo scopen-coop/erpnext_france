@@ -1,7 +1,6 @@
 {
- "app": "erpnext_france",
  "charts": [],
- "content": "[{\"id\":\"pWPiOexDi2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Gestion France<br></span>\",\"col\":12}},{\"id\":\"MHUnBY7-Ya\",\"type\":\"card\",\"data\":{\"card_name\":\"Export comptable\",\"col\":4}},{\"id\":\"LOI5EfXMnY\",\"type\":\"card\",\"data\":{\"card_name\":\"Param\u00e8tres\",\"col\":4}},{\"id\":\"J-dbaB8hql\",\"type\":\"card\",\"data\":{\"card_name\":\"Rapport\",\"col\":4}},{\"id\":\"gAQ5rZUf_O\",\"type\":\"card\",\"data\":{\"card_name\":\"Special Item Accountancy Code\",\"col\":4}}]",
+ "content": "[{\"id\": \"pWPiOexDi2\", \"type\": \"header\", \"data\": {\"text\": \"\\u003cspan class=\\\"h4\\\"\\u003eGestion France\\u003cbr\\u003e\\u003c/span\\u003e\", \"col\": 12}}, {\"id\": \"MHUnBY7-Ya\", \"type\": \"card\", \"data\": {\"card_name\": \"Export comptable\", \"col\": 4}}, {\"id\": \"LOI5EfXMnY\", \"type\": \"card\", \"data\": {\"card_name\": \"Param\\u00e8tres\", \"col\": 4}}, {\"id\": \"J-dbaB8hql\", \"type\": \"card\", \"data\": {\"card_name\": \"Rapport\", \"col\": 4}}, {\"id\": \"gAQ5rZUf_O\", \"type\": \"card\", \"data\": {\"card_name\": \"Special Item Accountancy Code\", \"col\": 4}}]",
  "creation": "2024-09-21 12:07:59.981532",
  "custom_blocks": [],
  "docstatus": 0,
@@ -118,7 +117,7 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Special Item Accountancy Code",
+   "label": "Code comptable produit sp\u00e9cifiques",
    "link_count": 2,
    "link_type": "DocType",
    "onboard": 0,
@@ -127,7 +126,7 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Special Item Accountancy Code Default",
+   "label": "Code comptable produit sp\u00e9cifiques par d\u00e9faut",
    "link_count": 0,
    "link_to": "Special Item Accountancy Code Default",
    "link_type": "DocType",
@@ -145,7 +144,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-09-10 12:56:40.889824",
+ "modified": "2026-10-29 11:15:58.666090",
  "modified_by": "Administrator",
  "module": "ERPNext France",
  "name": "Gestion France",
@@ -171,6 +170,7 @@
  ],
  "sequence_id": 6.0,
  "shortcuts": [],
+ "standard": 1,
  "title": "Gestion France",
  "type": "Workspace"
 }
