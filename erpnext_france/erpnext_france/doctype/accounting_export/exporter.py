@@ -108,6 +108,7 @@ class DataExporter:
 				gl.party_type,
 				gl.party,
 				gl.against_voucher_type,
+				gl.voucher_type,
 				acc.account_number,
 				acc.account_name,
 				supp.subledger_account as supp_subl_acc,
@@ -155,9 +156,13 @@ class DataExporter:
                         else:
                             supplier_invoice_number[doc.voucher_no] = doc.orign_no
 
-                if doc.against_voucher_type == 'Sales Invoice':
+                if doc.against_voucher_type == 'Sales Invoice' or doc.voucher_type == 'Sales Invoice':
                     if doc.voucher_no not in customer_invoice_customer_name:
-                        customer_invoice_customer_name[doc.voucher_no] = doc.customer_name
+                        if doc.customer_name is None:
+                            si = frappe.get_doc("Sales Invoice",doc.voucher_no)
+                            customer_invoice_customer_name[doc.voucher_no] = si.customer_name
+                        else:
+                            customer_invoice_customer_name[doc.voucher_no] = doc.customer_name
                     if doc.voucher_no not in customer_invoice_number:
                         if doc.orign_no is None:
                             customer_invoice_number[doc.voucher_no] = doc.voucher_no
