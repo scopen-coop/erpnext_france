@@ -202,6 +202,7 @@ class DataExporter:
 			.inner_join(inv)
 			.on(gl.voucher_no == inv.name)
 			.where(gl.voucher_type == self.accounting_document)
+			.where(gl.company == self.company)
 			.where(gl.posting_date[self.from_date : self.to_date])
 			.where(acc.account_type.notin(["Bank", "Cash"]))
 			.where((self.company == party_acc_supp.company) | (party_acc_supp.company.isnull()))
