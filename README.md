@@ -65,8 +65,5 @@ $ bench --site demo.com install-app erpnext_france
 GNU General Public License V3
 
 #### History
-This app is originally a fork from https://github.com/britlog/erpnext_france.
+This app is originally a fork from very old and not maintained repository 
 
-And Scopen put some salt in it.
-
-The feature for VAT check is highly inspirated from erpnext_germany https://github.com/alyf-de/erpnext_germany
