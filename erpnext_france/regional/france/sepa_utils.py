@@ -629,9 +629,7 @@ def get_sepa_line_invoice_reference(line):
 		return document_ref
 
 	invoice_type = _sepa_line_value(line, "invoice_type") or (
-		"Sales Invoice"
-		if _sepa_line_value(line, "party_type") == "Customer"
-		else "Purchase Invoice"
+		"Sales Invoice" if _sepa_line_value(line, "party_type") == "Customer" else "Purchase Invoice"
 	)
 
 	if invoice_type == "Purchase Invoice" and invoice:

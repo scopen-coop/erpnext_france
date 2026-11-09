@@ -191,7 +191,8 @@ function lock_processed_lines(frm) {
 }
 
 function lock_manual_lines(frm) {
-  const grid = frm.fields_dict.manual_lines && frm.fields_dict.manual_lines.grid;
+  const grid =
+    frm.fields_dict.manual_lines && frm.fields_dict.manual_lines.grid;
   if (!grid) {
     return;
   }
@@ -347,7 +348,12 @@ frappe.ui.form.on("SEPA Payment Bordereau", {
     const { party_type } = get_line_types(frm.doc.payment_type);
     (frm.doc.manual_lines || []).forEach((line) => {
       if (line.party_type !== party_type) {
-        frappe.model.set_value(line.doctype, line.name, "party_type", party_type);
+        frappe.model.set_value(
+          line.doctype,
+          line.name,
+          "party_type",
+          party_type
+        );
         frappe.model.set_value(line.doctype, line.name, "party", null);
         frappe.model.set_value(line.doctype, line.name, "mandate", null);
       }
